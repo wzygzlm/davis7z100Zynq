@@ -1,0 +1,15 @@
+*.cache
+*.Xil
+*.hw
+*.ioplanning
+*.ip_user_files
+*.runs
+*.sim
+*.swp
+*.log
+*.jor
+*.debug
+*.str
+davis7z100Zynq.sdk/u-boot*
+davis7z100Zynq.sdk/BOOT.bin
+davis7z100Zynq.sdk/image.ub

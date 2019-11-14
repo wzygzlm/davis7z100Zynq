@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2018.1 (64-bit)
+# SW Build 2188600 on Wed Apr  4 18:40:38 MDT 2018
+# 
+# Start of session at: Wed Nov 13 20:48:58 2019
+# Process ID: 43216
+# Current directory: E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk/webtalk
+# Command line: wbtcv.exe -mode batch -source sdk_webtalk.tcl
+# Log file: E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk/webtalk/webtalk.log
+# Journal file: E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk/webtalk\webtalk.jou
+#-----------------------------------------------------------
+source sdk_webtalk.tcl

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="E:\PhD_project\vivado_prjs\davisZynq\davis7z100Zynq\davis7z100Zynq.sdk\zynqDavisFsbl\Debug\zynqDavisFsbl.elf" key="davisZynqBasicBoard_wrapper_hw_platform_0-fsblFile"/>
+	<item value="davisZynqBasicBoard_wrapper_hw_platform_0" key="programflash.hwplatform"/>
+	<item value="" key="davisZynqBasicBoard_wrapper_hw_platform_0-offSet"/>
+	<item value="Auto Detect" key="davisZynqBasicBoard_wrapper_hw_platform_0-device"/>
+	<item value="false" key="davisZynqBasicBoard_wrapper_hw_platform_0-blankCheck"/>
+	<item value="E:\PhD_project\vivado_prjs\davisZynq\davis7z100Zynq\davis7z100Zynq.sdk\BOOT.bin" key="davisZynqBasicBoard_wrapper_hw_platform_0-imgFile"/>
+	<item value="nand_8" key="davisZynqBasicBoard_wrapper_hw_platform_0-flashType"/>
+	<item value="Local" key="davisZynqBasicBoard_wrapper_hw_platform_0-target"/>
+	<item value="false" key="davisZynqBasicBoard_wrapper_hw_platform_0-verifyFlash"/>
+</section>
