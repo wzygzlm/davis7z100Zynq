@@ -63,6 +63,7 @@ module ulpi_wrapper
     output [7:0]      ulpi_data_in_o_d,
     output            ulpi_data_dir_d,
     output            ulpi_reg_read_flag_d,
+    output            turnaround_d,
 
     // UTMI Interface (SIE)
     input             utmi_txvalid_i,
@@ -351,35 +352,35 @@ begin
         //-----------------------------------------------------------------
         if (ulpi_dir_i && !ulpi_nxt_i && !ulpi_reg_read_flag_q)
         begin
-//            ulpi_data_wr_q  <= 1;
-//            // Phy status
-//            utmi_linestate_q <= ulpi_data_out_i[1:0];
+            ulpi_data_wr_q  <= 1;
+            // Phy status
+            utmi_linestate_q <= ulpi_data_out_i[1:0];
 
-//            case (ulpi_data_out_i[5:4])
-//            2'b00:
-//            begin
-//                utmi_rxactive_q <= 1'b0;
-//                utmi_rxerror_q  <= 1'b0;
-//            end
-//            2'b01: 
-//            begin
-//                utmi_rxactive_q <= 1'b1;
-//                utmi_rxerror_q  <= 1'b0;
-//            end
-//            2'b11:
-//            begin
-//                utmi_rxactive_q <= 1'b1;
-//                utmi_rxerror_q  <= 1'b1;
-//            end
-//            default:
-//                ; // HOST_DISCONNECTED
-//            endcase
+            case (ulpi_data_out_i[5:4])
+            2'b00:
+            begin
+                utmi_rxactive_q <= 1'b0;
+                utmi_rxerror_q  <= 1'b0;
+            end
+            2'b01: 
+            begin
+                utmi_rxactive_q <= 1'b1;
+                utmi_rxerror_q  <= 1'b0;
+            end
+            2'b11:
+            begin
+                utmi_rxactive_q <= 1'b1;
+                utmi_rxerror_q  <= 1'b1;
+            end
+            default:
+                ; // HOST_DISCONNECTED
+            endcase
         end
-//        // Register Read
-//        else if(ulpi_dir_i && !ulpi_nxt_i && ulpi_reg_read_flag_q)    
-//        begin
-//            ulpi_reg_read_flag_q <= 0;
-//        end
+        // Register Read
+        else if(ulpi_dir_i && !ulpi_nxt_i && ulpi_reg_read_flag_q)    
+        begin
+            ulpi_reg_read_flag_q <= 0;
+        end
         //-----------------------------------------------------------------
         // Input: RX_DATA
         //-----------------------------------------------------------------
@@ -422,8 +423,8 @@ begin
             // IDLE: Pending transmit
             else if ((state_q == STATE_IDLE) && utmi_tx_ready_w)
             begin
-//                ulpi_data_q <= REG_TRANSMIT | {4'b0, utmi_tx_data_w[3:0]};
-                ulpi_data_q <= utmi_tx_data_w;
+                ulpi_data_q <= REG_TRANSMIT | {4'b0, utmi_tx_data_w[3:0]};
+//                ulpi_data_q <= utmi_tx_data_w;
 //                ulpi_data_wr_q   <= 1;
                 state_q     <= STATE_DATA;
             end
@@ -528,4 +529,5 @@ assign tx_delay_complete_o  = tx_delay_complete_w;
 assign utmi_tx_accept_o     = utmi_tx_accept_w;
 
 assign ulpi_reg_read_flag_d = ulpi_reg_read_flag_q;
+assign turnaround_d         = turnaround_w;
 endmodule

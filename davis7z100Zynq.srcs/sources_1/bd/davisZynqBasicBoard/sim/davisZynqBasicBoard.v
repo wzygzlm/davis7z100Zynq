@@ -1,7 +1,7 @@
 //Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2018.1 (win64) Build 2188600 Wed Apr  4 18:40:38 MDT 2018
-//Date        : Thu Nov 14 11:11:45 2019
+//Date        : Fri Nov 15 12:50:55 2019
 //Host        : DESKTOP-3TNSMFC running 64-bit major release  (build 9200)
 //Command     : generate_target davisZynqBasicBoard.bd
 //Design      : davisZynqBasicBoard
@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "davisZynqBasicBoard,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=davisZynqBasicBoard,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=28,numReposBlks=24,numNonXlnxBlks=0,numHierBlks=4,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=24,da_board_cnt=3,da_clkrst_cnt=5,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "davisZynqBasicBoard.hwdef" *) 
+(* CORE_GENERATION_INFO = "davisZynqBasicBoard,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=davisZynqBasicBoard,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=27,numReposBlks=23,numNonXlnxBlks=0,numHierBlks=4,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=25,da_board_cnt=3,da_clkrst_cnt=5,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "davisZynqBasicBoard.hwdef" *) 
 module davisZynqBasicBoard
    (DDR_addr,
     DDR_ba,
@@ -134,7 +134,6 @@ module davisZynqBasicBoard
   wire processing_system7_0_DDR_RESET_N;
   wire processing_system7_0_DDR_WE_N;
   wire processing_system7_0_FCLK_CLK0;
-  wire processing_system7_0_FCLK_CLK2;
   wire processing_system7_0_FCLK_RESET0_N;
   wire processing_system7_0_FIXED_IO_DDR_VRN;
   wire processing_system7_0_FIXED_IO_DDR_VRP;
@@ -201,7 +200,9 @@ module davisZynqBasicBoard
   wire [0:0]rst_ps7_0_9M_peripheral_aresetn;
   wire [0:0]rst_ps7_0_9M_peripheral_reset;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [1:0]state_o;
+  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [2:0]state_r_do;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire termselect_o;
+  (* DEBUG = "true" *) (* MARK_DEBUG *) wire turnaround_d;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire tx_delay_complete_o;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire ulpi_data_dir_d;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [7:0]ulpi_data_in_o_d;
@@ -234,6 +235,7 @@ module davisZynqBasicBoard
   wire usb_bridge_top_0_m_axi_WVALID;
   wire usb_cdc_core_0_inport_accept_o;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [1:0]usb_fs_phy_0_utmi_linestate_o;
+  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [19:0]usb_rst_time_do;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [7:0]utmi_data_out_o;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire utmi_dmpulldown_o;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire utmi_dppulldown_o;
@@ -245,14 +247,7 @@ module davisZynqBasicBoard
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [1:0]utmi_xcvrselect_o;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [1:0]xcvrselect_o;
   wire [11:0]xlconcat_0_dout;
-  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [0:0]xlslice_10_Dout;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [0:0]xlslice_2_Dout;
-  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [0:0]xlslice_4_Dout;
-  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [1:0]xlslice_5_Dout;
-  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [1:0]xlslice_6_Dout;
-  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [0:0]xlslice_7_Dout;
-  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [0:0]xlslice_8_Dout;
-  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [7:0]xlslice_9_Dout;
 
   assign led_0[5:0] = LEDShifter_0_led;
   assign ulpi_dir_i_0_1 = ulpi_dir_i_0;
@@ -284,7 +279,7 @@ module davisZynqBasicBoard
         .s_axi_wready(ps7_0_axi_periph_M00_AXI_WREADY),
         .s_axi_wstrb(ps7_0_axi_periph_M00_AXI_WSTRB),
         .s_axi_wvalid(ps7_0_axi_periph_M00_AXI_WVALID));
-  davisZynqBasicBoard_axi_mem_intercon_0 axi_mem_intercon
+  davisZynqBasicBoard_axi_mem_intercon_1 axi_mem_intercon
        (.ACLK(processing_system7_0_FCLK_CLK0),
         .ARESETN(rst_ps7_0_9M_interconnect_aresetn),
         .M00_ACLK(processing_system7_0_FCLK_CLK0),
@@ -322,8 +317,8 @@ module davisZynqBasicBoard
         .M00_AXI_wready(axi_mem_intercon_M00_AXI_WREADY),
         .M00_AXI_wstrb(axi_mem_intercon_M00_AXI_WSTRB),
         .M00_AXI_wvalid(axi_mem_intercon_M00_AXI_WVALID),
-        .S00_ACLK(processing_system7_0_FCLK_CLK2),
-        .S00_ARESETN(1'b0),
+        .S00_ACLK(processing_system7_0_FCLK_CLK0),
+        .S00_ARESETN(rst_ps7_0_9M_peripheral_aresetn),
         .S00_AXI_araddr(usb_bridge_top_0_m_axi_ARADDR),
         .S00_AXI_arready(usb_bridge_top_0_m_axi_ARREADY),
         .S00_AXI_arvalid(usb_bridge_top_0_m_axi_ARVALID),
@@ -373,7 +368,6 @@ module davisZynqBasicBoard
         .DDR_VRP(FIXED_IO_ddr_vrp),
         .DDR_WEB(DDR_we_n),
         .FCLK_CLK0(processing_system7_0_FCLK_CLK0),
-        .FCLK_CLK2(processing_system7_0_FCLK_CLK2),
         .FCLK_RESET0_N(processing_system7_0_FCLK_RESET0_N),
         .I2C1_SCL_I(1'b0),
         .I2C1_SDA_I(1'b0),
@@ -534,11 +528,11 @@ module davisZynqBasicBoard
        (.clk(processing_system7_0_FCLK_CLK0),
         .probe0(ulpi_data_dir_d),
         .probe1(axis_data_fifo_0_s_axis_tready),
-        .probe10(xlslice_9_Dout),
-        .probe11(xlslice_10_Dout),
-        .probe12(xlslice_6_Dout),
-        .probe13(xlslice_5_Dout),
-        .probe14(xlslice_4_Dout),
+        .probe10(usb_rst_time_do),
+        .probe11(1'b0),
+        .probe12({1'b0,1'b0}),
+        .probe13({1'b0,1'b0}),
+        .probe14(1'b0),
         .probe15(xlslice_2_Dout),
         .probe16(otg_update_o),
         .probe17(state_o),
@@ -549,8 +543,8 @@ module davisZynqBasicBoard
         .probe21(opmode_o),
         .probe22(otg_complete_o),
         .probe23(ulpi_wrapper_0_utmi_txready_o),
-        .probe24(xlslice_7_Dout),
-        .probe25(xlslice_8_Dout),
+        .probe24(1'b0),
+        .probe25(1'b0),
         .probe26(tx_delay_complete_o),
         .probe27(utmi_tx_ready_o),
         .probe28(utmi_tx_accept_o),
@@ -571,7 +565,8 @@ module davisZynqBasicBoard
         .probe41(usb_dp_io_0),
         .probe42(usb_dn_io_0),
         .probe43(ulpi_reg_read_flag_d),
-        .probe44({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe44(turnaround_d),
+        .probe45(state_r_do),
         .probe5(ulpi_wrapper_0_ulpi_stp_o),
         .probe6(ulpi_dir_i_0_1),
         .probe7(termselect_o),
@@ -585,6 +580,7 @@ module davisZynqBasicBoard
         .otg_update_o(otg_update_o),
         .state_o(state_o),
         .termselect_o(termselect_o),
+        .turnaround_d(turnaround_d),
         .tx_delay_complete_o(tx_delay_complete_o),
         .ulpi_clk60_i(processing_system7_0_FCLK_CLK0),
         .ulpi_data_dir_d(ulpi_data_dir_d),
@@ -597,20 +593,20 @@ module davisZynqBasicBoard
         .ulpi_rst_i(xlslice_2_Dout),
         .ulpi_stp_o(ulpi_wrapper_0_ulpi_stp_o),
         .utmi_data_in_o(ulpi_wrapper_0_utmi_data_in_o),
-        .utmi_data_out_i(xlslice_9_Dout),
-        .utmi_dmpulldown_i(xlslice_8_Dout),
-        .utmi_dppulldown_i(xlslice_7_Dout),
+        .utmi_data_out_i(utmi_data_out_o),
+        .utmi_dmpulldown_i(utmi_dmpulldown_o),
+        .utmi_dppulldown_i(utmi_dppulldown_o),
         .utmi_linestate_o(usb_fs_phy_0_utmi_linestate_o),
-        .utmi_op_mode_i(xlslice_5_Dout),
+        .utmi_op_mode_i(utmi_op_mode_o),
         .utmi_rxactive_o(ulpi_wrapper_0_utmi_rxactive_o),
         .utmi_rxerror_o(ulpi_wrapper_0_utmi_rxerror_o),
         .utmi_rxvalid_o(ulpi_wrapper_0_utmi_rxvalid_o),
-        .utmi_termselect_i(xlslice_4_Dout),
+        .utmi_termselect_i(utmi_termselect_o),
         .utmi_tx_accept_o(utmi_tx_accept_o),
         .utmi_tx_ready_o(utmi_tx_ready_o),
         .utmi_txready_o(ulpi_wrapper_0_utmi_txready_o),
-        .utmi_txvalid_i(xlslice_10_Dout),
-        .utmi_xcvrselect_i(xlslice_6_Dout),
+        .utmi_txvalid_i(utmi_txvalid_o),
+        .utmi_xcvrselect_i(utmi_xcvrselect_o),
         .xcvrselect_o(xcvrselect_o));
   davisZynqBasicBoard_usb_bridge_top_0_4 usb_bridge_top_0
        (.m_axi_araddr(usb_bridge_top_0_m_axi_ARADDR),
@@ -622,7 +618,7 @@ module davisZynqBasicBoard
         .m_axi_bready(usb_bridge_top_0_m_axi_BREADY),
         .m_axi_bresp(usb_bridge_top_0_m_axi_BRESP),
         .m_axi_bvalid(usb_bridge_top_0_m_axi_BVALID),
-        .m_axi_clk(processing_system7_0_FCLK_CLK2),
+        .m_axi_clk(processing_system7_0_FCLK_CLK0),
         .m_axi_rdata(usb_bridge_top_0_m_axi_RDATA),
         .m_axi_rready(usb_bridge_top_0_m_axi_RREADY),
         .m_axi_rresp(usb_bridge_top_0_m_axi_RRESP),
@@ -644,6 +640,8 @@ module davisZynqBasicBoard
         .outport_data_o(outport_data_o),
         .outport_valid_o(outport_valid_o),
         .rst_i(rst_ps7_0_9M_peripheral_reset),
+        .state_r_do(state_r_do),
+        .usb_rst_time_do(usb_rst_time_do),
         .utmi_data_in_i(ulpi_wrapper_0_utmi_data_in_o),
         .utmi_data_out_o(utmi_data_out_o),
         .utmi_dmpulldown_o(utmi_dmpulldown_o),
@@ -669,29 +667,22 @@ module davisZynqBasicBoard
        (.Din(axi_gpio_0_gpio_io_o),
         .Dout(xlslice_2_Dout));
   davisZynqBasicBoard_xlslice_10_0 xlslice_10
-       (.Din(axi_gpio_0_gpio_io_o),
-        .Dout(xlslice_10_Dout));
+       (.Din(axi_gpio_0_gpio_io_o));
   davisZynqBasicBoard_xlslice_5_0 xlslice_4
-       (.Din(axi_gpio_0_gpio_io_o),
-        .Dout(xlslice_4_Dout));
+       (.Din(axi_gpio_0_gpio_io_o));
   davisZynqBasicBoard_xlslice_6_0 xlslice_5
-       (.Din(axi_gpio_0_gpio_io_o),
-        .Dout(xlslice_5_Dout));
+       (.Din(axi_gpio_0_gpio_io_o));
   davisZynqBasicBoard_xlslice_7_0 xlslice_6
-       (.Din(axi_gpio_0_gpio_io_o),
-        .Dout(xlslice_6_Dout));
+       (.Din(axi_gpio_0_gpio_io_o));
   davisZynqBasicBoard_xlslice_8_0 xlslice_7
-       (.Din(axi_gpio_0_gpio_io_o),
-        .Dout(xlslice_7_Dout));
+       (.Din(axi_gpio_0_gpio_io_o));
   davisZynqBasicBoard_xlslice_9_0 xlslice_8
-       (.Din(axi_gpio_0_gpio_io_o),
-        .Dout(xlslice_8_Dout));
+       (.Din(axi_gpio_0_gpio_io_o));
   davisZynqBasicBoard_xlslice_9_1 xlslice_9
-       (.Din(axi_gpio_0_gpio_io_o),
-        .Dout(xlslice_9_Dout));
+       (.Din(axi_gpio_0_gpio_io_o));
 endmodule
 
-module davisZynqBasicBoard_axi_mem_intercon_0
+module davisZynqBasicBoard_axi_mem_intercon_1
    (ACLK,
     ARESETN,
     M00_ACLK,
@@ -1386,29 +1377,8 @@ module s00_couplers_imp_93H7T6
   input [3:0]S_AXI_wstrb;
   input S_AXI_wvalid;
 
-  wire M_ACLK_1;
-  wire M_ARESETN_1;
   wire S_ACLK_1;
   wire S_ARESETN_1;
-  wire [31:0]auto_cc_to_auto_pc_ARADDR;
-  wire [2:0]auto_cc_to_auto_pc_ARPROT;
-  wire auto_cc_to_auto_pc_ARREADY;
-  wire auto_cc_to_auto_pc_ARVALID;
-  wire [31:0]auto_cc_to_auto_pc_AWADDR;
-  wire [2:0]auto_cc_to_auto_pc_AWPROT;
-  wire auto_cc_to_auto_pc_AWREADY;
-  wire auto_cc_to_auto_pc_AWVALID;
-  wire auto_cc_to_auto_pc_BREADY;
-  wire [1:0]auto_cc_to_auto_pc_BRESP;
-  wire auto_cc_to_auto_pc_BVALID;
-  wire [31:0]auto_cc_to_auto_pc_RDATA;
-  wire auto_cc_to_auto_pc_RREADY;
-  wire [1:0]auto_cc_to_auto_pc_RRESP;
-  wire auto_cc_to_auto_pc_RVALID;
-  wire [31:0]auto_cc_to_auto_pc_WDATA;
-  wire auto_cc_to_auto_pc_WREADY;
-  wire [3:0]auto_cc_to_auto_pc_WSTRB;
-  wire auto_cc_to_auto_pc_WVALID;
   wire [31:0]auto_pc_to_s00_couplers_ARADDR;
   wire [1:0]auto_pc_to_s00_couplers_ARBURST;
   wire [3:0]auto_pc_to_s00_couplers_ARCACHE;
@@ -1442,26 +1412,24 @@ module s00_couplers_imp_93H7T6
   wire auto_pc_to_s00_couplers_WREADY;
   wire [3:0]auto_pc_to_s00_couplers_WSTRB;
   wire auto_pc_to_s00_couplers_WVALID;
-  wire [31:0]s00_couplers_to_auto_cc_ARADDR;
-  wire s00_couplers_to_auto_cc_ARREADY;
-  wire s00_couplers_to_auto_cc_ARVALID;
-  wire [31:0]s00_couplers_to_auto_cc_AWADDR;
-  wire s00_couplers_to_auto_cc_AWREADY;
-  wire s00_couplers_to_auto_cc_AWVALID;
-  wire s00_couplers_to_auto_cc_BREADY;
-  wire [1:0]s00_couplers_to_auto_cc_BRESP;
-  wire s00_couplers_to_auto_cc_BVALID;
-  wire [31:0]s00_couplers_to_auto_cc_RDATA;
-  wire s00_couplers_to_auto_cc_RREADY;
-  wire [1:0]s00_couplers_to_auto_cc_RRESP;
-  wire s00_couplers_to_auto_cc_RVALID;
-  wire [31:0]s00_couplers_to_auto_cc_WDATA;
-  wire s00_couplers_to_auto_cc_WREADY;
-  wire [3:0]s00_couplers_to_auto_cc_WSTRB;
-  wire s00_couplers_to_auto_cc_WVALID;
+  wire [31:0]s00_couplers_to_auto_pc_ARADDR;
+  wire s00_couplers_to_auto_pc_ARREADY;
+  wire s00_couplers_to_auto_pc_ARVALID;
+  wire [31:0]s00_couplers_to_auto_pc_AWADDR;
+  wire s00_couplers_to_auto_pc_AWREADY;
+  wire s00_couplers_to_auto_pc_AWVALID;
+  wire s00_couplers_to_auto_pc_BREADY;
+  wire [1:0]s00_couplers_to_auto_pc_BRESP;
+  wire s00_couplers_to_auto_pc_BVALID;
+  wire [31:0]s00_couplers_to_auto_pc_RDATA;
+  wire s00_couplers_to_auto_pc_RREADY;
+  wire [1:0]s00_couplers_to_auto_pc_RRESP;
+  wire s00_couplers_to_auto_pc_RVALID;
+  wire [31:0]s00_couplers_to_auto_pc_WDATA;
+  wire s00_couplers_to_auto_pc_WREADY;
+  wire [3:0]s00_couplers_to_auto_pc_WSTRB;
+  wire s00_couplers_to_auto_pc_WVALID;
 
-  assign M_ACLK_1 = M_ACLK;
-  assign M_ARESETN_1 = M_ARESETN;
   assign M_AXI_araddr[31:0] = auto_pc_to_s00_couplers_ARADDR;
   assign M_AXI_arburst[1:0] = auto_pc_to_s00_couplers_ARBURST;
   assign M_AXI_arcache[3:0] = auto_pc_to_s00_couplers_ARCACHE;
@@ -1488,14 +1456,14 @@ module s00_couplers_imp_93H7T6
   assign M_AXI_wvalid = auto_pc_to_s00_couplers_WVALID;
   assign S_ACLK_1 = S_ACLK;
   assign S_ARESETN_1 = S_ARESETN;
-  assign S_AXI_arready = s00_couplers_to_auto_cc_ARREADY;
-  assign S_AXI_awready = s00_couplers_to_auto_cc_AWREADY;
-  assign S_AXI_bresp[1:0] = s00_couplers_to_auto_cc_BRESP;
-  assign S_AXI_bvalid = s00_couplers_to_auto_cc_BVALID;
-  assign S_AXI_rdata[31:0] = s00_couplers_to_auto_cc_RDATA;
-  assign S_AXI_rresp[1:0] = s00_couplers_to_auto_cc_RRESP;
-  assign S_AXI_rvalid = s00_couplers_to_auto_cc_RVALID;
-  assign S_AXI_wready = s00_couplers_to_auto_cc_WREADY;
+  assign S_AXI_arready = s00_couplers_to_auto_pc_ARREADY;
+  assign S_AXI_awready = s00_couplers_to_auto_pc_AWREADY;
+  assign S_AXI_bresp[1:0] = s00_couplers_to_auto_pc_BRESP;
+  assign S_AXI_bvalid = s00_couplers_to_auto_pc_BVALID;
+  assign S_AXI_rdata[31:0] = s00_couplers_to_auto_pc_RDATA;
+  assign S_AXI_rresp[1:0] = s00_couplers_to_auto_pc_RRESP;
+  assign S_AXI_rvalid = s00_couplers_to_auto_pc_RVALID;
+  assign S_AXI_wready = s00_couplers_to_auto_pc_WREADY;
   assign auto_pc_to_s00_couplers_ARREADY = M_AXI_arready;
   assign auto_pc_to_s00_couplers_AWREADY = M_AXI_awready;
   assign auto_pc_to_s00_couplers_BRESP = M_AXI_bresp[1:0];
@@ -1505,61 +1473,18 @@ module s00_couplers_imp_93H7T6
   assign auto_pc_to_s00_couplers_RRESP = M_AXI_rresp[1:0];
   assign auto_pc_to_s00_couplers_RVALID = M_AXI_rvalid;
   assign auto_pc_to_s00_couplers_WREADY = M_AXI_wready;
-  assign s00_couplers_to_auto_cc_ARADDR = S_AXI_araddr[31:0];
-  assign s00_couplers_to_auto_cc_ARVALID = S_AXI_arvalid;
-  assign s00_couplers_to_auto_cc_AWADDR = S_AXI_awaddr[31:0];
-  assign s00_couplers_to_auto_cc_AWVALID = S_AXI_awvalid;
-  assign s00_couplers_to_auto_cc_BREADY = S_AXI_bready;
-  assign s00_couplers_to_auto_cc_RREADY = S_AXI_rready;
-  assign s00_couplers_to_auto_cc_WDATA = S_AXI_wdata[31:0];
-  assign s00_couplers_to_auto_cc_WSTRB = S_AXI_wstrb[3:0];
-  assign s00_couplers_to_auto_cc_WVALID = S_AXI_wvalid;
-  davisZynqBasicBoard_auto_cc_0 auto_cc
-       (.m_axi_aclk(M_ACLK_1),
-        .m_axi_araddr(auto_cc_to_auto_pc_ARADDR),
-        .m_axi_aresetn(M_ARESETN_1),
-        .m_axi_arprot(auto_cc_to_auto_pc_ARPROT),
-        .m_axi_arready(auto_cc_to_auto_pc_ARREADY),
-        .m_axi_arvalid(auto_cc_to_auto_pc_ARVALID),
-        .m_axi_awaddr(auto_cc_to_auto_pc_AWADDR),
-        .m_axi_awprot(auto_cc_to_auto_pc_AWPROT),
-        .m_axi_awready(auto_cc_to_auto_pc_AWREADY),
-        .m_axi_awvalid(auto_cc_to_auto_pc_AWVALID),
-        .m_axi_bready(auto_cc_to_auto_pc_BREADY),
-        .m_axi_bresp(auto_cc_to_auto_pc_BRESP),
-        .m_axi_bvalid(auto_cc_to_auto_pc_BVALID),
-        .m_axi_rdata(auto_cc_to_auto_pc_RDATA),
-        .m_axi_rready(auto_cc_to_auto_pc_RREADY),
-        .m_axi_rresp(auto_cc_to_auto_pc_RRESP),
-        .m_axi_rvalid(auto_cc_to_auto_pc_RVALID),
-        .m_axi_wdata(auto_cc_to_auto_pc_WDATA),
-        .m_axi_wready(auto_cc_to_auto_pc_WREADY),
-        .m_axi_wstrb(auto_cc_to_auto_pc_WSTRB),
-        .m_axi_wvalid(auto_cc_to_auto_pc_WVALID),
-        .s_axi_aclk(S_ACLK_1),
-        .s_axi_araddr(s00_couplers_to_auto_cc_ARADDR),
-        .s_axi_aresetn(S_ARESETN_1),
-        .s_axi_arprot({1'b0,1'b0,1'b0}),
-        .s_axi_arready(s00_couplers_to_auto_cc_ARREADY),
-        .s_axi_arvalid(s00_couplers_to_auto_cc_ARVALID),
-        .s_axi_awaddr(s00_couplers_to_auto_cc_AWADDR),
-        .s_axi_awprot({1'b0,1'b0,1'b0}),
-        .s_axi_awready(s00_couplers_to_auto_cc_AWREADY),
-        .s_axi_awvalid(s00_couplers_to_auto_cc_AWVALID),
-        .s_axi_bready(s00_couplers_to_auto_cc_BREADY),
-        .s_axi_bresp(s00_couplers_to_auto_cc_BRESP),
-        .s_axi_bvalid(s00_couplers_to_auto_cc_BVALID),
-        .s_axi_rdata(s00_couplers_to_auto_cc_RDATA),
-        .s_axi_rready(s00_couplers_to_auto_cc_RREADY),
-        .s_axi_rresp(s00_couplers_to_auto_cc_RRESP),
-        .s_axi_rvalid(s00_couplers_to_auto_cc_RVALID),
-        .s_axi_wdata(s00_couplers_to_auto_cc_WDATA),
-        .s_axi_wready(s00_couplers_to_auto_cc_WREADY),
-        .s_axi_wstrb(s00_couplers_to_auto_cc_WSTRB),
-        .s_axi_wvalid(s00_couplers_to_auto_cc_WVALID));
-  davisZynqBasicBoard_auto_pc_0 auto_pc
-       (.aclk(M_ACLK_1),
-        .aresetn(M_ARESETN_1),
+  assign s00_couplers_to_auto_pc_ARADDR = S_AXI_araddr[31:0];
+  assign s00_couplers_to_auto_pc_ARVALID = S_AXI_arvalid;
+  assign s00_couplers_to_auto_pc_AWADDR = S_AXI_awaddr[31:0];
+  assign s00_couplers_to_auto_pc_AWVALID = S_AXI_awvalid;
+  assign s00_couplers_to_auto_pc_BREADY = S_AXI_bready;
+  assign s00_couplers_to_auto_pc_RREADY = S_AXI_rready;
+  assign s00_couplers_to_auto_pc_WDATA = S_AXI_wdata[31:0];
+  assign s00_couplers_to_auto_pc_WSTRB = S_AXI_wstrb[3:0];
+  assign s00_couplers_to_auto_pc_WVALID = S_AXI_wvalid;
+  davisZynqBasicBoard_auto_pc_2 auto_pc
+       (.aclk(S_ACLK_1),
+        .aresetn(S_ARESETN_1),
         .m_axi_araddr(auto_pc_to_s00_couplers_ARADDR),
         .m_axi_arburst(auto_pc_to_s00_couplers_ARBURST),
         .m_axi_arcache(auto_pc_to_s00_couplers_ARCACHE),
@@ -1593,25 +1518,25 @@ module s00_couplers_imp_93H7T6
         .m_axi_wready(auto_pc_to_s00_couplers_WREADY),
         .m_axi_wstrb(auto_pc_to_s00_couplers_WSTRB),
         .m_axi_wvalid(auto_pc_to_s00_couplers_WVALID),
-        .s_axi_araddr(auto_cc_to_auto_pc_ARADDR),
-        .s_axi_arprot(auto_cc_to_auto_pc_ARPROT),
-        .s_axi_arready(auto_cc_to_auto_pc_ARREADY),
-        .s_axi_arvalid(auto_cc_to_auto_pc_ARVALID),
-        .s_axi_awaddr(auto_cc_to_auto_pc_AWADDR),
-        .s_axi_awprot(auto_cc_to_auto_pc_AWPROT),
-        .s_axi_awready(auto_cc_to_auto_pc_AWREADY),
-        .s_axi_awvalid(auto_cc_to_auto_pc_AWVALID),
-        .s_axi_bready(auto_cc_to_auto_pc_BREADY),
-        .s_axi_bresp(auto_cc_to_auto_pc_BRESP),
-        .s_axi_bvalid(auto_cc_to_auto_pc_BVALID),
-        .s_axi_rdata(auto_cc_to_auto_pc_RDATA),
-        .s_axi_rready(auto_cc_to_auto_pc_RREADY),
-        .s_axi_rresp(auto_cc_to_auto_pc_RRESP),
-        .s_axi_rvalid(auto_cc_to_auto_pc_RVALID),
-        .s_axi_wdata(auto_cc_to_auto_pc_WDATA),
-        .s_axi_wready(auto_cc_to_auto_pc_WREADY),
-        .s_axi_wstrb(auto_cc_to_auto_pc_WSTRB),
-        .s_axi_wvalid(auto_cc_to_auto_pc_WVALID));
+        .s_axi_araddr(s00_couplers_to_auto_pc_ARADDR),
+        .s_axi_arprot({1'b0,1'b0,1'b0}),
+        .s_axi_arready(s00_couplers_to_auto_pc_ARREADY),
+        .s_axi_arvalid(s00_couplers_to_auto_pc_ARVALID),
+        .s_axi_awaddr(s00_couplers_to_auto_pc_AWADDR),
+        .s_axi_awprot({1'b0,1'b0,1'b0}),
+        .s_axi_awready(s00_couplers_to_auto_pc_AWREADY),
+        .s_axi_awvalid(s00_couplers_to_auto_pc_AWVALID),
+        .s_axi_bready(s00_couplers_to_auto_pc_BREADY),
+        .s_axi_bresp(s00_couplers_to_auto_pc_BRESP),
+        .s_axi_bvalid(s00_couplers_to_auto_pc_BVALID),
+        .s_axi_rdata(s00_couplers_to_auto_pc_RDATA),
+        .s_axi_rready(s00_couplers_to_auto_pc_RREADY),
+        .s_axi_rresp(s00_couplers_to_auto_pc_RRESP),
+        .s_axi_rvalid(s00_couplers_to_auto_pc_RVALID),
+        .s_axi_wdata(s00_couplers_to_auto_pc_WDATA),
+        .s_axi_wready(s00_couplers_to_auto_pc_WREADY),
+        .s_axi_wstrb(s00_couplers_to_auto_pc_WSTRB),
+        .s_axi_wvalid(s00_couplers_to_auto_pc_WVALID));
 endmodule
 
 module s00_couplers_imp_NA5VM1

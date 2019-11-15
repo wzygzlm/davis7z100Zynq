@@ -168,7 +168,7 @@ proc create_root_design { parentCell } {
   set probe7 [ create_bd_port -dir I -from 0 -to 0 probe7 ]
   set probe8 [ create_bd_port -dir I -from 7 -to 0 probe8 ]
   set probe9 [ create_bd_port -dir I -from 0 -to 0 probe9 ]
-  set probe10 [ create_bd_port -dir I -from 7 -to 0 probe10 ]
+  set probe10 [ create_bd_port -dir I -from 19 -to 0 probe10 ]
   set probe11 [ create_bd_port -dir I -from 0 -to 0 probe11 ]
   set probe12 [ create_bd_port -dir I -from 1 -to 0 probe12 ]
   set probe13 [ create_bd_port -dir I -from 1 -to 0 probe13 ]
@@ -202,7 +202,8 @@ proc create_root_design { parentCell } {
   set probe41 [ create_bd_port -dir I -from 0 -to 0 probe41 ]
   set probe42 [ create_bd_port -dir I -from 0 -to 0 probe42 ]
   set probe43 [ create_bd_port -dir I -from 0 -to 0 probe43 ]
-  set probe44 [ create_bd_port -dir I -from 7 -to 0 probe44 ]
+  set probe44 [ create_bd_port -dir I -from 0 -to 0 probe44 ]
+  set probe45 [ create_bd_port -dir I -from 2 -to 0 probe45 ]
 
   # Create instance: ila_lib, and set properties
   set ila_lib [ create_bd_cell -type ip -vlnv xilinx.com:ip:ila:6.2 ila_lib ]
@@ -213,25 +214,25 @@ proc create_root_design { parentCell } {
    CONFIG.C_DATA_DEPTH {32768} \
    CONFIG.C_EN_STRG_QUAL {0} \
    CONFIG.C_EN_TIME_TAG {0} \
-   CONFIG.C_ILA_CLK_FREQ {58817650} \
+   CONFIG.C_ILA_CLK_FREQ {59993996} \
    CONFIG.C_INPUT_PIPE_STAGES {0} \
    CONFIG.C_MONITOR_TYPE {Native} \
-   CONFIG.C_NUM_OF_PROBES {45} \
+   CONFIG.C_NUM_OF_PROBES {46} \
    CONFIG.C_PROBE0_MU_CNT {1} \
    CONFIG.C_PROBE0_TYPE {0} \
    CONFIG.C_PROBE0_WIDTH {1} \
    CONFIG.C_PROBE10_MU_CNT {1} \
    CONFIG.C_PROBE10_TYPE {0} \
-   CONFIG.C_PROBE10_WIDTH {8} \
+   CONFIG.C_PROBE10_WIDTH {20} \
    CONFIG.C_PROBE11_MU_CNT {1} \
    CONFIG.C_PROBE11_TYPE {0} \
    CONFIG.C_PROBE11_WIDTH {1} \
    CONFIG.C_PROBE12_MU_CNT {1} \
    CONFIG.C_PROBE12_TYPE {0} \
-   CONFIG.C_PROBE12_WIDTH {2} \
+   CONFIG.C_PROBE12_WIDTH {1} \
    CONFIG.C_PROBE13_MU_CNT {1} \
    CONFIG.C_PROBE13_TYPE {0} \
-   CONFIG.C_PROBE13_WIDTH {2} \
+   CONFIG.C_PROBE13_WIDTH {1} \
    CONFIG.C_PROBE14_MU_CNT {1} \
    CONFIG.C_PROBE14_TYPE {0} \
    CONFIG.C_PROBE14_WIDTH {1} \
@@ -334,6 +335,9 @@ proc create_root_design { parentCell } {
    CONFIG.C_PROBE44_MU_CNT {1} \
    CONFIG.C_PROBE44_TYPE {0} \
    CONFIG.C_PROBE44_WIDTH {1} \
+   CONFIG.C_PROBE45_MU_CNT {1} \
+   CONFIG.C_PROBE45_TYPE {0} \
+   CONFIG.C_PROBE45_WIDTH {3} \
    CONFIG.C_PROBE4_MU_CNT {1} \
    CONFIG.C_PROBE4_TYPE {0} \
    CONFIG.C_PROBE4_WIDTH {8} \
@@ -399,6 +403,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net probe42_1 [get_bd_ports probe42] [get_bd_pins ila_lib/probe42]
   connect_bd_net -net probe43_1 [get_bd_ports probe43] [get_bd_pins ila_lib/probe43]
   connect_bd_net -net probe44_1 [get_bd_ports probe44] [get_bd_pins ila_lib/probe44]
+  connect_bd_net -net probe45_1 [get_bd_ports probe45] [get_bd_pins ila_lib/probe45]
   connect_bd_net -net probe4_1 [get_bd_ports probe4] [get_bd_pins ila_lib/probe4]
   connect_bd_net -net probe5_1 [get_bd_ports probe5] [get_bd_pins ila_lib/probe5]
   connect_bd_net -net probe6_1 [get_bd_ports probe6] [get_bd_pins ila_lib/probe6]

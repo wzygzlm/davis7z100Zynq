@@ -52,6 +52,10 @@ module usb_cdc_core
     ,input  [  7:0]  inport_data_i
     ,input           outport_accept_i
 
+    // Debug ports
+    ,output [2:0]    state_r_do
+    ,output [19:0]   usb_rst_time_do
+    
     // Outputs
     ,output [  7:0]  utmi_data_out_o
     ,output          utmi_txvalid_o
@@ -68,7 +72,7 @@ module usb_cdc_core
 
 
 
-parameter USB_SPEED_HS = "False"; // True or False
+parameter USB_SPEED_HS = "True"; // True or False
 
 //-----------------------------------------------------------------
 // Defines
@@ -287,11 +291,17 @@ localparam STATE_HIGHSPEED               = 3'd5;
 reg [STATE_W-1:0] state_q;
 reg [STATE_W-1:0] next_state_r;
 
+
 // 60MHz clock rate
 `define USB_RST_W  20
 reg [`USB_RST_W-1:0] usb_rst_time_q;
 reg [7:0]            chirp_count_q;
 reg [1:0]            last_linestate_q;
+
+
+// Debug
+assign state_r_do   = state_q;
+assign usb_rst_time_do = usb_rst_time_q;
 
 localparam DETACH_TIME    = 20'd60000;  // 1ms -> T0
 localparam ATTACH_FS_TIME = 20'd180000; // T0 + 3ms = T1
@@ -1070,7 +1080,6 @@ assign inport_accept_o     = !inport_valid_q | ep2_tx_data_accept_w;
 assign outport_valid_o  = ep1_rx_valid_w && rx_strb_w;
 assign outport_data_o   = rx_data_w;
 assign ep1_rx_space_w   = outport_accept_i;
-
 
 
 endmodule

@@ -1,10 +1,10 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.1 (win64) Build 2188600 Wed Apr  4 18:40:38 MDT 2018
--- Date        : Wed Nov 13 15:52:17 2019
+-- Date        : Fri Nov 15 12:53:24 2019
 -- Host        : DESKTOP-3TNSMFC running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim -rename_top davisZynqBasicBoard_usb_bridge_top_0_4 -prefix
---               davisZynqBasicBoard_usb_bridge_top_0_4_ davisZynqBasicBoard_usb_bridge_top_0_4_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim
+--               E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/ip/davisZynqBasicBoard_usb_bridge_top_0_4/davisZynqBasicBoard_usb_bridge_top_0_4_sim_netlist.vhdl
 -- Design      : davisZynqBasicBoard_usb_bridge_top_0_4
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -18,10 +18,12 @@ entity davisZynqBasicBoard_usb_bridge_top_0_4_usb_fs_phy is
   port (
     utmi_txvalid_w : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_usb_bridge_top_0_4_usb_fs_phy : entity is "usb_fs_phy";
 end davisZynqBasicBoard_usb_bridge_top_0_4_usb_fs_phy;
 
 architecture STRUCTURE of davisZynqBasicBoard_usb_bridge_top_0_4_usb_fs_phy is
-  signal \FSM_sequential_state_q[3]_i_1_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state_q[3]_i_1__0_n_0\ : STD_LOGIC;
   signal next_state_r : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal state_q : STD_LOGIC_VECTOR ( 3 downto 0 );
   attribute RTL_KEEP : string;
@@ -72,7 +74,7 @@ begin
       I4 => state_q(3),
       O => next_state_r(2)
     );
-\FSM_sequential_state_q[3]_i_1\: unisim.vcomponents.LUT5
+\FSM_sequential_state_q[3]_i_1__0\: unisim.vcomponents.LUT5
     generic map(
       INIT => X"0CF2FF3C"
     )
@@ -82,7 +84,7 @@ begin
       I2 => state_q(3),
       I3 => state_q(0),
       I4 => state_q(1),
-      O => \FSM_sequential_state_q[3]_i_1_n_0\
+      O => \FSM_sequential_state_q[3]_i_1__0_n_0\
     );
 \FSM_sequential_state_q[3]_i_2\: unisim.vcomponents.LUT5
     generic map(
@@ -99,7 +101,7 @@ begin
 \FSM_sequential_state_q_reg[0]\: unisim.vcomponents.FDRE
      port map (
       C => '0',
-      CE => \FSM_sequential_state_q[3]_i_1_n_0\,
+      CE => \FSM_sequential_state_q[3]_i_1__0_n_0\,
       D => next_state_r(0),
       Q => state_q(0),
       R => '0'
@@ -107,7 +109,7 @@ begin
 \FSM_sequential_state_q_reg[1]\: unisim.vcomponents.FDRE
      port map (
       C => '0',
-      CE => \FSM_sequential_state_q[3]_i_1_n_0\,
+      CE => \FSM_sequential_state_q[3]_i_1__0_n_0\,
       D => next_state_r(1),
       Q => state_q(1),
       R => '0'
@@ -115,7 +117,7 @@ begin
 \FSM_sequential_state_q_reg[2]\: unisim.vcomponents.FDRE
      port map (
       C => '0',
-      CE => \FSM_sequential_state_q[3]_i_1_n_0\,
+      CE => \FSM_sequential_state_q[3]_i_1__0_n_0\,
       D => next_state_r(2),
       Q => state_q(2),
       R => '0'
@@ -123,7 +125,7 @@ begin
 \FSM_sequential_state_q_reg[3]\: unisim.vcomponents.FDRE
      port map (
       C => '0',
-      CE => \FSM_sequential_state_q[3]_i_1_n_0\,
+      CE => \FSM_sequential_state_q[3]_i_1__0_n_0\,
       D => next_state_r(3),
       Q => state_q(3),
       R => '0'
@@ -134,13 +136,19 @@ use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity davisZynqBasicBoard_usb_bridge_top_0_4_usbf_sie_rx is
+  port (
+    \out\ : in STD_LOGIC_VECTOR ( 2 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_usb_bridge_top_0_4_usbf_sie_rx : entity is "usbf_sie_rx";
 end davisZynqBasicBoard_usb_bridge_top_0_4_usbf_sie_rx;
 
 architecture STRUCTURE of davisZynqBasicBoard_usb_bridge_top_0_4_usbf_sie_rx is
   signal \FSM_sequential_state_q[0]_i_1_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state_q[1]_i_1_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state_q[2]_i_1__0_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state_q[3]_i_1__0_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state_q[3]_i_1_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state_q[3]_i_2__0_n_0\ : STD_LOGIC;
   signal state_q : STD_LOGIC_VECTOR ( 3 downto 0 );
   attribute RTL_KEEP : string;
   attribute RTL_KEEP of state_q : signal is "yes";
@@ -155,47 +163,61 @@ architecture STRUCTURE of davisZynqBasicBoard_usb_bridge_top_0_4_usbf_sie_rx is
   attribute FSM_ENCODED_STATES of \FSM_sequential_state_q_reg[3]\ : label is "STATE_RX_SOF2:0000,STATE_RX_TOKEN_COMPLETE:0011,STATE_RX_TOKEN3:0100,STATE_RX_TOKEN2:0101,STATE_RX_IDLE:0010,STATE_RX_DATA_COMPLETE:1000,STATE_RX_DATA:0110,STATE_RX_IGNORED:0111,STATE_RX_SOF3:0001";
   attribute KEEP of \FSM_sequential_state_q_reg[3]\ : label is "yes";
 begin
-\FSM_sequential_state_q[0]_i_1\: unisim.vcomponents.LUT2
+\FSM_sequential_state_q[0]_i_1\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"8"
+      INIT => X"80"
     )
         port map (
-      I0 => state_q(0),
-      I1 => state_q(3),
+      I0 => state_q(3),
+      I1 => state_q(0),
+      I2 => \FSM_sequential_state_q[3]_i_2__0_n_0\,
       O => \FSM_sequential_state_q[0]_i_1_n_0\
     );
-\FSM_sequential_state_q[1]_i_1\: unisim.vcomponents.LUT4
+\FSM_sequential_state_q[1]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"FF1F"
+      INIT => X"FFFF37FF"
     )
         port map (
       I0 => state_q(2),
-      I1 => state_q(0),
-      I2 => state_q(3),
-      I3 => state_q(1),
+      I1 => \FSM_sequential_state_q[3]_i_2__0_n_0\,
+      I2 => state_q(0),
+      I3 => state_q(3),
+      I4 => state_q(1),
       O => \FSM_sequential_state_q[1]_i_1_n_0\
     );
-\FSM_sequential_state_q[2]_i_1__0\: unisim.vcomponents.LUT4
+\FSM_sequential_state_q[2]_i_1__0\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"B0A0"
+      INIT => X"A200A000"
     )
         port map (
-      I0 => state_q(3),
+      I0 => \FSM_sequential_state_q[3]_i_2__0_n_0\,
       I1 => state_q(0),
-      I2 => state_q(2),
-      I3 => state_q(1),
+      I2 => state_q(3),
+      I3 => state_q(2),
+      I4 => state_q(1),
       O => \FSM_sequential_state_q[2]_i_1__0_n_0\
     );
-\FSM_sequential_state_q[3]_i_1__0\: unisim.vcomponents.LUT4
+\FSM_sequential_state_q[3]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"AAA8"
+      INIT => X"88888880"
     )
         port map (
-      I0 => state_q(3),
-      I1 => state_q(2),
+      I0 => \FSM_sequential_state_q[3]_i_2__0_n_0\,
+      I1 => state_q(3),
       I2 => state_q(0),
-      I3 => state_q(1),
-      O => \FSM_sequential_state_q[3]_i_1__0_n_0\
+      I3 => state_q(2),
+      I4 => state_q(1),
+      O => \FSM_sequential_state_q[3]_i_1_n_0\
+    );
+\FSM_sequential_state_q[3]_i_2__0\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"EF"
+    )
+        port map (
+      I0 => \out\(0),
+      I1 => \out\(1),
+      I2 => \out\(2),
+      O => \FSM_sequential_state_q[3]_i_2__0_n_0\
     );
 \FSM_sequential_state_q_reg[0]\: unisim.vcomponents.FDRE
      port map (
@@ -225,7 +247,7 @@ begin
      port map (
       C => '0',
       CE => '1',
-      D => \FSM_sequential_state_q[3]_i_1__0_n_0\,
+      D => \FSM_sequential_state_q[3]_i_1_n_0\,
       Q => state_q(3),
       R => '0'
     );
@@ -236,8 +258,11 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity davisZynqBasicBoard_usb_bridge_top_0_4_usbf_sie_tx is
   port (
-    utmi_txvalid_w : out STD_LOGIC
+    utmi_txvalid_w : out STD_LOGIC;
+    \out\ : in STD_LOGIC_VECTOR ( 2 downto 0 )
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_usb_bridge_top_0_4_usbf_sie_tx : entity is "usbf_sie_tx";
 end davisZynqBasicBoard_usb_bridge_top_0_4_usbf_sie_tx;
 
 architecture STRUCTURE of davisZynqBasicBoard_usb_bridge_top_0_4_usbf_sie_tx is
@@ -256,24 +281,27 @@ architecture STRUCTURE of davisZynqBasicBoard_usb_bridge_top_0_4_usbf_sie_tx is
   attribute FSM_ENCODED_STATES of \FSM_sequential_state_q_reg[2]\ : label is "STATE_TX_CHIRP:001,STATE_TX_PID:010,STATE_TX_DATA:011,STATE_TX_CRC1:100,STATE_TX_CRC2:101,STATE_TX_DONE:110,STATE_TX_IDLE:000";
   attribute KEEP of \FSM_sequential_state_q_reg[2]\ : label is "yes";
 begin
-\FSM_sequential_state_q[0]_i_1__1\: unisim.vcomponents.LUT3
+\FSM_sequential_state_q[0]_i_1__1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"A8"
+      INIT => X"AAAAAAAAAAAA000C"
     )
         port map (
       I0 => state_q(0),
-      I1 => state_q(1),
-      I2 => state_q(2),
+      I1 => \out\(2),
+      I2 => \out\(1),
+      I3 => \out\(0),
+      I4 => state_q(2),
+      I5 => state_q(1),
       O => \FSM_sequential_state_q[0]_i_1__1_n_0\
     );
 \FSM_sequential_state_q[1]_i_1__1\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"8C"
+      INIT => X"C4"
     )
         port map (
-      I0 => state_q(0),
+      I0 => state_q(2),
       I1 => state_q(1),
-      I2 => state_q(2),
+      I2 => state_q(0),
       O => \FSM_sequential_state_q[1]_i_1__1_n_0\
     );
 \FSM_sequential_state_q[2]_i_1\: unisim.vcomponents.LUT3
@@ -288,12 +316,12 @@ begin
     );
 \FSM_sequential_state_q[3]_i_3\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"54"
+      INIT => X"0E"
     )
         port map (
-      I0 => state_q(1),
-      I1 => state_q(0),
-      I2 => state_q(2),
+      I0 => state_q(0),
+      I1 => state_q(2),
+      I2 => state_q(1),
       O => utmi_txvalid_w
     );
 \FSM_sequential_state_q_reg[0]\: unisim.vcomponents.FDRE
@@ -327,14 +355,22 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity davisZynqBasicBoard_usb_bridge_top_0_4_usbf_device_core is
   port (
-    utmi_txvalid_w : out STD_LOGIC
+    utmi_txvalid_w : out STD_LOGIC;
+    \out\ : in STD_LOGIC_VECTOR ( 2 downto 0 )
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_usb_bridge_top_0_4_usbf_device_core : entity is "usbf_device_core";
 end davisZynqBasicBoard_usb_bridge_top_0_4_usbf_device_core;
 
 architecture STRUCTURE of davisZynqBasicBoard_usb_bridge_top_0_4_usbf_device_core is
 begin
+u_sie_rx: entity work.davisZynqBasicBoard_usb_bridge_top_0_4_usbf_sie_rx
+     port map (
+      \out\(2 downto 0) => \out\(2 downto 0)
+    );
 u_sie_tx: entity work.davisZynqBasicBoard_usb_bridge_top_0_4_usbf_sie_tx
      port map (
+      \out\(2 downto 0) => \out\(2 downto 0),
       utmi_txvalid_w => utmi_txvalid_w
     );
 end STRUCTURE;
@@ -346,12 +382,53 @@ entity davisZynqBasicBoard_usb_bridge_top_0_4_usb_cdc_core is
   port (
     utmi_txvalid_w : out STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_usb_bridge_top_0_4_usb_cdc_core : entity is "usb_cdc_core";
 end davisZynqBasicBoard_usb_bridge_top_0_4_usb_cdc_core;
 
 architecture STRUCTURE of davisZynqBasicBoard_usb_bridge_top_0_4_usb_cdc_core is
+  signal \next_state_r__0\ : STD_LOGIC_VECTOR ( 1 downto 0 );
+  attribute RTL_KEEP : string;
+  attribute RTL_KEEP of \next_state_r__0\ : signal is "yes";
+  signal state_q : STD_LOGIC_VECTOR ( 2 to 2 );
+  attribute RTL_KEEP of state_q : signal is "yes";
+  attribute FSM_ENCODED_STATES : string;
+  attribute FSM_ENCODED_STATES of \FSM_sequential_state_q_reg[0]\ : label is "STATE_IDLE:101,STATE_SEND_CHIRP_K:100,STATE_WAIT_CHIRP_JK:011,STATE_HIGHSPEED:000,STATE_FULLSPEED:010,STATE_WAIT_RST:001";
+  attribute KEEP : string;
+  attribute KEEP of \FSM_sequential_state_q_reg[0]\ : label is "yes";
+  attribute FSM_ENCODED_STATES of \FSM_sequential_state_q_reg[1]\ : label is "STATE_IDLE:101,STATE_SEND_CHIRP_K:100,STATE_WAIT_CHIRP_JK:011,STATE_HIGHSPEED:000,STATE_FULLSPEED:010,STATE_WAIT_RST:001";
+  attribute KEEP of \FSM_sequential_state_q_reg[1]\ : label is "yes";
+  attribute FSM_ENCODED_STATES of \FSM_sequential_state_q_reg[2]\ : label is "STATE_IDLE:101,STATE_SEND_CHIRP_K:100,STATE_WAIT_CHIRP_JK:011,STATE_HIGHSPEED:000,STATE_FULLSPEED:010,STATE_WAIT_RST:001";
+  attribute KEEP of \FSM_sequential_state_q_reg[2]\ : label is "yes";
 begin
+\FSM_sequential_state_q_reg[0]\: unisim.vcomponents.FDRE
+     port map (
+      C => '0',
+      CE => '1',
+      D => \next_state_r__0\(0),
+      Q => \next_state_r__0\(0),
+      R => '0'
+    );
+\FSM_sequential_state_q_reg[1]\: unisim.vcomponents.FDRE
+     port map (
+      C => '0',
+      CE => '1',
+      D => \next_state_r__0\(1),
+      Q => \next_state_r__0\(1),
+      R => '0'
+    );
+\FSM_sequential_state_q_reg[2]\: unisim.vcomponents.FDRE
+     port map (
+      C => '0',
+      CE => '1',
+      D => state_q(2),
+      Q => state_q(2),
+      R => '0'
+    );
 u_core: entity work.davisZynqBasicBoard_usb_bridge_top_0_4_usbf_device_core
      port map (
+      \out\(2) => state_q(2),
+      \out\(1 downto 0) => \next_state_r__0\(1 downto 0),
       utmi_txvalid_w => utmi_txvalid_w
     );
 end STRUCTURE;
@@ -365,6 +442,8 @@ entity davisZynqBasicBoard_usb_bridge_top_0_4_usb_bridge is
     m_axi_bvalid : in STD_LOGIC;
     m_axi_rvalid : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_usb_bridge_top_0_4_usb_bridge : entity is "usb_bridge";
 end davisZynqBasicBoard_usb_bridge_top_0_4_usb_bridge;
 
 architecture STRUCTURE of davisZynqBasicBoard_usb_bridge_top_0_4_usb_bridge is
@@ -647,6 +726,8 @@ entity davisZynqBasicBoard_usb_bridge_top_0_4_usb_bridge_top is
     m_axi_bvalid : in STD_LOGIC;
     m_axi_rvalid : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_usb_bridge_top_0_4_usb_bridge_top : entity is "usb_bridge_top";
 end davisZynqBasicBoard_usb_bridge_top_0_4_usb_bridge_top;
 
 architecture STRUCTURE of davisZynqBasicBoard_usb_bridge_top_0_4_usb_bridge_top is
@@ -713,11 +794,11 @@ architecture STRUCTURE of davisZynqBasicBoard_usb_bridge_top_0_4 is
   attribute X_INTERFACE_INFO of m_axi_bvalid : signal is "xilinx.com:interface:aximm:1.0 m_axi BVALID";
   attribute X_INTERFACE_INFO of m_axi_clk : signal is "xilinx.com:signal:clock:1.0 m_axi_clk CLK";
   attribute X_INTERFACE_PARAMETER : string;
-  attribute X_INTERFACE_PARAMETER of m_axi_clk : signal is "XIL_INTERFACENAME m_axi_clk, ASSOCIATED_BUSIF m_axi, ASSOCIATED_RESET m_axi_rst, FREQ_HZ 47614288, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0";
+  attribute X_INTERFACE_PARAMETER of m_axi_clk : signal is "XIL_INTERFACENAME m_axi_clk, ASSOCIATED_BUSIF m_axi, ASSOCIATED_RESET m_axi_rst, FREQ_HZ 59993996, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0";
   attribute X_INTERFACE_INFO of m_axi_rready : signal is "xilinx.com:interface:aximm:1.0 m_axi RREADY";
-  attribute X_INTERFACE_PARAMETER of m_axi_rready : signal is "XIL_INTERFACENAME m_axi, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 47614288, ID_WIDTH 0, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0";
+  attribute X_INTERFACE_PARAMETER of m_axi_rready : signal is "XIL_INTERFACENAME m_axi, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 59993996, ID_WIDTH 0, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0";
   attribute X_INTERFACE_INFO of m_axi_rst : signal is "xilinx.com:signal:reset:1.0 m_axi_rst RST";
-  attribute X_INTERFACE_PARAMETER of m_axi_rst : signal is "XIL_INTERFACENAME m_axi_rst, POLARITY ACTIVE_HIGH";
+  attribute X_INTERFACE_PARAMETER of m_axi_rst : signal is "XIL_INTERFACENAME m_axi_rst, POLARITY ACTIVE_LOW";
   attribute X_INTERFACE_INFO of m_axi_rvalid : signal is "xilinx.com:interface:aximm:1.0 m_axi RVALID";
   attribute X_INTERFACE_INFO of m_axi_wready : signal is "xilinx.com:interface:aximm:1.0 m_axi WREADY";
   attribute X_INTERFACE_INFO of m_axi_wvalid : signal is "xilinx.com:interface:aximm:1.0 m_axi WVALID";

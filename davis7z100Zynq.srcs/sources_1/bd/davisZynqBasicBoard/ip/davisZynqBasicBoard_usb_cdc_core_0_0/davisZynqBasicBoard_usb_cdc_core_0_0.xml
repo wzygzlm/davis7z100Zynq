@@ -14,7 +14,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:3b609d77</spirit:value>
+            <spirit:value>8:3b1cd45e</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -30,11 +30,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Nov 13 19:20:25 UTC 2019</spirit:value>
+            <spirit:value>Fri Nov 15 09:04:02 UTC 2019</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:3b609d77</spirit:value>
+            <spirit:value>8:3b1cd45e</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -46,7 +46,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:b009d598</spirit:value>
+            <spirit:value>8:586e7d74</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -62,11 +62,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Nov 13 19:20:25 UTC 2019</spirit:value>
+            <spirit:value>Fri Nov 15 09:04:02 UTC 2019</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:b009d598</spirit:value>
+            <spirit:value>8:586e7d74</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -80,11 +80,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Nov 13 19:23:36 UTC 2019</spirit:value>
+            <spirit:value>Fri Nov 15 09:05:40 UTC 2019</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>8:3b609d77</spirit:value>
+            <spirit:value>8:3b1cd45e</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -259,6 +259,40 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
+        <spirit:name>state_r_do</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">2</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>usb_rst_time_do</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">19</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
         <spirit:name>utmi_data_out_o</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
@@ -409,7 +443,7 @@
       <spirit:modelParameter xsi:type="spirit:nameValueTypeType" spirit:dataType="string">
         <spirit:name>USB_SPEED_HS</spirit:name>
         <spirit:displayName>Usb Speed Hs</spirit:displayName>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.USB_SPEED_HS">False</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.USB_SPEED_HS">True</spirit:value>
       </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
@@ -472,7 +506,7 @@
     <spirit:parameter>
       <spirit:name>USB_SPEED_HS</spirit:name>
       <spirit:displayName>Usb Speed Hs</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.USB_SPEED_HS">False</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.USB_SPEED_HS">True</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>Component_Name</spirit:name>

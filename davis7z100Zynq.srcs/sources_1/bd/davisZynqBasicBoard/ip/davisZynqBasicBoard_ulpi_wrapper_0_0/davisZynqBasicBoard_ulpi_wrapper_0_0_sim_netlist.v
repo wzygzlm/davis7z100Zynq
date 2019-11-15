@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.1 (win64) Build 2188600 Wed Apr  4 18:40:38 MDT 2018
-// Date        : Thu Nov 14 11:13:12 2019
+// Date        : Fri Nov 15 11:06:55 2019
 // Host        : DESKTOP-3TNSMFC running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/ip/davisZynqBasicBoard_ulpi_wrapper_0_0/davisZynqBasicBoard_ulpi_wrapper_0_0_sim_netlist.v
@@ -36,6 +36,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0
     ulpi_data_in_o_d,
     ulpi_data_dir_d,
     ulpi_reg_read_flag_d,
+    turnaround_d,
     utmi_txvalid_i,
     utmi_txready_o,
     utmi_rxvalid_o,
@@ -70,6 +71,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0
   output [7:0]ulpi_data_in_o_d;
   output ulpi_data_dir_d;
   output ulpi_reg_read_flag_d;
+  output turnaround_d;
   input utmi_txvalid_i;
   output utmi_txready_o;
   output utmi_rxvalid_o;
@@ -92,6 +94,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0
   wire otg_update_o;
   wire [1:0]state_o;
   wire termselect_o;
+  wire turnaround_d;
   wire tx_delay_complete_o;
   wire ulpi_clk60_i;
   wire [7:0]ulpi_data_in_o_d;
@@ -108,8 +111,10 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0
   wire [7:0]utmi_data_out_i;
   wire utmi_dmpulldown_i;
   wire utmi_dppulldown_i;
+  wire [1:0]utmi_linestate_o;
   wire [1:0]utmi_op_mode_i;
   wire utmi_rxactive_o;
+  wire utmi_rxerror_o;
   wire utmi_rxvalid_o;
   wire utmi_termselect_i;
   wire utmi_tx_accept_o;
@@ -121,9 +126,6 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0
 
   assign ulpi_data_dir_d = ulpi_dir_i;
   assign ulpi_reg_read_flag_d = \<const0> ;
-  assign utmi_linestate_o[1] = \<const0> ;
-  assign utmi_linestate_o[0] = \<const0> ;
-  assign utmi_rxerror_o = \<const0> ;
   GND GND
        (.G(\<const0> ));
   davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper inst
@@ -135,6 +137,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0
         .\state_o[0] (state_o[0]),
         .\state_o[1] (state_o[1]),
         .termselect_o(termselect_o),
+        .turnaround_d(turnaround_d),
         .tx_delay_complete_o(tx_delay_complete_o),
         .ulpi_clk60_i(ulpi_clk60_i),
         .ulpi_data_in_o_d(ulpi_data_in_o_d),
@@ -148,8 +151,10 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0
         .utmi_data_out_i(utmi_data_out_i),
         .utmi_dmpulldown_i(utmi_dmpulldown_i),
         .utmi_dppulldown_i(utmi_dppulldown_i),
+        .utmi_linestate_o(utmi_linestate_o),
         .utmi_op_mode_i(utmi_op_mode_i),
         .utmi_rxactive_o(utmi_rxactive_o),
+        .utmi_rxerror_o(utmi_rxerror_o),
         .utmi_rxvalid_o(utmi_rxvalid_o),
         .utmi_termselect_i(utmi_termselect_i),
         .utmi_tx_accept_o(utmi_tx_accept_o),
@@ -162,8 +167,8 @@ endmodule
 
 (* ORIG_REF_NAME = "ulpi_wrapper" *) 
 module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
-   (\state_o[1] ,
-    \state_o[0] ,
+   (\state_o[0] ,
+    \state_o[1] ,
     mode_update_o,
     otg_update_o,
     utmi_tx_accept_o,
@@ -172,15 +177,18 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
     termselect_o,
     opmode_o,
     utmi_rxactive_o,
+    utmi_tx_ready_o,
     ulpi_stp_o,
     ulpi_data_in_o_d,
     utmi_rxvalid_o,
     utmi_data_in_o,
+    utmi_linestate_o,
+    turnaround_d,
     otg_complete_o,
     mode_complete_o,
-    utmi_tx_ready_o,
     utmi_txready_o,
     tx_delay_complete_o,
+    utmi_rxerror_o,
     ulpi_data_io,
     ulpi_dir_i,
     ulpi_nxt_i,
@@ -193,8 +201,8 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
     utmi_dmpulldown_i,
     utmi_dppulldown_i,
     utmi_data_out_i);
-  output \state_o[1] ;
   output \state_o[0] ;
+  output \state_o[1] ;
   output mode_update_o;
   output otg_update_o;
   output utmi_tx_accept_o;
@@ -203,15 +211,18 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
   output termselect_o;
   output [1:0]opmode_o;
   output utmi_rxactive_o;
+  output utmi_tx_ready_o;
   output ulpi_stp_o;
   output [7:0]ulpi_data_in_o_d;
   output utmi_rxvalid_o;
   output [7:0]utmi_data_in_o;
+  output [1:0]utmi_linestate_o;
+  output turnaround_d;
   output otg_complete_o;
   output mode_complete_o;
-  output utmi_tx_ready_o;
   output utmi_txready_o;
   output tx_delay_complete_o;
+  output utmi_rxerror_o;
   inout [7:0]ulpi_data_io;
   input ulpi_dir_i;
   input ulpi_nxt_i;
@@ -226,7 +237,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
   input [7:0]utmi_data_out_i;
 
   wire [5:0]data_q;
-  wire data_q_0;
+  wire \data_q[6]_i_1_n_0 ;
   wire \data_q_reg_n_0_[0] ;
   wire \data_q_reg_n_0_[1] ;
   wire \data_q_reg_n_0_[2] ;
@@ -242,7 +253,6 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
   wire mode_update_q_i_2_n_0;
   wire mode_update_q_i_3_n_0;
   wire mode_update_q_i_4_n_0;
-  wire mode_write_q;
   wire mode_write_q_i_1_n_0;
   wire mode_write_q_reg_n_0;
   wire [1:0]opmode_o;
@@ -251,6 +261,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
   wire otg_update_q_i_1_n_0;
   wire otg_update_q_i_2_n_0;
   wire otg_write_q_i_1_n_0;
+  wire otg_write_q_i_2_n_0;
   wire otg_write_q_reg_n_0;
   wire phy_reset_q;
   wire phy_reset_q_i_1_n_0;
@@ -262,9 +273,10 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
   wire \state_q[1]_i_1_n_0 ;
   wire \state_q[1]_i_2_n_0 ;
   wire termselect_o;
+  wire turnaround_d;
   wire tx_buffer_q;
-  wire \tx_buffer_q[0][7]_i_2_n_0 ;
   wire \tx_buffer_q[1][7]_i_1_n_0 ;
+  wire \tx_buffer_q[1][7]_i_2_n_0 ;
   wire [7:0]\tx_buffer_q_reg[0] ;
   wire [7:0]\tx_buffer_q_reg[1] ;
   wire tx_delay_complete_o;
@@ -294,6 +306,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
   wire \ulpi_data_q[1]_rep_i_2_n_0 ;
   wire \ulpi_data_q[2]_rep_i_1_n_0 ;
   wire \ulpi_data_q[2]_rep_i_2_n_0 ;
+  wire \ulpi_data_q[2]_rep_i_3_n_0 ;
   wire \ulpi_data_q[3]_rep_i_1_n_0 ;
   wire \ulpi_data_q[3]_rep_i_2_n_0 ;
   wire \ulpi_data_q[3]_rep_i_3_n_0 ;
@@ -305,9 +318,13 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
   wire \ulpi_data_q[5]_rep_i_2_n_0 ;
   wire \ulpi_data_q[6]_rep_i_1_n_0 ;
   wire \ulpi_data_q[6]_rep_i_2_n_0 ;
+  wire \ulpi_data_q[6]_rep_i_3_n_0 ;
   wire \ulpi_data_q[7]_rep_i_2_n_0 ;
   wire \ulpi_data_q[7]_rep_i_3_n_0 ;
   wire \ulpi_data_q[7]_rep_i_4_n_0 ;
+  wire \ulpi_data_q[7]_rep_i_5_n_0 ;
+  wire \ulpi_data_q[7]_rep_i_6_n_0 ;
+  wire \ulpi_data_q[7]_rep_i_7_n_0 ;
   wire \ulpi_data_q_reg_n_0_[0] ;
   wire \ulpi_data_q_reg_n_0_[1] ;
   wire \ulpi_data_q_reg_n_0_[2] ;
@@ -321,15 +338,19 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
   wire ulpi_nxt_i;
   wire ulpi_rst_i;
   wire ulpi_stp_o;
-  wire ulpi_stp_q11_out;
-  wire ulpi_stp_q_i_2_n_0;
+  wire ulpi_stp_q13_out;
   wire [7:0]utmi_data_in_o;
   wire [7:0]utmi_data_out_i;
   wire utmi_dmpulldown_i;
   wire utmi_dppulldown_i;
+  wire [1:0]utmi_linestate_o;
+  wire \utmi_linestate_q[0]_i_1_n_0 ;
+  wire \utmi_linestate_q[1]_i_1_n_0 ;
   wire [1:0]utmi_op_mode_i;
   wire utmi_rxactive_o;
   wire utmi_rxactive_q_i_1_n_0;
+  wire utmi_rxerror_o;
+  wire utmi_rxerror_q_i_1_n_0;
   wire utmi_rxvalid_o;
   wire utmi_rxvalid_q;
   wire utmi_termselect_i;
@@ -397,7 +418,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
        (.I0(xcvrselect_o[0]),
         .I1(mode_update_o),
         .O(data_q[0]));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
   LUT3 #(
     .INIT(8'hE2)) 
     \data_q[1]_i_1 
@@ -405,7 +426,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I1(mode_update_o),
         .I2(xcvrselect_o[1]),
         .O(data_q[1]));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
   LUT3 #(
     .INIT(8'hE2)) 
     \data_q[2]_i_1 
@@ -413,21 +434,21 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I1(mode_update_o),
         .I2(termselect_o),
         .O(data_q[2]));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \data_q[3]_i_1 
        (.I0(opmode_o[0]),
         .I1(mode_update_o),
         .O(data_q[3]));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \data_q[4]_i_1 
        (.I0(opmode_o[1]),
         .I1(mode_update_o),
         .O(data_q[4]));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \data_q[5]_i_1 
@@ -443,46 +464,46 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I3(\state_o[0] ),
         .I4(\state_o[1] ),
         .I5(mode_update_o),
-        .O(data_q_0));
+        .O(\data_q[6]_i_1_n_0 ));
   FDCE \data_q_reg[0] 
        (.C(ulpi_clk60_i),
-        .CE(data_q_0),
+        .CE(\data_q[6]_i_1_n_0 ),
         .CLR(ulpi_rst_i),
         .D(data_q[0]),
         .Q(\data_q_reg_n_0_[0] ));
   FDCE \data_q_reg[1] 
        (.C(ulpi_clk60_i),
-        .CE(data_q_0),
+        .CE(\data_q[6]_i_1_n_0 ),
         .CLR(ulpi_rst_i),
         .D(data_q[1]),
         .Q(\data_q_reg_n_0_[1] ));
   FDCE \data_q_reg[2] 
        (.C(ulpi_clk60_i),
-        .CE(data_q_0),
+        .CE(\data_q[6]_i_1_n_0 ),
         .CLR(ulpi_rst_i),
         .D(data_q[2]),
         .Q(\data_q_reg_n_0_[2] ));
   FDCE \data_q_reg[3] 
        (.C(ulpi_clk60_i),
-        .CE(data_q_0),
+        .CE(\data_q[6]_i_1_n_0 ),
         .CLR(ulpi_rst_i),
         .D(data_q[3]),
         .Q(\data_q_reg_n_0_[3] ));
   FDCE \data_q_reg[4] 
        (.C(ulpi_clk60_i),
-        .CE(data_q_0),
+        .CE(\data_q[6]_i_1_n_0 ),
         .CLR(ulpi_rst_i),
         .D(data_q[4]),
         .Q(\data_q_reg_n_0_[4] ));
   FDCE \data_q_reg[5] 
        (.C(ulpi_clk60_i),
-        .CE(data_q_0),
+        .CE(\data_q[6]_i_1_n_0 ),
         .CLR(ulpi_rst_i),
         .D(data_q[5]),
         .Q(\data_q_reg_n_0_[5] ));
   FDCE \data_q_reg[6] 
        (.C(ulpi_clk60_i),
-        .CE(data_q_0),
+        .CE(\data_q[6]_i_1_n_0 ),
         .CLR(ulpi_rst_i),
         .D(mode_update_o),
         .Q(\data_q_reg_n_0_[6] ));
@@ -498,51 +519,51 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .D(utmi_dppulldown_i),
         .PRE(ulpi_rst_i),
         .Q(dppulldown_q));
-  (* SOFT_HLUTNM = "soft_lutpair0" *) 
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT5 #(
     .INIT(32'h00008000)) 
     mode_complete_o_INST_0
        (.I0(mode_write_q_reg_n_0),
-        .I1(\state_o[0] ),
-        .I2(\state_o[1] ),
-        .I3(ulpi_nxt_i),
+        .I1(ulpi_nxt_i),
+        .I2(\state_o[0] ),
+        .I3(\state_o[1] ),
         .I4(ulpi_dir_i),
         .O(mode_complete_o));
-  LUT3 #(
-    .INIT(8'h54)) 
+  LUT5 #(
+    .INIT(32'hFF7FAA2A)) 
     mode_update_q_i_1
-       (.I0(mode_update_q_i_2_n_0),
-        .I1(mode_update_q_i_3_n_0),
-        .I2(mode_update_o),
+       (.I0(mode_update_o),
+        .I1(mode_write_q_reg_n_0),
+        .I2(mode_update_q_i_2_n_0),
+        .I3(ulpi_dir_i),
+        .I4(mode_update_q_i_3_n_0),
         .O(mode_update_q_i_1_n_0));
-  LUT6 #(
-    .INIT(64'h4000000000000000)) 
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  LUT3 #(
+    .INIT(8'h80)) 
     mode_update_q_i_2
-       (.I0(ulpi_dir_i),
-        .I1(ulpi_nxt_i),
+       (.I0(ulpi_nxt_i),
+        .I1(\state_o[0] ),
         .I2(\state_o[1] ),
-        .I3(\state_o[0] ),
-        .I4(mode_write_q_reg_n_0),
-        .I5(mode_update_o),
         .O(mode_update_q_i_2_n_0));
   LUT5 #(
-    .INIT(32'hFFFF6FF6)) 
+    .INIT(32'hBEFFFFBE)) 
     mode_update_q_i_3
-       (.I0(opmode_o[1]),
-        .I1(utmi_op_mode_i[1]),
-        .I2(opmode_o[0]),
-        .I3(utmi_op_mode_i[0]),
-        .I4(mode_update_q_i_4_n_0),
+       (.I0(mode_update_q_i_4_n_0),
+        .I1(opmode_o[1]),
+        .I2(utmi_op_mode_i[1]),
+        .I3(opmode_o[0]),
+        .I4(utmi_op_mode_i[0]),
         .O(mode_update_q_i_3_n_0));
   LUT6 #(
     .INIT(64'h6FF6FFFFFFFF6FF6)) 
     mode_update_q_i_4
-       (.I0(utmi_xcvrselect_i[0]),
-        .I1(xcvrselect_o[0]),
+       (.I0(utmi_termselect_i),
+        .I1(termselect_o),
         .I2(xcvrselect_o[1]),
         .I3(utmi_xcvrselect_i[1]),
-        .I4(termselect_o),
-        .I5(utmi_termselect_i),
+        .I4(xcvrselect_o[0]),
+        .I5(utmi_xcvrselect_i[0]),
         .O(mode_update_q_i_4_n_0));
   FDCE mode_update_q_reg
        (.C(ulpi_clk60_i),
@@ -550,25 +571,16 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .CLR(ulpi_rst_i),
         .D(mode_update_q_i_1_n_0),
         .Q(mode_update_o));
-  LUT5 #(
-    .INIT(32'h02FF0200)) 
-    mode_write_q_i_1
-       (.I0(mode_update_o),
-        .I1(\state_o[1] ),
-        .I2(\state_o[0] ),
-        .I3(mode_write_q),
-        .I4(mode_write_q_reg_n_0),
-        .O(mode_write_q_i_1_n_0));
   LUT6 #(
-    .INIT(64'hABAAAAAAAAAAAAAA)) 
-    mode_write_q_i_2
-       (.I0(data_q_0),
-        .I1(ulpi_dir_q),
-        .I2(ulpi_dir_i),
-        .I3(\state_o[0] ),
-        .I4(\state_o[1] ),
-        .I5(ulpi_nxt_i),
-        .O(mode_write_q));
+    .INIT(64'hFDFFFDFD01000101)) 
+    mode_write_q_i_1
+       (.I0(\ulpi_data_q[3]_rep_i_2_n_0 ),
+        .I1(ulpi_dir_i),
+        .I2(ulpi_dir_q),
+        .I3(mode_update_q_i_2_n_0),
+        .I4(\state_q[0]_i_3_n_0 ),
+        .I5(mode_write_q_reg_n_0),
+        .O(mode_write_q_i_1_n_0));
   FDCE mode_write_q_reg
        (.C(ulpi_clk60_i),
         .CE(1'b1),
@@ -587,14 +599,14 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .D(utmi_op_mode_i[1]),
         .PRE(ulpi_rst_i),
         .Q(opmode_o[1]));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT5 #(
     .INIT(32'h00008000)) 
     otg_complete_o_INST_0
        (.I0(otg_write_q_reg_n_0),
-        .I1(\state_o[0] ),
-        .I2(\state_o[1] ),
-        .I3(ulpi_nxt_i),
+        .I1(ulpi_nxt_i),
+        .I2(\state_o[0] ),
+        .I3(\state_o[1] ),
         .I4(ulpi_dir_i),
         .O(otg_complete_o));
   LUT6 #(
@@ -612,9 +624,9 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
     otg_update_q_i_2
        (.I0(otg_update_o),
         .I1(ulpi_dir_i),
-        .I2(ulpi_nxt_i),
-        .I3(\state_o[1] ),
-        .I4(\state_o[0] ),
+        .I2(\state_o[1] ),
+        .I3(\state_o[0] ),
+        .I4(ulpi_nxt_i),
         .I5(otg_write_q_reg_n_0),
         .O(otg_update_q_i_2_n_0));
   FDCE otg_update_q_reg
@@ -630,20 +642,33 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I1(\state_o[1] ),
         .I2(\state_o[0] ),
         .I3(mode_update_o),
-        .I4(mode_write_q),
+        .I4(otg_write_q_i_2_n_0),
         .I5(otg_write_q_reg_n_0),
         .O(otg_write_q_i_1_n_0));
+  LUT6 #(
+    .INIT(64'h1000000011111111)) 
+    otg_write_q_i_2
+       (.I0(ulpi_dir_i),
+        .I1(ulpi_dir_q),
+        .I2(ulpi_nxt_i),
+        .I3(\state_o[0] ),
+        .I4(\state_o[1] ),
+        .I5(\state_q[0]_i_3_n_0 ),
+        .O(otg_write_q_i_2_n_0));
   FDCE otg_write_q_reg
        (.C(ulpi_clk60_i),
         .CE(1'b1),
         .CLR(ulpi_rst_i),
         .D(otg_write_q_i_1_n_0),
         .Q(otg_write_q_reg_n_0));
-  LUT2 #(
-    .INIT(4'h2)) 
+  LUT5 #(
+    .INIT(32'hAAAA2AAA)) 
     phy_reset_q_i_1
        (.I0(phy_reset_q),
-        .I1(mode_update_q_i_2_n_0),
+        .I1(mode_update_o),
+        .I2(mode_write_q_reg_n_0),
+        .I3(mode_update_q_i_2_n_0),
+        .I4(ulpi_dir_i),
         .O(phy_reset_q_i_1_n_0));
   FDPE phy_reset_q_reg
        (.C(ulpi_clk60_i),
@@ -652,7 +677,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .PRE(ulpi_rst_i),
         .Q(phy_reset_q));
   LUT6 #(
-    .INIT(64'h1055FFFF00550000)) 
+    .INIT(64'h20AAFFFF00AA0000)) 
     \state_q[0]_i_1 
        (.I0(\state_q[0]_i_2_n_0 ),
         .I1(\state_o[1] ),
@@ -663,13 +688,13 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .O(\state_q[0]_i_1_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT3 #(
-    .INIT(8'h58)) 
+    .INIT(8'h9D)) 
     \state_q[0]_i_2 
-       (.I0(ulpi_dir_i),
-        .I1(ulpi_nxt_i),
-        .I2(ulpi_dir_q),
+       (.I0(ulpi_dir_q),
+        .I1(ulpi_dir_i),
+        .I2(ulpi_nxt_i),
         .O(\state_q[0]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT4 #(
     .INIT(16'hFCFD)) 
     \state_q[0]_i_3 
@@ -679,18 +704,18 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I3(otg_update_o),
         .O(\state_q[0]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h2222FFFFA2220000)) 
+    .INIT(64'h0070FFFF00F80000)) 
     \state_q[1]_i_1 
-       (.I0(\state_q[1]_i_2_n_0 ),
-        .I1(ulpi_stp_q_i_2_n_0),
-        .I2(\state_o[0] ),
-        .I3(ulpi_nxt_i),
+       (.I0(\state_o[0] ),
+        .I1(ulpi_nxt_i),
+        .I2(utmi_tx_ready_o),
+        .I3(\state_q[1]_i_2_n_0 ),
         .I4(ulpi_data_q),
         .I5(\state_o[1] ),
         .O(\state_q[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
   LUT5 #(
-    .INIT(32'h0000FCFD)) 
+    .INIT(32'h0302FFFF)) 
     \state_q[1]_i_2 
        (.I0(otg_update_o),
         .I1(\state_o[0] ),
@@ -716,29 +741,36 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .CLR(ulpi_rst_i),
         .D(utmi_termselect_i),
         .Q(termselect_o));
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  LUT2 #(
+    .INIT(4'h6)) 
+    turnaround_d_INST_0
+       (.I0(ulpi_dir_q),
+        .I1(ulpi_dir_i),
+        .O(turnaround_d));
   LUT4 #(
     .INIT(16'h0010)) 
     \tx_buffer_q[0][7]_i_1 
-       (.I0(\tx_buffer_q[0][7]_i_2_n_0 ),
+       (.I0(\tx_buffer_q[1][7]_i_2_n_0 ),
         .I1(\tx_valid_q_reg_n_0_[0] ),
         .I2(utmi_txvalid_i),
         .I3(tx_wr_idx_q),
         .O(tx_buffer_q));
-  LUT3 #(
-    .INIT(8'hFE)) 
-    \tx_buffer_q[0][7]_i_2 
-       (.I0(\tx_delay_q_reg_n_0_[2] ),
-        .I1(\tx_delay_q_reg_n_0_[1] ),
-        .I2(\tx_delay_q_reg_n_0_[0] ),
-        .O(\tx_buffer_q[0][7]_i_2_n_0 ));
   LUT4 #(
     .INIT(16'h0400)) 
     \tx_buffer_q[1][7]_i_1 
-       (.I0(\tx_buffer_q[0][7]_i_2_n_0 ),
+       (.I0(\tx_buffer_q[1][7]_i_2_n_0 ),
         .I1(tx_wr_idx_q),
         .I2(\tx_valid_q_reg_n_0_[1] ),
         .I3(utmi_txvalid_i),
         .O(\tx_buffer_q[1][7]_i_1_n_0 ));
+  LUT3 #(
+    .INIT(8'hFE)) 
+    \tx_buffer_q[1][7]_i_2 
+       (.I0(\tx_delay_q_reg_n_0_[2] ),
+        .I1(\tx_delay_q_reg_n_0_[1] ),
+        .I2(\tx_delay_q_reg_n_0_[0] ),
+        .O(\tx_buffer_q[1][7]_i_2_n_0 ));
   FDCE \tx_buffer_q_reg[0][0] 
        (.C(ulpi_clk60_i),
         .CE(tx_buffer_q),
@@ -835,7 +867,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .CLR(ulpi_rst_i),
         .D(utmi_data_out_i[7]),
         .Q(\tx_buffer_q_reg[1] [7]));
-  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
   LUT3 #(
     .INIT(8'h01)) 
     tx_delay_complete_o_INST_0
@@ -843,7 +875,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I1(\tx_delay_q_reg_n_0_[1] ),
         .I2(\tx_delay_q_reg_n_0_[2] ),
         .O(tx_delay_complete_o));
-  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
   LUT4 #(
     .INIT(16'hBBBA)) 
     \tx_delay_q[0]_i_1 
@@ -852,7 +884,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I2(\tx_delay_q_reg_n_0_[1] ),
         .I3(\tx_delay_q_reg_n_0_[2] ),
         .O(\tx_delay_q[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
   LUT4 #(
     .INIT(16'hEBEA)) 
     \tx_delay_q[1]_i_1 
@@ -861,7 +893,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I2(\tx_delay_q_reg_n_0_[1] ),
         .I3(\tx_delay_q_reg_n_0_[2] ),
         .O(\tx_delay_q[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
   LUT4 #(
     .INIT(16'hFEAA)) 
     \tx_delay_q[2]_i_1 
@@ -911,7 +943,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I3(tx_rd_idx_q),
         .I4(\tx_valid_q_reg_n_0_[0] ),
         .O(\tx_valid_q[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
   LUT5 #(
     .INIT(32'h0000202A)) 
     \tx_valid_q[0]_i_2 
@@ -919,12 +951,12 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I1(\tx_valid_q_reg_n_0_[1] ),
         .I2(tx_wr_idx_q),
         .I3(\tx_valid_q_reg_n_0_[0] ),
-        .I4(\tx_buffer_q[0][7]_i_2_n_0 ),
+        .I4(\tx_buffer_q[1][7]_i_2_n_0 ),
         .O(tx_wr_idx_q0));
   LUT6 #(
     .INIT(64'h0400F4F0F4F0F4F0)) 
     \tx_valid_q[1]_i_1 
-       (.I0(\tx_buffer_q[0][7]_i_2_n_0 ),
+       (.I0(\tx_buffer_q[1][7]_i_2_n_0 ),
         .I1(tx_wr_idx_q),
         .I2(\tx_valid_q_reg_n_0_[1] ),
         .I3(utmi_txvalid_i),
@@ -943,11 +975,11 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .CLR(ulpi_rst_i),
         .D(\tx_valid_q[1]_i_1_n_0 ),
         .Q(\tx_valid_q_reg_n_0_[1] ));
-  (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
   LUT5 #(
     .INIT(32'hFAFF1100)) 
     tx_wr_idx_q_i_1
-       (.I0(\tx_buffer_q[0][7]_i_2_n_0 ),
+       (.I0(\tx_buffer_q[1][7]_i_2_n_0 ),
         .I1(\tx_valid_q_reg_n_0_[0] ),
         .I2(\tx_valid_q_reg_n_0_[1] ),
         .I3(utmi_txvalid_i),
@@ -960,71 +992,86 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .D(tx_wr_idx_q_i_1_n_0),
         .Q(tx_wr_idx_q));
   LUT6 #(
-    .INIT(64'h88A8888888888888)) 
+    .INIT(64'hA8A8A8080808A808)) 
     \ulpi_data_q[0]_rep_i_1 
-       (.I0(\state_q[1]_i_2_n_0 ),
-        .I1(\ulpi_data_q[0]_rep_i_2_n_0 ),
-        .I2(ulpi_nxt_i),
+       (.I0(\ulpi_data_q[0]_rep_i_2_n_0 ),
+        .I1(\data_q_reg_n_0_[0] ),
+        .I2(\ulpi_data_q[3]_rep_i_4_n_0 ),
+        .I3(\tx_buffer_q_reg[0] [0]),
+        .I4(tx_rd_idx_q),
+        .I5(\tx_buffer_q_reg[1] [0]),
+        .O(\ulpi_data_q[0]_rep_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'h4444440044444404)) 
+    \ulpi_data_q[0]_rep_i_2 
+       (.I0(\ulpi_data_q[2]_rep_i_3_n_0 ),
+        .I1(\state_q[0]_i_2_n_0 ),
+        .I2(mode_update_o),
         .I3(\state_o[1] ),
         .I4(\state_o[0] ),
-        .I5(\data_q_reg_n_0_[0] ),
-        .O(\ulpi_data_q[0]_rep_i_1_n_0 ));
-  LUT4 #(
-    .INIT(16'h00E2)) 
-    \ulpi_data_q[0]_rep_i_2 
-       (.I0(\tx_buffer_q_reg[0] [0]),
-        .I1(tx_rd_idx_q),
-        .I2(\tx_buffer_q_reg[1] [0]),
-        .I3(ulpi_stp_q_i_2_n_0),
+        .I5(otg_update_o),
         .O(\ulpi_data_q[0]_rep_i_2_n_0 ));
-  LUT5 #(
-    .INIT(32'h40444040)) 
+  LUT6 #(
+    .INIT(64'hC0C0C0C0C0C04440)) 
     \ulpi_data_q[1]_rep_i_1 
-       (.I0(\state_q[0]_i_2_n_0 ),
-        .I1(\ulpi_data_q[3]_rep_i_2_n_0 ),
+       (.I0(mode_update_o),
+        .I1(\state_q[0]_i_2_n_0 ),
         .I2(\ulpi_data_q[1]_rep_i_2_n_0 ),
-        .I3(\ulpi_data_q[3]_rep_i_4_n_0 ),
-        .I4(\data_q_reg_n_0_[1] ),
+        .I3(otg_update_o),
+        .I4(\state_o[0] ),
+        .I5(\state_o[1] ),
         .O(\ulpi_data_q[1]_rep_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'hBABBBAAA)) 
+  LUT6 #(
+    .INIT(64'h00000000EEE222E2)) 
     \ulpi_data_q[1]_rep_i_2 
-       (.I0(\ulpi_data_q[3]_rep_i_5_n_0 ),
-        .I1(ulpi_stp_q_i_2_n_0),
-        .I2(\tx_buffer_q_reg[1] [1]),
+       (.I0(\data_q_reg_n_0_[1] ),
+        .I1(\ulpi_data_q[3]_rep_i_4_n_0 ),
+        .I2(\tx_buffer_q_reg[0] [1]),
         .I3(tx_rd_idx_q),
-        .I4(\tx_buffer_q_reg[0] [1]),
+        .I4(\tx_buffer_q_reg[1] [1]),
+        .I5(\ulpi_data_q[2]_rep_i_3_n_0 ),
         .O(\ulpi_data_q[1]_rep_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h4445444544404444)) 
+    .INIT(64'h0000C700C7C7C7C7)) 
     \ulpi_data_q[2]_rep_i_1 
-       (.I0(\state_q[0]_i_2_n_0 ),
-        .I1(\ulpi_data_q[2]_rep_i_2_n_0 ),
-        .I2(\state_o[1] ),
-        .I3(\state_o[0] ),
-        .I4(otg_update_o),
-        .I5(mode_update_o),
+       (.I0(ulpi_nxt_i),
+        .I1(ulpi_dir_i),
+        .I2(ulpi_dir_q),
+        .I3(\ulpi_data_q[2]_rep_i_2_n_0 ),
+        .I4(\ulpi_data_q[2]_rep_i_3_n_0 ),
+        .I5(\ulpi_data_q[3]_rep_i_2_n_0 ),
         .O(\ulpi_data_q[2]_rep_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h44444444F4FFF444)) 
+    .INIT(64'h00000000EEE222E2)) 
     \ulpi_data_q[2]_rep_i_2 
-       (.I0(\ulpi_data_q[3]_rep_i_4_n_0 ),
-        .I1(\data_q_reg_n_0_[2] ),
-        .I2(\tx_buffer_q_reg[1] [2]),
+       (.I0(\data_q_reg_n_0_[2] ),
+        .I1(\ulpi_data_q[3]_rep_i_4_n_0 ),
+        .I2(\tx_buffer_q_reg[0] [2]),
         .I3(tx_rd_idx_q),
-        .I4(\tx_buffer_q_reg[0] [2]),
-        .I5(ulpi_stp_q_i_2_n_0),
+        .I4(\tx_buffer_q_reg[1] [2]),
+        .I5(\ulpi_data_q[3]_rep_i_5_n_0 ),
         .O(\ulpi_data_q[2]_rep_i_2_n_0 ));
-  LUT5 #(
-    .INIT(32'h40404440)) 
+  LUT6 #(
+    .INIT(64'hFF53005353535353)) 
+    \ulpi_data_q[2]_rep_i_3 
+       (.I0(\tx_valid_q_reg_n_0_[1] ),
+        .I1(\tx_valid_q_reg_n_0_[0] ),
+        .I2(tx_rd_idx_q),
+        .I3(ulpi_nxt_i),
+        .I4(\state_o[1] ),
+        .I5(\state_o[0] ),
+        .O(\ulpi_data_q[2]_rep_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'h8888888880888000)) 
     \ulpi_data_q[3]_rep_i_1 
-       (.I0(\state_q[0]_i_2_n_0 ),
-        .I1(\ulpi_data_q[3]_rep_i_2_n_0 ),
+       (.I0(\ulpi_data_q[3]_rep_i_2_n_0 ),
+        .I1(\state_q[0]_i_2_n_0 ),
         .I2(\ulpi_data_q[3]_rep_i_3_n_0 ),
-        .I3(\data_q_reg_n_0_[3] ),
-        .I4(\ulpi_data_q[3]_rep_i_4_n_0 ),
+        .I3(\ulpi_data_q[3]_rep_i_4_n_0 ),
+        .I4(\data_q_reg_n_0_[3] ),
+        .I5(\ulpi_data_q[3]_rep_i_5_n_0 ),
         .O(\ulpi_data_q[3]_rep_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
   LUT3 #(
     .INIT(8'hEF)) 
     \ulpi_data_q[3]_rep_i_2 
@@ -1032,16 +1079,17 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I1(\state_o[1] ),
         .I2(mode_update_o),
         .O(\ulpi_data_q[3]_rep_i_2_n_0 ));
-  LUT5 #(
-    .INIT(32'hBABBBAAA)) 
+  LUT6 #(
+    .INIT(64'h4540050040400000)) 
     \ulpi_data_q[3]_rep_i_3 
-       (.I0(\ulpi_data_q[3]_rep_i_5_n_0 ),
-        .I1(ulpi_stp_q_i_2_n_0),
-        .I2(\tx_buffer_q_reg[1] [3]),
-        .I3(tx_rd_idx_q),
-        .I4(\tx_buffer_q_reg[0] [3]),
+       (.I0(mode_update_q_i_2_n_0),
+        .I1(\tx_buffer_q_reg[1] [3]),
+        .I2(tx_rd_idx_q),
+        .I3(\tx_buffer_q_reg[0] [3]),
+        .I4(\tx_valid_q_reg_n_0_[1] ),
+        .I5(\tx_valid_q_reg_n_0_[0] ),
         .O(\ulpi_data_q[3]_rep_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair0" *) 
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT3 #(
     .INIT(8'hDF)) 
     \ulpi_data_q[3]_rep_i_4 
@@ -1049,7 +1097,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I1(\state_o[1] ),
         .I2(ulpi_nxt_i),
         .O(\ulpi_data_q[3]_rep_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \ulpi_data_q[3]_rep_i_5 
@@ -1058,83 +1106,95 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I2(\state_o[1] ),
         .O(\ulpi_data_q[3]_rep_i_5_n_0 ));
   LUT6 #(
-    .INIT(64'h8A8A8A8888888A88)) 
+    .INIT(64'h000000000000A02A)) 
     \ulpi_data_q[4]_rep_i_1 
-       (.I0(\state_q[1]_i_2_n_0 ),
-        .I1(\ulpi_data_q[4]_rep_i_2_n_0 ),
-        .I2(ulpi_stp_q_i_2_n_0),
-        .I3(\tx_buffer_q_reg[0] [4]),
-        .I4(tx_rd_idx_q),
-        .I5(\tx_buffer_q_reg[1] [4]),
+       (.I0(\state_q[0]_i_3_n_0 ),
+        .I1(ulpi_nxt_i),
+        .I2(ulpi_dir_i),
+        .I3(ulpi_dir_q),
+        .I4(\ulpi_data_q[7]_rep_i_7_n_0 ),
+        .I5(\ulpi_data_q[4]_rep_i_2_n_0 ),
         .O(\ulpi_data_q[4]_rep_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
-  LUT4 #(
-    .INIT(16'h0800)) 
+  LUT6 #(
+    .INIT(64'hD0DDD0D0D0DDDDDD)) 
     \ulpi_data_q[4]_rep_i_2 
        (.I0(\data_q_reg_n_0_[4] ),
-        .I1(ulpi_nxt_i),
-        .I2(\state_o[1] ),
-        .I3(\state_o[0] ),
+        .I1(\ulpi_data_q[3]_rep_i_4_n_0 ),
+        .I2(\ulpi_data_q[6]_rep_i_2_n_0 ),
+        .I3(\tx_buffer_q_reg[1] [4]),
+        .I4(tx_rd_idx_q),
+        .I5(\tx_buffer_q_reg[0] [4]),
         .O(\ulpi_data_q[4]_rep_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h8A8A8A8888888A88)) 
+    .INIT(64'h000000000000A02A)) 
     \ulpi_data_q[5]_rep_i_1 
-       (.I0(\state_q[1]_i_2_n_0 ),
-        .I1(\ulpi_data_q[5]_rep_i_2_n_0 ),
-        .I2(ulpi_stp_q_i_2_n_0),
-        .I3(\tx_buffer_q_reg[0] [5]),
-        .I4(tx_rd_idx_q),
-        .I5(\tx_buffer_q_reg[1] [5]),
-        .O(\ulpi_data_q[5]_rep_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
-  LUT4 #(
-    .INIT(16'h0800)) 
-    \ulpi_data_q[5]_rep_i_2 
-       (.I0(\data_q_reg_n_0_[5] ),
+       (.I0(\state_q[0]_i_3_n_0 ),
         .I1(ulpi_nxt_i),
-        .I2(\state_o[1] ),
-        .I3(\state_o[0] ),
+        .I2(ulpi_dir_i),
+        .I3(ulpi_dir_q),
+        .I4(\ulpi_data_q[7]_rep_i_7_n_0 ),
+        .I5(\ulpi_data_q[5]_rep_i_2_n_0 ),
+        .O(\ulpi_data_q[5]_rep_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'hB0BBB0B0B0BBBBBB)) 
+    \ulpi_data_q[5]_rep_i_2 
+       (.I0(\ulpi_data_q[3]_rep_i_4_n_0 ),
+        .I1(\data_q_reg_n_0_[5] ),
+        .I2(\ulpi_data_q[6]_rep_i_2_n_0 ),
+        .I3(\tx_buffer_q_reg[1] [5]),
+        .I4(tx_rd_idx_q),
+        .I5(\tx_buffer_q_reg[0] [5]),
         .O(\ulpi_data_q[5]_rep_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h8A8A8A8888888A88)) 
+    .INIT(64'h00000000FFFF5404)) 
     \ulpi_data_q[6]_rep_i_1 
-       (.I0(\state_q[1]_i_2_n_0 ),
-        .I1(\ulpi_data_q[6]_rep_i_2_n_0 ),
-        .I2(ulpi_stp_q_i_2_n_0),
-        .I3(\tx_buffer_q_reg[0] [6]),
-        .I4(tx_rd_idx_q),
-        .I5(\tx_buffer_q_reg[1] [6]),
+       (.I0(\ulpi_data_q[6]_rep_i_2_n_0 ),
+        .I1(\tx_buffer_q_reg[0] [6]),
+        .I2(tx_rd_idx_q),
+        .I3(\tx_buffer_q_reg[1] [6]),
+        .I4(\ulpi_data_q[6]_rep_i_3_n_0 ),
+        .I5(\state_q[1]_i_2_n_0 ),
         .O(\ulpi_data_q[6]_rep_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
-  LUT4 #(
-    .INIT(16'h0800)) 
+  LUT5 #(
+    .INIT(32'h888FF8FF)) 
     \ulpi_data_q[6]_rep_i_2 
-       (.I0(\data_q_reg_n_0_[6] ),
+       (.I0(\state_o[0] ),
         .I1(ulpi_nxt_i),
-        .I2(\state_o[1] ),
-        .I3(\state_o[0] ),
+        .I2(tx_rd_idx_q),
+        .I3(\tx_valid_q_reg_n_0_[0] ),
+        .I4(\tx_valid_q_reg_n_0_[1] ),
         .O(\ulpi_data_q[6]_rep_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  LUT5 #(
+    .INIT(32'h0E020202)) 
+    \ulpi_data_q[6]_rep_i_3 
+       (.I0(utmi_tx_ready_o),
+        .I1(\state_o[0] ),
+        .I2(\state_o[1] ),
+        .I3(ulpi_nxt_i),
+        .I4(\data_q_reg_n_0_[6] ),
+        .O(\ulpi_data_q[6]_rep_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFFD0D0D0D0D0D0D0)) 
+    .INIT(64'h0DFF0D0D0D0D0D0D)) 
     \ulpi_data_q[7]_rep_i_1 
        (.I0(\ulpi_data_q[7]_rep_i_3_n_0 ),
         .I1(\ulpi_data_q[7]_rep_i_4_n_0 ),
-        .I2(utmi_tx_accept_o_INST_0_i_1_n_0),
-        .I3(\state_o[1] ),
-        .I4(\state_o[0] ),
-        .I5(\state_q[0]_i_2_n_0 ),
+        .I2(\ulpi_data_q[7]_rep_i_5_n_0 ),
+        .I3(\state_q[0]_i_2_n_0 ),
+        .I4(\state_o[1] ),
+        .I5(\state_o[0] ),
         .O(ulpi_data_q));
   LUT6 #(
-    .INIT(64'h0000540455555555)) 
+    .INIT(64'h0000C700C7C7C7C7)) 
     \ulpi_data_q[7]_rep_i_2 
-       (.I0(\state_q[0]_i_2_n_0 ),
-        .I1(\tx_buffer_q_reg[0] [7]),
-        .I2(tx_rd_idx_q),
-        .I3(\tx_buffer_q_reg[1] [7]),
-        .I4(ulpi_stp_q_i_2_n_0),
+       (.I0(ulpi_nxt_i),
+        .I1(ulpi_dir_i),
+        .I2(ulpi_dir_q),
+        .I3(\ulpi_data_q[7]_rep_i_6_n_0 ),
+        .I4(\ulpi_data_q[7]_rep_i_7_n_0 ),
         .I5(\state_q[0]_i_3_n_0 ),
         .O(\ulpi_data_q[7]_rep_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT5 #(
     .INIT(32'hFF0FFF11)) 
     \ulpi_data_q[7]_rep_i_3 
@@ -1145,15 +1205,41 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .I4(\state_o[0] ),
         .O(\ulpi_data_q[7]_rep_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hAAAA0000AAAACFC0)) 
+    .INIT(64'h8B888B888B8B8888)) 
     \ulpi_data_q[7]_rep_i_4 
        (.I0(ulpi_nxt_i),
-        .I1(\tx_valid_q_reg_n_0_[1] ),
-        .I2(tx_rd_idx_q),
-        .I3(\tx_valid_q_reg_n_0_[0] ),
-        .I4(\state_o[1] ),
-        .I5(\state_o[0] ),
+        .I1(\state_o[1] ),
+        .I2(\state_o[0] ),
+        .I3(\tx_valid_q_reg_n_0_[1] ),
+        .I4(\tx_valid_q_reg_n_0_[0] ),
+        .I5(tx_rd_idx_q),
         .O(\ulpi_data_q[7]_rep_i_4_n_0 ));
+  LUT2 #(
+    .INIT(4'hE)) 
+    \ulpi_data_q[7]_rep_i_5 
+       (.I0(ulpi_dir_q),
+        .I1(ulpi_dir_i),
+        .O(\ulpi_data_q[7]_rep_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000E200E200E200)) 
+    \ulpi_data_q[7]_rep_i_6 
+       (.I0(\tx_buffer_q_reg[0] [7]),
+        .I1(tx_rd_idx_q),
+        .I2(\tx_buffer_q_reg[1] [7]),
+        .I3(utmi_tx_ready_o),
+        .I4(ulpi_nxt_i),
+        .I5(\state_o[0] ),
+        .O(\ulpi_data_q[7]_rep_i_6_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  LUT5 #(
+    .INIT(32'h000000E4)) 
+    \ulpi_data_q[7]_rep_i_7 
+       (.I0(tx_rd_idx_q),
+        .I1(\tx_valid_q_reg_n_0_[0] ),
+        .I2(\tx_valid_q_reg_n_0_[1] ),
+        .I3(\state_o[0] ),
+        .I4(\state_o[1] ),
+        .O(\ulpi_data_q[7]_rep_i_7_n_0 ));
   (* ORIG_CELL_NAME = "ulpi_data_q_reg[0]" *) 
   FDCE \ulpi_data_q_reg[0] 
        (.C(ulpi_clk60_i),
@@ -1280,31 +1366,21 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .CLR(ulpi_rst_i),
         .D(ulpi_dir_i),
         .Q(ulpi_dir_q));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
-  LUT5 #(
-    .INIT(32'h00002000)) 
+  LUT6 #(
+    .INIT(64'h000000000000D000)) 
     ulpi_stp_q_i_1
-       (.I0(ulpi_stp_q_i_2_n_0),
-        .I1(ulpi_dir_i),
-        .I2(\state_o[1] ),
-        .I3(ulpi_nxt_i),
+       (.I0(utmi_tx_ready_o),
+        .I1(\state_o[0] ),
+        .I2(ulpi_nxt_i),
+        .I3(\state_o[1] ),
         .I4(ulpi_dir_q),
-        .O(ulpi_stp_q11_out));
-  (* SOFT_HLUTNM = "soft_lutpair6" *) 
-  LUT5 #(
-    .INIT(32'h888FFF8F)) 
-    ulpi_stp_q_i_2
-       (.I0(\state_o[0] ),
-        .I1(ulpi_nxt_i),
-        .I2(\tx_valid_q_reg_n_0_[0] ),
-        .I3(tx_rd_idx_q),
-        .I4(\tx_valid_q_reg_n_0_[1] ),
-        .O(ulpi_stp_q_i_2_n_0));
+        .I5(ulpi_dir_i),
+        .O(ulpi_stp_q13_out));
   (* IOB = "TRUE" *) 
   FDPE ulpi_stp_q_reg
        (.C(ulpi_clk60_i),
         .CE(1'b1),
-        .D(ulpi_stp_q11_out),
+        .D(ulpi_stp_q13_out),
         .PRE(ulpi_rst_i),
         .Q(ulpi_stp_o));
   FDCE \utmi_data_q_reg[0] 
@@ -1355,14 +1431,47 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .CLR(ulpi_rst_i),
         .D(ulpi_data_out_i_d[7]),
         .Q(utmi_data_in_o[7]));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
-  LUT4 #(
-    .INIT(16'hAF08)) 
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  LUT5 #(
+    .INIT(32'hFFBF0080)) 
+    \utmi_linestate_q[0]_i_1 
+       (.I0(ulpi_data_out_i_d[0]),
+        .I1(ulpi_dir_q),
+        .I2(ulpi_dir_i),
+        .I3(ulpi_nxt_i),
+        .I4(utmi_linestate_o[0]),
+        .O(\utmi_linestate_q[0]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  LUT5 #(
+    .INIT(32'hFFBF0080)) 
+    \utmi_linestate_q[1]_i_1 
+       (.I0(ulpi_data_out_i_d[1]),
+        .I1(ulpi_dir_q),
+        .I2(ulpi_dir_i),
+        .I3(ulpi_nxt_i),
+        .I4(utmi_linestate_o[1]),
+        .O(\utmi_linestate_q[1]_i_1_n_0 ));
+  FDCE \utmi_linestate_q_reg[0] 
+       (.C(ulpi_clk60_i),
+        .CE(1'b1),
+        .CLR(ulpi_rst_i),
+        .D(\utmi_linestate_q[0]_i_1_n_0 ),
+        .Q(utmi_linestate_o[0]));
+  FDCE \utmi_linestate_q_reg[1] 
+       (.C(ulpi_clk60_i),
+        .CE(1'b1),
+        .CLR(ulpi_rst_i),
+        .D(\utmi_linestate_q[1]_i_1_n_0 ),
+        .Q(utmi_linestate_o[1]));
+  LUT6 #(
+    .INIT(64'hFE00FFFF0A00F000)) 
     utmi_rxactive_q_i_1
-       (.I0(ulpi_dir_i),
-        .I1(ulpi_nxt_i),
-        .I2(ulpi_dir_q),
-        .I3(utmi_rxactive_o),
+       (.I0(ulpi_data_out_i_d[4]),
+        .I1(ulpi_data_out_i_d[5]),
+        .I2(ulpi_nxt_i),
+        .I3(ulpi_dir_i),
+        .I4(ulpi_dir_q),
+        .I5(utmi_rxactive_o),
         .O(utmi_rxactive_q_i_1_n_0));
   FDCE utmi_rxactive_q_reg
        (.C(ulpi_clk60_i),
@@ -1370,6 +1479,22 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .CLR(ulpi_rst_i),
         .D(utmi_rxactive_q_i_1_n_0),
         .Q(utmi_rxactive_o));
+  LUT6 #(
+    .INIT(64'hFFFFAFFF00008000)) 
+    utmi_rxerror_q_i_1
+       (.I0(ulpi_data_out_i_d[5]),
+        .I1(ulpi_data_out_i_d[4]),
+        .I2(ulpi_dir_q),
+        .I3(ulpi_dir_i),
+        .I4(ulpi_nxt_i),
+        .I5(utmi_rxerror_o),
+        .O(utmi_rxerror_q_i_1_n_0));
+  FDCE utmi_rxerror_q_reg
+       (.C(ulpi_clk60_i),
+        .CE(1'b1),
+        .CLR(ulpi_rst_i),
+        .D(utmi_rxerror_q_i_1_n_0),
+        .Q(utmi_rxerror_o));
   LUT3 #(
     .INIT(8'h80)) 
     utmi_rxvalid_q_i_1
@@ -1384,37 +1509,37 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0_ulpi_wrapper
         .D(utmi_rxvalid_q),
         .Q(utmi_rxvalid_o));
   LUT6 #(
-    .INIT(64'h000000000100FFFF)) 
+    .INIT(64'h0044004F00440044)) 
     utmi_tx_accept_o_INST_0
-       (.I0(otg_update_o),
-        .I1(\state_o[1] ),
-        .I2(mode_update_o),
-        .I3(utmi_tx_accept_o_INST_0_i_1_n_0),
-        .I4(utmi_tx_accept_o_INST_0_i_2_n_0),
-        .I5(\state_o[0] ),
+       (.I0(\state_o[0] ),
+        .I1(utmi_tx_accept_o_INST_0_i_1_n_0),
+        .I2(otg_update_o),
+        .I3(ulpi_dir_i),
+        .I4(ulpi_dir_q),
+        .I5(utmi_tx_accept_o_INST_0_i_2_n_0),
         .O(utmi_tx_accept_o));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
-  LUT2 #(
-    .INIT(4'h1)) 
-    utmi_tx_accept_o_INST_0_i_1
-       (.I0(ulpi_dir_q),
-        .I1(ulpi_dir_i),
-        .O(utmi_tx_accept_o_INST_0_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
-  LUT3 #(
-    .INIT(8'hBF)) 
-    utmi_tx_accept_o_INST_0_i_2
-       (.I0(ulpi_dir_i),
-        .I1(\state_o[1] ),
-        .I2(ulpi_nxt_i),
-        .O(utmi_tx_accept_o_INST_0_i_2_n_0));
   (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    utmi_tx_accept_o_INST_0_i_1
+       (.I0(ulpi_nxt_i),
+        .I1(\state_o[1] ),
+        .O(utmi_tx_accept_o_INST_0_i_1_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
   LUT3 #(
-    .INIT(8'hB8)) 
+    .INIT(8'h01)) 
+    utmi_tx_accept_o_INST_0_i_2
+       (.I0(mode_update_o),
+        .I1(\state_o[0] ),
+        .I2(\state_o[1] ),
+        .O(utmi_tx_accept_o_INST_0_i_2_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  LUT3 #(
+    .INIT(8'hAC)) 
     utmi_tx_ready_o_INST_0
        (.I0(\tx_valid_q_reg_n_0_[1] ),
-        .I1(tx_rd_idx_q),
-        .I2(\tx_valid_q_reg_n_0_[0] ),
+        .I1(\tx_valid_q_reg_n_0_[0] ),
+        .I2(tx_rd_idx_q),
         .O(utmi_tx_ready_o));
   LUT6 #(
     .INIT(64'h0000000000000047)) 

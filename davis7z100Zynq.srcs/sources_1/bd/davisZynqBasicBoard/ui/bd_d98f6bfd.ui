@@ -2,108 +2,103 @@
    ExpandedHierarchyInLayout: "",
    guistr: "# # String gsaved with Nlview 6.8.5  2018-01-30 bk=1.4354 VDI=40 GEI=35 GUI=JA:1.6 non-TLS
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -y 1510 -defaultsOSRD
-preplace port usb_dn_io_0 -pg 1 -y 1190 -defaultsOSRD
-preplace port ulpi_dir_i_0 -pg 1 -y 120 -defaultsOSRD
-preplace port ulpi_stp_o_0 -pg 1 -y 1210 -defaultsOSRD
-preplace port usb_dp_io_0 -pg 1 -y 1170 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -y 1530 -defaultsOSRD
-preplace port ulpi_nxt_i_0 -pg 1 -y 150 -defaultsOSRD
-preplace portBus ulpi_data_io_0 -pg 1 -y 20 -defaultsOSRD
-preplace portBus led_0 -pg 1 -y 1440 -defaultsOSRD
-preplace inst LEDShifter_0 -pg 1 -lvl 5 -y 1440 -defaultsOSRD
-preplace inst xlslice_0 -pg 1 -lvl 3 -y 1180 -defaultsOSRD
-preplace inst usb_bridge_top_0 -pg 1 -lvl 3 -y 1060 -defaultsOSRD
-preplace inst xlslice_1 -pg 1 -lvl 2 -y 60 -defaultsOSRD
-preplace inst xlconcat_0 -pg 1 -lvl 5 -y 1100 -defaultsOSRD
-preplace inst xlslice_10 -pg 1 -lvl 2 -y 210 -defaultsOSRD
-preplace inst xlslice_4 -pg 1 -lvl 2 -y 510 -defaultsOSRD
-preplace inst axi_gpio_0 -pg 1 -lvl 5 -y 1300 -defaultsOSRD
-preplace inst const_DATA -pg 1 -lvl 2 -y 910 -defaultsOSRD
-preplace inst xlslice_5 -pg 1 -lvl 2 -y 610 -defaultsOSRD
-preplace inst xlslice_6 -pg 1 -lvl 2 -y 410 -defaultsOSRD
-preplace inst usb_cdc_core_0 -pg 1 -lvl 4 -y 690 -defaultsOSRD
-preplace inst xlslice_7 -pg 1 -lvl 2 -y 710 -defaultsOSRD
-preplace inst ps7_0_axi_periph -pg 1 -lvl 4 -y 1380 -defaultsOSRD
-preplace inst xlslice_8 -pg 1 -lvl 2 -y 810 -defaultsOSRD
-preplace inst system_ila_0 -pg 1 -lvl 5 -y 530 -defaultsOSRD
-preplace inst const_HIGH -pg 1 -lvl 3 -y 1280 -defaultsOSRD
-preplace inst xlslice_9 -pg 1 -lvl 2 -y 310 -defaultsOSRD
-preplace inst rst_ps7_0_9M -pg 1 -lvl 1 -y 1340 -defaultsOSRD
-preplace inst ulpi_wrapper_0 -pg 1 -lvl 3 -y 360 -defaultsOSRD
-preplace inst axi_mem_intercon -pg 1 -lvl 2 -y 1220 -defaultsOSRD
-preplace inst axis_data_fifo_0 -pg 1 -lvl 3 -y 830 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 3 -y 1600 -defaultsOSRD
-preplace netloc processing_system7_0_DDR 1 3 3 NJ 1510 NJ 1510 NJ
-preplace netloc utmi_dppulldown_o 1 4 1 1800
-preplace netloc utmi_termselect_o 1 4 1 1830
-preplace netloc utmi_tx_accept_o 1 3 2 1250 390 1950J
-preplace netloc utmi_tx_ready_o 1 3 2 N 340 1990J
-preplace netloc otg_complete_o 1 3 2 NJ 320 2020
-preplace netloc usb_bridge_top_0_m_axi 1 1 3 400 980 NJ 980 1220
-preplace netloc utmi_data_out_o 1 4 1 1820
-preplace netloc utmi_op_mode_o 1 4 1 1810
-preplace netloc xlslice_4_Dout 1 2 3 710 40 NJ 40 2060J
-preplace netloc xlslice_9_Dout 1 2 3 780 70 1330J 290 2040J
-preplace netloc ulpi_nxt_i_0_1 1 0 5 NJ 150 NJ 150 760 20 NJ 20 1970
-preplace netloc mode_complete_o 1 3 2 NJ 300 2030
-preplace netloc utmi_dmpulldown_o 1 4 1 1760
-preplace netloc ulpi_data_dir_d 1 3 2 NJ 440 1890
-preplace netloc ulpi_wrapper_0_ulpi_stp_o 1 3 3 NJ 160 1880 1210 NJ
-preplace netloc tx_delay_complete_o 1 3 2 NJ 360 1980
-preplace netloc outport_data_o 1 4 1 1790
-preplace netloc const_HIGH_dout 1 2 2 790 710 1330
-preplace netloc processing_system7_0_M_AXI_GP0 1 3 1 1340
-preplace netloc rst_ps7_0_9M_interconnect_aresetn 1 1 3 380 1360 NJ 1360 NJ
-preplace netloc xlslice_7_Dout 1 2 3 750 640 1250J 510 1890J
-preplace netloc xlslice_5_Dout 1 2 3 740 50 1220J 350 2050J
-preplace netloc outport_valid_o 1 4 1 1900
-preplace netloc const_DATA_dout 1 2 1 790J
-preplace netloc utmi_txvalid_o 1 4 1 1910
-preplace netloc ulpi_data_out_i_d 1 3 2 NJ 400 1920
-preplace netloc termselect_o 1 3 2 1230J 250 1950
-preplace netloc state_o 1 3 2 1260J 430 2010
-preplace netloc axis_data_fifo_0_s_axis_tready 1 2 3 780 660 1240J 120 NJ
-preplace netloc axis_data_fifo_0_m_axis_tdata 1 3 1 1350
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 4 40 1440 NJ 1440 NJ 1440 1220
-preplace netloc axi_mem_intercon_M00_AXI 1 2 1 720
-preplace netloc xlslice_10_Dout 1 2 3 790 80 1310J 270 2050J
-preplace netloc otg_update_o 1 3 2 NJ 200 1850
-preplace netloc ulpi_wrapper_0_utmi_rxvalid_o 1 3 2 1280 500 1850J
-preplace netloc opmode_o 1 3 2 NJ 280 1910
-preplace netloc LEDShifter_0_led 1 5 1 NJ
-preplace netloc xlconcat_0_dout 1 5 1 2430
-preplace netloc ulpi_dir_i_0_1 1 0 5 NJ 120 NJ 120 750 10 NJ 10 2000
-preplace netloc axi_gpio_0_gpio_io_o 1 1 5 410 970 780 960 NJ 960 1750J 1200 2420
-preplace netloc processing_system7_0_FIXED_IO 1 3 3 NJ 1530 NJ 1530 NJ
-preplace netloc rst_ps7_0_9M_peripheral_aresetn 1 1 4 400 1380 NJ 1380 1240 1500 2070
-preplace netloc mode_update_o 1 3 2 NJ 180 1780
-preplace netloc xlslice_2_Dout 1 2 3 720 30 NJ 30 2070J
-preplace netloc rst_ps7_0_9M_peripheral_reset 1 3 1 1310J
-preplace netloc utmi_xcvrselect_o 1 4 1 1780
-preplace netloc ulpi_wrapper_0_utmi_rxactive_o 1 3 2 1230 880 NJ
-preplace netloc Net1 1 3 3 N 1060 2070 1180 2440J
-preplace netloc Net 1 3 3 1230J 50 1990J 20 NJ
-preplace netloc xlslice_8_Dout 1 2 3 760 650 1260J 520 1870J
-preplace netloc ulpi_data_in_o_d 1 3 2 NJ 420 1840
-preplace netloc processing_system7_0_FCLK_CLK0 1 0 5 40 1240 390 1100 770 670 1290 470 1960
-preplace netloc ps7_0_axi_periph_M00_AXI 1 4 1 2060
-preplace netloc Net2 1 3 3 N 1080 1980 1190 NJ
-preplace netloc ulpi_wrapper_0_utmi_txready_o 1 3 2 1300 480 1930
-preplace netloc axis_data_fifo_0_m_axis_tvalid 1 3 1 1320
-preplace netloc processing_system7_0_FCLK_CLK2 1 1 3 410 1050 790 970 1230
-preplace netloc ulpi_reg_read_flag_d 1 3 2 NJ 460 1770
-preplace netloc xlslice_6_Dout 1 2 3 730 60 1340J 330 2050J
-preplace netloc xcvrselect_o 1 3 2 NJ 240 1940
-preplace netloc ulpi_wrapper_0_utmi_rxerror_o 1 3 2 1340 490 1860J
-preplace netloc ulpi_wrapper_0_utmi_data_in_o 1 3 2 1350 260 N
-preplace netloc usb_cdc_core_0_inport_accept_o 1 3 2 1220J 860 1750
-preplace netloc usb_fs_phy_0_utmi_linestate_o 1 3 2 1270 140 N
-levelinfo -pg 1 0 210 560 1020 1570 2280 2460 -top 0 -bot 1750
+preplace port DDR -pg 1 -y 350 -defaultsOSRD
+preplace port usb_dn_io_0 -pg 1 -y 500 -defaultsOSRD
+preplace port ulpi_dir_i_0 -pg 1 -y 50 -defaultsOSRD
+preplace port ulpi_stp_o_0 -pg 1 -y 670 -defaultsOSRD
+preplace port usb_dp_io_0 -pg 1 -y 520 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -y 370 -defaultsOSRD
+preplace port ulpi_nxt_i_0 -pg 1 -y 20 -defaultsOSRD
+preplace portBus ulpi_data_io_0 -pg 1 -y 690 -defaultsOSRD
+preplace portBus led_0 -pg 1 -y 440 -defaultsOSRD
+preplace inst LEDShifter_0 -pg 1 -lvl 9 -y 440 -defaultsOSRD
+preplace inst xlslice_0 -pg 1 -lvl 6 -y 570 -defaultsOSRD
+preplace inst usb_bridge_top_0 -pg 1 -lvl 3 -y 230 -defaultsOSRD
+preplace inst xlslice_1 -pg 1 -lvl 2 -y 290 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 9 -y 600 -defaultsOSRD
+preplace inst xlslice_10 -pg 1 -lvl 7 -y 1500 -defaultsOSRD
+preplace inst xlslice_4 -pg 1 -lvl 7 -y 900 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 5 -y 250 -defaultsOSRD
+preplace inst const_DATA -pg 1 -lvl 5 -y 770 -defaultsOSRD
+preplace inst xlslice_5 -pg 1 -lvl 7 -y 1000 -defaultsOSRD
+preplace inst usb_cdc_core_0 -pg 1 -lvl 7 -y 660 -defaultsOSRD
+preplace inst xlslice_6 -pg 1 -lvl 7 -y 1100 -defaultsOSRD
+preplace inst xlslice_7 -pg 1 -lvl 7 -y 1200 -defaultsOSRD
+preplace inst ps7_0_axi_periph -pg 1 -lvl 4 -y 490 -defaultsOSRD
+preplace inst xlslice_8 -pg 1 -lvl 7 -y 1300 -defaultsOSRD
+preplace inst system_ila_0 -pg 1 -lvl 9 -y 1210 -defaultsOSRD
+preplace inst const_HIGH -pg 1 -lvl 5 -y 120 -defaultsOSRD
+preplace inst xlslice_9 -pg 1 -lvl 7 -y 1400 -defaultsOSRD
+preplace inst rst_ps7_0_9M -pg 1 -lvl 1 -y 700 -defaultsOSRD
+preplace inst axi_mem_intercon -pg 1 -lvl 4 -y 750 -defaultsOSRD
+preplace inst ulpi_wrapper_0 -pg 1 -lvl 8 -y 1130 -defaultsOSRD
+preplace inst axis_data_fifo_0 -pg 1 -lvl 6 -y 760 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 3 -y 430 -defaultsOSRD
+preplace netloc processing_system7_0_DDR 1 3 7 NJ 350 1530J 360 NJ 360 NJ 360 NJ 360 3400J 350 NJ
+preplace netloc utmi_dppulldown_o 1 7 2 2750 1420 3510J
+preplace netloc utmi_termselect_o 1 7 2 2760 1430 3500J
+preplace netloc utmi_tx_accept_o 1 8 1 3280
+preplace netloc utmi_tx_ready_o 1 8 1 3300
+preplace netloc otg_complete_o 1 8 1 3320
+preplace netloc usb_bridge_top_0_m_axi 1 3 1 1160
+preplace netloc usb_rst_time_do 1 7 2 2810 720 3470
+preplace netloc utmi_data_out_o 1 7 2 2740 1490 NJ
+preplace netloc utmi_op_mode_o 1 7 2 2770 1450 NJ
+preplace netloc ulpi_nxt_i_0_1 1 0 9 10J 600 NJ 600 NJ 600 1150J 610 1590J 480 NJ 480 NJ 480 2800 740 3510
+preplace netloc mode_complete_o 1 8 1 3360
+preplace netloc utmi_dmpulldown_o 1 7 2 2720 1510 NJ
+preplace netloc ulpi_data_dir_d 1 8 1 3310
+preplace netloc ulpi_wrapper_0_ulpi_stp_o 1 8 2 3280 680 3740J
+preplace netloc tx_delay_complete_o 1 8 1 3290
+preplace netloc outport_data_o 1 7 2 NJ 770 3290
+preplace netloc const_HIGH_dout 1 5 2 1870 640 2290
+preplace netloc processing_system7_0_M_AXI_GP0 1 3 1 1150
+preplace netloc rst_ps7_0_9M_interconnect_aresetn 1 1 3 N 720 NJ 720 1190
+preplace netloc outport_valid_o 1 7 2 NJ 750 3480
+preplace netloc const_DATA_dout 1 5 1 NJ
+preplace netloc utmi_txvalid_o 1 7 2 2780 1440 3510J
+preplace netloc ulpi_data_out_i_d 1 8 1 3270
+preplace netloc termselect_o 1 8 1 3340
+preplace netloc state_o 1 8 1 3440
+preplace netloc axis_data_fifo_0_s_axis_tready 1 5 4 1900 470 NJ 470 NJ 470 3490
+preplace netloc axis_data_fifo_0_m_axis_tdata 1 6 1 2280
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 4 30 580 NJ 580 NJ 580 1150
+preplace netloc axi_mem_intercon_M00_AXI 1 2 3 690 150 NJ 150 1520
+preplace netloc state_r_do 1 7 2 2820 710 3330J
+preplace netloc otg_update_o 1 8 1 3460
+preplace netloc ulpi_wrapper_0_utmi_rxvalid_o 1 6 3 2310 1590 2840J 1560 3230
+preplace netloc turnaround_d 1 8 1 3240
+preplace netloc opmode_o 1 8 1 3370
+preplace netloc LEDShifter_0_led 1 9 1 NJ
+preplace netloc xlconcat_0_dout 1 5 5 NJ 280 NJ 280 NJ 280 NJ 280 3730
+preplace netloc ulpi_dir_i_0_1 1 0 9 NJ 50 NJ 50 NJ 50 NJ 50 NJ 50 NJ 50 NJ 50 2830 730 3500
+preplace netloc axi_gpio_0_gpio_io_o 1 1 6 370 40 NJ 40 NJ 40 NJ 40 1890 630 2270
+preplace netloc processing_system7_0_FIXED_IO 1 3 7 NJ 370 NJ 370 NJ 370 NJ 370 NJ 370 NJ 370 NJ
+preplace netloc rst_ps7_0_9M_peripheral_aresetn 1 1 8 N 740 NJ 740 1180 620 1580 450 NJ 450 NJ 450 NJ 450 NJ
+preplace netloc mode_update_o 1 8 1 3450
+preplace netloc xlslice_2_Dout 1 2 7 670 60 NJ 60 NJ 60 NJ 60 NJ 60 2790 1460 3430J
+preplace netloc rst_ps7_0_9M_peripheral_reset 1 6 1 NJ
+preplace netloc utmi_xcvrselect_o 1 7 2 2730 1470 NJ
+preplace netloc ulpi_wrapper_0_utmi_rxactive_o 1 6 3 2330 1570 NJ 1570 3210
+preplace netloc Net1 1 3 7 NJ 230 1540J 350 NJ 350 NJ 350 NJ 350 3390 520 NJ
+preplace netloc Net 1 8 2 3300J 690 NJ
+preplace netloc ulpi_data_in_o_d 1 8 1 3260
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 9 20 570 N 570 680 570 1170 630 1570 510 1880 510 2350 490 2840 490 3520
+preplace netloc ps7_0_axi_periph_M00_AXI 1 4 1 1550
+preplace netloc Net2 1 3 7 NJ 250 1560J 340 NJ 340 NJ 340 NJ 340 3410 510 3740J
+preplace netloc ulpi_wrapper_0_utmi_txready_o 1 6 3 2300 1600 NJ 1600 3520
+preplace netloc axis_data_fifo_0_m_axis_tvalid 1 6 1 2280
+preplace netloc ulpi_reg_read_flag_d 1 8 1 3250
+preplace netloc xcvrselect_o 1 8 1 3380
+preplace netloc ulpi_wrapper_0_utmi_rxerror_o 1 6 3 2340 1580 NJ 1580 3220
+preplace netloc ulpi_wrapper_0_utmi_data_in_o 1 6 3 2320 1560 2810J 1480 3420
+preplace netloc usb_cdc_core_0_inport_accept_o 1 6 2 2260 830 2710
+preplace netloc usb_fs_phy_0_utmi_linestate_o 1 6 3 2350 840 NJ 840 3350
+levelinfo -pg 1 -30 200 570 950 1370 1730 2080 2530 3030 3630 3760 -top 0 -bot 1730
 ",
 }
 {
-   da_axi4_cnt: "24",
+   da_axi4_cnt: "25",
    da_board_cnt: "3",
    da_clkrst_cnt: "5",
    da_ps7_cnt: "1",

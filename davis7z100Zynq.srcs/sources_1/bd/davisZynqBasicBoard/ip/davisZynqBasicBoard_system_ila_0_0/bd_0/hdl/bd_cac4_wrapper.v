@@ -48,6 +48,7 @@ module bd_cac4_wrapper
     probe42,
     probe43,
     probe44,
+    probe45,
     probe5,
     probe6,
     probe7,
@@ -56,7 +57,7 @@ module bd_cac4_wrapper
   input clk;
   input [0:0]probe0;
   input [0:0]probe1;
-  input [7:0]probe10;
+  input [19:0]probe10;
   input [0:0]probe11;
   input [1:0]probe12;
   input [1:0]probe13;
@@ -93,7 +94,8 @@ module bd_cac4_wrapper
   input [0:0]probe41;
   input [0:0]probe42;
   input [0:0]probe43;
-  input [7:0]probe44;
+  input [0:0]probe44;
+  input [2:0]probe45;
   input [0:0]probe5;
   input [0:0]probe6;
   input [0:0]probe7;
@@ -103,7 +105,7 @@ module bd_cac4_wrapper
   wire clk;
   wire [0:0]probe0;
   wire [0:0]probe1;
-  wire [7:0]probe10;
+  wire [19:0]probe10;
   wire [0:0]probe11;
   wire [1:0]probe12;
   wire [1:0]probe13;
@@ -140,7 +142,8 @@ module bd_cac4_wrapper
   wire [0:0]probe41;
   wire [0:0]probe42;
   wire [0:0]probe43;
-  wire [7:0]probe44;
+  wire [0:0]probe44;
+  wire [2:0]probe45;
   wire [0:0]probe5;
   wire [0:0]probe6;
   wire [0:0]probe7;
@@ -189,6 +192,7 @@ module bd_cac4_wrapper
         .probe42(probe42),
         .probe43(probe43),
         .probe44(probe44),
+        .probe45(probe45),
         .probe5(probe5),
         .probe6(probe6),
         .probe7(probe7),

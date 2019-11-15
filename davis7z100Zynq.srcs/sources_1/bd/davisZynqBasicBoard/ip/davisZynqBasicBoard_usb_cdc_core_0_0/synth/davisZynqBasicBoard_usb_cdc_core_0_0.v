@@ -52,7 +52,7 @@
 
 (* X_CORE_INFO = "usb_cdc_core,Vivado 2018.1" *)
 (* CHECK_LICENSE_TYPE = "davisZynqBasicBoard_usb_cdc_core_0_0,usb_cdc_core,{}" *)
-(* CORE_GENERATION_INFO = "davisZynqBasicBoard_usb_cdc_core_0_0,usb_cdc_core,{x_ipProduct=Vivado 2018.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=usb_cdc_core,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,USB_SPEED_HS=False}" *)
+(* CORE_GENERATION_INFO = "davisZynqBasicBoard_usb_cdc_core_0_0,usb_cdc_core,{x_ipProduct=Vivado 2018.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=usb_cdc_core,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,USB_SPEED_HS=True}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module davisZynqBasicBoard_usb_cdc_core_0_0 (
   clk_i,
@@ -67,6 +67,8 @@ module davisZynqBasicBoard_usb_cdc_core_0_0 (
   inport_valid_i,
   inport_data_i,
   outport_accept_i,
+  state_r_do,
+  usb_rst_time_do,
   utmi_data_out_o,
   utmi_txvalid_o,
   utmi_op_mode_o,
@@ -91,6 +93,8 @@ input wire [1 : 0] utmi_linestate_i;
 input wire inport_valid_i;
 input wire [7 : 0] inport_data_i;
 input wire outport_accept_i;
+output wire [2 : 0] state_r_do;
+output wire [19 : 0] usb_rst_time_do;
 output wire [7 : 0] utmi_data_out_o;
 output wire utmi_txvalid_o;
 output wire [1 : 0] utmi_op_mode_o;
@@ -103,7 +107,7 @@ output wire outport_valid_o;
 output wire [7 : 0] outport_data_o;
 
   usb_cdc_core #(
-    .USB_SPEED_HS("False")
+    .USB_SPEED_HS("True")
   ) inst (
     .clk_i(clk_i),
     .rst_i(rst_i),
@@ -117,6 +121,8 @@ output wire [7 : 0] outport_data_o;
     .inport_valid_i(inport_valid_i),
     .inport_data_i(inport_data_i),
     .outport_accept_i(outport_accept_i),
+    .state_r_do(state_r_do),
+    .usb_rst_time_do(usb_rst_time_do),
     .utmi_data_out_o(utmi_data_out_o),
     .utmi_txvalid_o(utmi_txvalid_o),
     .utmi_op_mode_o(utmi_op_mode_o),

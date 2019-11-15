@@ -122,47 +122,47 @@ int main()
 	XGpio_SetDataDirection(&Gpio, 2, 0xffffffff);
 	XGpio_SetDataDirection(&Gpio, 1, 0);
 
-	// Read register 00h
-	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
-	XGpio_DiscreteWrite(&Gpio, 1, 0xc0800000);       // Send TXD for register read
-	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
-	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
-
-	// Read register 01h
-	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
-	XGpio_DiscreteWrite(&Gpio, 1, 0xc1800000);       // Send TXD for register read
-	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
-	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
-
-	// Read register 02h
-	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
-	XGpio_DiscreteWrite(&Gpio, 1, 0xc2800000);       // Send TXD for register read
-	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
-	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
-
-	// Read register 03h
-	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
-	XGpio_DiscreteWrite(&Gpio, 1, 0xc3800000);       // Send TXD for register read
-	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
-	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
-
-	// Read register 04h
-	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
-	XGpio_DiscreteWrite(&Gpio, 1, 0xc4800000);       // Send TXD for register read
-	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
-	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
-
-	// Read register 07h
-	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
-	XGpio_DiscreteWrite(&Gpio, 1, 0xc7800000);       // Send TXD for register read
-	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
-	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
-
-	// Read register 0ah
-	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
-	XGpio_DiscreteWrite(&Gpio, 1, 0xca800000);       // Send TXD for register read
-	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
-	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
+//	// Read register 00h
+//	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
+//	XGpio_DiscreteWrite(&Gpio, 1, 0xc0800000);       // Send TXD for register read
+//	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
+//	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
+//
+//	// Read register 01h
+//	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
+//	XGpio_DiscreteWrite(&Gpio, 1, 0xc1800000);       // Send TXD for register read
+//	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
+//	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
+//
+//	// Read register 02h
+//	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
+//	XGpio_DiscreteWrite(&Gpio, 1, 0xc2800000);       // Send TXD for register read
+//	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
+//	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
+//
+//	// Read register 03h
+//	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
+//	XGpio_DiscreteWrite(&Gpio, 1, 0xc3800000);       // Send TXD for register read
+//	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
+//	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
+//
+//	// Read register 04h
+//	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
+//	XGpio_DiscreteWrite(&Gpio, 1, 0xc4800000);       // Send TXD for register read
+//	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
+//	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
+//
+//	// Read register 07h
+//	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
+//	XGpio_DiscreteWrite(&Gpio, 1, 0xc7800000);       // Send TXD for register read
+//	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
+//	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
+//
+//	// Read register 0ah
+//	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
+//	XGpio_DiscreteWrite(&Gpio, 1, 0xca800000);       // Send TXD for register read
+//	while(!(XGpio_DiscreteRead(&Gpio, 2) & 0x0f));    // Wait until dir is high
+//	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
 
 //	// Write register 04h
 //	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
@@ -171,6 +171,19 @@ int main()
 //	XGpio_DiscreteWrite(&Gpio, 1, 0x41800000);       // Send register data
 ////	while(!((XGpio_DiscreteRead(&Gpio, 2) & 0x0f) >> 4));    // Wait until nxt is high
 //	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
+
+//	// Send data
+//	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
+//	XGpio_DiscreteWrite(&Gpio, 1, 0x41800000);       // Send TXD including PID data, for example, PID = 1.
+//	XGpio_DiscreteWrite(&Gpio, 1, 0x5a800000);       // Send real data
+//	XGpio_DiscreteWrite(&Gpio, 1, 0xa5800000);       // Send real data
+//	XGpio_DiscreteWrite(&Gpio, 1, 0xaa800000);       // Send real data
+//	XGpio_DiscreteWrite(&Gpio, 1, 0x00000000);       // De-assert the data
+
+	// Send data
+	while((XGpio_DiscreteRead(&Gpio, 2) & 0x0f));   // Wait until dir is low, so then we can send data.
+	XGpio_DiscreteWrite(&Gpio, 1, 0x40800090);       // Send TXD including PID data, for example, PID = 1.
+	XGpio_DiscreteWrite(&Gpio, 1, 0x00000090);       // De-assert the data
 
     cleanup_platform();
     return 0;

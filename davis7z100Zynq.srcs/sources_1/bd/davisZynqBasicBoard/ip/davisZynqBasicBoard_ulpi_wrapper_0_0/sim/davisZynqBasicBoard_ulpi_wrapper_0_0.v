@@ -75,6 +75,7 @@ module davisZynqBasicBoard_ulpi_wrapper_0_0 (
   ulpi_data_in_o_d,
   ulpi_data_dir_d,
   ulpi_reg_read_flag_d,
+  turnaround_d,
   utmi_txvalid_i,
   utmi_txready_o,
   utmi_rxvalid_o,
@@ -111,6 +112,7 @@ output wire [7 : 0] ulpi_data_out_i_d;
 output wire [7 : 0] ulpi_data_in_o_d;
 output wire ulpi_data_dir_d;
 output wire ulpi_reg_read_flag_d;
+output wire turnaround_d;
 input wire utmi_txvalid_i;
 output wire utmi_txready_o;
 output wire utmi_rxvalid_o;
@@ -147,6 +149,7 @@ output wire [1 : 0] utmi_linestate_o;
     .ulpi_data_in_o_d(ulpi_data_in_o_d),
     .ulpi_data_dir_d(ulpi_data_dir_d),
     .ulpi_reg_read_flag_d(ulpi_reg_read_flag_d),
+    .turnaround_d(turnaround_d),
     .utmi_txvalid_i(utmi_txvalid_i),
     .utmi_txready_o(utmi_txready_o),
     .utmi_rxvalid_o(utmi_rxvalid_o),

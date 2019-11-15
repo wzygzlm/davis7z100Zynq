@@ -190,6 +190,7 @@ proc create_root_design { parentCell } {
   set_property -dict [ list \
    CONFIG.C_ALL_INPUTS_2 {1} \
    CONFIG.C_ALL_OUTPUTS {1} \
+   CONFIG.C_DOUT_DEFAULT {0x00000000} \
    CONFIG.C_IS_DUAL {1} \
  ] $axi_gpio_0
 
@@ -222,15 +223,15 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ACT_DCI_PERIPHERAL_FREQMHZ {10.157714} \
    CONFIG.PCW_ACT_ENET0_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_ENET1_PERIPHERAL_FREQMHZ {10.000000} \
-   CONFIG.PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ {58.817650} \
-   CONFIG.PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ {249.975006} \
-   CONFIG.PCW_ACT_FPGA2_PERIPHERAL_FREQMHZ {47.614288} \
+   CONFIG.PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ {59.993996} \
+   CONFIG.PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ {10.000000} \
+   CONFIG.PCW_ACT_FPGA2_PERIPHERAL_FREQMHZ {47.995197} \
    CONFIG.PCW_ACT_FPGA3_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_I2C_PERIPHERAL_FREQMHZ {50} \
-   CONFIG.PCW_ACT_PCAP_PERIPHERAL_FREQMHZ {199.979996} \
+   CONFIG.PCW_ACT_PCAP_PERIPHERAL_FREQMHZ {199.979980} \
    CONFIG.PCW_ACT_QSPI_PERIPHERAL_FREQMHZ {10.000000} \
-   CONFIG.PCW_ACT_SDIO_PERIPHERAL_FREQMHZ {99.989998} \
-   CONFIG.PCW_ACT_SMC_PERIPHERAL_FREQMHZ {99.989998} \
+   CONFIG.PCW_ACT_SDIO_PERIPHERAL_FREQMHZ {99.989990} \
+   CONFIG.PCW_ACT_SMC_PERIPHERAL_FREQMHZ {99.989990} \
    CONFIG.PCW_ACT_SPI_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_TPIU_PERIPHERAL_FREQMHZ {200.000000} \
    CONFIG.PCW_ACT_TTC0_CLK0_PERIPHERAL_FREQMHZ {111.099998} \
@@ -240,7 +241,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ACT_TTC1_CLK1_PERIPHERAL_FREQMHZ {111.099998} \
    CONFIG.PCW_ACT_TTC1_CLK2_PERIPHERAL_FREQMHZ {111.099998} \
    CONFIG.PCW_ACT_TTC_PERIPHERAL_FREQMHZ {50} \
-   CONFIG.PCW_ACT_UART_PERIPHERAL_FREQMHZ {99.989998} \
+   CONFIG.PCW_ACT_UART_PERIPHERAL_FREQMHZ {99.989990} \
    CONFIG.PCW_ACT_USB0_PERIPHERAL_FREQMHZ {60} \
    CONFIG.PCW_ACT_USB1_PERIPHERAL_FREQMHZ {60} \
    CONFIG.PCW_ACT_WDT_PERIPHERAL_FREQMHZ {111.099998} \
@@ -264,9 +265,9 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_CAN_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_CAN_PERIPHERAL_FREQMHZ {100} \
    CONFIG.PCW_CAN_PERIPHERAL_VALID {0} \
-   CONFIG.PCW_CLK0_FREQ {58817650} \
-   CONFIG.PCW_CLK1_FREQ {249975006} \
-   CONFIG.PCW_CLK2_FREQ {47614288} \
+   CONFIG.PCW_CLK0_FREQ {59993996} \
+   CONFIG.PCW_CLK1_FREQ {10000000} \
+   CONFIG.PCW_CLK2_FREQ {47995197} \
    CONFIG.PCW_CLK3_FREQ {10000000} \
    CONFIG.PCW_CORE0_FIQ_INTR {0} \
    CONFIG.PCW_CORE0_IRQ_INTR {0} \
@@ -322,7 +323,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_EN_CAN0 {0} \
    CONFIG.PCW_EN_CAN1 {0} \
    CONFIG.PCW_EN_CLK0_PORT {1} \
-   CONFIG.PCW_EN_CLK1_PORT {1} \
+   CONFIG.PCW_EN_CLK1_PORT {0} \
    CONFIG.PCW_EN_CLK2_PORT {1} \
    CONFIG.PCW_EN_CLK3_PORT {0} \
    CONFIG.PCW_EN_CLKTRIG0_PORT {0} \
@@ -384,14 +385,14 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_EN_USB1 {1} \
    CONFIG.PCW_EN_WDT {0} \
    CONFIG.PCW_FCLK0_PERIPHERAL_CLKSRC {IO PLL} \
-   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {17} \
-   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR1 {1} \
+   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {5} \
+   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR1 {4} \
    CONFIG.PCW_FCLK1_PERIPHERAL_CLKSRC {IO PLL} \
-   CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR0 {2} \
-   CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR1 {2} \
+   CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR0 {1} \
+   CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_FCLK2_PERIPHERAL_CLKSRC {IO PLL} \
-   CONFIG.PCW_FCLK2_PERIPHERAL_DIVISOR0 {21} \
-   CONFIG.PCW_FCLK2_PERIPHERAL_DIVISOR1 {1} \
+   CONFIG.PCW_FCLK2_PERIPHERAL_DIVISOR0 {5} \
+   CONFIG.PCW_FCLK2_PERIPHERAL_DIVISOR1 {5} \
    CONFIG.PCW_FCLK3_PERIPHERAL_CLKSRC {IO PLL} \
    CONFIG.PCW_FCLK3_PERIPHERAL_DIVISOR0 {1} \
    CONFIG.PCW_FCLK3_PERIPHERAL_DIVISOR1 {1} \
@@ -404,7 +405,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_FPGA2_PERIPHERAL_FREQMHZ {48} \
    CONFIG.PCW_FPGA3_PERIPHERAL_FREQMHZ {50} \
    CONFIG.PCW_FPGA_FCLK0_ENABLE {1} \
-   CONFIG.PCW_FPGA_FCLK1_ENABLE {1} \
+   CONFIG.PCW_FPGA_FCLK1_ENABLE {0} \
    CONFIG.PCW_FPGA_FCLK2_ENABLE {1} \
    CONFIG.PCW_FPGA_FCLK3_ENABLE {0} \
    CONFIG.PCW_GP0_EN_MODIFIABLE_TXN {1} \
@@ -439,8 +440,8 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_IMPORT_BOARD_PRESET {None} \
    CONFIG.PCW_INCLUDE_ACP_TRANS_CHECK {0} \
    CONFIG.PCW_INCLUDE_TRACE_BUFFER {0} \
-   CONFIG.PCW_IOPLL_CTRL_FBDIV {30} \
-   CONFIG.PCW_IO_IO_PLL_FREQMHZ {999.900} \
+   CONFIG.PCW_IOPLL_CTRL_FBDIV {36} \
+   CONFIG.PCW_IO_IO_PLL_FREQMHZ {1199.880} \
    CONFIG.PCW_IRQ_F2P_INTR {1} \
    CONFIG.PCW_IRQ_F2P_MODE {DIRECT} \
    CONFIG.PCW_MIO_0_DIRECTION {out} \
@@ -729,7 +730,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_PACKAGE_DDR_DQS_TO_CLK_DELAY_3 {-0.016} \
    CONFIG.PCW_PACKAGE_NAME {ffg900} \
    CONFIG.PCW_PCAP_PERIPHERAL_CLKSRC {IO PLL} \
-   CONFIG.PCW_PCAP_PERIPHERAL_DIVISOR0 {5} \
+   CONFIG.PCW_PCAP_PERIPHERAL_DIVISOR0 {6} \
    CONFIG.PCW_PCAP_PERIPHERAL_FREQMHZ {200} \
    CONFIG.PCW_PERIPHERAL_BOARD_PRESET {None} \
    CONFIG.PCW_PJTAG_PERIPHERAL_ENABLE {0} \
@@ -761,7 +762,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_SDIO1_BASEADDR {0xE0101000} \
    CONFIG.PCW_SDIO1_HIGHADDR {0xE0101FFF} \
    CONFIG.PCW_SDIO_PERIPHERAL_CLKSRC {IO PLL} \
-   CONFIG.PCW_SDIO_PERIPHERAL_DIVISOR0 {10} \
+   CONFIG.PCW_SDIO_PERIPHERAL_DIVISOR0 {12} \
    CONFIG.PCW_SDIO_PERIPHERAL_FREQMHZ {100} \
    CONFIG.PCW_SDIO_PERIPHERAL_VALID {1} \
    CONFIG.PCW_SMC_CYCLE_T0 {NA} \
@@ -772,7 +773,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_SMC_CYCLE_T5 {NA} \
    CONFIG.PCW_SMC_CYCLE_T6 {NA} \
    CONFIG.PCW_SMC_PERIPHERAL_CLKSRC {IO PLL} \
-   CONFIG.PCW_SMC_PERIPHERAL_DIVISOR0 {10} \
+   CONFIG.PCW_SMC_PERIPHERAL_DIVISOR0 {12} \
    CONFIG.PCW_SMC_PERIPHERAL_FREQMHZ {100} \
    CONFIG.PCW_SMC_PERIPHERAL_VALID {1} \
    CONFIG.PCW_SPI0_BASEADDR {0xE0006000} \
@@ -855,7 +856,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_UART1_PERIPHERAL_ENABLE {0} \
    CONFIG.PCW_UART1_UART1_IO {<Select>} \
    CONFIG.PCW_UART_PERIPHERAL_CLKSRC {IO PLL} \
-   CONFIG.PCW_UART_PERIPHERAL_DIVISOR0 {10} \
+   CONFIG.PCW_UART_PERIPHERAL_DIVISOR0 {12} \
    CONFIG.PCW_UART_PERIPHERAL_FREQMHZ {100} \
    CONFIG.PCW_UART_PERIPHERAL_VALID {1} \
    CONFIG.PCW_UIPARAM_ACT_DDR_FREQ_MHZ {533.280029} \
@@ -994,10 +995,10 @@ proc create_root_design { parentCell } {
   # Create instance: system_ila_0, and set properties
   set system_ila_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:system_ila:1.1 system_ila_0 ]
   set_property -dict [ list \
-   CONFIG.C_BRAM_CNT {40} \
+   CONFIG.C_BRAM_CNT {41} \
    CONFIG.C_DATA_DEPTH {32768} \
    CONFIG.C_MON_TYPE {NATIVE} \
-   CONFIG.C_NUM_OF_PROBES {45} \
+   CONFIG.C_NUM_OF_PROBES {46} \
    CONFIG.C_PROBE0_TYPE {0} \
    CONFIG.C_PROBE10_TYPE {0} \
    CONFIG.C_PROBE11_TYPE {0} \
@@ -1034,6 +1035,7 @@ proc create_root_design { parentCell } {
    CONFIG.C_PROBE42_TYPE {0} \
    CONFIG.C_PROBE43_TYPE {0} \
    CONFIG.C_PROBE44_TYPE {0} \
+   CONFIG.C_PROBE45_TYPE {0} \
    CONFIG.C_PROBE5_TYPE {0} \
    CONFIG.C_PROBE6_TYPE {0} \
    CONFIG.C_PROBE7_TYPE {0} \
@@ -1207,20 +1209,27 @@ HDL_ATTRIBUTE.DEBUG {true} \
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets outport_valid_o]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins LEDShifter_0/clk] [get_bd_pins axi_gpio_0/s_axi_aclk] [get_bd_pins axi_mem_intercon/ACLK] [get_bd_pins axi_mem_intercon/M00_ACLK] [get_bd_pins axis_data_fifo_0/s_axis_aclk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/S_AXI_GP0_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK] [get_bd_pins rst_ps7_0_9M/slowest_sync_clk] [get_bd_pins system_ila_0/clk] [get_bd_pins ulpi_wrapper_0/ulpi_clk60_i] [get_bd_pins usb_cdc_core_0/clk_i]
-  connect_bd_net -net processing_system7_0_FCLK_CLK2 [get_bd_pins axi_mem_intercon/S00_ACLK] [get_bd_pins processing_system7_0/FCLK_CLK2] [get_bd_pins usb_bridge_top_0/m_axi_clk]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins LEDShifter_0/clk] [get_bd_pins axi_gpio_0/s_axi_aclk] [get_bd_pins axi_mem_intercon/ACLK] [get_bd_pins axi_mem_intercon/M00_ACLK] [get_bd_pins axi_mem_intercon/S00_ACLK] [get_bd_pins axis_data_fifo_0/s_axis_aclk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/S_AXI_GP0_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK] [get_bd_pins rst_ps7_0_9M/slowest_sync_clk] [get_bd_pins system_ila_0/clk] [get_bd_pins ulpi_wrapper_0/ulpi_clk60_i] [get_bd_pins usb_bridge_top_0/m_axi_clk] [get_bd_pins usb_cdc_core_0/clk_i]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_ps7_0_9M/ext_reset_in]
   connect_bd_net -net rst_ps7_0_9M_interconnect_aresetn [get_bd_pins axi_mem_intercon/ARESETN] [get_bd_pins ps7_0_axi_periph/ARESETN] [get_bd_pins rst_ps7_0_9M/interconnect_aresetn]
-  connect_bd_net -net rst_ps7_0_9M_peripheral_aresetn [get_bd_pins LEDShifter_0/rstn] [get_bd_pins axi_gpio_0/s_axi_aresetn] [get_bd_pins axi_mem_intercon/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_ps7_0_9M/peripheral_aresetn]
+  connect_bd_net -net rst_ps7_0_9M_peripheral_aresetn [get_bd_pins LEDShifter_0/rstn] [get_bd_pins axi_gpio_0/s_axi_aresetn] [get_bd_pins axi_mem_intercon/M00_ARESETN] [get_bd_pins axi_mem_intercon/S00_ARESETN] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_ps7_0_9M/peripheral_aresetn]
   connect_bd_net -net rst_ps7_0_9M_peripheral_reset [get_bd_pins usb_cdc_core_0/rst_i] [get_bd_pins xlslice_0/Dout]
   connect_bd_net -net state_o [get_bd_pins system_ila_0/probe17] [get_bd_pins ulpi_wrapper_0/state_o]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets state_o]
+  connect_bd_net -net state_r_do [get_bd_pins system_ila_0/probe45] [get_bd_pins usb_cdc_core_0/state_r_do]
+  set_property -dict [ list \
+HDL_ATTRIBUTE.DEBUG {true} \
+ ] [get_bd_nets state_r_do]
   connect_bd_net -net termselect_o [get_bd_pins system_ila_0/probe7] [get_bd_pins ulpi_wrapper_0/termselect_o]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets termselect_o]
+  connect_bd_net -net turnaround_d [get_bd_pins system_ila_0/probe44] [get_bd_pins ulpi_wrapper_0/turnaround_d]
+  set_property -dict [ list \
+HDL_ATTRIBUTE.DEBUG {true} \
+ ] [get_bd_nets turnaround_d]
   connect_bd_net -net tx_delay_complete_o [get_bd_pins system_ila_0/probe26] [get_bd_pins ulpi_wrapper_0/tx_delay_complete_o]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
@@ -1278,23 +1287,27 @@ HDL_ATTRIBUTE.DEBUG {true} \
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets usb_fs_phy_0_utmi_linestate_o]
-  connect_bd_net -net utmi_data_out_o [get_bd_pins system_ila_0/probe36] [get_bd_pins usb_cdc_core_0/utmi_data_out_o]
+  connect_bd_net -net usb_rst_time_do [get_bd_pins system_ila_0/probe10] [get_bd_pins usb_cdc_core_0/usb_rst_time_do]
+  set_property -dict [ list \
+HDL_ATTRIBUTE.DEBUG {true} \
+ ] [get_bd_nets usb_rst_time_do]
+  connect_bd_net -net utmi_data_out_o [get_bd_pins system_ila_0/probe36] [get_bd_pins ulpi_wrapper_0/utmi_data_out_i] [get_bd_pins usb_cdc_core_0/utmi_data_out_o]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets utmi_data_out_o]
-  connect_bd_net -net utmi_dmpulldown_o [get_bd_pins system_ila_0/probe37] [get_bd_pins usb_cdc_core_0/utmi_dmpulldown_o]
+  connect_bd_net -net utmi_dmpulldown_o [get_bd_pins system_ila_0/probe37] [get_bd_pins ulpi_wrapper_0/utmi_dmpulldown_i] [get_bd_pins usb_cdc_core_0/utmi_dmpulldown_o]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets utmi_dmpulldown_o]
-  connect_bd_net -net utmi_dppulldown_o [get_bd_pins system_ila_0/probe32] [get_bd_pins usb_cdc_core_0/utmi_dppulldown_o]
+  connect_bd_net -net utmi_dppulldown_o [get_bd_pins system_ila_0/probe32] [get_bd_pins ulpi_wrapper_0/utmi_dppulldown_i] [get_bd_pins usb_cdc_core_0/utmi_dppulldown_o]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets utmi_dppulldown_o]
-  connect_bd_net -net utmi_op_mode_o [get_bd_pins system_ila_0/probe34] [get_bd_pins usb_cdc_core_0/utmi_op_mode_o]
+  connect_bd_net -net utmi_op_mode_o [get_bd_pins system_ila_0/probe34] [get_bd_pins ulpi_wrapper_0/utmi_op_mode_i] [get_bd_pins usb_cdc_core_0/utmi_op_mode_o]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets utmi_op_mode_o]
-  connect_bd_net -net utmi_termselect_o [get_bd_pins system_ila_0/probe31] [get_bd_pins usb_cdc_core_0/utmi_termselect_o]
+  connect_bd_net -net utmi_termselect_o [get_bd_pins system_ila_0/probe31] [get_bd_pins ulpi_wrapper_0/utmi_termselect_i] [get_bd_pins usb_cdc_core_0/utmi_termselect_o]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets utmi_termselect_o]
@@ -1306,11 +1319,11 @@ HDL_ATTRIBUTE.DEBUG {true} \
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets utmi_tx_ready_o]
-  connect_bd_net -net utmi_txvalid_o [get_bd_pins system_ila_0/probe33] [get_bd_pins usb_cdc_core_0/utmi_txvalid_o]
+  connect_bd_net -net utmi_txvalid_o [get_bd_pins system_ila_0/probe33] [get_bd_pins ulpi_wrapper_0/utmi_txvalid_i] [get_bd_pins usb_cdc_core_0/utmi_txvalid_o]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets utmi_txvalid_o]
-  connect_bd_net -net utmi_xcvrselect_o [get_bd_pins system_ila_0/probe35] [get_bd_pins usb_cdc_core_0/utmi_xcvrselect_o]
+  connect_bd_net -net utmi_xcvrselect_o [get_bd_pins system_ila_0/probe35] [get_bd_pins ulpi_wrapper_0/utmi_xcvrselect_i] [get_bd_pins usb_cdc_core_0/utmi_xcvrselect_o]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets utmi_xcvrselect_o]
@@ -1319,38 +1332,10 @@ HDL_ATTRIBUTE.DEBUG {true} \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets xcvrselect_o]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins axi_gpio_0/gpio2_io_i] [get_bd_pins xlconcat_0/dout]
-  connect_bd_net -net xlslice_10_Dout [get_bd_pins system_ila_0/probe11] [get_bd_pins ulpi_wrapper_0/utmi_txvalid_i] [get_bd_pins xlslice_10/Dout]
-  set_property -dict [ list \
-HDL_ATTRIBUTE.DEBUG {true} \
- ] [get_bd_nets xlslice_10_Dout]
   connect_bd_net -net xlslice_2_Dout [get_bd_pins system_ila_0/probe15] [get_bd_pins ulpi_wrapper_0/ulpi_rst_i] [get_bd_pins usb_bridge_top_0/m_axi_rst] [get_bd_pins xlslice_1/Dout]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets xlslice_2_Dout]
-  connect_bd_net -net xlslice_4_Dout [get_bd_pins system_ila_0/probe14] [get_bd_pins ulpi_wrapper_0/utmi_termselect_i] [get_bd_pins xlslice_4/Dout]
-  set_property -dict [ list \
-HDL_ATTRIBUTE.DEBUG {true} \
- ] [get_bd_nets xlslice_4_Dout]
-  connect_bd_net -net xlslice_5_Dout [get_bd_pins system_ila_0/probe13] [get_bd_pins ulpi_wrapper_0/utmi_op_mode_i] [get_bd_pins xlslice_5/Dout]
-  set_property -dict [ list \
-HDL_ATTRIBUTE.DEBUG {true} \
- ] [get_bd_nets xlslice_5_Dout]
-  connect_bd_net -net xlslice_6_Dout [get_bd_pins system_ila_0/probe12] [get_bd_pins ulpi_wrapper_0/utmi_xcvrselect_i] [get_bd_pins xlslice_6/Dout]
-  set_property -dict [ list \
-HDL_ATTRIBUTE.DEBUG {true} \
- ] [get_bd_nets xlslice_6_Dout]
-  connect_bd_net -net xlslice_7_Dout [get_bd_pins system_ila_0/probe24] [get_bd_pins ulpi_wrapper_0/utmi_dppulldown_i] [get_bd_pins xlslice_7/Dout]
-  set_property -dict [ list \
-HDL_ATTRIBUTE.DEBUG {true} \
- ] [get_bd_nets xlslice_7_Dout]
-  connect_bd_net -net xlslice_8_Dout [get_bd_pins system_ila_0/probe25] [get_bd_pins ulpi_wrapper_0/utmi_dmpulldown_i] [get_bd_pins xlslice_8/Dout]
-  set_property -dict [ list \
-HDL_ATTRIBUTE.DEBUG {true} \
- ] [get_bd_nets xlslice_8_Dout]
-  connect_bd_net -net xlslice_9_Dout [get_bd_pins system_ila_0/probe10] [get_bd_pins ulpi_wrapper_0/utmi_data_out_i] [get_bd_pins xlslice_9/Dout]
-  set_property -dict [ list \
-HDL_ATTRIBUTE.DEBUG {true} \
- ] [get_bd_nets xlslice_9_Dout]
 
   # Create address segments
   create_bd_addr_seg -range 0x00010000 -offset 0x41200000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs axi_gpio_0/S_AXI/Reg] SEG_axi_gpio_0_Reg

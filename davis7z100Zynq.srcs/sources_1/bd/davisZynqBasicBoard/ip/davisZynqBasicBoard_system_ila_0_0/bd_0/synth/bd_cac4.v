@@ -6,7 +6,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "bd_cac4,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=bd_cac4,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=1,numReposBlks=1,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=SBD,synth_mode=Global}" *) (* HW_HANDOFF = "davisZynqBasicBoard_system_ila_0_0.hwdef" *) 
+(* CORE_GENERATION_INFO = "bd_cac4,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=bd_cac4,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=1,numReposBlks=1,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=SBD,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "davisZynqBasicBoard_system_ila_0_0.hwdef" *) 
 module bd_cac4
    (clk,
     probe0,
@@ -49,15 +49,16 @@ module bd_cac4
     probe42,
     probe43,
     probe44,
+    probe45,
     probe5,
     probe6,
     probe7,
     probe8,
     probe9);
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.CLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.CLK, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, FREQ_HZ 58817650, PHASE 0.000" *) input clk;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.CLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.CLK, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, FREQ_HZ 59993996, PHASE 0.000" *) input clk;
   input [0:0]probe0;
   input [0:0]probe1;
-  input [7:0]probe10;
+  input [19:0]probe10;
   input [0:0]probe11;
   input [1:0]probe12;
   input [1:0]probe13;
@@ -94,7 +95,8 @@ module bd_cac4
   input [0:0]probe41;
   input [0:0]probe42;
   input [0:0]probe43;
-  input [7:0]probe44;
+  input [0:0]probe44;
+  input [2:0]probe45;
   input [0:0]probe5;
   input [0:0]probe6;
   input [0:0]probe7;
@@ -103,7 +105,7 @@ module bd_cac4
 
   wire clk_1;
   wire [0:0]probe0_1;
-  wire [7:0]probe10_1;
+  wire [19:0]probe10_1;
   wire [0:0]probe11_1;
   wire [1:0]probe12_1;
   wire [1:0]probe13_1;
@@ -140,7 +142,8 @@ module bd_cac4
   wire [0:0]probe41_1;
   wire [0:0]probe42_1;
   wire [0:0]probe43_1;
-  wire [7:0]probe44_1;
+  wire [0:0]probe44_1;
+  wire [2:0]probe45_1;
   wire [7:0]probe4_1;
   wire [0:0]probe5_1;
   wire [0:0]probe6_1;
@@ -150,7 +153,7 @@ module bd_cac4
 
   assign clk_1 = clk;
   assign probe0_1 = probe0[0];
-  assign probe10_1 = probe10[7:0];
+  assign probe10_1 = probe10[19:0];
   assign probe11_1 = probe11[0];
   assign probe12_1 = probe12[1:0];
   assign probe13_1 = probe13[1:0];
@@ -187,7 +190,8 @@ module bd_cac4
   assign probe41_1 = probe41[0];
   assign probe42_1 = probe42[0];
   assign probe43_1 = probe43[0];
-  assign probe44_1 = probe44[7:0];
+  assign probe44_1 = probe44[0];
+  assign probe45_1 = probe45[2:0];
   assign probe4_1 = probe4[7:0];
   assign probe5_1 = probe5[0];
   assign probe6_1 = probe6[0];
@@ -200,8 +204,8 @@ module bd_cac4
         .probe1(probe1_1),
         .probe10(probe10_1),
         .probe11(probe11_1),
-        .probe12(probe12_1),
-        .probe13(probe13_1),
+        .probe12(probe12_1[0]),
+        .probe13(probe13_1[0]),
         .probe14(probe14_1),
         .probe15(probe15_1),
         .probe16(probe16_1),
@@ -235,7 +239,8 @@ module bd_cac4
         .probe41(probe41_1),
         .probe42(probe42_1),
         .probe43(probe43_1),
-        .probe44(probe44_1[0]),
+        .probe44(probe44_1),
+        .probe45(probe45_1),
         .probe5(probe5_1),
         .probe6(probe6_1),
         .probe7(probe7_1),
