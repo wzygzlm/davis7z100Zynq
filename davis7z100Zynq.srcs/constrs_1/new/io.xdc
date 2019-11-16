@@ -29,9 +29,9 @@ set_property PACKAGE_PIN Y25 [get_ports {led_0[0]}]
 
 
 
-set_property -dict { PACKAGE_PIN Y20    IOSTANDARD LVCMOS33 } [get_ports { usb_dp_io_0 }]; # PJTAG_TMS AS USB D+
-set_property -dict { PACKAGE_PIN AA20    IOSTANDARD LVCMOS33 } [get_ports { usb_dn_io_0 }]; # PJTAG_TCK AS USB D-
-set_property PULLUP TRUE [get_ports usb_dp_io_0]
+set_property -dict {PACKAGE_PIN U21 IOSTANDARD LVCMOS33} [get_ports usb_dp_io_0]
+set_property -dict {PACKAGE_PIN R30 IOSTANDARD LVCMOS33} [get_ports usb_dn_io_0]
+set_property PULLUP true [get_ports usb_dp_io_0]
 
 
 
@@ -65,6 +65,25 @@ set_property PACKAGE_PIN AK15 [get_ports ulpi_dir_i_0]
 set_property IOSTANDARD LVCMOS33 [get_ports ulpi_dir_i_0]
 set_property IOSTANDARD LVCMOS33 [get_ports ulpi_nxt_i_0]
 set_property IOSTANDARD LVCMOS33 [get_ports ulpi_stp_o_0]
+
+set_property PACKAGE_PIN AH16 [get_ports {ulpi_rst_o_0[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {ulpi_rst_o_0[0]}]
+
+
+set_property PACKAGE_PIN P30 [get_ports {ulpi_data_io_1[7]}]
+set_property PACKAGE_PIN T30 [get_ports {ulpi_data_io_1[6]}]
+set_property PACKAGE_PIN N28 [get_ports {ulpi_data_io_1[5]}]
+set_property PACKAGE_PIN N29 [get_ports {ulpi_data_io_1[4]}]
+set_property PACKAGE_PIN T29 [get_ports {ulpi_data_io_1[3]}]
+set_property PACKAGE_PIN R28 [get_ports {ulpi_data_io_1[2]}]
+set_property PACKAGE_PIN V28 [get_ports {ulpi_data_io_1[1]}]
+set_property PACKAGE_PIN W29 [get_ports {ulpi_data_io_1[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports ulpi_dir_i_1]
+set_property PACKAGE_PIN U30 [get_ports ulpi_stp_o_1]
+set_property PACKAGE_PIN P28 [get_ports ulpi_nxt_i_1]
+set_property PACKAGE_PIN P29 [get_ports ulpi_dir_i_1]
+set_property IOSTANDARD LVCMOS33 [get_ports ulpi_stp_o_1]
+set_property IOSTANDARD LVCMOS33 [get_ports ulpi_nxt_i_1]
 set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
 set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
 set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]

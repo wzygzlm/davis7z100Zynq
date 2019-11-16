@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="35">
   <CompositeFile CompositeFileTopName="davisZynqBasicBoard" CanBeSetAsTop="false" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1573818660"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1573818660"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1573818660"/>
-    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1573818660"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1573924054"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1573924054"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1573924054"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1573924054"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip\davisZynqBasicBoard_processing_system7_0_0\davisZynqBasicBoard_processing_system7_0_0.xci" Type="IP">
         <Instance HierarchyPath="processing_system7_0"/>
@@ -49,14 +49,6 @@
       </File>
       <File Name="ip\davisZynqBasicBoard_axis_data_fifo_0_0\davisZynqBasicBoard_axis_data_fifo_0_0.xci" Type="IP">
         <Instance HierarchyPath="axis_data_fifo_0"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip\davisZynqBasicBoard_xlconstant_0_2\davisZynqBasicBoard_xlconstant_0_2.xci" Type="IP">
-        <Instance HierarchyPath="const_DATA"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -159,17 +151,17 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip\davisZynqBasicBoard_usb_bridge_top_0_4\davisZynqBasicBoard_usb_bridge_top_0_4.xci" Type="IP">
-        <Instance HierarchyPath="usb_bridge_top_0"/>
+      <File Name="ip\davisZynqBasicBoard_xlconcat_0_0\davisZynqBasicBoard_xlconcat_0_0.xci" Type="IP">
+        <Instance HierarchyPath="xlconcat_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip\davisZynqBasicBoard_xlconcat_0_0\davisZynqBasicBoard_xlconcat_0_0.xci" Type="IP">
-        <Instance HierarchyPath="xlconcat_0"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+      <File Name="ip\davisZynqBasicBoard_ps7_0_axi_periph_1\davisZynqBasicBoard_ps7_0_axi_periph_1.xci" Type="IP">
+        <Instance HierarchyPath="ps7_0_axi_periph"/>
+        <Properties IsEditable="false" IsVisible="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
         <UsedIn Val="IMPLEMENTATION"/>
@@ -186,15 +178,23 @@
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip\davisZynqBasicBoard_ps7_0_axi_periph_1\davisZynqBasicBoard_ps7_0_axi_periph_1.xci" Type="IP">
-        <Instance HierarchyPath="ps7_0_axi_periph"/>
-        <Properties IsEditable="false" IsVisible="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+      <File Name="ip\davisZynqBasicBoard_usb_bridge_top_0_0\davisZynqBasicBoard_usb_bridge_top_0_0.xci" Type="IP">
+        <Instance HierarchyPath="usb_bridge_top_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip\davisZynqBasicBoard_axi_mem_intercon_1\davisZynqBasicBoard_axi_mem_intercon_1.xci" Type="IP">
+      <File Name="ip\davisZynqBasicBoard_rst_ps7_0_47M_0_1\davisZynqBasicBoard_rst_ps7_0_47M_0.xci" Type="IP">
+        <Instance HierarchyPath="rst_ps7_0_47M"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip\davisZynqBasicBoard_axi_mem_intercon_0_1\davisZynqBasicBoard_axi_mem_intercon_0.xci" Type="IP">
         <Instance HierarchyPath="axi_mem_intercon"/>
         <Properties IsEditable="false" IsVisible="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
@@ -202,8 +202,16 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip\davisZynqBasicBoard_auto_pc_2\davisZynqBasicBoard_auto_pc_2.xci" Type="IP">
-        <Instance HierarchyPath="axi_mem_intercon/s00_couplers/auto_pc"/>
+      <File Name="ip\davisZynqBasicBoard_ulpi_wrapper_1_0\davisZynqBasicBoard_ulpi_wrapper_1_0.xci" Type="IP">
+        <Instance HierarchyPath="ulpi_wrapper_1"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip\davisZynqBasicBoard_auto_cc_0_1\davisZynqBasicBoard_auto_cc_0.xci" Type="IP">
+        <Instance HierarchyPath="axi_mem_intercon/s00_couplers/auto_cc"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -211,6 +219,14 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip\davisZynqBasicBoard_auto_pc_1\davisZynqBasicBoard_auto_pc_1.xci" Type="IP">
+        <Instance HierarchyPath="axi_mem_intercon/s00_couplers/auto_pc"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip\davisZynqBasicBoard_auto_pc_0_1\davisZynqBasicBoard_auto_pc_0.xci" Type="IP">
         <Instance HierarchyPath="ps7_0_axi_periph/s00_couplers/auto_pc"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>

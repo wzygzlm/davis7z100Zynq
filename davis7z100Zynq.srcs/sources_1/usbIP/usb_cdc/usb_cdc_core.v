@@ -305,7 +305,7 @@ assign usb_rst_time_do = usb_rst_time_q;
 
 localparam DETACH_TIME    = 20'd60000;  // 1ms -> T0
 localparam ATTACH_FS_TIME = 20'd180000; // T0 + 3ms = T1
-localparam CHIRPK_TIME    = 20'd246000; // T1 + ~1ms
+localparam CHIRPK_TIME    = 20'd306000; // T1 + ~2ms
 localparam HS_RESET_TIME  = 20'd600000; // T0 + 10ms = T9
 localparam HS_CHIRP_COUNT = 8'd5;
 

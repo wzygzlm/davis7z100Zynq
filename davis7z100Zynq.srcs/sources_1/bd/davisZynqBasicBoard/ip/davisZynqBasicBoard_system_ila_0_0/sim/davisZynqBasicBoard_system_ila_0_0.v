@@ -100,10 +100,27 @@ module davisZynqBasicBoard_system_ila_0_0 (
   probe42,
   probe43,
   probe44,
-  probe45
+  probe45,
+  probe46,
+  probe47,
+  probe48,
+  probe49,
+  probe50,
+  probe51,
+  probe52,
+  probe53,
+  probe54,
+  probe55,
+  probe56,
+  probe57,
+  probe58,
+  probe59,
+  probe60,
+  probe61,
+  probe62
 );
 
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.clk, FREQ_HZ 59993996, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.clk, FREQ_HZ 5.9994e+07, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.clk CLK" *)
 input wire clk;
 input wire [0 : 0] probe0;
@@ -118,40 +135,57 @@ input wire [7 : 0] probe8;
 input wire [0 : 0] probe9;
 input wire [19 : 0] probe10;
 input wire [0 : 0] probe11;
-input wire [1 : 0] probe12;
-input wire [1 : 0] probe13;
+input wire [0 : 0] probe12;
+input wire [0 : 0] probe13;
 input wire [0 : 0] probe14;
-input wire [0 : 0] probe15;
+input wire [1 : 0] probe15;
 input wire [0 : 0] probe16;
 input wire [1 : 0] probe17;
 input wire [0 : 0] probe18;
 input wire [1 : 0] probe19;
 input wire [0 : 0] probe20;
-input wire [1 : 0] probe21;
+input wire [0 : 0] probe21;
 input wire [0 : 0] probe22;
 input wire [0 : 0] probe23;
 input wire [0 : 0] probe24;
-input wire [0 : 0] probe25;
-input wire [0 : 0] probe26;
+input wire [7 : 0] probe25;
+input wire [7 : 0] probe26;
 input wire [0 : 0] probe27;
 input wire [0 : 0] probe28;
-input wire [7 : 0] probe29;
-input wire [7 : 0] probe30;
-input wire [0 : 0] probe31;
-input wire [0 : 0] probe32;
+input wire [0 : 0] probe29;
+input wire [1 : 0] probe30;
+input wire [1 : 0] probe31;
+input wire [7 : 0] probe32;
 input wire [0 : 0] probe33;
-input wire [1 : 0] probe34;
-input wire [1 : 0] probe35;
-input wire [7 : 0] probe36;
+input wire [0 : 0] probe34;
+input wire [0 : 0] probe35;
+input wire [0 : 0] probe36;
 input wire [0 : 0] probe37;
 input wire [0 : 0] probe38;
-input wire [0 : 0] probe39;
+input wire [2 : 0] probe39;
 input wire [0 : 0] probe40;
 input wire [0 : 0] probe41;
-input wire [0 : 0] probe42;
+input wire [1 : 0] probe42;
 input wire [0 : 0] probe43;
 input wire [0 : 0] probe44;
-input wire [2 : 0] probe45;
+input wire [0 : 0] probe45;
+input wire [0 : 0] probe46;
+input wire [0 : 0] probe47;
+input wire [0 : 0] probe48;
+input wire [0 : 0] probe49;
+input wire [1 : 0] probe50;
+input wire [1 : 0] probe51;
+input wire [0 : 0] probe52;
+input wire [0 : 0] probe53;
+input wire [0 : 0] probe54;
+input wire [0 : 0] probe55;
+input wire [0 : 0] probe56;
+input wire [0 : 0] probe57;
+input wire [0 : 0] probe58;
+input wire [7 : 0] probe59;
+input wire [7 : 0] probe60;
+input wire [7 : 0] probe61;
+input wire [1 : 0] probe62;
 
   bd_cac4 inst (
     .clk(clk),
@@ -200,6 +234,23 @@ input wire [2 : 0] probe45;
     .probe42(probe42),
     .probe43(probe43),
     .probe44(probe44),
-    .probe45(probe45)
+    .probe45(probe45),
+    .probe46(probe46),
+    .probe47(probe47),
+    .probe48(probe48),
+    .probe49(probe49),
+    .probe50(probe50),
+    .probe51(probe51),
+    .probe52(probe52),
+    .probe53(probe53),
+    .probe54(probe54),
+    .probe55(probe55),
+    .probe56(probe56),
+    .probe57(probe57),
+    .probe58(probe58),
+    .probe59(probe59),
+    .probe60(probe60),
+    .probe61(probe61),
+    .probe62(probe62)
   );
 endmodule

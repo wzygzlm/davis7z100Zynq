@@ -6,7 +6,7 @@
 <Project Version="7" Minor="36" Path="e:/phd_project/vivado_prjs/daviszynq/davis7z100zynq/davis7z100zynq.tmp/usb_bridge_top_v1_0_project/usb_bridge_top_v1_0_project.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="45a7ec29ac80478aa482592c403aa712"/>
+    <Option Name="Id" Val="701d5dd7aaa34389b0f2dfcf5b64845d"/>
     <Option Name="Part" Val="xc7z100ffg900-1"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>
@@ -63,13 +63,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../../../../../PhD_project/vivado_prjs/davisZynq/usbBridge/ip/src/usb_bridge.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PPRDIR/../../../../../../PhD_project/vivado_prjs/davisZynq/usbBridge/ip/src/usb_bridge_fifo.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -85,20 +78,6 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../../../../../PhD_project/vivado_prjs/davisZynq/usbBridge/ip/src/usb_desc_rom.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../../../../../../PhD_project/vivado_prjs/davisZynq/usbBridge/ip/src/usb_fs_phy.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../../../../../../PhD_project/vivado_prjs/davisZynq/usbBridge/ip/src/usb_transceiver.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -133,8 +112,32 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/../../../../../../PhD_project/vivado_prjs/davisZynq/usbBridge/ip/src/usb_bridge.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../../../../../PhD_project/vivado_prjs/davisZynq/usbBridge/ip/src/usb_fs_phy.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../../../../../PhD_project/vivado_prjs/davisZynq/usbBridge/ip/src/usb_transceiver.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../../../../../../PhD_project/vivado_prjs/davisZynq/usbBridge/ip/src/usb_bridge_top.v">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -145,8 +148,7 @@
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="usb_bridge_top"/>
-        <Option Name="TopRTLFile" Val="$PPRDIR/../../../../../../PhD_project/vivado_prjs/davisZynq/usbBridge/ip/src/usb_bridge_top.v"/>
+        <Option Name="TopModule" Val="usb_bridge"/>
       </Config>
     </FileSet>
     <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
