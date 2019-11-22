@@ -68,6 +68,26 @@ module davisZynqBasicBoard_usb_cdc_core_0_0 (
   outport_accept_i,
   state_r_do,
   usb_rst_time_do,
+  state_q_rx_do,
+  shift_en_w_do,
+  data_buffer_q_do,
+  data_ready_w_do,
+  crc_byte_w_do,
+  rx_active_w_do,
+  token_dev_q_do,
+  token_ep_q_do,
+  current_addr_i_do,
+  ctrl_sending_r_do,
+  ctrl_send_accept_w_do,
+  desc_addr_q_do,
+  setup_valid_q_do,
+  setup_frame_q_do,
+  rx_last_w_do,
+  bmRequestType_w_do,
+  bRequest_w_do,
+  usb_reset_w_do,
+  usb_reset_counter_q_do,
+  debug_counter_q_do,
   utmi_data_out_o,
   utmi_txvalid_o,
   utmi_op_mode_o,
@@ -93,7 +113,27 @@ input wire inport_valid_i;
 input wire [7 : 0] inport_data_i;
 input wire outport_accept_i;
 output wire [2 : 0] state_r_do;
-output wire [19 : 0] usb_rst_time_do;
+output wire [31 : 0] usb_rst_time_do;
+output wire [3 : 0] state_q_rx_do;
+output wire shift_en_w_do;
+output wire [31 : 0] data_buffer_q_do;
+output wire data_ready_w_do;
+output wire crc_byte_w_do;
+output wire rx_active_w_do;
+output wire [6 : 0] token_dev_q_do;
+output wire [3 : 0] token_ep_q_do;
+output wire [6 : 0] current_addr_i_do;
+output wire ctrl_sending_r_do;
+output wire ctrl_send_accept_w_do;
+output wire [6 : 0] desc_addr_q_do;
+output wire setup_valid_q_do;
+output wire setup_frame_q_do;
+output wire rx_last_w_do;
+output wire [7 : 0] bmRequestType_w_do;
+output wire [7 : 0] bRequest_w_do;
+output wire usb_reset_w_do;
+output wire [7 : 0] usb_reset_counter_q_do;
+output wire [63 : 0] debug_counter_q_do;
 output wire [7 : 0] utmi_data_out_o;
 output wire utmi_txvalid_o;
 output wire [1 : 0] utmi_op_mode_o;
@@ -122,6 +162,26 @@ output wire [7 : 0] outport_data_o;
     .outport_accept_i(outport_accept_i),
     .state_r_do(state_r_do),
     .usb_rst_time_do(usb_rst_time_do),
+    .state_q_rx_do(state_q_rx_do),
+    .shift_en_w_do(shift_en_w_do),
+    .data_buffer_q_do(data_buffer_q_do),
+    .data_ready_w_do(data_ready_w_do),
+    .crc_byte_w_do(crc_byte_w_do),
+    .rx_active_w_do(rx_active_w_do),
+    .token_dev_q_do(token_dev_q_do),
+    .token_ep_q_do(token_ep_q_do),
+    .current_addr_i_do(current_addr_i_do),
+    .ctrl_sending_r_do(ctrl_sending_r_do),
+    .ctrl_send_accept_w_do(ctrl_send_accept_w_do),
+    .desc_addr_q_do(desc_addr_q_do),
+    .setup_valid_q_do(setup_valid_q_do),
+    .setup_frame_q_do(setup_frame_q_do),
+    .rx_last_w_do(rx_last_w_do),
+    .bmRequestType_w_do(bmRequestType_w_do),
+    .bRequest_w_do(bRequest_w_do),
+    .usb_reset_w_do(usb_reset_w_do),
+    .usb_reset_counter_q_do(usb_reset_counter_q_do),
+    .debug_counter_q_do(debug_counter_q_do),
     .utmi_data_out_o(utmi_data_out_o),
     .utmi_txvalid_o(utmi_txvalid_o),
     .utmi_op_mode_o(utmi_op_mode_o),

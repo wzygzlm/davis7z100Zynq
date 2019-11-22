@@ -42,6 +42,17 @@ module usbf_sie_rx
     ,input           utmi_rxvalid_i
     ,input           utmi_rxactive_i
     ,input  [  6:0]  current_addr_i
+    
+    // Debug
+    ,output [  3:0]  state_q_rx_do
+    ,output          shift_en_w_do 
+    ,output [  31:0] data_buffer_q_do
+    ,output          data_ready_w_do
+    ,output          crc_byte_w_do
+    ,output          rx_active_w_do
+    ,output [  6:0]  token_dev_q_do
+    ,output [  3:0]  token_ep_q_do
+    ,output [  6:0]  current_addr_i_do
 
     // Outputs
     ,output [  7:0]  pid_o
@@ -459,5 +470,16 @@ assign data_strb_o  = mask_q;
 assign data_o       = data_q;
 assign data_last_o  = last_q | crc_byte_w;
 
+
+// Debug
+assign state_q_rx_do     = state_q;
+assign shift_en_w_do     = shift_en_w; 
+assign data_buffer_q_do  = data_buffer_q;
+assign data_ready_w_do   = data_ready_w;
+assign crc_byte_w_do     = crc_byte_w;
+assign rx_active_w_do    = rx_active_w;
+assign token_dev_q_do    = token_dev_q;
+assign token_ep_q_do     = token_ep_q;
+assign current_addr_i_do = current_addr_i;
 
 endmodule

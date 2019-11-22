@@ -53,8 +53,28 @@ module usb_cdc_core
     ,input           outport_accept_i
 
     // Debug ports
-    ,output [2:0]    state_r_do
-    ,output [19:0]   usb_rst_time_do
+    ,output [  2:0]  state_r_do
+    ,output [  31:0] usb_rst_time_do
+    ,output [  3:0]  state_q_rx_do
+    ,output          shift_en_w_do 
+    ,output [  31:0] data_buffer_q_do
+    ,output          data_ready_w_do
+    ,output          crc_byte_w_do
+    ,output          rx_active_w_do
+    ,output [  6:0]  token_dev_q_do
+    ,output [  3:0]  token_ep_q_do
+    ,output [  6:0]  current_addr_i_do
+    ,output          ctrl_sending_r_do
+    ,output          ctrl_send_accept_w_do
+    ,output [  6:0]  desc_addr_q_do
+    ,output          setup_valid_q_do
+    ,output          setup_frame_q_do
+    ,output          rx_last_w_do
+    ,output [  7:0]  bmRequestType_w_do
+    ,output [  7:0]  bRequest_w_do
+    ,output          usb_reset_w_do
+    ,output [  7:0]  usb_reset_counter_q_do
+    ,output [ 63:0]  debug_counter_q_do
     
     // Outputs
     ,output [  7:0]  utmi_data_out_o
@@ -293,7 +313,7 @@ reg [STATE_W-1:0] next_state_r;
 
 
 // 60MHz clock rate
-`define USB_RST_W  20
+`define USB_RST_W  32
 reg [`USB_RST_W-1:0] usb_rst_time_q;
 reg [7:0]            chirp_count_q;
 reg [1:0]            last_linestate_q;
@@ -302,11 +322,15 @@ reg [1:0]            last_linestate_q;
 // Debug
 assign state_r_do   = state_q;
 assign usb_rst_time_do = usb_rst_time_q;
+reg [7:0]          usb_reset_counter_q;          
+assign usb_reset_counter_q_do = usb_reset_counter_q;
+reg [63:0]         debug_counter_q;
+assign debug_counter_q_do = debug_counter_q;
 
-localparam DETACH_TIME    = 20'd60000;  // 1ms -> T0
-localparam ATTACH_FS_TIME = 20'd180000; // T0 + 3ms = T1
-localparam CHIRPK_TIME    = 20'd306000; // T1 + ~2ms
-localparam HS_RESET_TIME  = 20'd600000; // T0 + 10ms = T9
+localparam DETACH_TIME    = `USB_RST_W'd60000;  // 1ms -> T0
+localparam ATTACH_FS_TIME = `USB_RST_W'd180000; // T0 + 3ms = T1
+localparam CHIRPK_TIME    = `USB_RST_W'd306000; // T1 + ~2ms
+localparam HS_RESET_TIME  = `USB_RST_W'd600000; // T0 + 10ms = T9
 localparam HS_CHIRP_COUNT = 8'd5;
 
 reg [  1:0]  utmi_op_mode_r;
@@ -315,10 +339,12 @@ reg          utmi_termselect_r;
 reg          utmi_dppulldown_r;
 reg          utmi_dmpulldown_r;
 
+reg usb_reset_flag_r;
 always @ *
 begin
     next_state_r = state_q;
-
+    usb_reset_flag_r = 0;
+    
     // Default - disconnect
     utmi_op_mode_r    = 2'd1;
     utmi_xcvrselect_r = 2'd0;
@@ -399,12 +425,16 @@ begin
         // Long SE0 - could be reset or suspend
         // TODO: Should revert to FS mode and check...
         if (usb_rst_time_q >= HS_RESET_TIME && usb_reset_w)
+        begin
             next_state_r = STATE_WAIT_RST;
+            usb_reset_flag_r = 1;
+        end
     end
     default:
         ;
     endcase
 end
+
 
 // Update state
 always @ (posedge clk_i or posedge rst_i)
@@ -413,6 +443,20 @@ if (rst_i)
 else
     state_q   <= next_state_r;
 
+// Update the continous counter for debugging
+always @ (posedge clk_i or posedge rst_i)
+if (rst_i)
+    debug_counter_q   <= 0;
+else
+    debug_counter_q   <= debug_counter_q + 1;
+    
+// Update reset counter
+always @ (posedge rst_i or posedge usb_reset_w)
+if (rst_i)
+    usb_reset_counter_q   <= 0;
+else if (usb_reset_w)
+    usb_reset_counter_q   <= usb_reset_counter_q + 1;
+    
 // Time since T0 (start of HS reset)
 always @ (posedge clk_i or posedge rst_i)
 if (rst_i)
@@ -602,6 +646,17 @@ u_core
     .ep3_tx_data_last_i(ep3_tx_data_last_w),
     .ep3_tx_data_accept_o(ep3_tx_data_accept_w),
 
+    // Debug
+    .state_q_rx_do(state_q_rx_do),
+    .shift_en_w_do(shift_en_w_do), 
+    .data_buffer_q_do(data_buffer_q_do),
+    .data_ready_w_do(data_ready_w_do),
+    .crc_byte_w_do(crc_byte_w_do),
+    .rx_active_w_do(rx_active_w_do),
+    .token_dev_q_do(token_dev_q_do),
+    .token_ep_q_do(token_ep_q_do),
+    .current_addr_i_do(current_addr_i_do),
+    
     // Status
     .reg_sts_rst_clr_i(1'b1),
     .reg_sts_rst_o(usb_reset_w),
@@ -962,7 +1017,7 @@ begin
         ctrl_send_idx_r = ctrl_send_idx_r + 16'd1;
 
         // TODO: Detect need for ZLP
-        if (ctrl_send_idx_r == wLength)
+        if (ctrl_send_idx_r == ctrl_send_len_q)
         begin
             ctrl_sending_r = 1'b0;
             ctrl_txlast_r  = 1'b1;
@@ -1081,5 +1136,18 @@ assign outport_valid_o  = ep1_rx_valid_w && rx_strb_w;
 assign outport_data_o   = rx_data_w;
 assign ep1_rx_space_w   = outport_accept_i;
 
+// Debug
+
+assign ctrl_sending_r_do       = ctrl_sending_r;
+assign ctrl_send_accept_w_do   = ctrl_send_accept_w;
+assign desc_addr_q_do          = desc_addr_q;
+assign setup_valid_q_do        = setup_valid_q;
+assign setup_frame_q_do        = setup_frame_q;
+assign rx_last_w_do            = rx_last_w;
+
+assign bmRequestType_w_do      = bmRequestType_w;
+assign bRequest_w_do           = bRequest_w;
+
+assign usb_reset_w_do         = usb_reset_w;
 
 endmodule

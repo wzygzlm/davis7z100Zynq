@@ -87,6 +87,17 @@ module usbf_device_core
     ,input           reg_int_en_sof_i
     ,input           reg_sts_rst_clr_i
     ,input  [  6:0]  reg_dev_addr_i
+    
+    // Debug
+    ,output [  3:0]  state_q_rx_do
+    ,output          shift_en_w_do 
+    ,output [  31:0] data_buffer_q_do
+    ,output          data_ready_w_do
+    ,output          crc_byte_w_do
+    ,output          rx_active_w_do
+    ,output [  6:0]  token_dev_q_do
+    ,output [  3:0]  token_ep_q_do
+    ,output [  6:0]  current_addr_i_do
 
     // Outputs
     ,output          intr_o
@@ -343,7 +354,18 @@ u_sie_rx
     .rst_i(rst_i),
     
     .enable_i(~usb_rst_w && ~reg_chirp_en_i),
-
+    
+    // Debug
+    .state_q_rx_do(state_q_rx_do),
+    .shift_en_w_do(shift_en_w_do), 
+    .data_buffer_q_do(data_buffer_q_do),
+    .data_ready_w_do(data_ready_w_do),
+    .crc_byte_w_do(crc_byte_w_do),
+    .rx_active_w_do(rx_active_w_do),
+    .token_dev_q_do(token_dev_q_do),
+    .token_ep_q_do(token_ep_q_do),
+    .current_addr_i_do(current_addr_i_do),
+    
     // UTMI Interface
     .utmi_data_i(utmi_data_i),
     .utmi_rxvalid_i(utmi_rxvalid_i),
