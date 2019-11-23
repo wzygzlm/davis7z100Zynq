@@ -2,80 +2,743 @@
 # Vivado v2018.1 (64-bit)
 # SW Build 2188600 on Wed Apr  4 18:40:38 MDT 2018
 # IP Build 2185939 on Wed Apr  4 20:55:05 MDT 2018
-# Start of session at: Mon Nov  4 11:39:44 2019
-# Process ID: 27356
+# Start of session at: Fri Nov 22 13:57:35 2019
+# Process ID: 665940
 # Current directory: E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent27072 E:\PhD_project\vivado_prjs\davisZynq\davis7z100Zynq\davis7z100Zynq.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent670388 E:\PhD_project\vivado_prjs\davisZynq\davis7z100Zynq\davis7z100Zynq.xpr
 # Log file: E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/vivado.log
 # Journal file: E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq\vivado.jou
 #-----------------------------------------------------------
 start_gui
 open_project E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.xpr
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+update_compile_order -fileset sources_1
+delete_bd_objs [get_bd_nets Net1] [get_bd_nets Net2] [get_bd_intf_nets usb_bridge_top_0_m_axi] [get_bd_cells usb_bridge_top_0]
+delete_bd_objs [get_bd_intf_nets axi_mem_intercon_M00_AXI] [get_bd_nets rst_ps7_0_47M_peripheral_aresetn] [get_bd_cells axi_mem_intercon]
+delete_bd_objs [get_bd_ports usb_dn_io_0]
+delete_bd_objs [get_bd_ports usb_dp_io_0]
+startgroup
+set_property HDL_ATTRIBUTE.DEBUG false [get_bd_nets { ulpi_reg_read_flag_d_1 mode_update_o_1 utmi_rxerror_o ulpi_data_in_o_d_1 otg_complete_o_1 otg_update_o_1 utmi_tx_accept_o_1 state_o_1 ulpi_data_dir_d_1 utmi_tx_ready_o_1 mode_complete_o_1 utmi_rxactive_o utmi_txready_o opmode_o_1 tx_delay_complete_o_1 turnaround_d_1 ulpi_wrapper_1_ulpi_stp_o ulpi_data_out_i_d_1 utmi_data_in_o xcvrselect_o_1 termselect_o_1 utmi_rxvalid_o utmi_linestate_o } ]
+disconnect_bd_net [get_bd_net ulpi_reg_read_flag_d_1] [get_bd_pins system_ila_0/probe53]
+disconnect_bd_net [get_bd_net mode_update_o_1] [get_bd_pins system_ila_0/probe44]
+disconnect_bd_net [get_bd_net ulpi_data_dir_d_1] [get_bd_pins system_ila_0/probe46]
+disconnect_bd_net [get_bd_net utmi_rxerror_o] [get_bd_pins system_ila_0/probe55]
+disconnect_bd_net [get_bd_net ulpi_data_in_o_d_1] [get_bd_pins system_ila_0/probe60]
+disconnect_bd_net [get_bd_net state_o_1] [get_bd_pins system_ila_0/probe42]
+disconnect_bd_net [get_bd_net otg_complete_o_1] [get_bd_pins system_ila_0/probe43]
+disconnect_bd_net [get_bd_net utmi_tx_accept_o_1] [get_bd_pins system_ila_0/probe48]
+disconnect_bd_net [get_bd_net otg_update_o_1] [get_bd_pins system_ila_0/probe45]
+disconnect_bd_net [get_bd_net utmi_tx_ready_o_1] [get_bd_pins system_ila_0/probe47]
+disconnect_bd_net [get_bd_net mode_complete_o_1] [get_bd_pins system_ila_0/probe40]
+disconnect_bd_net [get_bd_net utmi_rxactive_o] [get_bd_pins system_ila_0/probe58]
+disconnect_bd_net [get_bd_net utmi_txready_o] [get_bd_pins system_ila_0/probe52]
+disconnect_bd_net [get_bd_net opmode_o_1] [get_bd_pins system_ila_0/probe50]
+disconnect_bd_net [get_bd_net tx_delay_complete_o_1] [get_bd_pins system_ila_0/probe49]
+disconnect_bd_net [get_bd_net turnaround_d_1] [get_bd_pins system_ila_0/probe54]
+disconnect_bd_net [get_bd_net ulpi_wrapper_1_ulpi_stp_o] [get_bd_pins system_ila_0/probe41]
+disconnect_bd_net [get_bd_net ulpi_data_out_i_d_1] [get_bd_pins system_ila_0/probe61]
+disconnect_bd_net [get_bd_net utmi_data_in_o] [get_bd_pins system_ila_0/probe59]
+disconnect_bd_net [get_bd_net xcvrselect_o_1] [get_bd_pins system_ila_0/probe51]
+disconnect_bd_net [get_bd_net termselect_o_1] [get_bd_pins system_ila_0/probe57]
+disconnect_bd_net [get_bd_net utmi_rxvalid_o] [get_bd_pins system_ila_0/probe56]
+disconnect_bd_net [get_bd_net utmi_linestate_o] [get_bd_pins system_ila_0/probe62]
+apply_bd_automation -rule xilinx.com:bd_rule:resize [get_bd_cells system_ila_0]
+endgroup
+regenerate_bd_layout
+validate_bd_design
+save_bd_design
 reset_run synth_1
-reset_run davisZynqBasicBoard_v_tpg_0_1_synth_1
+reset_run davisZynqBasicBoard_system_ila_0_0_synth_1
 launch_runs impl_1 -to_step write_bitstream -jobs 8
 wait_on_run impl_1
-update_compile_order -fileset sources_1
+file copy -force E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.runs/impl_1/davisZynqBasicBoard_wrapper.sysdef E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk/davisZynqBasicBoard_wrapper.hdf
+
+open_hw
+connect_hw_server
+open_hw_target
+set_property PROGRAM.FILE {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.runs/impl_1/davisZynqBasicBoard_wrapper.bit} [get_hw_devices xc7z100_1]
+set_property PROBES.FILE {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.runs/impl_1/davisZynqBasicBoard_wrapper.ltx} [get_hw_devices xc7z100_1]
+set_property FULL_PROBES.FILE {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.runs/impl_1/davisZynqBasicBoard_wrapper.ltx} [get_hw_devices xc7z100_1]
+current_hw_device [get_hw_devices xc7z100_1]
+refresh_hw_device [lindex [get_hw_devices xc7z100_1] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+refresh_hw_device [lindex [get_hw_devices xc7z100_1] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
 open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
-reset_target all [get_files  E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd]
-export_ip_user_files -of_objects  [get_files  E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd] -sync -no_script -force -quiet
-delete_ip_run [get_files -of_objects [get_fileset sources_1] E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd]
-delete_bd_objs [get_bd_intf_nets axi_interconnect_0_M00_AXI] [get_bd_cells v_tpg_0]
-delete_bd_objs [get_bd_nets rst_ps7_0_9M_interconnect_aresetn] [get_bd_intf_nets processing_system7_0_M_AXI_GP0] [get_bd_cells axi_interconnect_0]
+update_module_reference davisZynqBasicBoard_usb_cdc_core_0_0
+startgroup
+connect_bd_net -net setup_valid_q_do [get_bd_pins usb_cdc_core_0/setup_valid_q_do]
+connect_bd_net -net usb_reset_w_do [get_bd_pins usb_cdc_core_0/usb_reset_w_do]
+connect_bd_net -net ctrl_sending_r_do [get_bd_pins usb_cdc_core_0/ctrl_sending_r_do]
+connect_bd_net -net ctrl_send_accept_w_do [get_bd_pins usb_cdc_core_0/ctrl_send_accept_w_do]
+connect_bd_net -net desc_addr_q_do [get_bd_pins usb_cdc_core_0/desc_addr_q_do]
+connect_bd_net -net usb_reset_counter_q_do [get_bd_pins usb_cdc_core_0/usb_reset_counter_q_do]
+connect_bd_net -net bmRequestType_w_do [get_bd_pins usb_cdc_core_0/bmRequestType_w_do]
+connect_bd_net -net bRequest_w_do [get_bd_pins usb_cdc_core_0/bRequest_w_do]
+connect_bd_net -net setup_frame_q_do [get_bd_pins usb_cdc_core_0/setup_frame_q_do]
+connect_bd_net -net rx_last_w_do [get_bd_pins usb_cdc_core_0/rx_last_w_do]
+connect_bd_net -net debug_counter_q_do [get_bd_pins usb_cdc_core_0/debug_counter_q_do]
+set_property HDL_ATTRIBUTE.DEBUG true [get_bd_nets {setup_valid_q_do usb_reset_w_do ctrl_sending_r_do ctrl_send_accept_w_do desc_addr_q_do usb_reset_counter_q_do bmRequestType_w_do bRequest_w_do setup_frame_q_do rx_last_w_do debug_counter_q_do }]
+endgroup
+startgroup
+apply_bd_automation -rule xilinx.com:bd_rule:debug -dict [list \
+                                                          [get_bd_nets setup_valid_q_do] {PROBE_TYPE "Data and Trigger" CLK_SRC "/processing_system7_0/FCLK_CLK0" SYSTEM_ILA "Auto" } \
+                                                          [get_bd_nets usb_reset_w_do] {PROBE_TYPE "Data and Trigger" CLK_SRC "/processing_system7_0/FCLK_CLK0" SYSTEM_ILA "Auto" } \
+                                                          [get_bd_nets ctrl_sending_r_do] {PROBE_TYPE "Data and Trigger" CLK_SRC "/processing_system7_0/FCLK_CLK0" SYSTEM_ILA "Auto" } \
+                                                          [get_bd_nets ctrl_send_accept_w_do] {PROBE_TYPE "Data and Trigger" CLK_SRC "/processing_system7_0/FCLK_CLK0" SYSTEM_ILA "Auto" } \
+                                                          [get_bd_nets desc_addr_q_do] {PROBE_TYPE "Data and Trigger" CLK_SRC "/processing_system7_0/FCLK_CLK0" SYSTEM_ILA "Auto" } \
+                                                          [get_bd_nets usb_reset_counter_q_do] {PROBE_TYPE "Data and Trigger" CLK_SRC "/processing_system7_0/FCLK_CLK0" SYSTEM_ILA "Auto" } \
+                                                          [get_bd_nets bmRequestType_w_do] {PROBE_TYPE "Data and Trigger" CLK_SRC "/processing_system7_0/FCLK_CLK0" SYSTEM_ILA "Auto" } \
+                                                          [get_bd_nets bRequest_w_do] {PROBE_TYPE "Data and Trigger" CLK_SRC "/processing_system7_0/FCLK_CLK0" SYSTEM_ILA "Auto" } \
+                                                          [get_bd_nets setup_frame_q_do] {PROBE_TYPE "Data and Trigger" CLK_SRC "/processing_system7_0/FCLK_CLK0" SYSTEM_ILA "Auto" } \
+                                                          [get_bd_nets rx_last_w_do] {PROBE_TYPE "Data and Trigger" CLK_SRC "/processing_system7_0/FCLK_CLK0" SYSTEM_ILA "Auto" } \
+                                                          [get_bd_nets debug_counter_q_do] {PROBE_TYPE "Data and Trigger" CLK_SRC "/processing_system7_0/FCLK_CLK0" SYSTEM_ILA "Auto" } \
+                                                         ]
+endgroup
 regenerate_bd_layout
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+validate_bd_design
 save_bd_design
 reset_run synth_1
 launch_runs impl_1 -to_step write_bitstream -jobs 8
 wait_on_run impl_1
-open_hw
-connect_hw_server
-open_hw_target
-current_hw_device [get_hw_devices xc7z045_1]
-refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7z045_1] 0]
-close_hw_target {localhost:3121/xilinx_tcf/Digilent/210251A515BC}
-launch_sdk -workspace E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk -hwspec E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk/davisZynqBasicBoard_wrapper.hdf
-disconnect_hw_server localhost:3121
-connect_hw_server
-open_hw_target
-set_property PROGRAM.FILE {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.runs/impl_1/davisZynqBasicBoard_wrapper.bit} [get_hw_devices xc7z045_1]
-current_hw_device [get_hw_devices xc7z045_1]
-refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7z045_1] 0]
-close_hw_target {localhost:3121/xilinx_tcf/Digilent/210251A515BC}
+set_property TRIGGER_COMPARE_VALUE eq1'bR [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe5_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+set_property TRIGGER_COMPARE_VALUE eq3'u0 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe39_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq3'u5 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe39_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+file copy -force E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.runs/impl_1/davisZynqBasicBoard_wrapper.sysdef E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk/davisZynqBasicBoard_wrapper.hdf
+
+refresh_hw_device [lindex [get_hw_devices xc7z100_1] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq3'hX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe39_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe5_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+add_wave -into {hw_ila_data_1.wcfg} -radix hex { {davisZynqBasicBoard_i/system_ila_0/inst/probe40_1} {davisZynqBasicBoard_i/system_ila_0/inst/probe45_1} {davisZynqBasicBoard_i/system_ila_0/inst/probe41_1} }
+set_property NAME.CUSTOM setup_valid_q_do [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe40_1] 
+set_property NAME.CUSTOM usb_reset_counter_q_do [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe45_1] 
+set_property NAME.CUSTOM usb_reset_w_do [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe41_1] 
+add_wave -into {hw_ila_data_1.wcfg} -radix hex { {davisZynqBasicBoard_i/system_ila_0/inst/probe50_1} }
+set_property NAME.CUSTOM debug_counter_q_do [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe50_1] 
+set_property TRIGGER_COMPARE_VALUE eq1'bR [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe40_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe40_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+add_wave -into {hw_ila_data_1.wcfg} -radix hex { {davisZynqBasicBoard_i/system_ila_0/inst/probe46_1} }
+set_property NAME.CUSTOM bmRequestType_w_do [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe46_1] 
+add_wave -into {hw_ila_data_1.wcfg} -radix hex { {davisZynqBasicBoard_i/system_ila_0/inst/probe47_1} }
+set_property NAME.CUSTOM bRequest_w_do [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe47_1] 
+set_property TRIGGER_COMPARE_VALUE eq8'h00 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe46_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'h06 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe47_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+set_property TRIGGER_COMPARE_VALUE eq8'hXX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe46_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'hXX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe47_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+set_property TRIGGER_COMPARE_VALUE eq3'u0 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe39_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'u0 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe40_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'b0 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe40_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bR [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe40_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq3'u5 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe39_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+set_property TRIGGER_COMPARE_VALUE eq3'hX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe39_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe40_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'h00 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe46_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'h05 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe47_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+set_property CONTROL.TRIGGER_POSITION 30000 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'h80 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe46_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'h06 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe47_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+set_property TRIGGER_COMPARE_VALUE eq8'h00 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe46_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'h05 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe47_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+set_property TRIGGER_COMPARE_VALUE eq8'hXX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe46_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'hXX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe47_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bR [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe41_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'u0 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe45_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'u3 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe45_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.0 axi_bram_ctrl_0
+endgroup
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.4 blk_mem_gen_0
+endgroup
+set_property -dict [list CONFIG.Memory_Type {True_Dual_Port_RAM} CONFIG.Assume_Synchronous_Clk {false} CONFIG.Enable_B {Use_ENB_Pin} CONFIG.Use_RSTB_Pin {true} CONFIG.Port_B_Clock {100} CONFIG.Port_B_Write_Rate {50} CONFIG.Port_B_Enable_Rate {100}] [get_bd_cells blk_mem_gen_0]
+set_property -dict [list CONFIG.SINGLE_PORT_BRAM {1}] [get_bd_cells axi_bram_ctrl_0]
+set_property location {3 601 170} [get_bd_cells blk_mem_gen_0]
+connect_bd_intf_net [get_bd_intf_pins axi_bram_ctrl_0/BRAM_PORTA] [get_bd_intf_pins blk_mem_gen_0/BRAM_PORTA]
+startgroup
+set_property -dict [list CONFIG.Enable_32bit_Address {false} CONFIG.Use_Byte_Write_Enable {false} CONFIG.Byte_Size {9} CONFIG.Register_PortA_Output_of_Memory_Primitives {true} CONFIG.Register_PortB_Output_of_Memory_Primitives {true} CONFIG.Use_RSTA_Pin {false} CONFIG.Use_RSTB_Pin {false} CONFIG.use_bram_block {Stand_Alone} CONFIG.EN_SAFETY_CKT {false}] [get_bd_cells blk_mem_gen_0]
+endgroup
+startgroup
+set_property -dict [list CONFIG.Write_Width_A {8} CONFIG.Read_Width_A {8} CONFIG.Write_Width_B {8} CONFIG.Read_Width_B {8}] [get_bd_cells blk_mem_gen_0]
+endgroup
+startgroup
+set_property -dict [list CONFIG.Enable_A {Always_Enabled}] [get_bd_cells blk_mem_gen_0]
+endgroup
+startgroup
+set_property -dict [list CONFIG.Enable_B {Always_Enabled}] [get_bd_cells blk_mem_gen_0]
+endgroup
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:c_counter_binary:12.0 c_counter_binary_0
+endgroup
+set_property -dict [list CONFIG.CE {true}] [get_bd_cells c_counter_binary_0]
+set_property location {2.5 939 291} [get_bd_cells c_counter_binary_0]
+set_property location {9.5 3648 10} [get_bd_cells blk_mem_gen_0]
+set_property location {10.5 3720 26} [get_bd_cells blk_mem_gen_0]
+set_property -dict [list CONFIG.Output_Width {12}] [get_bd_cells c_counter_binary_0]
+startgroup
+set_property -dict [list CONFIG.Enable_32bit_Address {false} CONFIG.Use_Byte_Write_Enable {false} CONFIG.Byte_Size {9} CONFIG.Write_Width_A {8} CONFIG.Write_Depth_A {20000} CONFIG.Read_Width_A {8} CONFIG.Enable_A {Always_Enabled} CONFIG.Write_Width_B {8} CONFIG.Read_Width_B {8} CONFIG.Enable_B {Always_Enabled} CONFIG.Register_PortA_Output_of_Memory_Primitives {true} CONFIG.Register_PortB_Output_of_Memory_Primitives {true} CONFIG.Use_RSTA_Pin {false} CONFIG.Use_RSTB_Pin {false} CONFIG.use_bram_block {Stand_Alone} CONFIG.EN_SAFETY_CKT {false}] [get_bd_cells blk_mem_gen_0]
+endgroup
+startgroup
+set_property -dict [list CONFIG.Use_Byte_Write_Enable {false} CONFIG.Write_Width_A {8} CONFIG.Read_Width_A {8} CONFIG.Write_Width_B {8} CONFIG.Read_Width_B {8} CONFIG.Enable_B {Use_ENB_Pin} CONFIG.Use_RSTA_Pin {false} CONFIG.EN_SAFETY_CKT {false}] [get_bd_cells blk_mem_gen_0]
+endgroup
+startgroup
+set_property -dict [list CONFIG.Write_Depth_A {65535}] [get_bd_cells blk_mem_gen_0]
+endgroup
+set_property location {9.5 3566 60} [get_bd_cells c_counter_binary_0]
+set_property -dict [list CONFIG.Output_Width {16}] [get_bd_cells c_counter_binary_0]
+connect_bd_net [get_bd_pins c_counter_binary_0/Q] [get_bd_pins blk_mem_gen_0/addrb]
+connect_bd_net [get_bd_pins c_counter_binary_0/CLK] [get_bd_pins blk_mem_gen_0/clkb]
+set_property location {4 1347 70} [get_bd_cells axi_bram_ctrl_0]
+set_property location {8.5 3822 -223} [get_bd_cells axi_bram_ctrl_0]
+set_property location {9 3754 -21} [get_bd_cells axi_bram_ctrl_0]
+startgroup
+apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {/processing_system7_0/FCLK_CLK0 (59 MHz)} Clk_slave {Auto} Clk_xbar {/processing_system7_0/FCLK_CLK0 (59 MHz)} Master {/processing_system7_0/M_AXI_GP0} Slave {/axi_bram_ctrl_0/S_AXI} intc_ip {/ps7_0_axi_periph} master_apm {0}}  [get_bd_intf_pins axi_bram_ctrl_0/S_AXI]
+apply_bd_automation -rule xilinx.com:bd_rule:clkrst -config {Clk "/processing_system7_0/FCLK_CLK0 (59 MHz)" }  [get_bd_pins c_counter_binary_0/CLK]
+endgroup
+set_property location {8 3488 494} [get_bd_cells c_counter_binary_0]
+connect_bd_net [get_bd_pins c_counter_binary_0/CE] [get_bd_pins ulpi_wrapper_0/utmi_rxvalid_o]
+set_property location {9 3843 471} [get_bd_cells blk_mem_gen_0]
+connect_bd_net [get_bd_pins blk_mem_gen_0/web] [get_bd_pins ulpi_wrapper_0/utmi_rxvalid_o]
+connect_bd_net [get_bd_pins blk_mem_gen_0/dinb] [get_bd_pins ulpi_wrapper_0/utmi_data_in_o]
+set_property HDL_ATTRIBUTE.DEBUG true [get_bd_nets {c_counter_binary_0_Q }]
+apply_bd_automation -rule xilinx.com:bd_rule:debug -dict [list \
+                                                          [get_bd_nets c_counter_binary_0_Q] {PROBE_TYPE "Data and Trigger" CLK_SRC "/processing_system7_0/FCLK_CLK0" SYSTEM_ILA "Auto" } \
+                                                         ]
+regenerate_bd_layout
+save_bd_design
+regenerate_bd_layout
+validate_bd_design
+delete_bd_objs [get_bd_nets processing_system7_0_FCLK_CLK2] [get_bd_cells rst_ps7_0_47M]
+delete_bd_objs [get_bd_intf_nets axi_bram_ctrl_0_BRAM_PORTA]
+delete_bd_objs [get_bd_intf_nets ps7_0_axi_periph_M01_AXI] [get_bd_cells axi_bram_ctrl_0]
+undo
+apply_bd_automation -rule xilinx.com:bd_rule:bram_cntlr -config {BRAM "/blk_mem_gen_0" }  [get_bd_intf_pins axi_bram_ctrl_0/BRAM_PORTA]
+regenerate_bd_layout
+validate_bd_design
+startgroup
+set_property -dict [list CONFIG.Assume_Synchronous_Clk {true}] [get_bd_cells blk_mem_gen_0]
+endgroup
+disconnect_bd_net /processing_system7_0_FCLK_CLK0 [get_bd_pins blk_mem_gen_0/clkb]
+connect_bd_net [get_bd_pins blk_mem_gen_0/clkb] [get_bd_pins processing_system7_0/FCLK_CLK0]
+set_property location {2 362 1871} [get_bd_cells blk_mem_gen_0]
+connect_bd_net [get_bd_pins blk_mem_gen_0/enb] [get_bd_pins const_HIGH/dout]
+regenerate_bd_layout
+validate_bd_design
+set_property range 1M [get_bd_addr_segs {processing_system7_0/Data/SEG_axi_bram_ctrl_0_Mem0}]
+save_bd_design
+reset_run synth_1
+reset_run davisZynqBasicBoard_system_ila_0_0_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+wait_on_run impl_1
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+file copy -force E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.runs/impl_1/davisZynqBasicBoard_wrapper.sysdef E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk/davisZynqBasicBoard_wrapper.hdf
+
 file copy -force E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.runs/impl_1/davisZynqBasicBoard_wrapper.sysdef E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk/davisZynqBasicBoard_wrapper.hdf
 
 open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+refresh_hw_device [lindex [get_hw_devices xc7z100_1] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+add_wave -into {hw_ila_data_1.wcfg} -radix hex { {davisZynqBasicBoard_i/system_ila_0/inst/probe51_1} }
+set_property NAME.CUSTOM c_counter_binary_0_Q [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe51_1] 
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe41_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'hXX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe45_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe5_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bR [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe34_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
 open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
-launch_sdk -workspace E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk -hwspec E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk/davisZynqBasicBoard_wrapper.hdf
-launch_sdk -workspace E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk -hwspec E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk/davisZynqBasicBoard_wrapper.hdf
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:axi_usb2_device:5.0 axi_usb2_device_0
+set_property -dict [list CONFIG.SCLR {true}] [get_bd_cells c_counter_binary_0]
 endgroup
-set_property location {1.5 195 31} [get_bd_cells axi_usb2_device_0]
-delete_bd_objs [get_bd_cells axi_usb2_device_0]
+connect_bd_net [get_bd_pins c_counter_binary_0/SCLR] [get_bd_pins xlslice_0/Dout]
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
 startgroup
-connect_bd_net -net USB0_VBUS_PWRSELECT [get_bd_pins processing_system7_0/USB0_VBUS_PWRSELECT]
-connect_bd_net -net USB0_PORT_INDCTL [get_bd_pins processing_system7_0/USB0_PORT_INDCTL]
-set_property HDL_ATTRIBUTE.DEBUG true [get_bd_nets {USB0_VBUS_PWRSELECT USB0_PORT_INDCTL }]
+create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 util_vector_logic_0
 endgroup
+delete_bd_objs [get_bd_cells util_vector_logic_0]
 startgroup
-apply_bd_automation -rule xilinx.com:bd_rule:debug -dict [list \
-                                                          [get_bd_nets USB0_VBUS_PWRSELECT] {PROBE_TYPE "Data and Trigger" CLK_SRC "None (Connect manually)" SYSTEM_ILA "Auto" } \
-                                                          [get_bd_nets USB0_PORT_INDCTL] {PROBE_TYPE "Data and Trigger" CLK_SRC "None (Connect manually)" SYSTEM_ILA "Auto" } \
-                                                         ]
-endgroup
-delete_bd_objs [get_bd_nets USB0_PORT_INDCTL] [get_bd_cells system_ila_1]
-startgroup
-set_property -dict [list CONFIG.PCW_FPGA2_PERIPHERAL_FREQMHZ {60}] [get_bd_cells processing_system7_0]
-endgroup
-disconnect_bd_net /processing_system7_0_FCLK_CLK0 [get_bd_pins LEDShifter_0/clk]
-connect_bd_net [get_bd_pins LEDShifter_0/clk] [get_bd_pins processing_system7_0/FCLK_CLK2]
-connect_bd_net [get_bd_pins system_ila_0/clk] [get_bd_pins processing_system7_0/FCLK_CLK2]
-startgroup
-set_property -dict [list CONFIG.C_BRAM_CNT {4} CONFIG.C_DATA_DEPTH {65536} CONFIG.C_NUM_OF_PROBES {2}] [get_bd_cells system_ila_0]
+set_property -dict [list CONFIG.PCW_FPGA2_PERIPHERAL_FREQMHZ {0.1}] [get_bd_cells processing_system7_0]
 endgroup
 startgroup
-connect_bd_net -net USB0_PORT_INDCTL [get_bd_pins processing_system7_0/USB0_PORT_INDCTL]
-set_property HDL_ATTRIBUTE.DEBUG true [get_bd_nets {USB0_PORT_INDCTL }]
+create_bd_cell -type ip -vlnv xilinx.com:ip:c_counter_binary:12.0 c_counter_binary_1
 endgroup
-connect_bd_net [get_bd_pins system_ila_0/probe1] [get_bd_pins processing_system7_0/USB0_PORT_INDCTL]
+set_property -dict [list CONFIG.Output_Width {24} CONFIG.SCLR {true}] [get_bd_cells c_counter_binary_1]
+connect_bd_net [get_bd_pins processing_system7_0/FCLK_CLK2] [get_bd_pins c_counter_binary_1/CLK]
+set_property location {6.5 2735 1800} [get_bd_cells c_counter_binary_1]
+set_property location {6 2732 1751} [get_bd_cells c_counter_binary_1]
+connect_bd_net [get_bd_pins c_counter_binary_1/SCLR] [get_bd_pins xlslice_0/Dout]
+disconnect_bd_net /ulpi_wrapper_0_utmi_data_in_o [get_bd_pins blk_mem_gen_0/dinb]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_1
+endgroup
+connect_bd_net [get_bd_pins xlconcat_1/In0] [get_bd_pins ulpi_wrapper_0/utmi_data_in_o]
+connect_bd_net [get_bd_pins c_counter_binary_1/Q] [get_bd_pins xlconcat_1/In1]
+connect_bd_net [get_bd_pins xlconcat_1/dout] [get_bd_pins blk_mem_gen_0/dinb]
+startgroup
+set_property -dict [list CONFIG.IN0_WIDTH.VALUE_SRC PROPAGATED CONFIG.IN1_WIDTH.VALUE_SRC PROPAGATED] [get_bd_cells xlconcat_1]
+endgroup
 regenerate_bd_layout
+validate_bd_design
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_2
+endgroup
+set_property location {5 2208 1477} [get_bd_cells xlconcat_2]
+set_property -dict [list CONFIG.NUM_PORTS {4}] [get_bd_cells xlconcat_2]
+connect_bd_net [get_bd_pins xlconcat_2/In0] [get_bd_pins ulpi_wrapper_0/utmi_rxvalid_o]
+connect_bd_net [get_bd_pins xlconcat_2/In1] [get_bd_pins ulpi_wrapper_0/utmi_rxvalid_o]
+connect_bd_net [get_bd_pins xlconcat_2/In2] [get_bd_pins ulpi_wrapper_0/utmi_rxvalid_o]
+connect_bd_net [get_bd_pins xlconcat_2/In3] [get_bd_pins ulpi_wrapper_0/utmi_rxvalid_o]
+disconnect_bd_net /ulpi_wrapper_0_utmi_rxvalid_o [get_bd_pins blk_mem_gen_0/web]
+connect_bd_net [get_bd_pins blk_mem_gen_0/web] [get_bd_pins xlconcat_2/dout]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0
+endgroup
+delete_bd_objs [get_bd_cells clk_wiz_0]
+regenerate_bd_layout
+validate_bd_design
+startgroup
+set_property -dict [list CONFIG.Output_Width {20}] [get_bd_cells c_counter_binary_0]
+endgroup
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:util_reduced_logic:2.0 util_reduced_logic_0
+endgroup
+delete_bd_objs [get_bd_cells util_reduced_logic_0]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 util_vector_logic_0
+endgroup
+set_property -dict [list CONFIG.C_SIZE {3}] [get_bd_cells util_vector_logic_0]
+set_property location {6 2398 1077} [get_bd_cells util_vector_logic_0]
+connect_bd_net [get_bd_pins util_vector_logic_0/Op1] [get_bd_pins usb_cdc_core_0/state_r_do]
+startgroup
+set_property -dict [list CONFIG.C_OPERATION {xor} CONFIG.LOGO_FILE {data/sym_xorgate.png}] [get_bd_cells util_vector_logic_0]
+endgroup
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 xlslice_2
+endgroup
+set_property -dict [list CONFIG.DIN_WIDTH {3} CONFIG.DIN_TO {0} CONFIG.DIN_FROM {0}] [get_bd_cells xlslice_2]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 xlslice_3
+endgroup
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 xlslice_11
+endgroup
+set_property -dict [list CONFIG.DIN_WIDTH {3} CONFIG.DIN_TO {0} CONFIG.DIN_FROM {0}] [get_bd_cells xlslice_11]
+set_property -dict [list CONFIG.DIN_WIDTH {3} CONFIG.DIN_TO {0} CONFIG.DIN_FROM {0}] [get_bd_cells xlslice_3]
+set_property -dict [list CONFIG.DIN_TO {1} CONFIG.DIN_FROM {1} CONFIG.DIN_FROM {1} CONFIG.DOUT_WIDTH {1}] [get_bd_cells xlslice_3]
+set_property -dict [list CONFIG.DIN_TO {2} CONFIG.DIN_FROM {2} CONFIG.DIN_FROM {2} CONFIG.DOUT_WIDTH {1}] [get_bd_cells xlslice_11]
+connect_bd_net [get_bd_pins util_vector_logic_0/Res] [get_bd_pins xlslice_11/Din]
+connect_bd_net [get_bd_pins xlslice_3/Din] [get_bd_pins util_vector_logic_0/Res]
+connect_bd_net [get_bd_pins xlslice_2/Din] [get_bd_pins util_vector_logic_0/Res]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 util_vector_logic_1
+endgroup
+set_property location {5 2072 1048} [get_bd_cells util_vector_logic_1]
+delete_bd_objs [get_bd_cells util_vector_logic_1]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:util_reduced_logic:2.0 util_reduced_logic_0
+endgroup
+delete_bd_objs [get_bd_cells xlslice_11]
+delete_bd_objs [get_bd_cells xlslice_3]
+delete_bd_objs [get_bd_nets util_vector_logic_0_Res] [get_bd_cells xlslice_2]
+set_property -dict [list CONFIG.C_SIZE {3}] [get_bd_cells util_reduced_logic_0]
+connect_bd_net [get_bd_pins util_vector_logic_0/Res] [get_bd_pins util_reduced_logic_0/Op1]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_0
+endgroup
+set_property -dict [list CONFIG.CONST_WIDTH {3} CONFIG.CONST_VAL {5}] [get_bd_cells xlconstant_0]
+connect_bd_net [get_bd_pins util_vector_logic_0/Op2] [get_bd_pins xlconstant_0/dout]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 util_vector_logic_1
+endgroup
+set_property location {5.5 2626 643} [get_bd_cells util_vector_logic_1]
+set_property -dict [list CONFIG.C_SIZE {1} CONFIG.C_OPERATION {not} CONFIG.LOGO_FILE {data/sym_notgate.png}] [get_bd_cells util_vector_logic_1]
+connect_bd_net [get_bd_pins util_reduced_logic_0/Res] [get_bd_pins util_vector_logic_1/Op1]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 util_vector_logic_2
+endgroup
+set_property location {6 2627 720} [get_bd_cells util_vector_logic_2]
+set_property -dict [list CONFIG.C_SIZE {1}] [get_bd_cells util_vector_logic_2]
+connect_bd_net [get_bd_pins util_vector_logic_1/Res] [get_bd_pins util_vector_logic_2/Op1]
+connect_bd_net [get_bd_pins util_vector_logic_2/Op2] [get_bd_pins ulpi_wrapper_0/utmi_rxvalid_o]
+disconnect_bd_net /ulpi_wrapper_0_utmi_rxvalid_o [get_bd_pins xlconcat_2/In0]
+disconnect_bd_net /ulpi_wrapper_0_utmi_rxvalid_o [get_bd_pins xlconcat_2/In1]
+disconnect_bd_net /ulpi_wrapper_0_utmi_rxvalid_o [get_bd_pins xlconcat_2/In2]
+disconnect_bd_net /ulpi_wrapper_0_utmi_rxvalid_o [get_bd_pins xlconcat_2/In3]
+set_property location {7 3026 1176} [get_bd_cells xlconcat_2]
+set_property location {7 3099 794} [get_bd_cells xlconcat_2]
+startgroup
+connect_bd_net [get_bd_pins util_vector_logic_2/Res] [get_bd_pins xlconcat_2/In0]
+connect_bd_net [get_bd_pins util_vector_logic_2/Res] [get_bd_pins xlconcat_2/In3]
+endgroup
+connect_bd_net [get_bd_pins xlconcat_2/In1] [get_bd_pins util_vector_logic_2/Res]
+connect_bd_net [get_bd_pins xlconcat_2/In2] [get_bd_pins util_vector_logic_2/Res]
+set_property HDL_ATTRIBUTE.DEBUG true [get_bd_nets {util_vector_logic_1_Res }]
+apply_bd_automation -rule xilinx.com:bd_rule:debug -dict [list \
+                                                          [get_bd_nets util_vector_logic_1_Res] {PROBE_TYPE "Data and Trigger" CLK_SRC "/processing_system7_0/FCLK_CLK0" SYSTEM_ILA "Auto" } \
+                                                         ]
+startgroup
+set_property -dict [list CONFIG.CONST_VAL {2}] [get_bd_cells xlconstant_0]
+endgroup
+delete_bd_objs [get_bd_nets util_reduced_logic_0_Res] [get_bd_cells util_vector_logic_1]
+connect_bd_net [get_bd_pins util_reduced_logic_0/Res] [get_bd_pins util_vector_logic_2/Op1]
+regenerate_bd_layout
+validate_bd_design
+save_bd_design
+reset_run synth_1
+reset_run davisZynqBasicBoard_system_ila_0_0_synth_1
+reset_run davisZynqBasicBoard_axi_bram_ctrl_0_0_synth_1
+reset_run davisZynqBasicBoard_c_counter_binary_0_0_synth_1
+reset_run davisZynqBasicBoard_xbar_0_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+set_property range 4M [get_bd_addr_segs {processing_system7_0/Data/SEG_axi_bram_ctrl_0_Mem0}]
+regenerate_bd_layout
+validate_bd_design
+set_property range 2M [get_bd_addr_segs {processing_system7_0/Data/SEG_axi_bram_ctrl_0_Mem0}]
+set_property range 4M [get_bd_addr_segs {processing_system7_0/Data/SEG_axi_bram_ctrl_0_Mem0}]
+exclude_bd_addr_seg [get_bd_addr_segs processing_system7_0/Data/SEG_axi_gpio_0_Reg]
+save_bd_design
+regenerate_bd_layout
+validate_bd_design
+include_bd_addr_seg [get_bd_addr_segs -excluded processing_system7_0/Data/SEG_axi_gpio_0_Reg]
+set_property range 2M [get_bd_addr_segs {processing_system7_0/Data/SEG_axi_bram_ctrl_0_Mem0}]
+save_bd_design
+regenerate_bd_layout
+startgroup
+set_property -dict [list CONFIG.Output_Width {21}] [get_bd_cells c_counter_binary_0]
+endgroup
+regenerate_bd_layout
+validate_bd_design
+regenerate_bd_layout
+validate_bd_design -force
+refresh_hw_device [lindex [get_hw_devices xc7z100_1] 0]
+save_bd_design
+reset_run davisZynqBasicBoard_LEDShifter_0_0_synth_1
+reset_run davisZynqBasicBoard_blk_mem_gen_0_0_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+wait_on_run impl_1
+file copy -force E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.runs/impl_1/davisZynqBasicBoard_wrapper.sysdef E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.sdk/davisZynqBasicBoard_wrapper.hdf
+
+refresh_hw_device [lindex [get_hw_devices xc7z100_1] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+add_wave -into {hw_ila_data_1.wcfg} -radix hex { {davisZynqBasicBoard_i/system_ila_0/inst/probe52_1} }
+set_property NAME.CUSTOM util_vector_logic_1_Res [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe52_1] 
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe34_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe41_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe5_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe52_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bR [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe52_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bF [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe52_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bR [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe52_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+add_wave -into {hw_ila_data_1.wcfg} -radix hex { {davisZynqBasicBoard_i/system_ila_0/inst/probe51_1} }
+set_property NAME.CUSTOM c_counter_binary_0_Q [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe51_1] 
+refresh_hw_device [lindex [get_hw_devices xc7z100_1] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe52_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'bXXXX_XXXX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe46_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'hXX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe46_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'h00 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe46_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'h05 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe47_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+refresh_hw_device [lindex [get_hw_devices xc7z100_1] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+refresh_hw_device [lindex [get_hw_devices xc7z100_1] 0]
+refresh_hw_device [lindex [get_hw_devices xc7z100_1] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+add_wave -into {hw_ila_data_1.wcfg} -radix hex { {davisZynqBasicBoard_i/system_ila_0/inst/probe18_1} {davisZynqBasicBoard_i/system_ila_0/inst/probe16_1} }
+set_property NAME.CUSTOM mode_complete_o [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe18_1] 
+set_property NAME.CUSTOM mode_update_o [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe16_1] 
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'hXX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe47_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq8'hXX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe46_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+add_wave -into {hw_ila_data_1.wcfg} -radix hex { {davisZynqBasicBoard_i/system_ila_0/inst/probe14_1} {davisZynqBasicBoard_i/system_ila_0/inst/probe20_1} }
+set_property NAME.CUSTOM otg_update_o [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe14_1] 
+set_property NAME.CUSTOM otg_complete_o [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe20_1] 
+set_property CONTROL.TRIGGER_CONDITION OR [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bR [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe16_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bR [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe20_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+set_property CONTROL.TRIGGER_POSITION 1000 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe20_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq2'u0 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe15_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq2'b00 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe15_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq2'u0 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe15_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq2'u1 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe15_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property CONTROL.TRIGGER_CONDITION AND [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe16_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq2'b01 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe15_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq2'u1 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe15_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq2'b01 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe15_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq2'o1 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe15_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq2'u1 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe15_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq2'hX [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe15_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq3'u0 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe39_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq3'u4 [get_hw_probes davisZynqBasicBoard_i/system_ila_0/inst/probe39_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z100_1] -filter {CELL_NAME=~"davisZynqBasicBoard_i/system_ila_0/inst/ila_lib"}]]
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+create_bd_port -dir O -type rst ulpi_rst
+set_property location {76 453} [get_bd_ports ulpi_rst]
+connect_bd_net [get_bd_ports ulpi_rst] [get_bd_pins xlslice_1/Dout]
+set_property location {-65 122} [get_bd_ports ulpi_rst]
+save_bd_design
+set_property name ulpi_rst_0 [get_bd_ports ulpi_rst]
+open_run impl_1
+delete_interface GPIO_64267
+startgroup
+endgroup
+startgroup
+reset_property DIFF_TERM [get_ports {ulpi_rst_o_0[0]}]
+reset_property DRIVE [get_ports {ulpi_rst_o_0[0]}]
+reset_property HD.TANDEM [get_ports {ulpi_rst_o_0[0]}]
+reset_property IBUF_LOW_PWR [get_ports {ulpi_rst_o_0[0]}]
+reset_property IN_TERM [get_ports {ulpi_rst_o_0[0]}]
+reset_property IOSTANDARD [get_ports {ulpi_rst_o_0[0]}]
+reset_property IS_LOC_FIXED [get_ports {ulpi_rst_o_0[0]}]
+reset_property LOC [get_ports {ulpi_rst_o_0[0]}]
+reset_property OFFCHIP_TERM [get_ports {ulpi_rst_o_0[0]}]
+reset_property PULLTYPE [get_ports {ulpi_rst_o_0[0]}]
+reset_property SLEW [get_ports {ulpi_rst_o_0[0]}]
+reset_property X_IFC_LOGICAL_NAME [get_ports {ulpi_rst_o_0[0]}]
+endgroup
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+save_bd_design
+regenerate_bd_layout
+place_ports {ulpi_rst_o_0[0]} AH16
+set_property IOSTANDARD LVCMOS33 [get_ports [list {ulpi_rst_o_0[0]}]]
+set_property PULLTYPE PULLDOWN [get_ports [list {ulpi_rst_o_0[0]}]]
+save_constraints -force
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+save_bd_design
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+wait_on_run impl_1
+close_design
+open_run impl_1
+set_property package_pin "" [get_ports [list  {ulpi_rst_o_0[0]}]]
+delete_interface GPIO_64267
+open_bd_design {E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/davisZynqBasicBoard.bd}
+delete_bd_objs [get_bd_ports ulpi_rst_0]
+regenerate_bd_layout
+validate_bd_design
+save_bd_design
+save_constraints -force
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+wait_on_run impl_1
+reset_run synth_1

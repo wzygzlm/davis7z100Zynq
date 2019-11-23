@@ -102,17 +102,7 @@ probe48,
 probe49,
 probe50,
 probe51,
-probe52,
-probe53,
-probe54,
-probe55,
-probe56,
-probe57,
-probe58,
-probe59,
-probe60,
-probe61,
-probe62
+probe52
 );
 
 input clk;
@@ -128,7 +118,7 @@ input [0 : 0] probe6;
 input [0 : 0] probe7;
 input [7 : 0] probe8;
 input [0 : 0] probe9;
-input [19 : 0] probe10;
+input [31 : 0] probe10;
 input [0 : 0] probe11;
 input [0 : 0] probe12;
 input [0 : 0] probe13;
@@ -160,27 +150,17 @@ input [0 : 0] probe38;
 input [2 : 0] probe39;
 input [0 : 0] probe40;
 input [0 : 0] probe41;
-input [1 : 0] probe42;
+input [0 : 0] probe42;
 input [0 : 0] probe43;
-input [0 : 0] probe44;
-input [0 : 0] probe45;
-input [0 : 0] probe46;
-input [0 : 0] probe47;
+input [6 : 0] probe44;
+input [7 : 0] probe45;
+input [7 : 0] probe46;
+input [7 : 0] probe47;
 input [0 : 0] probe48;
 input [0 : 0] probe49;
-input [1 : 0] probe50;
-input [1 : 0] probe51;
+input [63 : 0] probe50;
+input [20 : 0] probe51;
 input [0 : 0] probe52;
-input [0 : 0] probe53;
-input [0 : 0] probe54;
-input [0 : 0] probe55;
-input [0 : 0] probe56;
-input [0 : 0] probe57;
-input [0 : 0] probe58;
-input [7 : 0] probe59;
-input [7 : 0] probe60;
-input [7 : 0] probe61;
-input [1 : 0] probe62;
 
 
 endmodule

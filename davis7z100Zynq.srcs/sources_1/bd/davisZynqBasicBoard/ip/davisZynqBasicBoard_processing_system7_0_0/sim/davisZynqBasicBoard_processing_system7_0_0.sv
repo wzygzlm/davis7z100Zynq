@@ -1240,7 +1240,7 @@ output bit S_AXI_GP0_RVALID
      FCLK_CLK2 = 1'b0;
   end
 
-  always #(10.416666666666666) FCLK_CLK2 <= ~FCLK_CLK2;
+  always #(5000.0) FCLK_CLK2 <= ~FCLK_CLK2;
 
   always@(posedge FCLK_CLK2)
   begin

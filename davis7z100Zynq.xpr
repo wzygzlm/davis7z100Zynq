@@ -129,11 +129,32 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_ulpi_wrapper_1_0/davisZynqBasicBoard_ulpi_wrapper_1_0.xci">
-          <Proxy FileSetName="davisZynqBasicBoard_ulpi_wrapper_1_0"/>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_axi_bram_ctrl_0_0/davisZynqBasicBoard_axi_bram_ctrl_0_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_axi_bram_ctrl_0_0"/>
         </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_system_ila_0_0/davisZynqBasicBoard_system_ila_0_0.xci">
-          <Proxy FileSetName="davisZynqBasicBoard_system_ila_0_0"/>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_blk_mem_gen_0_0/davisZynqBasicBoard_blk_mem_gen_0_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_blk_mem_gen_0_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_c_counter_binary_0_0/davisZynqBasicBoard_c_counter_binary_0_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_c_counter_binary_0_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_xbar_0/davisZynqBasicBoard_xbar_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_xbar_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_processing_system7_0_0/davisZynqBasicBoard_processing_system7_0_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_processing_system7_0_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_LEDShifter_0_0/davisZynqBasicBoard_LEDShifter_0_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_LEDShifter_0_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_rst_ps7_0_9M_0/davisZynqBasicBoard_rst_ps7_0_9M_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_rst_ps7_0_9M_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_axi_gpio_0_0/davisZynqBasicBoard_axi_gpio_0_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_axi_gpio_0_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_axis_data_fifo_0_0/davisZynqBasicBoard_axis_data_fifo_0_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_axis_data_fifo_0_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_usb_cdc_core_0_0/davisZynqBasicBoard_usb_cdc_core_0_0.xci">
           <Proxy FileSetName="davisZynqBasicBoard_usb_cdc_core_0_0"/>
@@ -141,11 +162,32 @@
         <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_ulpi_wrapper_0_0/davisZynqBasicBoard_ulpi_wrapper_0_0.xci">
           <Proxy FileSetName="davisZynqBasicBoard_ulpi_wrapper_0_0"/>
         </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_LEDShifter_0_0/davisZynqBasicBoard_LEDShifter_0_0.xci">
-          <Proxy FileSetName="davisZynqBasicBoard_LEDShifter_0_0"/>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_system_ila_0_0/davisZynqBasicBoard_system_ila_0_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_system_ila_0_0"/>
         </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_usb_bridge_top_0_0/davisZynqBasicBoard_usb_bridge_top_0_0.xci">
-          <Proxy FileSetName="davisZynqBasicBoard_usb_bridge_top_0_0"/>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_ulpi_wrapper_1_0/davisZynqBasicBoard_ulpi_wrapper_1_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_ulpi_wrapper_1_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_util_reduced_logic_0_1/davisZynqBasicBoard_util_reduced_logic_0_1.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_util_reduced_logic_0_1"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_xlconcat_1_0/davisZynqBasicBoard_xlconcat_1_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_xlconcat_1_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_util_vector_logic_2_0/davisZynqBasicBoard_util_vector_logic_2_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_util_vector_logic_2_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_c_counter_binary_1_0/davisZynqBasicBoard_c_counter_binary_1_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_c_counter_binary_1_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_xlconcat_2_0/davisZynqBasicBoard_xlconcat_2_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_xlconcat_2_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_util_vector_logic_0_1/davisZynqBasicBoard_util_vector_logic_0_1.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_util_vector_logic_0_1"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_xlconstant_0_1/davisZynqBasicBoard_xlconstant_0_1.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_xlconstant_0_1"/>
         </CompFileExtendedInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/bd/davisZynqBasicBoard/hdl/davisZynqBasicBoard_wrapper.v">
@@ -301,12 +343,6 @@
         <Option Name="SrcSet" Val="sources_1"/>
       </Config>
     </FileSet>
-    <FileSet Name="davisZynqBasicBoard_system_ila_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_system_ila_0_0">
-      <Config>
-        <Option Name="TopModule" Val="davisZynqBasicBoard_system_ila_0_0"/>
-        <Option Name="UseBlackboxStub" Val="1"/>
-      </Config>
-    </FileSet>
     <FileSet Name="davisZynqBasicBoard_ulpi_wrapper_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_ulpi_wrapper_0_0">
       <Config>
         <Option Name="TopModule" Val="davisZynqBasicBoard_ulpi_wrapper_0_0"/>
@@ -319,9 +355,9 @@
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
-    <FileSet Name="davisZynqBasicBoard_usb_bridge_top_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_usb_bridge_top_0_0">
+    <FileSet Name="davisZynqBasicBoard_ulpi_wrapper_1_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_ulpi_wrapper_1_0">
       <Config>
-        <Option Name="TopModule" Val="davisZynqBasicBoard_usb_bridge_top_0_0"/>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_ulpi_wrapper_1_0"/>
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
@@ -331,9 +367,99 @@
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
-    <FileSet Name="davisZynqBasicBoard_ulpi_wrapper_1_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_ulpi_wrapper_1_0">
+    <FileSet Name="davisZynqBasicBoard_system_ila_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_system_ila_0_0">
       <Config>
-        <Option Name="TopModule" Val="davisZynqBasicBoard_ulpi_wrapper_1_0"/>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_system_ila_0_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_axi_bram_ctrl_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_axi_bram_ctrl_0_0">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_axi_bram_ctrl_0_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_blk_mem_gen_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_blk_mem_gen_0_0">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_blk_mem_gen_0_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_c_counter_binary_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_c_counter_binary_0_0">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_c_counter_binary_0_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_xbar_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_xbar_0">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_xbar_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_processing_system7_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_processing_system7_0_0">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_processing_system7_0_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_rst_ps7_0_9M_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_rst_ps7_0_9M_0">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_rst_ps7_0_9M_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_axi_gpio_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_axi_gpio_0_0">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_axi_gpio_0_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_axis_data_fifo_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_axis_data_fifo_0_0">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_axis_data_fifo_0_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_util_reduced_logic_0_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_util_reduced_logic_0_1">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_util_reduced_logic_0_1"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_xlconcat_1_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_xlconcat_1_0">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_xlconcat_1_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_util_vector_logic_2_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_util_vector_logic_2_0">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_util_vector_logic_2_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_c_counter_binary_1_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_c_counter_binary_1_0">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_c_counter_binary_1_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_xlconcat_2_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_xlconcat_2_0">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_xlconcat_2_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_util_vector_logic_0_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_util_vector_logic_0_1">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_util_vector_logic_0_1"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="davisZynqBasicBoard_xlconstant_0_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/davisZynqBasicBoard_xlconstant_0_1">
+      <Config>
+        <Option Name="TopModule" Val="davisZynqBasicBoard_xlconstant_0_1"/>
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
@@ -357,7 +483,15 @@
     </Simulator>
   </Simulators>
   <Runs Version="1" Minor="10">
-    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7z100ffg900-1" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true">
+    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7z100ffg900-1" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" State="current" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_ulpi_wrapper_0_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_ulpi_wrapper_0_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_ulpi_wrapper_0_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_ulpi_wrapper_0_0_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
         <Step Id="synth_design"/>
@@ -366,44 +500,18 @@
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
-    <Run Id="davisZynqBasicBoard_system_ila_0_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_system_ila_0_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_system_ila_0_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_system_ila_0_0_synth_1" IncludeInArchive="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-    </Run>
-    <Run Id="davisZynqBasicBoard_ulpi_wrapper_0_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_ulpi_wrapper_0_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_ulpi_wrapper_0_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_ulpi_wrapper_0_0_synth_1" IncludeInArchive="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-    </Run>
     <Run Id="davisZynqBasicBoard_LEDShifter_0_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_LEDShifter_0_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_LEDShifter_0_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_LEDShifter_0_0_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
-    <Run Id="davisZynqBasicBoard_usb_bridge_top_0_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_usb_bridge_top_0_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_usb_bridge_top_0_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_usb_bridge_top_0_0_synth_1" IncludeInArchive="true">
+    <Run Id="davisZynqBasicBoard_ulpi_wrapper_1_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_ulpi_wrapper_1_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_ulpi_wrapper_1_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_ulpi_wrapper_1_0_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -421,7 +529,7 @@
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
-    <Run Id="davisZynqBasicBoard_ulpi_wrapper_1_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_ulpi_wrapper_1_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_ulpi_wrapper_1_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_ulpi_wrapper_1_0_synth_1" IncludeInArchive="true">
+    <Run Id="davisZynqBasicBoard_system_ila_0_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_system_ila_0_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_system_ila_0_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_system_ila_0_0_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
           <Desc>Vivado Synthesis Defaults</Desc>
@@ -432,28 +540,174 @@
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
-    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="constrs_1" Description="Default settings for Implementation." WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_1" SynthRun="synth_1" IncludeInArchive="true">
+    <Run Id="davisZynqBasicBoard_axi_bram_ctrl_0_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_axi_bram_ctrl_0_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_axi_bram_ctrl_0_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_axi_bram_ctrl_0_0_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
-        <Step Id="init_design"/>
-        <Step Id="opt_design"/>
-        <Step Id="power_opt_design"/>
-        <Step Id="place_design"/>
-        <Step Id="post_place_power_opt_design"/>
-        <Step Id="phys_opt_design"/>
-        <Step Id="route_design"/>
-        <Step Id="post_route_phys_opt_design"/>
-        <Step Id="write_bitstream"/>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
-    <Run Id="davisZynqBasicBoard_system_ila_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_system_ila_0_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_system_ila_0_0_synth_1" IncludeInArchive="false">
+    <Run Id="davisZynqBasicBoard_blk_mem_gen_0_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_blk_mem_gen_0_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_blk_mem_gen_0_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_blk_mem_gen_0_0_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
-          <Desc>Default settings for Implementation.</Desc>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
         </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_c_counter_binary_0_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_c_counter_binary_0_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_c_counter_binary_0_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_c_counter_binary_0_0_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_xbar_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_xbar_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_xbar_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_xbar_0_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_processing_system7_0_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_processing_system7_0_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_processing_system7_0_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_processing_system7_0_0_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_rst_ps7_0_9M_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_rst_ps7_0_9M_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_rst_ps7_0_9M_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_rst_ps7_0_9M_0_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_axi_gpio_0_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_axi_gpio_0_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_axi_gpio_0_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_axi_gpio_0_0_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_axis_data_fifo_0_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_axis_data_fifo_0_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_axis_data_fifo_0_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_axis_data_fifo_0_0_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_util_reduced_logic_0_1_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_util_reduced_logic_0_1" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_util_reduced_logic_0_1" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_util_reduced_logic_0_1_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_xlconcat_1_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_xlconcat_1_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_xlconcat_1_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_xlconcat_1_0_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_util_vector_logic_2_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_util_vector_logic_2_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_util_vector_logic_2_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_util_vector_logic_2_0_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_c_counter_binary_1_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_c_counter_binary_1_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_c_counter_binary_1_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_c_counter_binary_1_0_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_xlconcat_2_0_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_xlconcat_2_0" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_xlconcat_2_0" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_xlconcat_2_0_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_util_vector_logic_0_1_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_util_vector_logic_0_1" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_util_vector_logic_0_1" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_util_vector_logic_0_1_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_xlconstant_0_1_synth_1" Type="Ft3:Synth" SrcSet="davisZynqBasicBoard_xlconstant_0_1" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_xlconstant_0_1" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" Dir="$PRUNDIR/davisZynqBasicBoard_xlconstant_0_1_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="constrs_1" Description="Default settings for Implementation." WriteIncrSynthDcp="false" State="current" SynthRun="synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -469,9 +723,7 @@
     </Run>
     <Run Id="davisZynqBasicBoard_ulpi_wrapper_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_ulpi_wrapper_0_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_ulpi_wrapper_0_0_synth_1" IncludeInArchive="false">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -487,9 +739,7 @@
     </Run>
     <Run Id="davisZynqBasicBoard_LEDShifter_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_LEDShifter_0_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_LEDShifter_0_0_synth_1" IncludeInArchive="false">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -503,11 +753,9 @@
       <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
-    <Run Id="davisZynqBasicBoard_usb_bridge_top_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_usb_bridge_top_0_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_usb_bridge_top_0_0_synth_1" IncludeInArchive="false">
+    <Run Id="davisZynqBasicBoard_ulpi_wrapper_1_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_ulpi_wrapper_1_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_ulpi_wrapper_1_0_synth_1" IncludeInArchive="false">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -539,7 +787,277 @@
       <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
-    <Run Id="davisZynqBasicBoard_ulpi_wrapper_1_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_ulpi_wrapper_1_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_ulpi_wrapper_1_0_synth_1" IncludeInArchive="false">
+    <Run Id="davisZynqBasicBoard_system_ila_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_system_ila_0_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_system_ila_0_0_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_axi_bram_ctrl_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_axi_bram_ctrl_0_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_axi_bram_ctrl_0_0_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_blk_mem_gen_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_blk_mem_gen_0_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_blk_mem_gen_0_0_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_c_counter_binary_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_c_counter_binary_0_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_c_counter_binary_0_0_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_xbar_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_xbar_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_xbar_0_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_processing_system7_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_processing_system7_0_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_processing_system7_0_0_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_rst_ps7_0_9M_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_rst_ps7_0_9M_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_rst_ps7_0_9M_0_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_axi_gpio_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_axi_gpio_0_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_axi_gpio_0_0_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_axis_data_fifo_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_axis_data_fifo_0_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_axis_data_fifo_0_0_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_util_reduced_logic_0_1_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_util_reduced_logic_0_1" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_util_reduced_logic_0_1_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_xlconcat_1_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_xlconcat_1_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_xlconcat_1_0_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_util_vector_logic_2_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_util_vector_logic_2_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_util_vector_logic_2_0_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_c_counter_binary_1_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_c_counter_binary_1_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_c_counter_binary_1_0_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_xlconcat_2_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_xlconcat_2_0" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_xlconcat_2_0_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_util_vector_logic_0_1_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_util_vector_logic_0_1" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_util_vector_logic_0_1_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2018"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="davisZynqBasicBoard_xlconstant_0_1_impl_1" Type="Ft2:EntireDesign" Part="xc7z100ffg900-1" ConstrsSet="davisZynqBasicBoard_xlconstant_0_1" Description="Default settings for Implementation." WriteIncrSynthDcp="false" SynthRun="davisZynqBasicBoard_xlconstant_0_1_synth_1" IncludeInArchive="false">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
           <Desc>Default settings for Implementation.</Desc>

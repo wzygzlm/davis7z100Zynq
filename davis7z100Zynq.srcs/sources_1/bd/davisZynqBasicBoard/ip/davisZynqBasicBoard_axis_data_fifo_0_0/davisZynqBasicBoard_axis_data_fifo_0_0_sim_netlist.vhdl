@@ -1,10 +1,10 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.1 (win64) Build 2188600 Wed Apr  4 18:40:38 MDT 2018
--- Date        : Fri Nov 15 14:14:12 2019
+-- Date        : Fri Nov 22 20:54:57 2019
 -- Host        : DESKTOP-3TNSMFC running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim -rename_top davisZynqBasicBoard_axis_data_fifo_0_0 -prefix
---               davisZynqBasicBoard_axis_data_fifo_0_0_ davisZynqBasicBoard_axis_data_fifo_0_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim
+--               E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/ip/davisZynqBasicBoard_axis_data_fifo_0_0/davisZynqBasicBoard_axis_data_fifo_0_0_sim_netlist.vhdl
 -- Design      : davisZynqBasicBoard_axis_data_fifo_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -28,6 +28,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_xpm_cdc_sync_rst is
   attribute INIT of davisZynqBasicBoard_axis_data_fifo_0_0_xpm_cdc_sync_rst : entity is "1";
   attribute INIT_SYNC_FF : integer;
   attribute INIT_SYNC_FF of davisZynqBasicBoard_axis_data_fifo_0_0_xpm_cdc_sync_rst : entity is 0;
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_xpm_cdc_sync_rst : entity is "xpm_cdc_sync_rst";
   attribute SIM_ASSERT_CHK : integer;
   attribute SIM_ASSERT_CHK of davisZynqBasicBoard_axis_data_fifo_0_0_xpm_cdc_sync_rst : entity is 0;
   attribute VERSION : integer;
@@ -138,6 +140,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_prim_wrapper is
     \out\ : in STD_LOGIC;
     s_axis_tvalid : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_prim_wrapper : entity is "blk_mem_gen_prim_wrapper";
 end davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_prim_wrapper;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_prim_wrapper is
@@ -319,6 +323,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_compare is
     comp0 : out STD_LOGIC;
     v1_reg : in STD_LOGIC_VECTOR ( 4 downto 0 )
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_compare : entity is "compare";
 end davisZynqBasicBoard_axis_data_fifo_0_0_compare;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_compare is
@@ -594,6 +600,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_rd_bin_cntr is
     E : in STD_LOGIC_VECTOR ( 0 to 0 );
     s_aclk : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_rd_bin_cntr : entity is "rd_bin_cntr";
 end davisZynqBasicBoard_axis_data_fifo_0_0_rd_bin_cntr;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_rd_bin_cntr is
@@ -1189,6 +1197,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_rd_fwft is
     ram_empty_fb_i_reg : in STD_LOGIC;
     \ngwrdrst.grst.g7serrst.gsckt_wrst.gcc_rst.sckt_wr_rst_cc_reg[1]\ : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_rd_fwft : entity is "rd_fwft";
 end davisZynqBasicBoard_axis_data_fifo_0_0_rd_fwft;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_rd_fwft is
@@ -1440,6 +1450,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_updn_cntr is
     ram_full_fb_i_reg : in STD_LOGIC_VECTOR ( 0 to 0 );
     s_aclk : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_updn_cntr : entity is "updn_cntr";
 end davisZynqBasicBoard_axis_data_fifo_0_0_updn_cntr;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_updn_cntr is
@@ -1776,6 +1788,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_wr_bin_cntr is
     E : in STD_LOGIC_VECTOR ( 0 to 0 );
     s_aclk : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_wr_bin_cntr : entity is "wr_bin_cntr";
 end davisZynqBasicBoard_axis_data_fifo_0_0_wr_bin_cntr;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_wr_bin_cntr is
@@ -2149,6 +2163,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_prim_width is
     \out\ : in STD_LOGIC;
     s_axis_tvalid : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_prim_width : entity is "blk_mem_gen_prim_width";
 end davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_prim_width;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_prim_width is
@@ -2270,6 +2286,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_dc_ss_fwft is
     ram_full_fb_i_reg : in STD_LOGIC_VECTOR ( 0 to 0 );
     s_aclk : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_dc_ss_fwft : entity is "dc_ss_fwft";
 end davisZynqBasicBoard_axis_data_fifo_0_0_dc_ss_fwft;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_dc_ss_fwft is
@@ -2303,6 +2321,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_rd_status_flags_ss is
     ram_full_fb_i_reg : in STD_LOGIC;
     s_axis_tvalid : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_rd_status_flags_ss : entity is "rd_status_flags_ss";
 end davisZynqBasicBoard_axis_data_fifo_0_0_rd_status_flags_ss;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_rd_status_flags_ss is
@@ -2377,6 +2397,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_reset_blk_ramfifo is
     s_aclk : in STD_LOGIC;
     s_aresetn : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_reset_blk_ramfifo : entity is "reset_blk_ramfifo";
 end davisZynqBasicBoard_axis_data_fifo_0_0_reset_blk_ramfifo;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_reset_blk_ramfifo is
@@ -2560,6 +2582,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_wr_status_flags_ss is
     ram_empty_fb_i_reg : in STD_LOGIC_VECTOR ( 0 to 0 );
     \grstd1.grst_full.grst_f.rst_d3_reg\ : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_wr_status_flags_ss : entity is "wr_status_flags_ss";
 end davisZynqBasicBoard_axis_data_fifo_0_0_wr_status_flags_ss;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_wr_status_flags_ss is
@@ -2683,6 +2707,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_generic_cstr is
     \out\ : in STD_LOGIC;
     s_axis_tvalid : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_generic_cstr : entity is "blk_mem_gen_generic_cstr";
 end davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_generic_cstr;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_generic_cstr is
@@ -2727,6 +2753,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_rd_logic is
     \gcc0.gc0.count_reg[9]\ : in STD_LOGIC_VECTOR ( 9 downto 0 );
     ram_full_fb_i_reg_0 : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_rd_logic : entity is "rd_logic";
 end davisZynqBasicBoard_axis_data_fifo_0_0_rd_logic;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_rd_logic is
@@ -2820,6 +2848,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_wr_logic is
     ram_empty_fb_i_reg : in STD_LOGIC_VECTOR ( 0 to 0 );
     \grstd1.grst_full.grst_f.rst_d3_reg\ : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_wr_logic : entity is "wr_logic";
 end davisZynqBasicBoard_axis_data_fifo_0_0_wr_logic;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_wr_logic is
@@ -2868,6 +2898,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_top is
     \out\ : in STD_LOGIC;
     s_axis_tvalid : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_top : entity is "blk_mem_gen_top";
 end davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_top;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_top is
@@ -2903,6 +2935,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_v8_4_1_synth is
     \out\ : in STD_LOGIC;
     s_axis_tvalid : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_v8_4_1_synth : entity is "blk_mem_gen_v8_4_1_synth";
 end davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_v8_4_1_synth;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_v8_4_1_synth is
@@ -2938,6 +2972,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_v8_4_1 is
     \out\ : in STD_LOGIC;
     s_axis_tvalid : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_v8_4_1 : entity is "blk_mem_gen_v8_4_1";
 end davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_v8_4_1;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_blk_mem_gen_v8_4_1 is
@@ -2974,6 +3010,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_memory is
     s_axis_tvalid : in STD_LOGIC;
     \gpregsm1.curr_fwft_state_reg[0]\ : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_memory : entity is "memory";
 end davisZynqBasicBoard_axis_data_fifo_0_0_memory;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_memory is
@@ -3097,6 +3135,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_ramfifo is
     s_axis_tvalid : in STD_LOGIC;
     s_aresetn : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_ramfifo : entity is "fifo_generator_ramfifo";
 end davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_ramfifo;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_ramfifo is
@@ -3196,6 +3236,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_top is
     s_axis_tvalid : in STD_LOGIC;
     s_aresetn : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_top : entity is "fifo_generator_top";
 end davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_top;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_top is
@@ -3229,6 +3271,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_v13_2_2_synth is
     s_axis_tvalid : in STD_LOGIC;
     s_aresetn : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_v13_2_2_synth : entity is "fifo_generator_v13_2_2_synth";
 end davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_v13_2_2_synth;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_v13_2_2_synth is
@@ -3888,6 +3932,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_v13_2_2 is
   attribute C_WR_PNTR_WIDTH_WRCH of davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_v13_2_2 : entity is 4;
   attribute C_WR_RESPONSE_LATENCY : integer;
   attribute C_WR_RESPONSE_LATENCY of davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_v13_2_2 : entity is 1;
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_v13_2_2 : entity is "fifo_generator_v13_2_2";
 end davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_v13_2_2;
 
 architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0_fifo_generator_v13_2_2 is
@@ -4598,6 +4644,8 @@ entity davisZynqBasicBoard_axis_data_fifo_0_0_axis_data_fifo_v1_1_17_axis_data_f
   attribute LP_M_ACLKEN_CAN_TOGGLE of davisZynqBasicBoard_axis_data_fifo_0_0_axis_data_fifo_v1_1_17_axis_data_fifo : entity is 0;
   attribute LP_S_ACLKEN_CAN_TOGGLE : integer;
   attribute LP_S_ACLKEN_CAN_TOGGLE of davisZynqBasicBoard_axis_data_fifo_0_0_axis_data_fifo_v1_1_17_axis_data_fifo : entity is 0;
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_axis_data_fifo_0_0_axis_data_fifo_v1_1_17_axis_data_fifo : entity is "axis_data_fifo_v1_1_17_axis_data_fifo";
   attribute P_APPLICATION_TYPE_AXIS : integer;
   attribute P_APPLICATION_TYPE_AXIS of davisZynqBasicBoard_axis_data_fifo_0_0_axis_data_fifo_v1_1_17_axis_data_fifo : entity is 0;
   attribute P_AXIS_PAYLOAD_WIDTH : integer;
@@ -5638,15 +5686,15 @@ architecture STRUCTURE of davisZynqBasicBoard_axis_data_fifo_0_0 is
   attribute X_INTERFACE_INFO of m_axis_tvalid : signal is "xilinx.com:interface:axis:1.0 M_AXIS TVALID";
   attribute X_INTERFACE_INFO of s_axis_aclk : signal is "xilinx.com:signal:clock:1.0 S_CLKIF CLK";
   attribute X_INTERFACE_PARAMETER : string;
-  attribute X_INTERFACE_PARAMETER of s_axis_aclk : signal is "XIL_INTERFACENAME S_CLKIF, FREQ_HZ 5.9994e+07, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, ASSOCIATED_BUSIF S_AXIS:M_AXIS, ASSOCIATED_RESET s_axis_aresetn, ASSOCIATED_CLKEN s_axis_aclken";
+  attribute X_INTERFACE_PARAMETER of s_axis_aclk : signal is "XIL_INTERFACENAME S_CLKIF, FREQ_HZ 58968464, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, ASSOCIATED_BUSIF S_AXIS:M_AXIS, ASSOCIATED_RESET s_axis_aresetn, ASSOCIATED_CLKEN s_axis_aclken";
   attribute X_INTERFACE_INFO of s_axis_aresetn : signal is "xilinx.com:signal:reset:1.0 S_RSTIF RST";
   attribute X_INTERFACE_PARAMETER of s_axis_aresetn : signal is "XIL_INTERFACENAME S_RSTIF, POLARITY ACTIVE_LOW, TYPE INTERCONNECT";
   attribute X_INTERFACE_INFO of s_axis_tready : signal is "xilinx.com:interface:axis:1.0 S_AXIS TREADY";
   attribute X_INTERFACE_INFO of s_axis_tvalid : signal is "xilinx.com:interface:axis:1.0 S_AXIS TVALID";
   attribute X_INTERFACE_INFO of m_axis_tdata : signal is "xilinx.com:interface:axis:1.0 M_AXIS TDATA";
-  attribute X_INTERFACE_PARAMETER of m_axis_tdata : signal is "XIL_INTERFACENAME M_AXIS, TDATA_NUM_BYTES 1, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 0, FREQ_HZ 5.9994e+07, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef";
+  attribute X_INTERFACE_PARAMETER of m_axis_tdata : signal is "XIL_INTERFACENAME M_AXIS, TDATA_NUM_BYTES 1, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 0, FREQ_HZ 58968464, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef";
   attribute X_INTERFACE_INFO of s_axis_tdata : signal is "xilinx.com:interface:axis:1.0 S_AXIS TDATA";
-  attribute X_INTERFACE_PARAMETER of s_axis_tdata : signal is "XIL_INTERFACENAME S_AXIS, TDATA_NUM_BYTES 1, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 0, FREQ_HZ 5.9994e+07, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef";
+  attribute X_INTERFACE_PARAMETER of s_axis_tdata : signal is "XIL_INTERFACENAME S_AXIS, TDATA_NUM_BYTES 1, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 0, FREQ_HZ 58968464, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef";
 begin
 inst: entity work.davisZynqBasicBoard_axis_data_fifo_0_0_axis_data_fifo_v1_1_17_axis_data_fifo
      port map (
