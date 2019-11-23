@@ -1,7 +1,7 @@
 //Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2018.1 (win64) Build 2188600 Wed Apr  4 18:40:38 MDT 2018
-//Date        : Sat Nov 16 18:07:26 2019
+//Date        : Sat Nov 23 14:50:17 2019
 //Host        : DESKTOP-3TNSMFC running 64-bit major release  (build 9200)
 //Command     : generate_target davisZynqBasicBoard_wrapper.bd
 //Design      : davisZynqBasicBoard_wrapper
@@ -39,10 +39,9 @@ module davisZynqBasicBoard_wrapper
     ulpi_nxt_i_0,
     ulpi_nxt_i_1,
     ulpi_rst_o_0,
+    ulpi_rst_o_1,
     ulpi_stp_o_0,
-    ulpi_stp_o_1,
-    usb_dn_io_0,
-    usb_dp_io_0);
+    ulpi_stp_o_1);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -72,10 +71,9 @@ module davisZynqBasicBoard_wrapper
   input ulpi_nxt_i_0;
   input ulpi_nxt_i_1;
   output [0:0]ulpi_rst_o_0;
+  output [0:0]ulpi_rst_o_1;
   output ulpi_stp_o_0;
   output ulpi_stp_o_1;
-  inout usb_dn_io_0;
-  inout usb_dp_io_0;
 
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -106,10 +104,9 @@ module davisZynqBasicBoard_wrapper
   wire ulpi_nxt_i_0;
   wire ulpi_nxt_i_1;
   wire [0:0]ulpi_rst_o_0;
+  wire [0:0]ulpi_rst_o_1;
   wire ulpi_stp_o_0;
   wire ulpi_stp_o_1;
-  wire usb_dn_io_0;
-  wire usb_dp_io_0;
 
   davisZynqBasicBoard davisZynqBasicBoard_i
        (.DDR_addr(DDR_addr),
@@ -141,8 +138,7 @@ module davisZynqBasicBoard_wrapper
         .ulpi_nxt_i_0(ulpi_nxt_i_0),
         .ulpi_nxt_i_1(ulpi_nxt_i_1),
         .ulpi_rst_o_0(ulpi_rst_o_0),
+        .ulpi_rst_o_1(ulpi_rst_o_1),
         .ulpi_stp_o_0(ulpi_stp_o_0),
-        .ulpi_stp_o_1(ulpi_stp_o_1),
-        .usb_dn_io_0(usb_dn_io_0),
-        .usb_dp_io_0(usb_dp_io_0));
+        .ulpi_stp_o_1(ulpi_stp_o_1));
 endmodule
