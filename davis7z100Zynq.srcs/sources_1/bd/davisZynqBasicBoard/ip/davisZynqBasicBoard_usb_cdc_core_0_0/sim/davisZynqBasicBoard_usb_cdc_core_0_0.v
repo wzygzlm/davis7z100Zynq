@@ -68,6 +68,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0 (
   outport_accept_i,
   state_r_do,
   usb_rst_time_do,
+  current_addr_i_do,
   ctrl_sending_r_do,
   ctrl_send_accept_w_do,
   desc_addr_q_do,
@@ -105,6 +106,7 @@ input wire [7 : 0] inport_data_i;
 input wire outport_accept_i;
 output wire [2 : 0] state_r_do;
 output wire [31 : 0] usb_rst_time_do;
+output wire [6 : 0] current_addr_i_do;
 output wire ctrl_sending_r_do;
 output wire ctrl_send_accept_w_do;
 output wire [6 : 0] desc_addr_q_do;
@@ -144,6 +146,7 @@ output wire [7 : 0] outport_data_o;
     .outport_accept_i(outport_accept_i),
     .state_r_do(state_r_do),
     .usb_rst_time_do(usb_rst_time_do),
+    .current_addr_i_do(current_addr_i_do),
     .ctrl_sending_r_do(ctrl_sending_r_do),
     .ctrl_send_accept_w_do(ctrl_send_accept_w_do),
     .desc_addr_q_do(desc_addr_q_do),

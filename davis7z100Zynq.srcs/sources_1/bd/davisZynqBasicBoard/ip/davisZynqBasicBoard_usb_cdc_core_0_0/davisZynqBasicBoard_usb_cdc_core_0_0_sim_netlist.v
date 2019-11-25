@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.1 (win64) Build 2188600 Wed Apr  4 18:40:38 MDT 2018
-// Date        : Sat Nov 23 14:56:32 2019
+// Date        : Sun Nov 24 21:04:47 2019
 // Host        : DESKTOP-3TNSMFC running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/ip/davisZynqBasicBoard_usb_cdc_core_0_0/davisZynqBasicBoard_usb_cdc_core_0_0_sim_netlist.v
@@ -29,6 +29,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0
     outport_accept_i,
     state_r_do,
     usb_rst_time_do,
+    current_addr_i_do,
     ctrl_sending_r_do,
     ctrl_send_accept_w_do,
     desc_addr_q_do,
@@ -64,6 +65,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0
   input outport_accept_i;
   output [2:0]state_r_do;
   output [31:0]usb_rst_time_do;
+  output [6:0]current_addr_i_do;
   output ctrl_sending_r_do;
   output ctrl_send_accept_w_do;
   output [6:0]desc_addr_q_do;
@@ -92,6 +94,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0
   wire clk_i;
   wire ctrl_send_accept_w_do;
   wire ctrl_sending_r_do;
+  wire [6:0]current_addr_i_do;
   wire [63:0]debug_counter_q_do;
   wire [6:0]desc_addr_q_do;
   wire enable_i;
@@ -147,6 +150,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0
         .clk_i(clk_i),
         .ctrl_send_accept_w_do(ctrl_send_accept_w_do),
         .ctrl_sending_r_do(ctrl_sending_r_do),
+        .current_addr_i_do(current_addr_i_do),
         .debug_counter_q_do(debug_counter_q_do),
         .\desc_addr_q_do[6] (desc_addr_q_do),
         .enable_i(enable_i),
@@ -165,13 +169,8 @@ module davisZynqBasicBoard_usb_cdc_core_0_0
         .usb_reset_w_do(usb_reset_w_do),
         .\usb_rst_time_do[19] (\^usb_rst_time_do ),
         .utmi_data_in_i(utmi_data_in_i),
-        .utmi_data_out_o(utmi_data_out_o[6:5]),
-        .\utmi_data_out_o[2] (utmi_data_out_o[2]),
-        .\utmi_data_out_o[3] (utmi_data_out_o[3]),
-        .\utmi_data_out_o[4] (utmi_data_out_o[4]),
-        .\utmi_data_out_o[7] (utmi_data_out_o[7]),
-        .utmi_data_out_o_0_sp_1(utmi_data_out_o[0]),
-        .utmi_data_out_o_1_sp_1(utmi_data_out_o[1]),
+        .utmi_data_out_o({utmi_data_out_o[7:5],utmi_data_out_o[3:0]}),
+        .utmi_data_out_o_4_sp_1(utmi_data_out_o[4]),
         .utmi_linestate_i(utmi_linestate_i),
         .utmi_op_mode_o(\^utmi_op_mode_o ),
         .utmi_rxactive_i(utmi_rxactive_i),
@@ -184,26 +183,22 @@ endmodule
 
 (* ORIG_REF_NAME = "usb_cdc_core" *) 
 module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
-   (setup_valid_q_do,
+   (utmi_data_out_o_4_sp_1,
+    utmi_data_out_o,
+    setup_valid_q_do,
     usb_reset_w_do,
     inport_accept_o,
     Q,
     \desc_addr_q_do[6] ,
     state_r_do,
     utmi_op_mode_o,
-    utmi_data_out_o_1_sp_1,
-    utmi_data_out_o_0_sp_1,
-    \utmi_data_out_o[2] ,
-    \utmi_data_out_o[3] ,
-    \utmi_data_out_o[4] ,
-    \bmRequestType_w_do[7] ,
     outport_data_o,
+    \bmRequestType_w_do[7] ,
     \usb_rst_time_do[19] ,
+    current_addr_i_do,
     usb_reset_counter_q_do,
     debug_counter_q_do,
     utmi_txvalid_o,
-    \utmi_data_out_o[7] ,
-    utmi_data_out_o,
     ctrl_send_accept_w_do,
     ctrl_sending_r_do,
     setup_frame_q_do,
@@ -215,13 +210,15 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
     rst_i,
     utmi_data_in_i,
     utmi_rxactive_i,
+    utmi_txready_i,
+    outport_accept_i,
     utmi_linestate_i,
     utmi_rxvalid_i,
     inport_valid_i,
     inport_data_i,
-    utmi_txready_i,
-    outport_accept_i,
     enable_i);
+  output utmi_data_out_o_4_sp_1;
+  output [6:0]utmi_data_out_o;
   output setup_valid_q_do;
   output usb_reset_w_do;
   output inport_accept_o;
@@ -229,19 +226,13 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
   output [6:0]\desc_addr_q_do[6] ;
   output [2:0]state_r_do;
   output [0:0]utmi_op_mode_o;
-  output utmi_data_out_o_1_sp_1;
-  output utmi_data_out_o_0_sp_1;
-  output \utmi_data_out_o[2] ;
-  output \utmi_data_out_o[3] ;
-  output \utmi_data_out_o[4] ;
-  output [7:0]\bmRequestType_w_do[7] ;
   output [7:0]outport_data_o;
+  output [7:0]\bmRequestType_w_do[7] ;
   output [19:0]\usb_rst_time_do[19] ;
+  output [6:0]current_addr_i_do;
   output [7:0]usb_reset_counter_q_do;
   output [63:0]debug_counter_q_do;
   output utmi_txvalid_o;
-  output \utmi_data_out_o[7] ;
-  output [1:0]utmi_data_out_o;
   output ctrl_send_accept_w_do;
   output ctrl_sending_r_do;
   output setup_frame_q_do;
@@ -253,26 +244,26 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
   input rst_i;
   input [7:0]utmi_data_in_i;
   input utmi_rxactive_i;
+  input utmi_txready_i;
+  input outport_accept_i;
   input [1:0]utmi_linestate_i;
   input utmi_rxvalid_i;
   input inport_valid_i;
   input [7:0]inport_data_i;
-  input utmi_txready_i;
-  input outport_accept_i;
   input enable_i;
 
   wire \FSM_sequential_state_q[1]_i_10_n_0 ;
   wire \FSM_sequential_state_q[1]_i_2__1_n_0 ;
   wire \FSM_sequential_state_q[1]_i_4__1_n_0 ;
-  wire \FSM_sequential_state_q[1]_i_5__1_n_0 ;
-  wire \FSM_sequential_state_q[1]_i_6__1_n_0 ;
+  wire \FSM_sequential_state_q[1]_i_5__0_n_0 ;
+  wire \FSM_sequential_state_q[1]_i_6__0_n_0 ;
   wire \FSM_sequential_state_q[1]_i_7__0_n_0 ;
   wire \FSM_sequential_state_q[1]_i_8__0_n_0 ;
   wire \FSM_sequential_state_q[1]_i_9__0_n_0 ;
   wire \FSM_sequential_state_q[2]_i_2__1_n_0 ;
   wire \FSM_sequential_state_q[2]_i_3_n_0 ;
-  wire \FSM_sequential_state_q[2]_i_4__0_n_0 ;
-  wire \FSM_sequential_state_q[2]_i_5_n_0 ;
+  wire \FSM_sequential_state_q[2]_i_4__1_n_0 ;
+  wire \FSM_sequential_state_q[2]_i_5__0_n_0 ;
   wire \FSM_sequential_state_q[2]_i_6__0_n_0 ;
   wire \FSM_sequential_state_q[2]_i_7__0_n_0 ;
   wire \FSM_sequential_state_q[2]_i_8_n_0 ;
@@ -345,7 +336,6 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
   wire ctrl_sending_r_do_INST_0_i_24_n_0;
   wire ctrl_sending_r_do_INST_0_i_25_n_0;
   wire ctrl_sending_r_do_INST_0_i_26_n_0;
-  wire ctrl_sending_r_do_INST_0_i_27_n_0;
   wire ctrl_sending_r_do_INST_0_i_2_n_0;
   wire ctrl_sending_r_do_INST_0_i_4_n_0;
   wire ctrl_sending_r_do_INST_0_i_5_n_0;
@@ -354,16 +344,21 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
   wire ctrl_sending_r_do_INST_0_i_8_n_0;
   wire ctrl_sending_r_do_INST_0_i_9_n_0;
   wire [7:0]ctrl_txdata_q;
+  wire \ctrl_txdata_q[0]_i_10_n_0 ;
   wire \ctrl_txdata_q[0]_i_2_n_0 ;
+  wire \ctrl_txdata_q[0]_i_3_n_0 ;
   wire \ctrl_txdata_q[0]_i_4_n_0 ;
   wire \ctrl_txdata_q[0]_i_5_n_0 ;
   wire \ctrl_txdata_q[0]_i_6_n_0 ;
   wire \ctrl_txdata_q[0]_i_7_n_0 ;
+  wire \ctrl_txdata_q[0]_i_8_n_0 ;
+  wire \ctrl_txdata_q[0]_i_9_n_0 ;
   wire \ctrl_txdata_q[1]_i_10_n_0 ;
   wire \ctrl_txdata_q[1]_i_11_n_0 ;
   wire \ctrl_txdata_q[1]_i_12_n_0 ;
   wire \ctrl_txdata_q[1]_i_13_n_0 ;
   wire \ctrl_txdata_q[1]_i_14_n_0 ;
+  wire \ctrl_txdata_q[1]_i_15_n_0 ;
   wire \ctrl_txdata_q[1]_i_2_n_0 ;
   wire \ctrl_txdata_q[1]_i_3_n_0 ;
   wire \ctrl_txdata_q[1]_i_4_n_0 ;
@@ -404,13 +399,13 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
   wire \ctrl_txdata_q[6]_i_9_n_0 ;
   wire \ctrl_txdata_q[7]_i_3_n_0 ;
   wire \ctrl_txdata_q[7]_i_4_n_0 ;
-  wire \ctrl_txdata_q_reg[0]_i_3_n_0 ;
   wire ctrl_txlast_q_i_2_n_0;
   wire ctrl_txlast_q_i_3_n_0;
   wire ctrl_txlast_q_reg_n_0;
   wire ctrl_txstall_q_reg_n_0;
   wire ctrl_txstrb_q_reg_n_0;
   wire ctrl_txvalid_q_reg_n_0;
+  wire [6:0]current_addr_i_do;
   wire \debug_counter_q[3]_i_2_n_0 ;
   wire [63:0]debug_counter_q_do;
   wire \debug_counter_q_reg[11]_i_1_n_0 ;
@@ -541,23 +536,27 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
   wire \debug_counter_q_reg[7]_i_1_n_6 ;
   wire \debug_counter_q_reg[7]_i_1_n_7 ;
   wire [7:7]desc_addr_q;
-  wire \desc_addr_q[0]_i_2_n_0 ;
-  wire \desc_addr_q[0]_i_3_n_0 ;
-  wire \desc_addr_q[0]_i_4_n_0 ;
   wire \desc_addr_q[1]_i_2_n_0 ;
-  wire \desc_addr_q[1]_i_3_n_0 ;
+  wire \desc_addr_q[2]_i_2_n_0 ;
   wire \desc_addr_q[3]_i_2_n_0 ;
   wire \desc_addr_q[3]_i_3_n_0 ;
-  wire \desc_addr_q[3]_i_4_n_0 ;
+  wire \desc_addr_q[3]_i_5_n_0 ;
   wire \desc_addr_q[4]_i_3_n_0 ;
   wire \desc_addr_q[4]_i_5_n_0 ;
+  wire \desc_addr_q[4]_i_6_n_0 ;
+  wire \desc_addr_q[4]_i_7_n_0 ;
   wire \desc_addr_q[5]_i_2_n_0 ;
   wire \desc_addr_q[5]_i_3_n_0 ;
   wire \desc_addr_q[5]_i_4_n_0 ;
   wire \desc_addr_q[6]_i_3_n_0 ;
   wire \desc_addr_q[6]_i_6_n_0 ;
+  wire \desc_addr_q[6]_i_7_n_0 ;
+  wire \desc_addr_q[7]_i_2_n_0 ;
+  wire \desc_addr_q[7]_i_3_n_0 ;
+  wire \desc_addr_q[7]_i_4_n_0 ;
+  wire \desc_addr_q[7]_i_5_n_0 ;
+  wire \desc_addr_q[7]_i_6_n_0 ;
   wire [6:0]\desc_addr_q_do[6] ;
-  wire [6:0]device_addr_q;
   wire \device_addr_q[6]_i_3_n_0 ;
   wire \device_addr_q[6]_i_4_n_0 ;
   wire enable_i;
@@ -614,7 +613,6 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
   wire u_core_n_107;
   wire u_core_n_108;
   wire u_core_n_109;
-  wire u_core_n_11;
   wire u_core_n_110;
   wire u_core_n_111;
   wire u_core_n_112;
@@ -638,35 +636,36 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
   wire u_core_n_25;
   wire u_core_n_26;
   wire u_core_n_27;
-  wire u_core_n_3;
+  wire u_core_n_28;
+  wire u_core_n_29;
+  wire u_core_n_30;
+  wire u_core_n_31;
+  wire u_core_n_32;
   wire u_core_n_33;
   wire u_core_n_34;
   wire u_core_n_35;
   wire u_core_n_36;
   wire u_core_n_37;
   wire u_core_n_38;
-  wire u_core_n_39;
-  wire u_core_n_4;
-  wire u_core_n_40;
   wire u_core_n_41;
   wire u_core_n_42;
-  wire u_core_n_43;
+  wire u_core_n_45;
+  wire u_core_n_46;
+  wire u_core_n_47;
+  wire u_core_n_48;
   wire u_core_n_49;
-  wire u_core_n_5;
   wire u_core_n_50;
+  wire u_core_n_52;
   wire u_core_n_53;
-  wire u_core_n_54;
-  wire u_core_n_55;
-  wire u_core_n_56;
-  wire u_core_n_58;
-  wire u_core_n_59;
-  wire u_core_n_6;
-  wire u_core_n_60;
-  wire u_core_n_61;
-  wire u_core_n_7;
-  wire u_core_n_8;
+  wire u_core_n_74;
+  wire u_core_n_75;
+  wire u_core_n_76;
+  wire u_core_n_77;
+  wire u_core_n_78;
+  wire u_core_n_79;
+  wire u_core_n_80;
+  wire u_core_n_81;
   wire u_core_n_82;
-  wire u_core_n_9;
   wire \usb_reset_counter_q[7]_i_2_n_0 ;
   wire [7:0]usb_reset_counter_q_do;
   wire usb_reset_w_do;
@@ -699,13 +698,8 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
   wire \usb_rst_time_q[19]_i_8_n_0 ;
   wire \usb_rst_time_q[19]_i_9_n_0 ;
   wire [7:0]utmi_data_in_i;
-  wire [1:0]utmi_data_out_o;
-  wire \utmi_data_out_o[2] ;
-  wire \utmi_data_out_o[3] ;
-  wire \utmi_data_out_o[4] ;
-  wire \utmi_data_out_o[7] ;
-  wire utmi_data_out_o_0_sn_1;
-  wire utmi_data_out_o_1_sn_1;
+  wire [6:0]utmi_data_out_o;
+  wire utmi_data_out_o_4_sn_1;
   wire [1:0]utmi_linestate_i;
   wire [0:0]utmi_op_mode_o;
   wire utmi_rxactive_i;
@@ -725,28 +719,27 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
   wire [3:2]NLW_usb_rst_time_q0_carry__3_CO_UNCONNECTED;
   wire [3:3]NLW_usb_rst_time_q0_carry__3_O_UNCONNECTED;
 
-  assign utmi_data_out_o_0_sp_1 = utmi_data_out_o_0_sn_1;
-  assign utmi_data_out_o_1_sp_1 = utmi_data_out_o_1_sn_1;
+  assign utmi_data_out_o_4_sp_1 = utmi_data_out_o_4_sn_1;
   LUT5 #(
-    .INIT(32'hFFFEEEEE)) 
+    .INIT(32'hFFFFFFE0)) 
     \FSM_sequential_state_q[1]_i_10 
-       (.I0(\chirp_count_q_reg_n_0_[7] ),
-        .I1(\chirp_count_q_reg_n_0_[3] ),
-        .I2(\chirp_count_q_reg_n_0_[0] ),
-        .I3(\chirp_count_q_reg_n_0_[1] ),
-        .I4(\chirp_count_q_reg_n_0_[2] ),
+       (.I0(\chirp_count_q_reg_n_0_[0] ),
+        .I1(\chirp_count_q_reg_n_0_[1] ),
+        .I2(\chirp_count_q_reg_n_0_[2] ),
+        .I3(\chirp_count_q_reg_n_0_[7] ),
+        .I4(\chirp_count_q_reg_n_0_[3] ),
         .O(\FSM_sequential_state_q[1]_i_10_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFAAEAFFFF0000)) 
     \FSM_sequential_state_q[1]_i_2__1 
        (.I0(\FSM_sequential_state_q[1]_i_4__1_n_0 ),
-        .I1(\FSM_sequential_state_q[1]_i_5__1_n_0 ),
+        .I1(\FSM_sequential_state_q[1]_i_5__0_n_0 ),
         .I2(\usb_rst_time_do[19] [15]),
-        .I3(\FSM_sequential_state_q[1]_i_6__1_n_0 ),
+        .I3(\FSM_sequential_state_q[1]_i_6__0_n_0 ),
         .I4(\usb_rst_time_do[19] [19]),
         .I5(\usb_rst_time_do[19] [18]),
         .O(\FSM_sequential_state_q[1]_i_2__1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair83" *) 
+  (* SOFT_HLUTNM = "soft_lutpair91" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \FSM_sequential_state_q[1]_i_4__1 
@@ -755,31 +748,31 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .O(\FSM_sequential_state_q[1]_i_4__1_n_0 ));
   LUT6 #(
     .INIT(64'hFFFEFEFEAAAAAAAA)) 
-    \FSM_sequential_state_q[1]_i_5__1 
+    \FSM_sequential_state_q[1]_i_5__0 
        (.I0(\usb_rst_time_do[19] [14]),
         .I1(\usb_rst_time_do[19] [12]),
         .I2(\usb_rst_time_do[19] [10]),
         .I3(\usb_rst_time_do[19] [8]),
         .I4(\usb_rst_time_do[19] [9]),
         .I5(\FSM_sequential_state_q[1]_i_8__0_n_0 ),
-        .O(\FSM_sequential_state_q[1]_i_5__1_n_0 ));
+        .O(\FSM_sequential_state_q[1]_i_5__0_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000010303)) 
-    \FSM_sequential_state_q[1]_i_6__1 
-       (.I0(\usb_rst_time_do[19] [5]),
+    .INIT(64'h0000000300010003)) 
+    \FSM_sequential_state_q[1]_i_6__0 
+       (.I0(\usb_rst_time_do[19] [4]),
         .I1(\usb_rst_time_do[19] [10]),
         .I2(\usb_rst_time_do[19] [12]),
-        .I3(\usb_rst_time_do[19] [4]),
+        .I3(\FSM_sequential_state_q[1]_i_9__0_n_0 ),
         .I4(\usb_rst_time_do[19] [6]),
-        .I5(\FSM_sequential_state_q[1]_i_9__0_n_0 ),
-        .O(\FSM_sequential_state_q[1]_i_6__1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair82" *) 
+        .I5(\usb_rst_time_do[19] [5]),
+        .O(\FSM_sequential_state_q[1]_i_6__0_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair90" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     \FSM_sequential_state_q[1]_i_7__0 
-       (.I0(\chirp_count_q_reg_n_0_[4] ),
-        .I1(\chirp_count_q_reg_n_0_[5] ),
-        .I2(\chirp_count_q_reg_n_0_[6] ),
+       (.I0(\chirp_count_q_reg_n_0_[5] ),
+        .I1(\chirp_count_q_reg_n_0_[6] ),
+        .I2(\chirp_count_q_reg_n_0_[4] ),
         .I3(\FSM_sequential_state_q[1]_i_10_n_0 ),
         .O(\FSM_sequential_state_q[1]_i_7__0_n_0 ));
   LUT3 #(
@@ -789,7 +782,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I1(\usb_rst_time_do[19] [12]),
         .I2(\usb_rst_time_do[19] [11]),
         .O(\FSM_sequential_state_q[1]_i_8__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair79" *) 
+  (* SOFT_HLUTNM = "soft_lutpair85" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \FSM_sequential_state_q[1]_i_9__0 
@@ -797,27 +790,27 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I1(\usb_rst_time_do[19] [7]),
         .O(\FSM_sequential_state_q[1]_i_9__0_n_0 ));
   LUT4 #(
-    .INIT(16'h80FF)) 
+    .INIT(16'h08FF)) 
     \FSM_sequential_state_q[2]_i_1__0 
-       (.I0(\FSM_sequential_state_q[2]_i_2__1_n_0 ),
-        .I1(state_q[2]),
-        .I2(state_q[0]),
+       (.I0(state_q[2]),
+        .I1(state_q[0]),
+        .I2(\FSM_sequential_state_q[2]_i_2__1_n_0 ),
         .I3(\FSM_sequential_state_q[2]_i_3_n_0 ),
         .O(next_state_r__0[2]));
   LUT6 #(
-    .INIT(64'h555555555555555D)) 
+    .INIT(64'hAAAAAAA8AAAAAAAA)) 
     \FSM_sequential_state_q[2]_i_2__1 
        (.I0(enable_i),
-        .I1(\FSM_sequential_state_q[2]_i_4__0_n_0 ),
-        .I2(\usb_rst_time_do[19] [17]),
-        .I3(\usb_rst_time_do[19] [16]),
-        .I4(\usb_rst_time_do[19] [19]),
-        .I5(\usb_rst_time_do[19] [18]),
+        .I1(\usb_rst_time_do[19] [17]),
+        .I2(\usb_rst_time_do[19] [16]),
+        .I3(\usb_rst_time_do[19] [19]),
+        .I4(\usb_rst_time_do[19] [18]),
+        .I5(\FSM_sequential_state_q[2]_i_4__1_n_0 ),
         .O(\FSM_sequential_state_q[2]_i_2__1_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFF2F2FF00FFFF)) 
     \FSM_sequential_state_q[2]_i_3 
-       (.I0(\FSM_sequential_state_q[2]_i_5_n_0 ),
+       (.I0(\FSM_sequential_state_q[2]_i_5__0_n_0 ),
         .I1(\FSM_sequential_state_q[2]_i_6__0_n_0 ),
         .I2(state_q[1]),
         .I3(\FSM_sequential_state_q[1]_i_2__1_n_0 ),
@@ -826,20 +819,20 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .O(\FSM_sequential_state_q[2]_i_3_n_0 ));
   LUT6 #(
     .INIT(64'hBBBFFFFFFFFFFFFF)) 
-    \FSM_sequential_state_q[2]_i_4__0 
+    \FSM_sequential_state_q[2]_i_4__1 
        (.I0(\FSM_sequential_state_q[2]_i_7__0_n_0 ),
         .I1(\usb_rst_time_do[19] [13]),
         .I2(\usb_rst_time_do[19] [12]),
         .I3(\usb_rst_time_do[19] [11]),
         .I4(\usb_rst_time_do[19] [14]),
         .I5(\usb_rst_time_do[19] [15]),
-        .O(\FSM_sequential_state_q[2]_i_4__0_n_0 ));
+        .O(\FSM_sequential_state_q[2]_i_4__1_n_0 ));
   LUT2 #(
     .INIT(4'h1)) 
-    \FSM_sequential_state_q[2]_i_5 
+    \FSM_sequential_state_q[2]_i_5__0 
        (.I0(\usb_rst_time_do[19] [18]),
         .I1(\usb_rst_time_do[19] [19]),
-        .O(\FSM_sequential_state_q[2]_i_5_n_0 ));
+        .O(\FSM_sequential_state_q[2]_i_5__0_n_0 ));
   LUT6 #(
     .INIT(64'h00000000CCCC8880)) 
     \FSM_sequential_state_q[2]_i_6__0 
@@ -860,7 +853,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I4(\FSM_sequential_state_q[2]_i_9_n_0 ),
         .I5(\usb_rst_time_do[19] [9]),
         .O(\FSM_sequential_state_q[2]_i_7__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair79" *) 
+  (* SOFT_HLUTNM = "soft_lutpair85" *) 
   LUT5 #(
     .INIT(32'h00000001)) 
     \FSM_sequential_state_q[2]_i_8 
@@ -934,12 +927,12 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I1(\chirp_count_q_reg_n_0_[1] ),
         .I2(\chirp_count_q_reg_n_0_[0] ),
         .I3(\chirp_count_q_reg_n_0_[3] ),
-        .I4(u_core_n_3),
+        .I4(u_core_n_1),
         .O(\chirp_count_q[3]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'h1555555540000000)) 
     \chirp_count_q[4]_i_1 
-       (.I0(u_core_n_3),
+       (.I0(u_core_n_1),
         .I1(\chirp_count_q_reg_n_0_[3] ),
         .I2(\chirp_count_q_reg_n_0_[0] ),
         .I3(\chirp_count_q_reg_n_0_[1] ),
@@ -1001,7 +994,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I2(last_linestate_q[0]),
         .I3(utmi_linestate_i[0]),
         .O(\chirp_count_q[7]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair82" *) 
+  (* SOFT_HLUTNM = "soft_lutpair90" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \chirp_count_q[7]_i_4 
@@ -1068,99 +1061,99 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .Q(\chirp_count_q_reg_n_0_[7] ));
   FDCE \ctrl_send_idx_q_reg[0] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_19),
+        .D(u_core_n_27),
         .Q(ctrl_send_idx_q[0]));
   FDCE \ctrl_send_idx_q_reg[10] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_9),
+        .D(u_core_n_17),
         .Q(ctrl_send_idx_q__0[10]));
   FDCE \ctrl_send_idx_q_reg[11] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_8),
+        .D(u_core_n_16),
         .Q(ctrl_send_idx_q__0[11]));
   FDCE \ctrl_send_idx_q_reg[12] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_7),
+        .D(u_core_n_15),
         .Q(ctrl_send_idx_q__0[12]));
   FDCE \ctrl_send_idx_q_reg[13] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_6),
+        .D(u_core_n_14),
         .Q(ctrl_send_idx_q__0[13]));
   FDCE \ctrl_send_idx_q_reg[14] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_5),
+        .D(u_core_n_13),
         .Q(ctrl_send_idx_q__0[14]));
   FDCE \ctrl_send_idx_q_reg[15] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_4),
+        .D(u_core_n_12),
         .Q(ctrl_send_idx_q__0[15]));
   FDCE \ctrl_send_idx_q_reg[1] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_18),
+        .D(u_core_n_26),
         .Q(ctrl_send_idx_q[1]));
   FDCE \ctrl_send_idx_q_reg[2] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_17),
+        .D(u_core_n_25),
         .Q(ctrl_send_idx_q[2]));
   FDCE \ctrl_send_idx_q_reg[3] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_16),
+        .D(u_core_n_24),
         .Q(ctrl_send_idx_q[3]));
   FDCE \ctrl_send_idx_q_reg[4] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_15),
+        .D(u_core_n_23),
         .Q(ctrl_send_idx_q[4]));
   FDCE \ctrl_send_idx_q_reg[5] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_14),
+        .D(u_core_n_22),
         .Q(ctrl_send_idx_q[5]));
   FDCE \ctrl_send_idx_q_reg[6] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_13),
+        .D(u_core_n_21),
         .Q(ctrl_send_idx_q__0[6]));
   FDCE \ctrl_send_idx_q_reg[7] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_12),
+        .D(u_core_n_20),
         .Q(ctrl_send_idx_q__0[7]));
   FDCE \ctrl_send_idx_q_reg[8] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_11),
+        .D(u_core_n_19),
         .Q(ctrl_send_idx_q__0[8]));
   FDCE \ctrl_send_idx_q_reg[9] 
        (.C(clk_i),
-        .CE(u_core_n_49),
+        .CE(u_core_n_41),
         .CLR(rst_i),
-        .D(u_core_n_10),
+        .D(u_core_n_18),
         .Q(ctrl_send_idx_q__0[9]));
   FDCE ctrl_sending_q_reg
        (.C(clk_i),
@@ -1210,97 +1203,98 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .DI({1'b0,1'b0,1'b0,1'b0}),
         .O({NLW_ctrl_sending_r2_carry__2_O_UNCONNECTED[3],ctrl_sending_r2[15:13]}),
         .S({1'b0,ctrl_send_idx_q__0[15:13]}));
-  LUT5 #(
-    .INIT(32'hFFFFFFFE)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFFFEF)) 
     ctrl_sending_r_do_INST_0_i_10
-       (.I0(wLength[7]),
-        .I1(wLength[11]),
-        .I2(wLength[10]),
-        .I3(wLength[12]),
-        .I4(ctrl_sending_r_do_INST_0_i_18_n_0),
+       (.I0(\desc_addr_q[7]_i_3_n_0 ),
+        .I1(wLength[9]),
+        .I2(setup_valid_q_do),
+        .I3(wLength[10]),
+        .I4(ctrl_sending_r_do_INST_0_i_17_n_0),
+        .I5(ctrl_sending_r_do_INST_0_i_18_n_0),
         .O(ctrl_sending_r_do_INST_0_i_10_n_0));
-  LUT5 #(
-    .INIT(32'hFFFFFFFE)) 
+  (* SOFT_HLUTNM = "soft_lutpair94" *) 
+  LUT4 #(
+    .INIT(16'h5755)) 
     ctrl_sending_r_do_INST_0_i_11
-       (.I0(wLength[2]),
-        .I1(wLength[4]),
-        .I2(wLength[9]),
-        .I3(wLength[13]),
-        .I4(ctrl_sending_r_do_INST_0_i_19_n_0),
-        .O(ctrl_sending_r_do_INST_0_i_11_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair73" *) 
-  LUT5 #(
-    .INIT(32'hFFFEFFFF)) 
-    ctrl_sending_r_do_INST_0_i_12
-       (.I0(Q[5]),
-        .I1(Q[4]),
-        .I2(Q[6]),
-        .I3(Q[7]),
-        .I4(Q[0]),
-        .O(ctrl_sending_r_do_INST_0_i_12_n_0));
-  LUT5 #(
-    .INIT(32'h5555555D)) 
-    ctrl_sending_r_do_INST_0_i_13
        (.I0(Q[3]),
-        .I1(ctrl_sending_r_do_INST_0_i_20_n_0),
-        .I2(ctrl_sending_r_do_INST_0_i_21_n_0),
-        .I3(ctrl_sending_r_do_INST_0_i_22_n_0),
-        .I4(ctrl_sending_r_do_INST_0_i_23_n_0),
-        .O(ctrl_sending_r_do_INST_0_i_13_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+        .I1(ctrl_sending_r_do_INST_0_i_19_n_0),
+        .I2(ctrl_sending_r_do_INST_0_i_20_n_0),
+        .I3(\desc_addr_q[4]_i_7_n_0 ),
+        .O(ctrl_sending_r_do_INST_0_i_11_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  LUT4 #(
+    .INIT(16'hFFFE)) 
+    ctrl_sending_r_do_INST_0_i_12
+       (.I0(Q[7]),
+        .I1(Q[6]),
+        .I2(Q[4]),
+        .I3(Q[5]),
+        .O(ctrl_sending_r_do_INST_0_i_12_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair82" *) 
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
-    ctrl_sending_r_do_INST_0_i_14
+    ctrl_sending_r_do_INST_0_i_13
        (.I0(\setup_packet_q_reg_n_0_[2][0] ),
         .I1(\setup_packet_q_reg_n_0_[2][1] ),
         .I2(\setup_packet_q_reg_n_0_[2][2] ),
         .I3(\setup_packet_q_reg_n_0_[2][3] ),
-        .I4(ctrl_sending_r_do_INST_0_i_24_n_0),
-        .O(ctrl_sending_r_do_INST_0_i_14_n_0));
+        .I4(ctrl_sending_r_do_INST_0_i_21_n_0),
+        .O(ctrl_sending_r_do_INST_0_i_13_n_0));
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
-    ctrl_sending_r_do_INST_0_i_15
+    ctrl_sending_r_do_INST_0_i_14
        (.I0(\setup_packet_q_reg_n_0_[3][0] ),
         .I1(\setup_packet_q_reg_n_0_[3][1] ),
         .I2(\setup_packet_q_reg_n_0_[3][2] ),
         .I3(\setup_packet_q_reg_n_0_[3][3] ),
-        .I4(ctrl_sending_r_do_INST_0_i_25_n_0),
-        .O(ctrl_sending_r_do_INST_0_i_15_n_0));
+        .I4(ctrl_sending_r_do_INST_0_i_22_n_0),
+        .O(ctrl_sending_r_do_INST_0_i_14_n_0));
   LUT5 #(
     .INIT(32'h00000001)) 
-    ctrl_sending_r_do_INST_0_i_16
-       (.I0(wIndex_w[1]),
-        .I1(wIndex_w[2]),
-        .I2(wIndex_w[0]),
-        .I3(wIndex_w[3]),
-        .I4(ctrl_sending_r_do_INST_0_i_26_n_0),
-        .O(ctrl_sending_r_do_INST_0_i_16_n_0));
+    ctrl_sending_r_do_INST_0_i_15
+       (.I0(wIndex_w[0]),
+        .I1(wIndex_w[3]),
+        .I2(wIndex_w[1]),
+        .I3(wIndex_w[2]),
+        .I4(ctrl_sending_r_do_INST_0_i_23_n_0),
+        .O(ctrl_sending_r_do_INST_0_i_15_n_0));
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
-    ctrl_sending_r_do_INST_0_i_17
+    ctrl_sending_r_do_INST_0_i_16
        (.I0(wIndex_w[10]),
         .I1(wIndex_w[11]),
         .I2(wIndex_w[8]),
         .I3(wIndex_w[9]),
-        .I4(ctrl_sending_r_do_INST_0_i_27_n_0),
+        .I4(ctrl_sending_r_do_INST_0_i_24_n_0),
+        .O(ctrl_sending_r_do_INST_0_i_16_n_0));
+  LUT5 #(
+    .INIT(32'hFFFFFFFE)) 
+    ctrl_sending_r_do_INST_0_i_17
+       (.I0(wLength[11]),
+        .I1(wLength[12]),
+        .I2(wLength[0]),
+        .I3(\bmRequestType_w_do[7] [6]),
+        .I4(ctrl_sending_r_do_INST_0_i_25_n_0),
         .O(ctrl_sending_r_do_INST_0_i_17_n_0));
-  LUT4 #(
-    .INIT(16'hFFFE)) 
+  LUT5 #(
+    .INIT(32'hFFFFFFFE)) 
     ctrl_sending_r_do_INST_0_i_18
-       (.I0(wLength[8]),
-        .I1(\bmRequestType_w_do[7] [7]),
-        .I2(\bmRequestType_w_do[7] [6]),
-        .I3(wLength[5]),
+       (.I0(\bmRequestType_w_do[7] [7]),
+        .I1(wLength[7]),
+        .I2(wLength[3]),
+        .I3(wLength[13]),
+        .I4(ctrl_sending_r_do_INST_0_i_26_n_0),
         .O(ctrl_sending_r_do_INST_0_i_18_n_0));
   LUT4 #(
-    .INIT(16'hFFEF)) 
+    .INIT(16'hFFFE)) 
     ctrl_sending_r_do_INST_0_i_19
-       (.I0(wLength[15]),
-        .I1(wLength[14]),
-        .I2(setup_valid_q_do),
-        .I3(wLength[6]),
+       (.I0(\setup_packet_q_reg_n_0_[2][7] ),
+        .I1(\setup_packet_q_reg_n_0_[2][2] ),
+        .I2(\setup_packet_q_reg_n_0_[2][6] ),
+        .I3(\setup_packet_q_reg_n_0_[2][3] ),
         .O(ctrl_sending_r_do_INST_0_i_19_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair76" *) 
+  (* SOFT_HLUTNM = "soft_lutpair84" *) 
   LUT5 #(
     .INIT(32'h44444445)) 
     ctrl_sending_r_do_INST_0_i_2
@@ -1310,73 +1304,63 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I3(\bmRequestType_w_do[7] [5]),
         .I4(\bmRequestType_w_do[7] [6]),
         .O(ctrl_sending_r_do_INST_0_i_2_n_0));
-  LUT4 #(
-    .INIT(16'h0001)) 
+  LUT5 #(
+    .INIT(32'hFFFFFFFE)) 
     ctrl_sending_r_do_INST_0_i_20
-       (.I0(\setup_packet_q_reg_n_0_[2][1] ),
-        .I1(\setup_packet_q_reg_n_0_[2][2] ),
+       (.I0(\setup_packet_q_reg_n_0_[3][0] ),
+        .I1(\setup_packet_q_reg_n_0_[2][1] ),
         .I2(\setup_packet_q_reg_n_0_[2][4] ),
-        .I3(\setup_packet_q_reg_n_0_[2][3] ),
+        .I3(\setup_packet_q_reg_n_0_[2][5] ),
+        .I4(\setup_packet_q_reg_n_0_[3][1] ),
         .O(ctrl_sending_r_do_INST_0_i_20_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair84" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     ctrl_sending_r_do_INST_0_i_21
-       (.I0(\setup_packet_q_reg_n_0_[2][6] ),
-        .I1(\setup_packet_q_reg_n_0_[2][5] ),
-        .I2(\setup_packet_q_reg_n_0_[3][0] ),
-        .I3(\setup_packet_q_reg_n_0_[2][7] ),
+       (.I0(\setup_packet_q_reg_n_0_[2][5] ),
+        .I1(\setup_packet_q_reg_n_0_[2][4] ),
+        .I2(\setup_packet_q_reg_n_0_[2][7] ),
+        .I3(\setup_packet_q_reg_n_0_[2][6] ),
         .O(ctrl_sending_r_do_INST_0_i_21_n_0));
   LUT4 #(
     .INIT(16'hFFFE)) 
     ctrl_sending_r_do_INST_0_i_22
-       (.I0(\setup_packet_q_reg_n_0_[3][1] ),
-        .I1(\setup_packet_q_reg_n_0_[3][2] ),
-        .I2(\setup_packet_q_reg_n_0_[3][4] ),
-        .I3(\setup_packet_q_reg_n_0_[3][3] ),
-        .O(ctrl_sending_r_do_INST_0_i_22_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair85" *) 
-  LUT3 #(
-    .INIT(8'hFE)) 
-    ctrl_sending_r_do_INST_0_i_23
-       (.I0(\setup_packet_q_reg_n_0_[3][7] ),
-        .I1(\setup_packet_q_reg_n_0_[3][6] ),
-        .I2(\setup_packet_q_reg_n_0_[3][5] ),
-        .O(ctrl_sending_r_do_INST_0_i_23_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair84" *) 
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    ctrl_sending_r_do_INST_0_i_24
-       (.I0(\setup_packet_q_reg_n_0_[2][7] ),
-        .I1(\setup_packet_q_reg_n_0_[2][6] ),
-        .I2(\setup_packet_q_reg_n_0_[2][5] ),
-        .I3(\setup_packet_q_reg_n_0_[2][4] ),
-        .O(ctrl_sending_r_do_INST_0_i_24_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair85" *) 
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    ctrl_sending_r_do_INST_0_i_25
        (.I0(\setup_packet_q_reg_n_0_[3][6] ),
         .I1(\setup_packet_q_reg_n_0_[3][7] ),
         .I2(\setup_packet_q_reg_n_0_[3][5] ),
         .I3(\setup_packet_q_reg_n_0_[3][4] ),
-        .O(ctrl_sending_r_do_INST_0_i_25_n_0));
+        .O(ctrl_sending_r_do_INST_0_i_22_n_0));
   LUT4 #(
     .INIT(16'hFFFE)) 
-    ctrl_sending_r_do_INST_0_i_26
-       (.I0(wIndex_w[5]),
-        .I1(wIndex_w[4]),
-        .I2(wIndex_w[7]),
-        .I3(wIndex_w[6]),
-        .O(ctrl_sending_r_do_INST_0_i_26_n_0));
+    ctrl_sending_r_do_INST_0_i_23
+       (.I0(wIndex_w[7]),
+        .I1(wIndex_w[6]),
+        .I2(wIndex_w[5]),
+        .I3(wIndex_w[4]),
+        .O(ctrl_sending_r_do_INST_0_i_23_n_0));
   LUT4 #(
     .INIT(16'hFFFE)) 
-    ctrl_sending_r_do_INST_0_i_27
+    ctrl_sending_r_do_INST_0_i_24
        (.I0(wIndex_w[14]),
         .I1(wIndex_w[15]),
         .I2(wIndex_w[13]),
         .I3(wIndex_w[12]),
-        .O(ctrl_sending_r_do_INST_0_i_27_n_0));
+        .O(ctrl_sending_r_do_INST_0_i_24_n_0));
+  LUT4 #(
+    .INIT(16'hFFFE)) 
+    ctrl_sending_r_do_INST_0_i_25
+       (.I0(wLength[15]),
+        .I1(wLength[5]),
+        .I2(wLength[6]),
+        .I3(wLength[1]),
+        .O(ctrl_sending_r_do_INST_0_i_25_n_0));
+  LUT4 #(
+    .INIT(16'hFFFE)) 
+    ctrl_sending_r_do_INST_0_i_26
+       (.I0(wLength[14]),
+        .I1(wLength[8]),
+        .I2(wLength[4]),
+        .I3(wLength[2]),
+        .O(ctrl_sending_r_do_INST_0_i_26_n_0));
   LUT6 #(
     .INIT(64'hBBBABBBABABABBBA)) 
     ctrl_sending_r_do_INST_0_i_4
@@ -1388,36 +1372,36 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I5(ctrl_sending_r_do_INST_0_i_9_n_0),
         .O(ctrl_sending_r_do_INST_0_i_4_n_0));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
+    .INIT(64'hFFFFFFFF02020200)) 
     ctrl_sending_r_do_INST_0_i_5
-       (.I0(\desc_addr_q[0]_i_2_n_0 ),
-        .I1(wLength[0]),
-        .I2(wLength[3]),
-        .I3(wLength[1]),
-        .I4(ctrl_sending_r_do_INST_0_i_10_n_0),
-        .I5(ctrl_sending_r_do_INST_0_i_11_n_0),
+       (.I0(Q[1]),
+        .I1(\bmRequestType_w_do[7] [5]),
+        .I2(\bmRequestType_w_do[7] [6]),
+        .I3(Q[2]),
+        .I4(ctrl_sending_r_do_INST_0_i_9_n_0),
+        .I5(ctrl_sending_r_do_INST_0_i_10_n_0),
         .O(ctrl_sending_r_do_INST_0_i_5_n_0));
   LUT6 #(
-    .INIT(64'h0013031300100010)) 
+    .INIT(64'h00000000FF2A0000)) 
     ctrl_sending_r_do_INST_0_i_6
-       (.I0(ctrl_sending_r_do_INST_0_i_9_n_0),
-        .I1(ctrl_sending_r_do_INST_0_i_12_n_0),
-        .I2(Q[1]),
-        .I3(Q[2]),
-        .I4(Q[3]),
-        .I5(ctrl_sending_r_do_INST_0_i_13_n_0),
+       (.I0(ctrl_sending_r_do_INST_0_i_11_n_0),
+        .I1(Q[3]),
+        .I2(Q[2]),
+        .I3(Q[1]),
+        .I4(Q[0]),
+        .I5(ctrl_sending_r_do_INST_0_i_12_n_0),
         .O(ctrl_sending_r_do_INST_0_i_6_n_0));
   LUT6 #(
-    .INIT(64'hFFFFFFFFCC00DF50)) 
+    .INIT(64'hFCCCFDDDFCCCFFCC)) 
     ctrl_sending_r_do_INST_0_i_7
-       (.I0(ctrl_sending_r_do_INST_0_i_13_n_0),
-        .I1(Q[3]),
-        .I2(Q[0]),
+       (.I0(ctrl_sending_r_do_INST_0_i_11_n_0),
+        .I1(ctrl_sending_r_do_INST_0_i_12_n_0),
+        .I2(Q[3]),
         .I3(Q[2]),
         .I4(Q[1]),
-        .I5(\device_addr_q[6]_i_4_n_0 ),
+        .I5(Q[0]),
         .O(ctrl_sending_r_do_INST_0_i_7_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  (* SOFT_HLUTNM = "soft_lutpair79" *) 
   LUT2 #(
     .INIT(4'h6)) 
     ctrl_sending_r_do_INST_0_i_8
@@ -1428,115 +1412,169 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
     .INIT(32'hAAAAA8AA)) 
     ctrl_sending_r_do_INST_0_i_9
        (.I0(Q[3]),
-        .I1(ctrl_sending_r_do_INST_0_i_14_n_0),
-        .I2(ctrl_sending_r_do_INST_0_i_15_n_0),
-        .I3(ctrl_sending_r_do_INST_0_i_16_n_0),
-        .I4(ctrl_sending_r_do_INST_0_i_17_n_0),
+        .I1(ctrl_sending_r_do_INST_0_i_13_n_0),
+        .I2(ctrl_sending_r_do_INST_0_i_14_n_0),
+        .I3(ctrl_sending_r_do_INST_0_i_15_n_0),
+        .I4(ctrl_sending_r_do_INST_0_i_16_n_0),
         .O(ctrl_sending_r_do_INST_0_i_9_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair80" *) 
+  LUT2 #(
+    .INIT(4'hB)) 
+    \ctrl_txdata_q[0]_i_10 
+       (.I0(\desc_addr_q_do[6] [1]),
+        .I1(\desc_addr_q_do[6] [5]),
+        .O(\ctrl_txdata_q[0]_i_10_n_0 ));
+  LUT6 #(
+    .INIT(64'h00000000222222F2)) 
+    \ctrl_txdata_q[0]_i_2 
+       (.I0(\ctrl_txdata_q[0]_i_4_n_0 ),
+        .I1(\ctrl_txdata_q[0]_i_5_n_0 ),
+        .I2(\ctrl_txdata_q[0]_i_6_n_0 ),
+        .I3(\ctrl_txdata_q[0]_i_7_n_0 ),
+        .I4(\ctrl_txdata_q[0]_i_8_n_0 ),
+        .I5(\ctrl_txdata_q[0]_i_9_n_0 ),
+        .O(\ctrl_txdata_q[0]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair87" *) 
+  LUT5 #(
+    .INIT(32'hF8FDDFFF)) 
+    \ctrl_txdata_q[0]_i_3 
+       (.I0(\desc_addr_q_do[6] [1]),
+        .I1(\desc_addr_q_do[6] [5]),
+        .I2(\desc_addr_q_do[6] [4]),
+        .I3(\desc_addr_q_do[6] [2]),
+        .I4(\desc_addr_q_do[6] [0]),
+        .O(\ctrl_txdata_q[0]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'hBBBBFEFBEEEBFFFF)) 
+    \ctrl_txdata_q[0]_i_4 
+       (.I0(\desc_addr_q_do[6] [6]),
+        .I1(\desc_addr_q_do[6] [1]),
+        .I2(\desc_addr_q_do[6] [3]),
+        .I3(\desc_addr_q_do[6] [2]),
+        .I4(\desc_addr_q_do[6] [5]),
+        .I5(\desc_addr_q_do[6] [4]),
+        .O(\ctrl_txdata_q[0]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'hAAAAAAABAAAAAAAA)) 
+    \ctrl_txdata_q[0]_i_5 
+       (.I0(\desc_addr_q_do[6] [0]),
+        .I1(\desc_addr_q_do[6] [4]),
+        .I2(\desc_addr_q_do[6] [2]),
+        .I3(\desc_addr_q_do[6] [5]),
+        .I4(\desc_addr_q_do[6] [1]),
+        .I5(\desc_addr_q_do[6] [6]),
+        .O(\ctrl_txdata_q[0]_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'hEDF1EDFBFFFFFFFF)) 
+    \ctrl_txdata_q[0]_i_6 
+       (.I0(\desc_addr_q_do[6] [2]),
+        .I1(\desc_addr_q_do[6] [3]),
+        .I2(\desc_addr_q_do[6] [5]),
+        .I3(\desc_addr_q_do[6] [6]),
+        .I4(\desc_addr_q_do[6] [4]),
+        .I5(\desc_addr_q_do[6] [1]),
+        .O(\ctrl_txdata_q[0]_i_6_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000085008503)) 
+    \ctrl_txdata_q[0]_i_7 
+       (.I0(\desc_addr_q_do[6] [4]),
+        .I1(\desc_addr_q_do[6] [5]),
+        .I2(\desc_addr_q_do[6] [6]),
+        .I3(\desc_addr_q_do[6] [3]),
+        .I4(\desc_addr_q_do[6] [1]),
+        .I5(\desc_addr_q_do[6] [2]),
+        .O(\ctrl_txdata_q[0]_i_7_n_0 ));
+  LUT6 #(
+    .INIT(64'h0F0F0F8F0FFF0F8F)) 
+    \ctrl_txdata_q[0]_i_8 
+       (.I0(\desc_addr_q_do[6] [2]),
+        .I1(\desc_addr_q[7]_i_6_n_0 ),
+        .I2(\desc_addr_q_do[6] [0]),
+        .I3(\desc_addr_q_do[6] [4]),
+        .I4(\desc_addr_q_do[6] [3]),
+        .I5(\ctrl_txdata_q[0]_i_10_n_0 ),
+        .O(\ctrl_txdata_q[0]_i_8_n_0 ));
   LUT6 #(
     .INIT(64'h0400608222000028)) 
-    \ctrl_txdata_q[0]_i_2 
+    \ctrl_txdata_q[0]_i_9 
        (.I0(\desc_addr_q_do[6] [3]),
         .I1(\desc_addr_q_do[6] [2]),
         .I2(\desc_addr_q_do[6] [6]),
         .I3(\desc_addr_q_do[6] [4]),
         .I4(\desc_addr_q_do[6] [5]),
         .I5(\desc_addr_q_do[6] [1]),
-        .O(\ctrl_txdata_q[0]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair80" *) 
-  LUT2 #(
-    .INIT(4'h1)) 
-    \ctrl_txdata_q[0]_i_4 
-       (.I0(\desc_addr_q_do[6] [3]),
-        .I1(\desc_addr_q_do[6] [6]),
-        .O(\ctrl_txdata_q[0]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+        .O(\ctrl_txdata_q[0]_i_9_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair88" *) 
   LUT5 #(
-    .INIT(32'hF8FDDFFF)) 
-    \ctrl_txdata_q[0]_i_5 
-       (.I0(\desc_addr_q_do[6] [1]),
-        .I1(\desc_addr_q_do[6] [5]),
-        .I2(\desc_addr_q_do[6] [4]),
-        .I3(\desc_addr_q_do[6] [2]),
-        .I4(\desc_addr_q_do[6] [0]),
-        .O(\ctrl_txdata_q[0]_i_5_n_0 ));
-  LUT6 #(
-    .INIT(64'hBFBFBFABEFEDEBFD)) 
-    \ctrl_txdata_q[0]_i_6 
-       (.I0(\desc_addr_q_do[6] [6]),
-        .I1(\desc_addr_q_do[6] [4]),
-        .I2(\desc_addr_q_do[6] [5]),
-        .I3(\desc_addr_q_do[6] [2]),
-        .I4(\desc_addr_q_do[6] [3]),
-        .I5(\desc_addr_q_do[6] [1]),
-        .O(\ctrl_txdata_q[0]_i_6_n_0 ));
-  LUT6 #(
-    .INIT(64'hFD37DDDEB1B7BF0E)) 
-    \ctrl_txdata_q[0]_i_7 
-       (.I0(\desc_addr_q_do[6] [1]),
+    .INIT(32'h0CCC8800)) 
+    \ctrl_txdata_q[1]_i_10 
+       (.I0(\desc_addr_q_do[6] [4]),
         .I1(\desc_addr_q_do[6] [5]),
         .I2(\desc_addr_q_do[6] [3]),
-        .I3(\desc_addr_q_do[6] [2]),
-        .I4(\desc_addr_q_do[6] [6]),
-        .I5(\desc_addr_q_do[6] [4]),
-        .O(\ctrl_txdata_q[0]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair78" *) 
-  LUT5 #(
-    .INIT(32'h02000051)) 
-    \ctrl_txdata_q[1]_i_10 
-       (.I0(\desc_addr_q_do[6] [1]),
-        .I1(\desc_addr_q_do[6] [5]),
-        .I2(\desc_addr_q_do[6] [4]),
         .I3(\desc_addr_q_do[6] [6]),
-        .I4(\desc_addr_q_do[6] [3]),
+        .I4(\desc_addr_q_do[6] [1]),
         .O(\ctrl_txdata_q[1]_i_10_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair80" *) 
+  (* SOFT_HLUTNM = "soft_lutpair92" *) 
   LUT4 #(
-    .INIT(16'hAA2A)) 
+    .INIT(16'h0040)) 
     \ctrl_txdata_q[1]_i_11 
-       (.I0(desc_addr_q),
-        .I1(\desc_addr_q_do[6] [1]),
-        .I2(\desc_addr_q_do[6] [2]),
-        .I3(\desc_addr_q_do[6] [6]),
+       (.I0(\desc_addr_q_do[6] [4]),
+        .I1(\desc_addr_q_do[6] [3]),
+        .I2(\desc_addr_q_do[6] [5]),
+        .I3(\desc_addr_q_do[6] [1]),
         .O(\ctrl_txdata_q[1]_i_11_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair81" *) 
-  LUT4 #(
-    .INIT(16'hFFFD)) 
+  LUT6 #(
+    .INIT(64'h00000000BAAA0FFF)) 
     \ctrl_txdata_q[1]_i_12 
+       (.I0(\desc_addr_q_do[6] [3]),
+        .I1(\ctrl_txdata_q[3]_i_7_n_0 ),
+        .I2(\desc_addr_q_do[6] [6]),
+        .I3(\desc_addr_q_do[6] [4]),
+        .I4(\desc_addr_q_do[6] [1]),
+        .I5(\desc_addr_q_do[6] [5]),
+        .O(\ctrl_txdata_q[1]_i_12_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFAFFE5FFFFFF5FF)) 
+    \ctrl_txdata_q[1]_i_13 
+       (.I0(\desc_addr_q_do[6] [1]),
+        .I1(\desc_addr_q_do[6] [6]),
+        .I2(\desc_addr_q_do[6] [5]),
+        .I3(desc_addr_q),
+        .I4(\desc_addr_q_do[6] [3]),
+        .I5(\desc_addr_q_do[6] [4]),
+        .O(\ctrl_txdata_q[1]_i_13_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair86" *) 
+  LUT5 #(
+    .INIT(32'hAAAA8AAA)) 
+    \ctrl_txdata_q[1]_i_14 
        (.I0(\desc_addr_q_do[6] [2]),
         .I1(\desc_addr_q_do[6] [3]),
         .I2(\desc_addr_q_do[6] [6]),
-        .I3(\desc_addr_q_do[6] [4]),
-        .O(\ctrl_txdata_q[1]_i_12_n_0 ));
+        .I3(\desc_addr_q_do[6] [1]),
+        .I4(\desc_addr_q_do[6] [4]),
+        .O(\ctrl_txdata_q[1]_i_14_n_0 ));
   LUT6 #(
     .INIT(64'h9999999999999909)) 
-    \ctrl_txdata_q[1]_i_13 
+    \ctrl_txdata_q[1]_i_15 
        (.I0(\desc_addr_q_do[6] [5]),
         .I1(\desc_addr_q_do[6] [4]),
         .I2(\desc_addr_q_do[6] [6]),
         .I3(state_q[0]),
         .I4(state_q[2]),
         .I5(state_q[1]),
-        .O(\ctrl_txdata_q[1]_i_13_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair81" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \ctrl_txdata_q[1]_i_14 
-       (.I0(\desc_addr_q_do[6] [5]),
-        .I1(\desc_addr_q_do[6] [6]),
-        .O(\ctrl_txdata_q[1]_i_14_n_0 ));
+        .O(\ctrl_txdata_q[1]_i_15_n_0 ));
   LUT6 #(
-    .INIT(64'hBFBBBFBBBFBB8088)) 
+    .INIT(64'hFF020002FF02FF02)) 
     \ctrl_txdata_q[1]_i_2 
        (.I0(\ctrl_txdata_q[1]_i_5_n_0 ),
-        .I1(\desc_addr_q_do[6] [2]),
-        .I2(\desc_addr_q_do[6] [3]),
-        .I3(\ctrl_txdata_q[1]_i_6_n_0 ),
-        .I4(desc_addr_q),
-        .I5(\ctrl_txdata_q[1]_i_7_n_0 ),
+        .I1(\ctrl_txdata_q[1]_i_6_n_0 ),
+        .I2(\ctrl_txdata_q[1]_i_7_n_0 ),
+        .I3(\ctrl_txdata_q[1]_i_8_n_0 ),
+        .I4(\ctrl_txdata_q[1]_i_9_n_0 ),
+        .I5(\desc_addr_q_do[6] [5]),
         .O(\ctrl_txdata_q[1]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h5555555555554151)) 
+    .INIT(64'hAAAAAAAAAAAABEAE)) 
     \ctrl_txdata_q[1]_i_3 
        (.I0(\desc_addr_q_do[6] [0]),
         .I1(\desc_addr_q_do[6] [4]),
@@ -1546,62 +1584,62 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I5(\desc_addr_q_do[6] [3]),
         .O(\ctrl_txdata_q[1]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFF020002FF02FF02)) 
+    .INIT(64'hFFFF0000FFFEFFFE)) 
     \ctrl_txdata_q[1]_i_4 
-       (.I0(\ctrl_txdata_q[1]_i_8_n_0 ),
-        .I1(\ctrl_txdata_q[1]_i_9_n_0 ),
-        .I2(\ctrl_txdata_q[1]_i_10_n_0 ),
-        .I3(\ctrl_txdata_q[1]_i_11_n_0 ),
-        .I4(\ctrl_txdata_q[1]_i_12_n_0 ),
-        .I5(\desc_addr_q_do[6] [5]),
+       (.I0(\ctrl_txdata_q[1]_i_10_n_0 ),
+        .I1(desc_addr_q),
+        .I2(\ctrl_txdata_q[1]_i_11_n_0 ),
+        .I3(\ctrl_txdata_q[1]_i_12_n_0 ),
+        .I4(\ctrl_txdata_q[1]_i_13_n_0 ),
+        .I5(\ctrl_txdata_q[1]_i_14_n_0 ),
         .O(\ctrl_txdata_q[1]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFE99FFFFDDFFFF)) 
-    \ctrl_txdata_q[1]_i_5 
-       (.I0(\desc_addr_q_do[6] [1]),
-        .I1(\desc_addr_q_do[6] [3]),
-        .I2(\desc_addr_q_do[6] [6]),
-        .I3(\desc_addr_q_do[6] [5]),
-        .I4(desc_addr_q),
-        .I5(\desc_addr_q_do[6] [4]),
-        .O(\ctrl_txdata_q[1]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair78" *) 
-  LUT3 #(
-    .INIT(8'h08)) 
-    \ctrl_txdata_q[1]_i_6 
-       (.I0(\desc_addr_q_do[6] [6]),
-        .I1(\desc_addr_q_do[6] [1]),
-        .I2(\desc_addr_q_do[6] [4]),
-        .O(\ctrl_txdata_q[1]_i_6_n_0 ));
-  LUT6 #(
-    .INIT(64'h6A7AE5E56D6DEDED)) 
-    \ctrl_txdata_q[1]_i_7 
-       (.I0(\desc_addr_q_do[6] [5]),
-        .I1(\desc_addr_q_do[6] [3]),
-        .I2(\desc_addr_q_do[6] [1]),
-        .I3(\ctrl_txdata_q[3]_i_7_n_0 ),
-        .I4(\desc_addr_q_do[6] [6]),
-        .I5(\desc_addr_q_do[6] [4]),
-        .O(\ctrl_txdata_q[1]_i_7_n_0 ));
-  LUT6 #(
     .INIT(64'hFFFFFBEFFFFFFFFF)) 
-    \ctrl_txdata_q[1]_i_8 
-       (.I0(\ctrl_txdata_q[1]_i_13_n_0 ),
+    \ctrl_txdata_q[1]_i_5 
+       (.I0(\ctrl_txdata_q[1]_i_15_n_0 ),
         .I1(\desc_addr_q_do[6] [1]),
         .I2(\desc_addr_q_do[6] [3]),
         .I3(\desc_addr_q_do[6] [4]),
-        .I4(\ctrl_txdata_q[1]_i_14_n_0 ),
+        .I4(\desc_addr_q[7]_i_6_n_0 ),
         .I5(\desc_addr_q_do[6] [2]),
-        .O(\ctrl_txdata_q[1]_i_8_n_0 ));
+        .O(\ctrl_txdata_q[1]_i_5_n_0 ));
   LUT6 #(
     .INIT(64'h1100410140004000)) 
-    \ctrl_txdata_q[1]_i_9 
+    \ctrl_txdata_q[1]_i_6 
        (.I0(\desc_addr_q_do[6] [2]),
         .I1(\desc_addr_q_do[6] [1]),
         .I2(\desc_addr_q_do[6] [3]),
         .I3(\desc_addr_q_do[6] [4]),
         .I4(\desc_addr_q_do[6] [6]),
         .I5(\desc_addr_q_do[6] [5]),
+        .O(\ctrl_txdata_q[1]_i_6_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair88" *) 
+  LUT5 #(
+    .INIT(32'h1000000B)) 
+    \ctrl_txdata_q[1]_i_7 
+       (.I0(\desc_addr_q_do[6] [4]),
+        .I1(\desc_addr_q_do[6] [5]),
+        .I2(\desc_addr_q_do[6] [3]),
+        .I3(\desc_addr_q_do[6] [6]),
+        .I4(\desc_addr_q_do[6] [1]),
+        .O(\ctrl_txdata_q[1]_i_7_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair93" *) 
+  LUT4 #(
+    .INIT(16'hAA2A)) 
+    \ctrl_txdata_q[1]_i_8 
+       (.I0(desc_addr_q),
+        .I1(\desc_addr_q_do[6] [1]),
+        .I2(\desc_addr_q_do[6] [2]),
+        .I3(\desc_addr_q_do[6] [6]),
+        .O(\ctrl_txdata_q[1]_i_8_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair86" *) 
+  LUT4 #(
+    .INIT(16'hFFFD)) 
+    \ctrl_txdata_q[1]_i_9 
+       (.I0(\desc_addr_q_do[6] [2]),
+        .I1(\desc_addr_q_do[6] [3]),
+        .I2(\desc_addr_q_do[6] [6]),
+        .I3(\desc_addr_q_do[6] [4]),
         .O(\ctrl_txdata_q[1]_i_9_n_0 ));
   LUT6 #(
     .INIT(64'h000000000FFFEEEE)) 
@@ -1613,15 +1651,15 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I4(\ctrl_txdata_q[2]_i_8_n_0 ),
         .I5(desc_addr_q),
         .O(\ctrl_txdata_q[2]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair69" *) 
-  LUT5 #(
-    .INIT(32'hFFEFFFFF)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFEEEFFFF)) 
     \ctrl_txdata_q[2]_i_3 
-       (.I0(\desc_addr_q_do[6] [6]),
-        .I1(\desc_addr_q_do[6] [5]),
-        .I2(\desc_addr_q_do[6] [0]),
-        .I3(\desc_addr_q_do[6] [3]),
+       (.I0(\desc_addr_q_do[6] [5]),
+        .I1(\desc_addr_q_do[6] [3]),
+        .I2(\desc_addr_q_do[6] [1]),
+        .I3(\desc_addr_q_do[6] [4]),
         .I4(desc_addr_q),
+        .I5(\desc_addr_q_do[6] [6]),
         .O(\ctrl_txdata_q[2]_i_3_n_0 ));
   LUT6 #(
     .INIT(64'h8800008008080080)) 
@@ -1704,16 +1742,15 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I5(\desc_addr_q_do[6] [5]),
         .O(\ctrl_txdata_q[3]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFF3CFFFFC03FFB)) 
+    .INIT(64'hFFF86F7FFFF86F7B)) 
     \ctrl_txdata_q[3]_i_5 
-       (.I0(\ctrl_txdata_q[3]_i_7_n_0 ),
+       (.I0(\desc_addr_q_do[6] [4]),
         .I1(\desc_addr_q_do[6] [1]),
-        .I2(\desc_addr_q_do[6] [4]),
-        .I3(\desc_addr_q_do[6] [6]),
+        .I2(\desc_addr_q_do[6] [6]),
+        .I3(\desc_addr_q_do[6] [5]),
         .I4(desc_addr_q),
-        .I5(\desc_addr_q_do[6] [5]),
+        .I5(\ctrl_txdata_q[3]_i_7_n_0 ),
         .O(\ctrl_txdata_q[3]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair69" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ctrl_txdata_q[3]_i_6 
@@ -1748,22 +1785,23 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I5(\desc_addr_q_do[6] [3]),
         .O(\ctrl_txdata_q[4]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFF15B5FF75FF)) 
+    .INIT(64'hFFFFB5FFFF1575FF)) 
     \ctrl_txdata_q[4]_i_4 
        (.I0(\desc_addr_q_do[6] [3]),
         .I1(\desc_addr_q_do[6] [1]),
         .I2(\desc_addr_q_do[6] [2]),
         .I3(\desc_addr_q_do[6] [6]),
-        .I4(\desc_addr_q_do[6] [5]),
-        .I5(desc_addr_q),
+        .I4(desc_addr_q),
+        .I5(\desc_addr_q_do[6] [5]),
         .O(\ctrl_txdata_q[4]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair75" *) 
+  (* SOFT_HLUTNM = "soft_lutpair92" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ctrl_txdata_q[4]_i_5 
        (.I0(\desc_addr_q_do[6] [0]),
         .I1(\desc_addr_q_do[6] [3]),
         .O(\ctrl_txdata_q[4]_i_5_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair80" *) 
   LUT5 #(
     .INIT(32'h45554545)) 
     \ctrl_txdata_q[5]_i_2 
@@ -1803,7 +1841,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I4(\desc_addr_q_do[6] [6]),
         .I5(\desc_addr_q_do[6] [5]),
         .O(\ctrl_txdata_q[5]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair77" *) 
+  (* SOFT_HLUTNM = "soft_lutpair89" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \ctrl_txdata_q[5]_i_6 
@@ -1831,13 +1869,13 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I5(\desc_addr_q_do[6] [6]),
         .O(\ctrl_txdata_q[6]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h55C055FF55FF55FF)) 
+    .INIT(64'h5555C0FF5555FFFF)) 
     \ctrl_txdata_q[6]_i_4 
        (.I0(\ctrl_txdata_q[6]_i_5_n_0 ),
         .I1(desc_addr_q),
         .I2(\desc_addr_q_do[6] [6]),
-        .I3(\desc_addr_q_do[6] [1]),
-        .I4(\desc_addr_q_do[6] [2]),
+        .I3(\desc_addr_q_do[6] [2]),
+        .I4(\desc_addr_q_do[6] [1]),
         .I5(\ctrl_txdata_q[6]_i_6_n_0 ),
         .O(\ctrl_txdata_q[6]_i_4_n_0 ));
   LUT6 #(
@@ -1851,13 +1889,13 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I5(\ctrl_txdata_q[6]_i_8_n_0 ),
         .O(\ctrl_txdata_q[6]_i_5_n_0 ));
   LUT6 #(
-    .INIT(64'hA000A00000020100)) 
+    .INIT(64'hA0A0000000011000)) 
     \ctrl_txdata_q[6]_i_6 
-       (.I0(\desc_addr_q_do[6] [5]),
+       (.I0(\desc_addr_q_do[6] [6]),
         .I1(\desc_addr_q_do[6] [3]),
-        .I2(\desc_addr_q_do[6] [6]),
-        .I3(\desc_addr_q_do[6] [4]),
-        .I4(desc_addr_q),
+        .I2(\desc_addr_q_do[6] [5]),
+        .I3(desc_addr_q),
+        .I4(\desc_addr_q_do[6] [4]),
         .I5(\desc_addr_q_do[6] [0]),
         .O(\ctrl_txdata_q[6]_i_6_n_0 ));
   LUT6 #(
@@ -1873,20 +1911,21 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
   LUT6 #(
     .INIT(64'h4C444C440C030C00)) 
     \ctrl_txdata_q[6]_i_8 
-       (.I0(\ctrl_txdata_q[1]_i_12_n_0 ),
+       (.I0(\ctrl_txdata_q[1]_i_9_n_0 ),
         .I1(\desc_addr_q_do[6] [0]),
         .I2(\desc_addr_q_do[6] [2]),
         .I3(\desc_addr_q_do[6] [3]),
         .I4(\ctrl_txdata_q[6]_i_9_n_0 ),
         .I5(\ctrl_txdata_q[3]_i_7_n_0 ),
         .O(\ctrl_txdata_q[6]_i_8_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair87" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ctrl_txdata_q[6]_i_9 
        (.I0(\desc_addr_q_do[6] [4]),
         .I1(\desc_addr_q_do[6] [5]),
         .O(\ctrl_txdata_q[6]_i_9_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair77" *) 
+  (* SOFT_HLUTNM = "soft_lutpair89" *) 
   LUT5 #(
     .INIT(32'hFFFDBFFF)) 
     \ctrl_txdata_q[7]_i_3 
@@ -1908,56 +1947,51 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .O(\ctrl_txdata_q[7]_i_4_n_0 ));
   FDCE \ctrl_txdata_q_reg[0] 
        (.C(clk_i),
-        .CE(u_core_n_50),
+        .CE(u_core_n_42),
         .CLR(rst_i),
-        .D(u_core_n_27),
+        .D(u_core_n_35),
         .Q(ctrl_txdata_q[0]));
-  MUXF7 \ctrl_txdata_q_reg[0]_i_3 
-       (.I0(\ctrl_txdata_q[0]_i_6_n_0 ),
-        .I1(\ctrl_txdata_q[0]_i_7_n_0 ),
-        .O(\ctrl_txdata_q_reg[0]_i_3_n_0 ),
-        .S(\desc_addr_q_do[6] [0]));
   FDCE \ctrl_txdata_q_reg[1] 
        (.C(clk_i),
-        .CE(u_core_n_50),
+        .CE(u_core_n_42),
         .CLR(rst_i),
-        .D(u_core_n_26),
+        .D(u_core_n_34),
         .Q(ctrl_txdata_q[1]));
   FDCE \ctrl_txdata_q_reg[2] 
        (.C(clk_i),
-        .CE(u_core_n_50),
+        .CE(u_core_n_42),
         .CLR(rst_i),
-        .D(u_core_n_25),
+        .D(u_core_n_33),
         .Q(ctrl_txdata_q[2]));
   FDCE \ctrl_txdata_q_reg[3] 
        (.C(clk_i),
-        .CE(u_core_n_50),
+        .CE(u_core_n_42),
         .CLR(rst_i),
-        .D(u_core_n_24),
+        .D(u_core_n_32),
         .Q(ctrl_txdata_q[3]));
   FDCE \ctrl_txdata_q_reg[4] 
        (.C(clk_i),
-        .CE(u_core_n_50),
+        .CE(u_core_n_42),
         .CLR(rst_i),
-        .D(u_core_n_23),
+        .D(u_core_n_31),
         .Q(ctrl_txdata_q[4]));
   FDCE \ctrl_txdata_q_reg[5] 
        (.C(clk_i),
-        .CE(u_core_n_50),
+        .CE(u_core_n_42),
         .CLR(rst_i),
-        .D(u_core_n_22),
+        .D(u_core_n_30),
         .Q(ctrl_txdata_q[5]));
   FDCE \ctrl_txdata_q_reg[6] 
        (.C(clk_i),
-        .CE(u_core_n_50),
+        .CE(u_core_n_42),
         .CLR(rst_i),
-        .D(u_core_n_21),
+        .D(u_core_n_29),
         .Q(ctrl_txdata_q[6]));
   FDCE \ctrl_txdata_q_reg[7] 
        (.C(clk_i),
-        .CE(u_core_n_50),
+        .CE(u_core_n_42),
         .CLR(rst_i),
-        .D(u_core_n_20),
+        .D(u_core_n_28),
         .Q(ctrl_txdata_q[7]));
   LUT5 #(
     .INIT(32'h00007FFF)) 
@@ -2503,48 +2537,24 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .CLR(rst_i),
         .D(\debug_counter_q_reg[11]_i_1_n_6 ),
         .Q(debug_counter_q_do[9]));
-  LUT6 #(
-    .INIT(64'h0001000000000000)) 
-    \desc_addr_q[0]_i_2 
-       (.I0(\desc_addr_q[0]_i_3_n_0 ),
-        .I1(\desc_addr_q[0]_i_4_n_0 ),
-        .I2(Q[3]),
-        .I3(Q[2]),
-        .I4(Q[5]),
-        .I5(Q[0]),
-        .O(\desc_addr_q[0]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair76" *) 
-  LUT2 #(
-    .INIT(4'h1)) 
-    \desc_addr_q[0]_i_3 
-       (.I0(\bmRequestType_w_do[7] [6]),
-        .I1(\bmRequestType_w_do[7] [5]),
-        .O(\desc_addr_q[0]_i_3_n_0 ));
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \desc_addr_q[0]_i_4 
-       (.I0(Q[7]),
-        .I1(Q[6]),
-        .I2(Q[4]),
-        .I3(Q[1]),
-        .O(\desc_addr_q[0]_i_4_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair77" *) 
   LUT5 #(
-    .INIT(32'h10555555)) 
+    .INIT(32'h15551515)) 
     \desc_addr_q[1]_i_2 
-       (.I0(\desc_addr_q[0]_i_2_n_0 ),
-        .I1(\desc_addr_q[1]_i_3_n_0 ),
-        .I2(\setup_packet_q_reg_n_0_[3][0] ),
-        .I3(\setup_packet_q_reg_n_0_[3][1] ),
-        .I4(\desc_addr_q[4]_i_5_n_0 ),
+       (.I0(\desc_addr_q[7]_i_3_n_0 ),
+        .I1(\setup_packet_q_reg_n_0_[3][1] ),
+        .I2(\desc_addr_q[4]_i_5_n_0 ),
+        .I3(\desc_addr_q[5]_i_4_n_0 ),
+        .I4(\setup_packet_q_reg_n_0_[3][0] ),
         .O(\desc_addr_q[1]_i_2_n_0 ));
-  LUT3 #(
-    .INIT(8'h04)) 
-    \desc_addr_q[1]_i_3 
+  (* SOFT_HLUTNM = "soft_lutpair97" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \desc_addr_q[2]_i_2 
        (.I0(\setup_packet_q_reg_n_0_[2][0] ),
         .I1(\setup_packet_q_reg_n_0_[2][1] ),
-        .I2(\desc_addr_q[4]_i_3_n_0 ),
-        .O(\desc_addr_q[1]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+        .O(\desc_addr_q[2]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair83" *) 
   LUT3 #(
     .INIT(8'h80)) 
     \desc_addr_q[3]_i_2 
@@ -2552,42 +2562,64 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I1(\desc_addr_q_do[6] [0]),
         .I2(\desc_addr_q_do[6] [1]),
         .O(\desc_addr_q[3]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair70" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
-    \desc_addr_q[3]_i_3 
-       (.I0(\setup_packet_q_reg_n_0_[2][0] ),
-        .I1(\setup_packet_q_reg_n_0_[2][1] ),
-        .O(\desc_addr_q[3]_i_3_n_0 ));
-  LUT4 #(
-    .INIT(16'h0080)) 
-    \desc_addr_q[3]_i_4 
-       (.I0(\desc_addr_q[4]_i_5_n_0 ),
-        .I1(\setup_packet_q_reg_n_0_[3][0] ),
-        .I2(\setup_packet_q_reg_n_0_[3][1] ),
-        .I3(\desc_addr_q[4]_i_3_n_0 ),
-        .O(\desc_addr_q[3]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \desc_addr_q[4]_i_3 
-       (.I0(\setup_packet_q_reg_n_0_[2][7] ),
-        .I1(\setup_packet_q_reg_n_0_[2][6] ),
-        .I2(\setup_packet_q_reg_n_0_[2][4] ),
-        .I3(\setup_packet_q_reg_n_0_[2][5] ),
-        .I4(\setup_packet_q_reg_n_0_[2][2] ),
-        .I5(\setup_packet_q_reg_n_0_[2][3] ),
-        .O(\desc_addr_q[4]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  (* SOFT_HLUTNM = "soft_lutpair79" *) 
   LUT5 #(
-    .INIT(32'h00000400)) 
+    .INIT(32'h00100000)) 
+    \desc_addr_q[3]_i_3 
+       (.I0(ctrl_sending_r_do_INST_0_i_12_n_0),
+        .I1(Q[3]),
+        .I2(Q[1]),
+        .I3(Q[0]),
+        .I4(Q[2]),
+        .O(\desc_addr_q[3]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair94" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \desc_addr_q[3]_i_5 
+       (.I0(\desc_addr_q[4]_i_7_n_0 ),
+        .I1(\desc_addr_q[4]_i_3_n_0 ),
+        .O(\desc_addr_q[3]_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    \desc_addr_q[4]_i_3 
+       (.I0(\setup_packet_q_reg_n_0_[2][3] ),
+        .I1(\setup_packet_q_reg_n_0_[2][6] ),
+        .I2(\setup_packet_q_reg_n_0_[2][2] ),
+        .I3(\setup_packet_q_reg_n_0_[2][7] ),
+        .I4(\setup_packet_q_reg_n_0_[2][5] ),
+        .I5(\setup_packet_q_reg_n_0_[2][4] ),
+        .O(\desc_addr_q[4]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'h0020000000000000)) 
     \desc_addr_q[4]_i_5 
-       (.I0(\device_addr_q[6]_i_3_n_0 ),
-        .I1(Q[2]),
-        .I2(Q[0]),
-        .I3(Q[1]),
-        .I4(\desc_addr_q[6]_i_6_n_0 ),
+       (.I0(Q[2]),
+        .I1(Q[0]),
+        .I2(Q[1]),
+        .I3(\desc_addr_q[4]_i_6_n_0 ),
+        .I4(\desc_addr_q[4]_i_7_n_0 ),
+        .I5(\device_addr_q[6]_i_4_n_0 ),
         .O(\desc_addr_q[4]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair75" *) 
+  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  LUT5 #(
+    .INIT(32'hFFFFFFFE)) 
+    \desc_addr_q[4]_i_6 
+       (.I0(Q[3]),
+        .I1(Q[5]),
+        .I2(Q[4]),
+        .I3(Q[6]),
+        .I4(Q[7]),
+        .O(\desc_addr_q[4]_i_6_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    \desc_addr_q[4]_i_7 
+       (.I0(\setup_packet_q_reg_n_0_[3][6] ),
+        .I1(\setup_packet_q_reg_n_0_[3][7] ),
+        .I2(\setup_packet_q_reg_n_0_[3][4] ),
+        .I3(\setup_packet_q_reg_n_0_[3][5] ),
+        .I4(\setup_packet_q_reg_n_0_[3][2] ),
+        .I5(\setup_packet_q_reg_n_0_[3][3] ),
+        .O(\desc_addr_q[4]_i_7_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair83" *) 
   LUT5 #(
     .INIT(32'h80000000)) 
     \desc_addr_q[5]_i_2 
@@ -2597,25 +2629,23 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I3(\desc_addr_q_do[6] [1]),
         .I4(\desc_addr_q_do[6] [4]),
         .O(\desc_addr_q[5]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h5555555555545555)) 
+  (* SOFT_HLUTNM = "soft_lutpair77" *) 
+  LUT5 #(
+    .INIT(32'h15555555)) 
     \desc_addr_q[5]_i_3 
-       (.I0(\desc_addr_q[0]_i_2_n_0 ),
-        .I1(\desc_addr_q[6]_i_6_n_0 ),
-        .I2(\desc_addr_q[5]_i_4_n_0 ),
-        .I3(\setup_packet_q_reg_n_0_[2][0] ),
-        .I4(\setup_packet_q_reg_n_0_[2][1] ),
-        .I5(\desc_addr_q[4]_i_3_n_0 ),
+       (.I0(\desc_addr_q[7]_i_3_n_0 ),
+        .I1(\setup_packet_q_reg_n_0_[3][1] ),
+        .I2(\setup_packet_q_reg_n_0_[3][0] ),
+        .I3(\desc_addr_q[5]_i_4_n_0 ),
+        .I4(\desc_addr_q[4]_i_5_n_0 ),
         .O(\desc_addr_q[5]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFBFFFFFFFFFFF)) 
+  (* SOFT_HLUTNM = "soft_lutpair97" *) 
+  LUT3 #(
+    .INIT(8'h08)) 
     \desc_addr_q[5]_i_4 
-       (.I0(\device_addr_q[6]_i_3_n_0 ),
-        .I1(\setup_packet_q_reg_n_0_[3][0] ),
-        .I2(\setup_packet_q_reg_n_0_[3][1] ),
-        .I3(Q[2]),
-        .I4(Q[0]),
-        .I5(Q[1]),
+       (.I0(\desc_addr_q[4]_i_3_n_0 ),
+        .I1(\setup_packet_q_reg_n_0_[2][1] ),
+        .I2(\setup_packet_q_reg_n_0_[2][0] ),
         .O(\desc_addr_q[5]_i_4_n_0 ));
   LUT6 #(
     .INIT(64'h8000000000000000)) 
@@ -2628,122 +2658,170 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I5(\desc_addr_q_do[6] [5]),
         .O(\desc_addr_q[6]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
+    .INIT(64'hFF7FFFFFFFFFFFFF)) 
     \desc_addr_q[6]_i_6 
-       (.I0(\setup_packet_q_reg_n_0_[3][6] ),
-        .I1(\setup_packet_q_reg_n_0_[3][7] ),
-        .I2(\setup_packet_q_reg_n_0_[3][4] ),
-        .I3(\setup_packet_q_reg_n_0_[3][5] ),
-        .I4(\setup_packet_q_reg_n_0_[3][2] ),
-        .I5(\setup_packet_q_reg_n_0_[3][3] ),
+       (.I0(\device_addr_q[6]_i_3_n_0 ),
+        .I1(\setup_packet_q_reg_n_0_[3][0] ),
+        .I2(\setup_packet_q_reg_n_0_[3][1] ),
+        .I3(\desc_addr_q[6]_i_7_n_0 ),
+        .I4(Q[1]),
+        .I5(\desc_addr_q[3]_i_5_n_0 ),
         .O(\desc_addr_q[6]_i_6_n_0 ));
-  FDCE \desc_addr_q_reg[0] 
-       (.C(clk_i),
-        .CE(u_core_n_1),
-        .CLR(rst_i),
-        .D(u_core_n_40),
-        .Q(\desc_addr_q_do[6] [0]));
-  FDCE \desc_addr_q_reg[1] 
-       (.C(clk_i),
-        .CE(u_core_n_1),
-        .CLR(rst_i),
-        .D(u_core_n_39),
-        .Q(\desc_addr_q_do[6] [1]));
-  FDCE \desc_addr_q_reg[2] 
-       (.C(clk_i),
-        .CE(u_core_n_1),
-        .CLR(rst_i),
-        .D(u_core_n_38),
-        .Q(\desc_addr_q_do[6] [2]));
-  FDCE \desc_addr_q_reg[3] 
-       (.C(clk_i),
-        .CE(u_core_n_1),
-        .CLR(rst_i),
-        .D(u_core_n_37),
-        .Q(\desc_addr_q_do[6] [3]));
-  FDCE \desc_addr_q_reg[4] 
-       (.C(clk_i),
-        .CE(u_core_n_1),
-        .CLR(rst_i),
-        .D(u_core_n_36),
-        .Q(\desc_addr_q_do[6] [4]));
-  FDCE \desc_addr_q_reg[5] 
-       (.C(clk_i),
-        .CE(u_core_n_1),
-        .CLR(rst_i),
-        .D(u_core_n_35),
-        .Q(\desc_addr_q_do[6] [5]));
-  FDCE \desc_addr_q_reg[6] 
-       (.C(clk_i),
-        .CE(u_core_n_1),
-        .CLR(rst_i),
-        .D(u_core_n_34),
-        .Q(\desc_addr_q_do[6] [6]));
-  FDCE \desc_addr_q_reg[7] 
-       (.C(clk_i),
-        .CE(u_core_n_1),
-        .CLR(rst_i),
-        .D(u_core_n_33),
-        .Q(desc_addr_q));
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \device_addr_q[6]_i_3 
+  LUT2 #(
+    .INIT(4'hB)) 
+    \desc_addr_q[6]_i_7 
+       (.I0(Q[0]),
+        .I1(Q[2]),
+        .O(\desc_addr_q[6]_i_7_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair82" *) 
+  LUT2 #(
+    .INIT(4'h7)) 
+    \desc_addr_q[7]_i_2 
+       (.I0(\setup_packet_q_reg_n_0_[2][0] ),
+        .I1(\setup_packet_q_reg_n_0_[2][1] ),
+        .O(\desc_addr_q[7]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h0001000000000000)) 
+    \desc_addr_q[7]_i_3 
        (.I0(\device_addr_q[6]_i_4_n_0 ),
-        .I1(\bmRequestType_w_do[7] [6]),
-        .I2(\bmRequestType_w_do[7] [5]),
-        .I3(Q[3]),
-        .O(\device_addr_q[6]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair73" *) 
+        .I1(\desc_addr_q[7]_i_5_n_0 ),
+        .I2(Q[3]),
+        .I3(Q[2]),
+        .I4(Q[5]),
+        .I5(Q[0]),
+        .O(\desc_addr_q[7]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'h8000000000000000)) 
+    \desc_addr_q[7]_i_4 
+       (.I0(\desc_addr_q_do[6] [4]),
+        .I1(\desc_addr_q_do[6] [1]),
+        .I2(\desc_addr_q_do[6] [0]),
+        .I3(\desc_addr_q_do[6] [2]),
+        .I4(\desc_addr_q_do[6] [3]),
+        .I5(\desc_addr_q[7]_i_6_n_0 ),
+        .O(\desc_addr_q[7]_i_4_n_0 ));
   LUT4 #(
     .INIT(16'hFFFE)) 
-    \device_addr_q[6]_i_4 
+    \desc_addr_q[7]_i_5 
        (.I0(Q[7]),
         .I1(Q[6]),
         .I2(Q[4]),
-        .I3(Q[5]),
+        .I3(Q[1]),
+        .O(\desc_addr_q[7]_i_5_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair93" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \desc_addr_q[7]_i_6 
+       (.I0(\desc_addr_q_do[6] [5]),
+        .I1(\desc_addr_q_do[6] [6]),
+        .O(\desc_addr_q[7]_i_6_n_0 ));
+  FDCE \desc_addr_q_reg[0] 
+       (.C(clk_i),
+        .CE(u_core_n_10),
+        .CLR(rst_i),
+        .D(u_core_n_82),
+        .Q(\desc_addr_q_do[6] [0]));
+  FDCE \desc_addr_q_reg[1] 
+       (.C(clk_i),
+        .CE(u_core_n_10),
+        .CLR(rst_i),
+        .D(u_core_n_81),
+        .Q(\desc_addr_q_do[6] [1]));
+  FDCE \desc_addr_q_reg[2] 
+       (.C(clk_i),
+        .CE(u_core_n_10),
+        .CLR(rst_i),
+        .D(u_core_n_80),
+        .Q(\desc_addr_q_do[6] [2]));
+  FDCE \desc_addr_q_reg[3] 
+       (.C(clk_i),
+        .CE(u_core_n_10),
+        .CLR(rst_i),
+        .D(u_core_n_79),
+        .Q(\desc_addr_q_do[6] [3]));
+  FDCE \desc_addr_q_reg[4] 
+       (.C(clk_i),
+        .CE(u_core_n_10),
+        .CLR(rst_i),
+        .D(u_core_n_78),
+        .Q(\desc_addr_q_do[6] [4]));
+  FDCE \desc_addr_q_reg[5] 
+       (.C(clk_i),
+        .CE(u_core_n_10),
+        .CLR(rst_i),
+        .D(u_core_n_77),
+        .Q(\desc_addr_q_do[6] [5]));
+  FDCE \desc_addr_q_reg[6] 
+       (.C(clk_i),
+        .CE(u_core_n_10),
+        .CLR(rst_i),
+        .D(u_core_n_76),
+        .Q(\desc_addr_q_do[6] [6]));
+  FDCE \desc_addr_q_reg[7] 
+       (.C(clk_i),
+        .CE(u_core_n_10),
+        .CLR(rst_i),
+        .D(u_core_n_75),
+        .Q(desc_addr_q));
+  LUT6 #(
+    .INIT(64'h0000000000000002)) 
+    \device_addr_q[6]_i_3 
+       (.I0(\device_addr_q[6]_i_4_n_0 ),
+        .I1(Q[7]),
+        .I2(Q[6]),
+        .I3(Q[4]),
+        .I4(Q[5]),
+        .I5(Q[3]),
+        .O(\device_addr_q[6]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair84" *) 
+  LUT2 #(
+    .INIT(4'h1)) 
+    \device_addr_q[6]_i_4 
+       (.I0(\bmRequestType_w_do[7] [6]),
+        .I1(\bmRequestType_w_do[7] [5]),
         .O(\device_addr_q[6]_i_4_n_0 ));
   FDCE \device_addr_q_reg[0] 
        (.C(clk_i),
-        .CE(u_core_n_82),
+        .CE(u_core_n_74),
         .CLR(rst_i),
         .D(u_core_n_110),
-        .Q(device_addr_q[0]));
+        .Q(current_addr_i_do[0]));
   FDCE \device_addr_q_reg[1] 
        (.C(clk_i),
-        .CE(u_core_n_82),
+        .CE(u_core_n_74),
         .CLR(rst_i),
         .D(u_core_n_109),
-        .Q(device_addr_q[1]));
+        .Q(current_addr_i_do[1]));
   FDCE \device_addr_q_reg[2] 
        (.C(clk_i),
-        .CE(u_core_n_82),
+        .CE(u_core_n_74),
         .CLR(rst_i),
         .D(u_core_n_108),
-        .Q(device_addr_q[2]));
+        .Q(current_addr_i_do[2]));
   FDCE \device_addr_q_reg[3] 
        (.C(clk_i),
-        .CE(u_core_n_82),
+        .CE(u_core_n_74),
         .CLR(rst_i),
         .D(u_core_n_107),
-        .Q(device_addr_q[3]));
+        .Q(current_addr_i_do[3]));
   FDCE \device_addr_q_reg[4] 
        (.C(clk_i),
-        .CE(u_core_n_82),
+        .CE(u_core_n_74),
         .CLR(rst_i),
         .D(u_core_n_106),
-        .Q(device_addr_q[4]));
+        .Q(current_addr_i_do[4]));
   FDCE \device_addr_q_reg[5] 
        (.C(clk_i),
-        .CE(u_core_n_82),
+        .CE(u_core_n_74),
         .CLR(rst_i),
         .D(u_core_n_105),
-        .Q(device_addr_q[5]));
+        .Q(current_addr_i_do[5]));
   FDCE \device_addr_q_reg[6] 
        (.C(clk_i),
-        .CE(u_core_n_82),
+        .CE(u_core_n_74),
         .CLR(rst_i),
         .D(u_core_n_104),
-        .Q(device_addr_q[6]));
+        .Q(current_addr_i_do[6]));
   LUT2 #(
     .INIT(4'h9)) 
     i__carry__0_i_1
@@ -2773,22 +2851,22 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
   LUT6 #(
     .INIT(64'h9009000000009009)) 
     i__carry_i_2
-       (.I0(ctrl_sending_r2[8]),
-        .I1(wLength[8]),
+       (.I0(ctrl_sending_r2[7]),
+        .I1(wLength[7]),
         .I2(ctrl_sending_r2[6]),
         .I3(wLength[6]),
-        .I4(wLength[7]),
-        .I5(ctrl_sending_r2[7]),
+        .I4(wLength[8]),
+        .I5(ctrl_sending_r2[8]),
         .O(i__carry_i_2_n_0));
   LUT6 #(
     .INIT(64'h9009000000009009)) 
     i__carry_i_3
-       (.I0(ctrl_sending_r2[4]),
-        .I1(wLength[4]),
+       (.I0(ctrl_sending_r2[5]),
+        .I1(wLength[5]),
         .I2(ctrl_sending_r2[3]),
         .I3(wLength[3]),
-        .I4(wLength[5]),
-        .I5(ctrl_sending_r2[5]),
+        .I4(wLength[4]),
+        .I5(ctrl_sending_r2[4]),
         .O(i__carry_i_3_n_0));
   LUT6 #(
     .INIT(64'h0990000000000990)) 
@@ -2874,385 +2952,385 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .Q(setup_frame_q_do));
   FDCE \setup_packet_q_reg[0][0] 
        (.C(clk_i),
-        .CE(u_core_n_61),
+        .CE(u_core_n_53),
         .CLR(rst_i),
         .D(setup_packet_q[0]),
         .Q(\bmRequestType_w_do[7] [0]));
   FDCE \setup_packet_q_reg[0][1] 
        (.C(clk_i),
-        .CE(u_core_n_61),
+        .CE(u_core_n_53),
         .CLR(rst_i),
         .D(setup_packet_q[1]),
         .Q(\bmRequestType_w_do[7] [1]));
   FDCE \setup_packet_q_reg[0][2] 
        (.C(clk_i),
-        .CE(u_core_n_61),
+        .CE(u_core_n_53),
         .CLR(rst_i),
         .D(setup_packet_q[2]),
         .Q(\bmRequestType_w_do[7] [2]));
   FDCE \setup_packet_q_reg[0][3] 
        (.C(clk_i),
-        .CE(u_core_n_61),
+        .CE(u_core_n_53),
         .CLR(rst_i),
         .D(setup_packet_q[3]),
         .Q(\bmRequestType_w_do[7] [3]));
   FDCE \setup_packet_q_reg[0][4] 
        (.C(clk_i),
-        .CE(u_core_n_61),
+        .CE(u_core_n_53),
         .CLR(rst_i),
         .D(setup_packet_q[4]),
         .Q(\bmRequestType_w_do[7] [4]));
   FDCE \setup_packet_q_reg[0][5] 
        (.C(clk_i),
-        .CE(u_core_n_61),
+        .CE(u_core_n_53),
         .CLR(rst_i),
         .D(setup_packet_q[5]),
         .Q(\bmRequestType_w_do[7] [5]));
   FDCE \setup_packet_q_reg[0][6] 
        (.C(clk_i),
-        .CE(u_core_n_61),
+        .CE(u_core_n_53),
         .CLR(rst_i),
         .D(setup_packet_q[6]),
         .Q(\bmRequestType_w_do[7] [6]));
   FDCE \setup_packet_q_reg[0][7] 
        (.C(clk_i),
-        .CE(u_core_n_61),
+        .CE(u_core_n_53),
         .CLR(rst_i),
         .D(setup_packet_q[7]),
         .Q(\bmRequestType_w_do[7] [7]));
   FDCE \setup_packet_q_reg[1][0] 
        (.C(clk_i),
-        .CE(u_core_n_60),
+        .CE(u_core_n_52),
         .CLR(rst_i),
         .D(setup_packet_q[0]),
         .Q(Q[0]));
   FDCE \setup_packet_q_reg[1][1] 
        (.C(clk_i),
-        .CE(u_core_n_60),
+        .CE(u_core_n_52),
         .CLR(rst_i),
         .D(setup_packet_q[1]),
         .Q(Q[1]));
   FDCE \setup_packet_q_reg[1][2] 
        (.C(clk_i),
-        .CE(u_core_n_60),
+        .CE(u_core_n_52),
         .CLR(rst_i),
         .D(setup_packet_q[2]),
         .Q(Q[2]));
   FDCE \setup_packet_q_reg[1][3] 
        (.C(clk_i),
-        .CE(u_core_n_60),
+        .CE(u_core_n_52),
         .CLR(rst_i),
         .D(setup_packet_q[3]),
         .Q(Q[3]));
   FDCE \setup_packet_q_reg[1][4] 
        (.C(clk_i),
-        .CE(u_core_n_60),
+        .CE(u_core_n_52),
         .CLR(rst_i),
         .D(setup_packet_q[4]),
         .Q(Q[4]));
   FDCE \setup_packet_q_reg[1][5] 
        (.C(clk_i),
-        .CE(u_core_n_60),
+        .CE(u_core_n_52),
         .CLR(rst_i),
         .D(setup_packet_q[5]),
         .Q(Q[5]));
   FDCE \setup_packet_q_reg[1][6] 
        (.C(clk_i),
-        .CE(u_core_n_60),
+        .CE(u_core_n_52),
         .CLR(rst_i),
         .D(setup_packet_q[6]),
         .Q(Q[6]));
   FDCE \setup_packet_q_reg[1][7] 
        (.C(clk_i),
-        .CE(u_core_n_60),
+        .CE(u_core_n_52),
         .CLR(rst_i),
         .D(setup_packet_q[7]),
         .Q(Q[7]));
   FDCE \setup_packet_q_reg[2][0] 
        (.C(clk_i),
-        .CE(u_core_n_56),
+        .CE(u_core_n_50),
         .CLR(rst_i),
         .D(setup_packet_q[0]),
         .Q(\setup_packet_q_reg_n_0_[2][0] ));
   FDCE \setup_packet_q_reg[2][1] 
        (.C(clk_i),
-        .CE(u_core_n_56),
+        .CE(u_core_n_50),
         .CLR(rst_i),
         .D(setup_packet_q[1]),
         .Q(\setup_packet_q_reg_n_0_[2][1] ));
   FDCE \setup_packet_q_reg[2][2] 
        (.C(clk_i),
-        .CE(u_core_n_56),
+        .CE(u_core_n_50),
         .CLR(rst_i),
         .D(setup_packet_q[2]),
         .Q(\setup_packet_q_reg_n_0_[2][2] ));
   FDCE \setup_packet_q_reg[2][3] 
        (.C(clk_i),
-        .CE(u_core_n_56),
+        .CE(u_core_n_50),
         .CLR(rst_i),
         .D(setup_packet_q[3]),
         .Q(\setup_packet_q_reg_n_0_[2][3] ));
   FDCE \setup_packet_q_reg[2][4] 
        (.C(clk_i),
-        .CE(u_core_n_56),
+        .CE(u_core_n_50),
         .CLR(rst_i),
         .D(setup_packet_q[4]),
         .Q(\setup_packet_q_reg_n_0_[2][4] ));
   FDCE \setup_packet_q_reg[2][5] 
        (.C(clk_i),
-        .CE(u_core_n_56),
+        .CE(u_core_n_50),
         .CLR(rst_i),
         .D(setup_packet_q[5]),
         .Q(\setup_packet_q_reg_n_0_[2][5] ));
   FDCE \setup_packet_q_reg[2][6] 
        (.C(clk_i),
-        .CE(u_core_n_56),
+        .CE(u_core_n_50),
         .CLR(rst_i),
         .D(setup_packet_q[6]),
         .Q(\setup_packet_q_reg_n_0_[2][6] ));
   FDCE \setup_packet_q_reg[2][7] 
        (.C(clk_i),
-        .CE(u_core_n_56),
+        .CE(u_core_n_50),
         .CLR(rst_i),
         .D(setup_packet_q[7]),
         .Q(\setup_packet_q_reg_n_0_[2][7] ));
   FDCE \setup_packet_q_reg[3][0] 
        (.C(clk_i),
-        .CE(u_core_n_55),
+        .CE(u_core_n_49),
         .CLR(rst_i),
         .D(setup_packet_q[0]),
         .Q(\setup_packet_q_reg_n_0_[3][0] ));
   FDCE \setup_packet_q_reg[3][1] 
        (.C(clk_i),
-        .CE(u_core_n_55),
+        .CE(u_core_n_49),
         .CLR(rst_i),
         .D(setup_packet_q[1]),
         .Q(\setup_packet_q_reg_n_0_[3][1] ));
   FDCE \setup_packet_q_reg[3][2] 
        (.C(clk_i),
-        .CE(u_core_n_55),
+        .CE(u_core_n_49),
         .CLR(rst_i),
         .D(setup_packet_q[2]),
         .Q(\setup_packet_q_reg_n_0_[3][2] ));
   FDCE \setup_packet_q_reg[3][3] 
        (.C(clk_i),
-        .CE(u_core_n_55),
+        .CE(u_core_n_49),
         .CLR(rst_i),
         .D(setup_packet_q[3]),
         .Q(\setup_packet_q_reg_n_0_[3][3] ));
   FDCE \setup_packet_q_reg[3][4] 
        (.C(clk_i),
-        .CE(u_core_n_55),
+        .CE(u_core_n_49),
         .CLR(rst_i),
         .D(setup_packet_q[4]),
         .Q(\setup_packet_q_reg_n_0_[3][4] ));
   FDCE \setup_packet_q_reg[3][5] 
        (.C(clk_i),
-        .CE(u_core_n_55),
+        .CE(u_core_n_49),
         .CLR(rst_i),
         .D(setup_packet_q[5]),
         .Q(\setup_packet_q_reg_n_0_[3][5] ));
   FDCE \setup_packet_q_reg[3][6] 
        (.C(clk_i),
-        .CE(u_core_n_55),
+        .CE(u_core_n_49),
         .CLR(rst_i),
         .D(setup_packet_q[6]),
         .Q(\setup_packet_q_reg_n_0_[3][6] ));
   FDCE \setup_packet_q_reg[3][7] 
        (.C(clk_i),
-        .CE(u_core_n_55),
+        .CE(u_core_n_49),
         .CLR(rst_i),
         .D(setup_packet_q[7]),
         .Q(\setup_packet_q_reg_n_0_[3][7] ));
   FDCE \setup_packet_q_reg[4][0] 
        (.C(clk_i),
-        .CE(u_core_n_54),
+        .CE(u_core_n_46),
         .CLR(rst_i),
         .D(setup_packet_q[0]),
         .Q(wIndex_w[0]));
   FDCE \setup_packet_q_reg[4][1] 
        (.C(clk_i),
-        .CE(u_core_n_54),
+        .CE(u_core_n_46),
         .CLR(rst_i),
         .D(setup_packet_q[1]),
         .Q(wIndex_w[1]));
   FDCE \setup_packet_q_reg[4][2] 
        (.C(clk_i),
-        .CE(u_core_n_54),
+        .CE(u_core_n_46),
         .CLR(rst_i),
         .D(setup_packet_q[2]),
         .Q(wIndex_w[2]));
   FDCE \setup_packet_q_reg[4][3] 
        (.C(clk_i),
-        .CE(u_core_n_54),
+        .CE(u_core_n_46),
         .CLR(rst_i),
         .D(setup_packet_q[3]),
         .Q(wIndex_w[3]));
   FDCE \setup_packet_q_reg[4][4] 
        (.C(clk_i),
-        .CE(u_core_n_54),
+        .CE(u_core_n_46),
         .CLR(rst_i),
         .D(setup_packet_q[4]),
         .Q(wIndex_w[4]));
   FDCE \setup_packet_q_reg[4][5] 
        (.C(clk_i),
-        .CE(u_core_n_54),
+        .CE(u_core_n_46),
         .CLR(rst_i),
         .D(setup_packet_q[5]),
         .Q(wIndex_w[5]));
   FDCE \setup_packet_q_reg[4][6] 
        (.C(clk_i),
-        .CE(u_core_n_54),
+        .CE(u_core_n_46),
         .CLR(rst_i),
         .D(setup_packet_q[6]),
         .Q(wIndex_w[6]));
   FDCE \setup_packet_q_reg[4][7] 
        (.C(clk_i),
-        .CE(u_core_n_54),
+        .CE(u_core_n_46),
         .CLR(rst_i),
         .D(setup_packet_q[7]),
         .Q(wIndex_w[7]));
   FDCE \setup_packet_q_reg[5][0] 
        (.C(clk_i),
-        .CE(u_core_n_53),
+        .CE(u_core_n_45),
         .CLR(rst_i),
         .D(setup_packet_q[0]),
         .Q(wIndex_w[8]));
   FDCE \setup_packet_q_reg[5][1] 
        (.C(clk_i),
-        .CE(u_core_n_53),
+        .CE(u_core_n_45),
         .CLR(rst_i),
         .D(setup_packet_q[1]),
         .Q(wIndex_w[9]));
   FDCE \setup_packet_q_reg[5][2] 
        (.C(clk_i),
-        .CE(u_core_n_53),
+        .CE(u_core_n_45),
         .CLR(rst_i),
         .D(setup_packet_q[2]),
         .Q(wIndex_w[10]));
   FDCE \setup_packet_q_reg[5][3] 
        (.C(clk_i),
-        .CE(u_core_n_53),
+        .CE(u_core_n_45),
         .CLR(rst_i),
         .D(setup_packet_q[3]),
         .Q(wIndex_w[11]));
   FDCE \setup_packet_q_reg[5][4] 
        (.C(clk_i),
-        .CE(u_core_n_53),
+        .CE(u_core_n_45),
         .CLR(rst_i),
         .D(setup_packet_q[4]),
         .Q(wIndex_w[12]));
   FDCE \setup_packet_q_reg[5][5] 
        (.C(clk_i),
-        .CE(u_core_n_53),
+        .CE(u_core_n_45),
         .CLR(rst_i),
         .D(setup_packet_q[5]),
         .Q(wIndex_w[13]));
   FDCE \setup_packet_q_reg[5][6] 
        (.C(clk_i),
-        .CE(u_core_n_53),
+        .CE(u_core_n_45),
         .CLR(rst_i),
         .D(setup_packet_q[6]),
         .Q(wIndex_w[14]));
   FDCE \setup_packet_q_reg[5][7] 
        (.C(clk_i),
-        .CE(u_core_n_53),
+        .CE(u_core_n_45),
         .CLR(rst_i),
         .D(setup_packet_q[7]),
         .Q(wIndex_w[15]));
   FDCE \setup_packet_q_reg[6][0] 
        (.C(clk_i),
-        .CE(u_core_n_59),
+        .CE(u_core_n_48),
         .CLR(rst_i),
         .D(setup_packet_q[0]),
         .Q(wLength[0]));
   FDCE \setup_packet_q_reg[6][1] 
        (.C(clk_i),
-        .CE(u_core_n_59),
+        .CE(u_core_n_48),
         .CLR(rst_i),
         .D(setup_packet_q[1]),
         .Q(wLength[1]));
   FDCE \setup_packet_q_reg[6][2] 
        (.C(clk_i),
-        .CE(u_core_n_59),
+        .CE(u_core_n_48),
         .CLR(rst_i),
         .D(setup_packet_q[2]),
         .Q(wLength[2]));
   FDCE \setup_packet_q_reg[6][3] 
        (.C(clk_i),
-        .CE(u_core_n_59),
+        .CE(u_core_n_48),
         .CLR(rst_i),
         .D(setup_packet_q[3]),
         .Q(wLength[3]));
   FDCE \setup_packet_q_reg[6][4] 
        (.C(clk_i),
-        .CE(u_core_n_59),
+        .CE(u_core_n_48),
         .CLR(rst_i),
         .D(setup_packet_q[4]),
         .Q(wLength[4]));
   FDCE \setup_packet_q_reg[6][5] 
        (.C(clk_i),
-        .CE(u_core_n_59),
+        .CE(u_core_n_48),
         .CLR(rst_i),
         .D(setup_packet_q[5]),
         .Q(wLength[5]));
   FDCE \setup_packet_q_reg[6][6] 
        (.C(clk_i),
-        .CE(u_core_n_59),
+        .CE(u_core_n_48),
         .CLR(rst_i),
         .D(setup_packet_q[6]),
         .Q(wLength[6]));
   FDCE \setup_packet_q_reg[6][7] 
        (.C(clk_i),
-        .CE(u_core_n_59),
+        .CE(u_core_n_48),
         .CLR(rst_i),
         .D(setup_packet_q[7]),
         .Q(wLength[7]));
   FDCE \setup_packet_q_reg[7][0] 
        (.C(clk_i),
-        .CE(u_core_n_58),
+        .CE(u_core_n_47),
         .CLR(rst_i),
         .D(setup_packet_q[0]),
         .Q(wLength[8]));
   FDCE \setup_packet_q_reg[7][1] 
        (.C(clk_i),
-        .CE(u_core_n_58),
+        .CE(u_core_n_47),
         .CLR(rst_i),
         .D(setup_packet_q[1]),
         .Q(wLength[9]));
   FDCE \setup_packet_q_reg[7][2] 
        (.C(clk_i),
-        .CE(u_core_n_58),
+        .CE(u_core_n_47),
         .CLR(rst_i),
         .D(setup_packet_q[2]),
         .Q(wLength[10]));
   FDCE \setup_packet_q_reg[7][3] 
        (.C(clk_i),
-        .CE(u_core_n_58),
+        .CE(u_core_n_47),
         .CLR(rst_i),
         .D(setup_packet_q[3]),
         .Q(wLength[11]));
   FDCE \setup_packet_q_reg[7][4] 
        (.C(clk_i),
-        .CE(u_core_n_58),
+        .CE(u_core_n_47),
         .CLR(rst_i),
         .D(setup_packet_q[4]),
         .Q(wLength[12]));
   FDCE \setup_packet_q_reg[7][5] 
        (.C(clk_i),
-        .CE(u_core_n_58),
+        .CE(u_core_n_47),
         .CLR(rst_i),
         .D(setup_packet_q[5]),
         .Q(wLength[13]));
   FDCE \setup_packet_q_reg[7][6] 
        (.C(clk_i),
-        .CE(u_core_n_58),
+        .CE(u_core_n_47),
         .CLR(rst_i),
         .D(setup_packet_q[6]),
         .Q(wLength[14]));
   FDCE \setup_packet_q_reg[7][7] 
        (.C(clk_i),
-        .CE(u_core_n_58),
+        .CE(u_core_n_47),
         .CLR(rst_i),
         .D(setup_packet_q[7]),
         .Q(wLength[15]));
@@ -3266,19 +3344,19 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(u_core_n_43),
+        .D(u_core_n_38),
         .Q(setup_wr_idx_q[0]));
   FDCE \setup_wr_idx_q_reg[1] 
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(u_core_n_42),
+        .D(u_core_n_37),
         .Q(setup_wr_idx_q[1]));
   FDCE \setup_wr_idx_q_reg[2] 
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(u_core_n_41),
+        .D(u_core_n_36),
         .Q(setup_wr_idx_q[2]));
   LUT3 #(
     .INIT(8'h45)) 
@@ -3302,23 +3380,24 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
   davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core u_core
        (.CLK(usb_reset_w_do),
         .CO(\ctrl_sending_r1_inferred__0/i__carry__0_n_2 ),
-        .D({u_core_n_4,u_core_n_5,u_core_n_6,u_core_n_7,u_core_n_8,u_core_n_9,u_core_n_10,u_core_n_11,u_core_n_12,u_core_n_13,u_core_n_14,u_core_n_15,u_core_n_16,u_core_n_17,u_core_n_18,u_core_n_19}),
-        .E(u_core_n_1),
-        .\FSM_sequential_state_q_reg[1] (next_state_r__0[1:0]),
-        .\FSM_sequential_state_q_reg[1]_0 (\FSM_sequential_state_q[2]_i_3_n_0 ),
-        .\FSM_sequential_state_q_reg[1]_1 (\usb_rst_time_q[19]_i_4_n_0 ),
+        .D({u_core_n_12,u_core_n_13,u_core_n_14,u_core_n_15,u_core_n_16,u_core_n_17,u_core_n_18,u_core_n_19,u_core_n_20,u_core_n_21,u_core_n_22,u_core_n_23,u_core_n_24,u_core_n_25,u_core_n_26,u_core_n_27}),
+        .E(u_core_n_10),
+        .\FSM_sequential_state_q_reg[1] (u_core_n_1),
+        .\FSM_sequential_state_q_reg[1]_0 (next_state_r__0[1:0]),
+        .\FSM_sequential_state_q_reg[1]_1 (\FSM_sequential_state_q[2]_i_3_n_0 ),
+        .\FSM_sequential_state_q_reg[2] (\usb_rst_time_q[19]_i_4_n_0 ),
         .Q(ctrl_send_idx_q[0]),
-        .\chirp_count_q_reg[4] (\FSM_sequential_state_q[1]_i_7__0_n_0 ),
+        .\chirp_count_q_reg[5] (\FSM_sequential_state_q[1]_i_7__0_n_0 ),
         .clk_i(clk_i),
         .ctrl_send_accept_w_do(ctrl_send_accept_w_do),
-        .\ctrl_send_idx_q_reg[0] (u_core_n_49),
+        .\ctrl_send_idx_q_reg[0] (u_core_n_41),
         .\ctrl_send_idx_q_reg[2] (ctrl_txlast_q_i_2_n_0),
         .ctrl_sending_q(ctrl_sending_q),
         .ctrl_sending_q_reg(ctrl_sending_q_reg_n_0),
         .ctrl_sending_r2(ctrl_sending_r2),
         .ctrl_sending_r_do(ctrl_sending_r_do),
-        .\ctrl_txdata_q_reg[0] (u_core_n_50),
-        .\ctrl_txdata_q_reg[7] ({u_core_n_20,u_core_n_21,u_core_n_22,u_core_n_23,u_core_n_24,u_core_n_25,u_core_n_26,u_core_n_27}),
+        .\ctrl_txdata_q_reg[0] (u_core_n_42),
+        .\ctrl_txdata_q_reg[7] ({u_core_n_28,u_core_n_29,u_core_n_30,u_core_n_31,u_core_n_32,u_core_n_33,u_core_n_34,u_core_n_35}),
         .\ctrl_txdata_q_reg[7]_0 (ctrl_txdata_q),
         .ctrl_txlast_q_reg(u_core_n_116),
         .ctrl_txlast_q_reg_0(ctrl_txlast_q_reg_n_0),
@@ -3328,38 +3407,37 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .ctrl_txstrb_q_reg_0(ctrl_txstrb_q_reg_n_0),
         .ctrl_txvalid_q_reg(u_core_n_113),
         .ctrl_txvalid_q_reg_0(ctrl_txvalid_q_reg_n_0),
+        .current_addr_i_do(current_addr_i_do),
         .\desc_addr_q_reg[0] (\ctrl_txdata_q[1]_i_3_n_0 ),
-        .\desc_addr_q_reg[0]_0 (\ctrl_txdata_q_reg[0]_i_3_n_0 ),
         .\desc_addr_q_reg[1] (\ctrl_txdata_q[3]_i_4_n_0 ),
-        .\desc_addr_q_reg[1]_0 (\ctrl_txdata_q[5]_i_2_n_0 ),
-        .\desc_addr_q_reg[1]_1 (\ctrl_txdata_q[0]_i_5_n_0 ),
+        .\desc_addr_q_reg[1]_0 (\ctrl_txdata_q[0]_i_3_n_0 ),
+        .\desc_addr_q_reg[1]_1 (\ctrl_txdata_q[5]_i_2_n_0 ),
         .\desc_addr_q_reg[1]_2 (\ctrl_txdata_q[4]_i_3_n_0 ),
         .\desc_addr_q_reg[1]_3 (\desc_addr_q[6]_i_3_n_0 ),
-        .\desc_addr_q_reg[2] (\ctrl_txdata_q[1]_i_2_n_0 ),
-        .\desc_addr_q_reg[2]_0 (\ctrl_txdata_q[3]_i_3_n_0 ),
-        .\desc_addr_q_reg[2]_1 (\ctrl_txdata_q[5]_i_3_n_0 ),
-        .\desc_addr_q_reg[2]_2 (\ctrl_txdata_q[5]_i_4_n_0 ),
-        .\desc_addr_q_reg[2]_3 (\ctrl_txdata_q[4]_i_2_n_0 ),
-        .\desc_addr_q_reg[2]_4 (\desc_addr_q[3]_i_2_n_0 ),
+        .\desc_addr_q_reg[2] (\ctrl_txdata_q[3]_i_3_n_0 ),
+        .\desc_addr_q_reg[2]_0 (\ctrl_txdata_q[5]_i_3_n_0 ),
+        .\desc_addr_q_reg[2]_1 (\ctrl_txdata_q[5]_i_4_n_0 ),
+        .\desc_addr_q_reg[2]_2 (\ctrl_txdata_q[4]_i_2_n_0 ),
+        .\desc_addr_q_reg[2]_3 (\desc_addr_q[3]_i_2_n_0 ),
         .\desc_addr_q_reg[3] (\ctrl_txdata_q[6]_i_3_n_0 ),
         .\desc_addr_q_reg[3]_0 (\ctrl_txdata_q[3]_i_2_n_0 ),
-        .\desc_addr_q_reg[3]_1 (\ctrl_txdata_q[0]_i_2_n_0 ),
-        .\desc_addr_q_reg[3]_2 (\ctrl_txdata_q[0]_i_4_n_0 ),
-        .\desc_addr_q_reg[3]_3 (\ctrl_txdata_q[4]_i_4_n_0 ),
-        .\desc_addr_q_reg[3]_4 (\desc_addr_q[5]_i_2_n_0 ),
+        .\desc_addr_q_reg[3]_1 (\ctrl_txdata_q[4]_i_4_n_0 ),
+        .\desc_addr_q_reg[3]_2 (\desc_addr_q[5]_i_2_n_0 ),
         .\desc_addr_q_reg[4] (\ctrl_txdata_q[6]_i_2_n_0 ),
         .\desc_addr_q_reg[4]_0 (\ctrl_txdata_q[7]_i_4_n_0 ),
-        .\desc_addr_q_reg[5] (\ctrl_txdata_q[1]_i_4_n_0 ),
-        .\desc_addr_q_reg[6] (\ctrl_txdata_q[2]_i_3_n_0 ),
+        .\desc_addr_q_reg[4]_1 (\desc_addr_q[7]_i_4_n_0 ),
+        .\desc_addr_q_reg[5] (\ctrl_txdata_q[1]_i_2_n_0 ),
+        .\desc_addr_q_reg[5]_0 (\ctrl_txdata_q[2]_i_3_n_0 ),
+        .\desc_addr_q_reg[6] (\ctrl_txdata_q[0]_i_2_n_0 ),
         .\desc_addr_q_reg[6]_0 (\ctrl_txdata_q[7]_i_3_n_0 ),
-        .\desc_addr_q_reg[7] ({u_core_n_33,u_core_n_34,u_core_n_35,u_core_n_36,u_core_n_37,u_core_n_38,u_core_n_39,u_core_n_40}),
-        .\desc_addr_q_reg[7]_0 ({desc_addr_q,\desc_addr_q_do[6] }),
-        .\desc_addr_q_reg[7]_1 (\ctrl_txdata_q[6]_i_4_n_0 ),
-        .\desc_addr_q_reg[7]_2 (\ctrl_txdata_q[2]_i_2_n_0 ),
-        .\desc_addr_q_reg[7]_3 (\ctrl_txdata_q[5]_i_5_n_0 ),
-        .\device_addr_q_reg[0] (u_core_n_82),
+        .\desc_addr_q_reg[7] ({u_core_n_75,u_core_n_76,u_core_n_77,u_core_n_78,u_core_n_79,u_core_n_80,u_core_n_81,u_core_n_82}),
+        .\desc_addr_q_reg[7]_0 (\ctrl_txdata_q[1]_i_4_n_0 ),
+        .\desc_addr_q_reg[7]_1 ({desc_addr_q,\desc_addr_q_do[6] }),
+        .\desc_addr_q_reg[7]_2 (\ctrl_txdata_q[6]_i_4_n_0 ),
+        .\desc_addr_q_reg[7]_3 (\ctrl_txdata_q[2]_i_2_n_0 ),
+        .\desc_addr_q_reg[7]_4 (\ctrl_txdata_q[5]_i_5_n_0 ),
+        .\device_addr_q_reg[0] (u_core_n_74),
         .\device_addr_q_reg[6] ({u_core_n_104,u_core_n_105,u_core_n_106,u_core_n_107,u_core_n_108,u_core_n_109,u_core_n_110}),
-        .\device_addr_q_reg[6]_0 (device_addr_q),
         .inport_accept_o(inport_accept_o),
         .\inport_data_q_reg[7] (inport_data_q),
         .inport_valid_i(inport_valid_i),
@@ -3372,37 +3450,39 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .rx_last_w_do(rx_last_w_do),
         .setup_frame_q_do(setup_frame_q_do),
         .setup_frame_q_reg(u_core_n_111),
-        .\setup_packet_q_reg[0][0] (u_core_n_61),
+        .\setup_packet_q_reg[0][0] (u_core_n_53),
         .\setup_packet_q_reg[0][5] (ctrl_sending_r_do_INST_0_i_2_n_0),
-        .\setup_packet_q_reg[0][6] (\device_addr_q[6]_i_3_n_0 ),
+        .\setup_packet_q_reg[0][6] (\device_addr_q[6]_i_4_n_0 ),
         .\setup_packet_q_reg[0][6]_0 (ctrl_sending_r_do_INST_0_i_4_n_0),
         .\setup_packet_q_reg[0][7] (\bmRequestType_w_do[7] [7:6]),
-        .\setup_packet_q_reg[1][0] (u_core_n_60),
-        .\setup_packet_q_reg[1][2] (\desc_addr_q[4]_i_5_n_0 ),
-        .\setup_packet_q_reg[1][2]_0 (Q[2:0]),
-        .\setup_packet_q_reg[1][3] (\desc_addr_q[0]_i_2_n_0 ),
-        .\setup_packet_q_reg[2][0] (u_core_n_56),
-        .\setup_packet_q_reg[2][0]_0 (\desc_addr_q[5]_i_3_n_0 ),
-        .\setup_packet_q_reg[2][0]_1 (\desc_addr_q[3]_i_3_n_0 ),
+        .\setup_packet_q_reg[1][0] (u_core_n_52),
+        .\setup_packet_q_reg[1][2] (Q[2:0]),
+        .\setup_packet_q_reg[1][2]_0 (\desc_addr_q[4]_i_5_n_0 ),
+        .\setup_packet_q_reg[1][3] (\desc_addr_q[3]_i_3_n_0 ),
+        .\setup_packet_q_reg[1][3]_0 (\desc_addr_q[7]_i_3_n_0 ),
+        .\setup_packet_q_reg[1][7] (\device_addr_q[6]_i_3_n_0 ),
+        .\setup_packet_q_reg[2][0] (u_core_n_50),
+        .\setup_packet_q_reg[2][0]_0 (\desc_addr_q[2]_i_2_n_0 ),
+        .\setup_packet_q_reg[2][0]_1 (\desc_addr_q[7]_i_2_n_0 ),
+        .\setup_packet_q_reg[2][3] (\desc_addr_q[4]_i_3_n_0 ),
         .\setup_packet_q_reg[2][6] ({\setup_packet_q_reg_n_0_[2][6] ,\setup_packet_q_reg_n_0_[2][5] ,\setup_packet_q_reg_n_0_[2][4] ,\setup_packet_q_reg_n_0_[2][3] ,\setup_packet_q_reg_n_0_[2][2] ,\setup_packet_q_reg_n_0_[2][1] ,\setup_packet_q_reg_n_0_[2][0] }),
-        .\setup_packet_q_reg[2][7] (\desc_addr_q[4]_i_3_n_0 ),
-        .\setup_packet_q_reg[3][0] (u_core_n_55),
-        .\setup_packet_q_reg[3][0]_0 (\desc_addr_q[3]_i_4_n_0 ),
-        .\setup_packet_q_reg[3][0]_1 (\desc_addr_q[1]_i_2_n_0 ),
-        .\setup_packet_q_reg[3][1] ({\setup_packet_q_reg_n_0_[3][1] ,\setup_packet_q_reg_n_0_[3][0] }),
-        .\setup_packet_q_reg[3][6] (\desc_addr_q[6]_i_6_n_0 ),
-        .\setup_packet_q_reg[4][0] (u_core_n_54),
-        .\setup_packet_q_reg[5][0] (u_core_n_53),
+        .\setup_packet_q_reg[3][0] (u_core_n_49),
+        .\setup_packet_q_reg[3][0]_0 (\desc_addr_q[6]_i_6_n_0 ),
+        .\setup_packet_q_reg[3][1] (\desc_addr_q[1]_i_2_n_0 ),
+        .\setup_packet_q_reg[3][1]_0 ({\setup_packet_q_reg_n_0_[3][1] ,\setup_packet_q_reg_n_0_[3][0] }),
+        .\setup_packet_q_reg[3][1]_1 (\desc_addr_q[5]_i_3_n_0 ),
+        .\setup_packet_q_reg[3][6] (\desc_addr_q[3]_i_5_n_0 ),
+        .\setup_packet_q_reg[4][0] (u_core_n_46),
+        .\setup_packet_q_reg[5][0] (u_core_n_45),
         .\setup_packet_q_reg[5][7] (setup_packet_q),
-        .\setup_packet_q_reg[6][0] (u_core_n_59),
-        .\setup_packet_q_reg[7][0] (u_core_n_58),
+        .\setup_packet_q_reg[6][0] (u_core_n_48),
+        .\setup_packet_q_reg[7][0] (u_core_n_47),
         .setup_valid_q16_out(setup_valid_q16_out),
         .setup_valid_q_reg(setup_valid_q_do),
         .setup_wr_idx_q(setup_wr_idx_q),
-        .\setup_wr_idx_q_reg[0] (u_core_n_43),
-        .\setup_wr_idx_q_reg[1] (u_core_n_42),
-        .\setup_wr_idx_q_reg[2] (u_core_n_41),
-        .\state_q_reg[1]_0 (u_core_n_3),
+        .\setup_wr_idx_q_reg[0] (u_core_n_38),
+        .\setup_wr_idx_q_reg[1] (u_core_n_37),
+        .\setup_wr_idx_q_reg[2] (u_core_n_36),
         .status_ready_q_reg(u_core_n_112),
         .status_ready_q_reg_0(status_ready_q_reg_n_0),
         .usb_rst_time_q0(usb_rst_time_q0),
@@ -3416,12 +3496,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .\usb_rst_time_q_reg[9] (\usb_rst_time_q[19]_i_5_n_0 ),
         .utmi_data_in_i(utmi_data_in_i),
         .utmi_data_out_o(utmi_data_out_o),
-        .\utmi_data_out_o[2] (\utmi_data_out_o[2] ),
-        .\utmi_data_out_o[3] (\utmi_data_out_o[3] ),
-        .\utmi_data_out_o[4] (\utmi_data_out_o[4] ),
-        .\utmi_data_out_o[7] (\utmi_data_out_o[7] ),
-        .utmi_data_out_o_0_sp_1(utmi_data_out_o_0_sn_1),
-        .utmi_data_out_o_1_sp_1(utmi_data_out_o_1_sn_1),
+        .utmi_data_out_o_4_sp_1(utmi_data_out_o_4_sn_1),
         .utmi_linestate_i(utmi_linestate_i),
         .utmi_rxactive_i(utmi_rxactive_i),
         .utmi_rxvalid_i(utmi_rxvalid_i),
@@ -3432,14 +3507,14 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
     \usb_reset_counter_q[0]_i_1 
        (.I0(usb_reset_counter_q_do[0]),
         .O(p_0_in[0]));
-  (* SOFT_HLUTNM = "soft_lutpair86" *) 
+  (* SOFT_HLUTNM = "soft_lutpair96" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \usb_reset_counter_q[1]_i_1 
        (.I0(usb_reset_counter_q_do[0]),
         .I1(usb_reset_counter_q_do[1]),
         .O(p_0_in[1]));
-  (* SOFT_HLUTNM = "soft_lutpair86" *) 
+  (* SOFT_HLUTNM = "soft_lutpair96" *) 
   LUT3 #(
     .INIT(8'h6A)) 
     \usb_reset_counter_q[2]_i_1 
@@ -3447,7 +3522,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I1(usb_reset_counter_q_do[1]),
         .I2(usb_reset_counter_q_do[0]),
         .O(p_0_in[2]));
-  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  (* SOFT_HLUTNM = "soft_lutpair81" *) 
   LUT4 #(
     .INIT(16'h6AAA)) 
     \usb_reset_counter_q[3]_i_1 
@@ -3456,7 +3531,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I2(usb_reset_counter_q_do[1]),
         .I3(usb_reset_counter_q_do[2]),
         .O(p_0_in[3]));
-  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  (* SOFT_HLUTNM = "soft_lutpair81" *) 
   LUT5 #(
     .INIT(32'h6AAAAAAA)) 
     \usb_reset_counter_q[4]_i_1 
@@ -3476,14 +3551,14 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I4(usb_reset_counter_q_do[2]),
         .I5(usb_reset_counter_q_do[4]),
         .O(p_0_in[5]));
-  (* SOFT_HLUTNM = "soft_lutpair87" *) 
+  (* SOFT_HLUTNM = "soft_lutpair95" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \usb_reset_counter_q[6]_i_1 
        (.I0(usb_reset_counter_q_do[6]),
         .I1(\usb_reset_counter_q[7]_i_2_n_0 ),
         .O(p_0_in[6]));
-  (* SOFT_HLUTNM = "soft_lutpair87" *) 
+  (* SOFT_HLUTNM = "soft_lutpair95" *) 
   LUT3 #(
     .INIT(8'h6A)) 
     \usb_reset_counter_q[7]_i_1 
@@ -3609,9 +3684,9 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
     \usb_rst_time_q[19]_i_4 
        (.I0(utmi_linestate_i[1]),
         .I1(utmi_linestate_i[0]),
-        .I2(state_q[1]),
+        .I2(state_q[2]),
         .I3(state_q[0]),
-        .I4(state_q[2]),
+        .I4(state_q[1]),
         .O(\usb_rst_time_q[19]_i_4_n_0 ));
   LUT6 #(
     .INIT(64'h8000000000000000)) 
@@ -3653,7 +3728,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usb_cdc_core
         .I4(\usb_rst_time_do[19] [14]),
         .I5(\usb_rst_time_do[19] [15]),
         .O(\usb_rst_time_q[19]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair83" *) 
+  (* SOFT_HLUTNM = "soft_lutpair91" *) 
   LUT4 #(
     .INIT(16'h7FFF)) 
     \usb_rst_time_q[19]_i_9 
@@ -3815,23 +3890,17 @@ endmodule
 (* ORIG_REF_NAME = "usbf_device_core" *) 
 module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
    (CLK,
+    \FSM_sequential_state_q_reg[1] ,
+    utmi_data_out_o_4_sp_1,
+    utmi_data_out_o,
     E,
     inport_accept_o,
-    \state_q_reg[1]_0 ,
     D,
     \ctrl_txdata_q_reg[7] ,
-    utmi_data_out_o_1_sp_1,
-    utmi_data_out_o_0_sp_1,
-    \utmi_data_out_o[2] ,
-    \utmi_data_out_o[3] ,
-    \utmi_data_out_o[4] ,
-    \desc_addr_q_reg[7] ,
     \setup_wr_idx_q_reg[2] ,
     \setup_wr_idx_q_reg[1] ,
     \setup_wr_idx_q_reg[0] ,
     utmi_txvalid_o,
-    \utmi_data_out_o[7] ,
-    utmi_data_out_o,
     ctrl_send_accept_w_do,
     \ctrl_send_idx_q_reg[0] ,
     \ctrl_txdata_q_reg[0] ,
@@ -3839,19 +3908,20 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
     ctrl_sending_r_do,
     \setup_packet_q_reg[5][0] ,
     \setup_packet_q_reg[4][0] ,
+    \setup_packet_q_reg[7][0] ,
+    \setup_packet_q_reg[6][0] ,
     \setup_packet_q_reg[3][0] ,
     \setup_packet_q_reg[2][0] ,
     setup_valid_q16_out,
-    \setup_packet_q_reg[7][0] ,
-    \setup_packet_q_reg[6][0] ,
     \setup_packet_q_reg[1][0] ,
     \setup_packet_q_reg[0][0] ,
     \setup_packet_q_reg[5][7] ,
     outport_data_o,
     outport_valid_o,
-    \FSM_sequential_state_q_reg[1] ,
+    \FSM_sequential_state_q_reg[1]_0 ,
     rx_last_w_do,
     \device_addr_q_reg[0] ,
+    \desc_addr_q_reg[7] ,
     \usb_rst_time_q_reg[19] ,
     \usb_rst_time_q_reg[0] ,
     \device_addr_q_reg[6] ,
@@ -3865,100 +3935,96 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
     rst_i,
     utmi_data_in_i,
     utmi_rxactive_i,
+    utmi_txready_i,
+    outport_accept_i,
     CO,
     ctrl_sending_q_reg,
     status_ready_q_reg_0,
     setup_valid_q_reg,
+    ctrl_txstall_q_reg_0,
     inport_valid_q,
     out,
     Q,
-    \desc_addr_q_reg[2] ,
-    \desc_addr_q_reg[0] ,
     \desc_addr_q_reg[5] ,
-    \desc_addr_q_reg[4] ,
+    \desc_addr_q_reg[0] ,
     \desc_addr_q_reg[7]_0 ,
-    \desc_addr_q_reg[3] ,
+    \desc_addr_q_reg[4] ,
     \desc_addr_q_reg[7]_1 ,
+    \desc_addr_q_reg[3] ,
+    \desc_addr_q_reg[7]_2 ,
     \desc_addr_q_reg[3]_0 ,
-    \desc_addr_q_reg[2]_0 ,
+    \desc_addr_q_reg[2] ,
     \desc_addr_q_reg[1] ,
     utmi_linestate_i,
-    \chirp_count_q_reg[4] ,
+    \chirp_count_q_reg[5] ,
     \usb_rst_time_q_reg[18] ,
-    \desc_addr_q_reg[7]_2 ,
     \desc_addr_q_reg[6] ,
+    \desc_addr_q_reg[1]_0 ,
+    \desc_addr_q_reg[7]_3 ,
+    \desc_addr_q_reg[5]_0 ,
     \desc_addr_q_reg[6]_0 ,
     \desc_addr_q_reg[4]_0 ,
-    \desc_addr_q_reg[1]_0 ,
-    \desc_addr_q_reg[2]_1 ,
-    \desc_addr_q_reg[2]_2 ,
-    \desc_addr_q_reg[7]_3 ,
-    \desc_addr_q_reg[3]_1 ,
-    \desc_addr_q_reg[0]_0 ,
-    \desc_addr_q_reg[3]_2 ,
     \desc_addr_q_reg[1]_1 ,
-    \desc_addr_q_reg[2]_3 ,
+    \desc_addr_q_reg[2]_0 ,
+    \desc_addr_q_reg[2]_1 ,
+    \desc_addr_q_reg[7]_4 ,
+    \desc_addr_q_reg[2]_2 ,
     \desc_addr_q_reg[1]_2 ,
-    \desc_addr_q_reg[3]_3 ,
+    \desc_addr_q_reg[3]_1 ,
     utmi_rxvalid_i,
-    \setup_packet_q_reg[0][7] ,
-    \setup_packet_q_reg[3][0]_0 ,
-    \setup_packet_q_reg[1][3] ,
     \usb_rst_time_q_reg[17] ,
     setup_wr_idx_q,
-    utmi_txready_i,
-    \ctrl_txdata_q_reg[7]_0 ,
     \inport_data_q_reg[7] ,
-    ctrl_txstall_q_reg_0,
-    outport_accept_i,
+    \ctrl_txdata_q_reg[7]_0 ,
     ctrl_txvalid_q_reg_0,
     \setup_packet_q_reg[0][5] ,
+    \setup_packet_q_reg[0][7] ,
     setup_frame_q_do,
     ctrl_txlast_q_reg_0,
     ctrl_txstrb_q_reg_0,
     inport_valid_i,
-    \usb_rst_time_q_reg[15] ,
-    \FSM_sequential_state_q_reg[1]_0 ,
-    \device_addr_q_reg[6]_0 ,
+    \FSM_sequential_state_q_reg[1]_1 ,
+    current_addr_i_do,
+    \setup_packet_q_reg[1][2] ,
+    \setup_packet_q_reg[1][7] ,
+    \desc_addr_q_reg[2]_3 ,
+    \setup_packet_q_reg[1][3] ,
+    \setup_packet_q_reg[3][6] ,
+    \setup_packet_q_reg[3][1] ,
+    \setup_packet_q_reg[2][3] ,
+    \setup_packet_q_reg[3][1]_0 ,
+    \setup_packet_q_reg[1][2]_0 ,
+    \desc_addr_q_reg[3]_2 ,
+    \setup_packet_q_reg[3][1]_1 ,
+    \setup_packet_q_reg[2][0]_0 ,
     \desc_addr_q_reg[1]_3 ,
     \setup_packet_q_reg[2][6] ,
-    \desc_addr_q_reg[3]_4 ,
-    \setup_packet_q_reg[2][0]_0 ,
-    \setup_packet_q_reg[3][0]_1 ,
-    \setup_packet_q_reg[2][7] ,
-    \setup_packet_q_reg[3][1] ,
-    \setup_packet_q_reg[1][2] ,
-    \desc_addr_q_reg[2]_4 ,
+    \setup_packet_q_reg[3][0]_0 ,
     \setup_packet_q_reg[2][0]_1 ,
-    \setup_packet_q_reg[3][6] ,
+    \setup_packet_q_reg[1][3]_0 ,
+    \desc_addr_q_reg[4]_1 ,
     \setup_packet_q_reg[0][6] ,
-    \setup_packet_q_reg[1][2]_0 ,
     ctrl_sending_r2,
-    \FSM_sequential_state_q_reg[1]_1 ,
+    \FSM_sequential_state_q_reg[2] ,
     \usb_rst_time_q_reg[0]_0 ,
     usb_rst_time_q0,
     \usb_rst_time_q_reg[9] ,
     \usb_rst_time_q_reg[2] ,
+    \usb_rst_time_q_reg[15] ,
     \setup_packet_q_reg[0][6]_0 ,
     \ctrl_send_idx_q_reg[2] );
   output CLK;
+  output \FSM_sequential_state_q_reg[1] ;
+  output utmi_data_out_o_4_sp_1;
+  output [6:0]utmi_data_out_o;
   output [0:0]E;
   output [0:0]inport_accept_o;
-  output \state_q_reg[1]_0 ;
   output [15:0]D;
   output [7:0]\ctrl_txdata_q_reg[7] ;
-  output utmi_data_out_o_1_sp_1;
-  output utmi_data_out_o_0_sp_1;
-  output \utmi_data_out_o[2] ;
-  output \utmi_data_out_o[3] ;
-  output \utmi_data_out_o[4] ;
-  output [7:0]\desc_addr_q_reg[7] ;
   output \setup_wr_idx_q_reg[2] ;
   output \setup_wr_idx_q_reg[1] ;
   output \setup_wr_idx_q_reg[0] ;
   output utmi_txvalid_o;
-  output \utmi_data_out_o[7] ;
-  output [1:0]utmi_data_out_o;
   output ctrl_send_accept_w_do;
   output [0:0]\ctrl_send_idx_q_reg[0] ;
   output [0:0]\ctrl_txdata_q_reg[0] ;
@@ -3966,19 +4032,20 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
   output ctrl_sending_r_do;
   output [0:0]\setup_packet_q_reg[5][0] ;
   output [0:0]\setup_packet_q_reg[4][0] ;
+  output [0:0]\setup_packet_q_reg[7][0] ;
+  output [0:0]\setup_packet_q_reg[6][0] ;
   output [0:0]\setup_packet_q_reg[3][0] ;
   output [0:0]\setup_packet_q_reg[2][0] ;
   output setup_valid_q16_out;
-  output [0:0]\setup_packet_q_reg[7][0] ;
-  output [0:0]\setup_packet_q_reg[6][0] ;
   output [0:0]\setup_packet_q_reg[1][0] ;
   output [0:0]\setup_packet_q_reg[0][0] ;
   output [7:0]\setup_packet_q_reg[5][7] ;
   output [7:0]outport_data_o;
   output outport_valid_o;
-  output [1:0]\FSM_sequential_state_q_reg[1] ;
+  output [1:0]\FSM_sequential_state_q_reg[1]_0 ;
   output rx_last_w_do;
   output [0:0]\device_addr_q_reg[0] ;
+  output [7:0]\desc_addr_q_reg[7] ;
   output [19:0]\usb_rst_time_q_reg[19] ;
   output [0:0]\usb_rst_time_q_reg[0] ;
   output [6:0]\device_addr_q_reg[6] ;
@@ -3992,80 +4059,82 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
   input rst_i;
   input [7:0]utmi_data_in_i;
   input utmi_rxactive_i;
+  input utmi_txready_i;
+  input outport_accept_i;
   input [0:0]CO;
   input ctrl_sending_q_reg;
   input status_ready_q_reg_0;
   input setup_valid_q_reg;
+  input ctrl_txstall_q_reg_0;
   input inport_valid_q;
   input [2:0]out;
   input [0:0]Q;
-  input \desc_addr_q_reg[2] ;
-  input \desc_addr_q_reg[0] ;
   input \desc_addr_q_reg[5] ;
+  input \desc_addr_q_reg[0] ;
+  input \desc_addr_q_reg[7]_0 ;
   input \desc_addr_q_reg[4] ;
-  input [7:0]\desc_addr_q_reg[7]_0 ;
+  input [7:0]\desc_addr_q_reg[7]_1 ;
   input \desc_addr_q_reg[3] ;
-  input \desc_addr_q_reg[7]_1 ;
+  input \desc_addr_q_reg[7]_2 ;
   input \desc_addr_q_reg[3]_0 ;
-  input \desc_addr_q_reg[2]_0 ;
+  input \desc_addr_q_reg[2] ;
   input \desc_addr_q_reg[1] ;
   input [1:0]utmi_linestate_i;
-  input \chirp_count_q_reg[4] ;
+  input \chirp_count_q_reg[5] ;
   input \usb_rst_time_q_reg[18] ;
-  input \desc_addr_q_reg[7]_2 ;
   input \desc_addr_q_reg[6] ;
+  input \desc_addr_q_reg[1]_0 ;
+  input \desc_addr_q_reg[7]_3 ;
+  input \desc_addr_q_reg[5]_0 ;
   input \desc_addr_q_reg[6]_0 ;
   input \desc_addr_q_reg[4]_0 ;
-  input \desc_addr_q_reg[1]_0 ;
-  input \desc_addr_q_reg[2]_1 ;
-  input \desc_addr_q_reg[2]_2 ;
-  input \desc_addr_q_reg[7]_3 ;
-  input \desc_addr_q_reg[3]_1 ;
-  input \desc_addr_q_reg[0]_0 ;
-  input \desc_addr_q_reg[3]_2 ;
   input \desc_addr_q_reg[1]_1 ;
-  input \desc_addr_q_reg[2]_3 ;
+  input \desc_addr_q_reg[2]_0 ;
+  input \desc_addr_q_reg[2]_1 ;
+  input \desc_addr_q_reg[7]_4 ;
+  input \desc_addr_q_reg[2]_2 ;
   input \desc_addr_q_reg[1]_2 ;
-  input \desc_addr_q_reg[3]_3 ;
+  input \desc_addr_q_reg[3]_1 ;
   input utmi_rxvalid_i;
-  input [1:0]\setup_packet_q_reg[0][7] ;
-  input \setup_packet_q_reg[3][0]_0 ;
-  input \setup_packet_q_reg[1][3] ;
   input \usb_rst_time_q_reg[17] ;
   input [2:0]setup_wr_idx_q;
-  input utmi_txready_i;
-  input [7:0]\ctrl_txdata_q_reg[7]_0 ;
   input [7:0]\inport_data_q_reg[7] ;
-  input ctrl_txstall_q_reg_0;
-  input outport_accept_i;
+  input [7:0]\ctrl_txdata_q_reg[7]_0 ;
   input ctrl_txvalid_q_reg_0;
   input \setup_packet_q_reg[0][5] ;
+  input [1:0]\setup_packet_q_reg[0][7] ;
   input setup_frame_q_do;
   input ctrl_txlast_q_reg_0;
   input ctrl_txstrb_q_reg_0;
   input inport_valid_i;
-  input \usb_rst_time_q_reg[15] ;
-  input \FSM_sequential_state_q_reg[1]_0 ;
-  input [6:0]\device_addr_q_reg[6]_0 ;
+  input \FSM_sequential_state_q_reg[1]_1 ;
+  input [6:0]current_addr_i_do;
+  input [2:0]\setup_packet_q_reg[1][2] ;
+  input \setup_packet_q_reg[1][7] ;
+  input \desc_addr_q_reg[2]_3 ;
+  input \setup_packet_q_reg[1][3] ;
+  input \setup_packet_q_reg[3][6] ;
+  input \setup_packet_q_reg[3][1] ;
+  input \setup_packet_q_reg[2][3] ;
+  input [1:0]\setup_packet_q_reg[3][1]_0 ;
+  input \setup_packet_q_reg[1][2]_0 ;
+  input \desc_addr_q_reg[3]_2 ;
+  input \setup_packet_q_reg[3][1]_1 ;
+  input \setup_packet_q_reg[2][0]_0 ;
   input \desc_addr_q_reg[1]_3 ;
   input [6:0]\setup_packet_q_reg[2][6] ;
-  input \desc_addr_q_reg[3]_4 ;
-  input \setup_packet_q_reg[2][0]_0 ;
-  input \setup_packet_q_reg[3][0]_1 ;
-  input \setup_packet_q_reg[2][7] ;
-  input [1:0]\setup_packet_q_reg[3][1] ;
-  input \setup_packet_q_reg[1][2] ;
-  input \desc_addr_q_reg[2]_4 ;
+  input \setup_packet_q_reg[3][0]_0 ;
   input \setup_packet_q_reg[2][0]_1 ;
-  input \setup_packet_q_reg[3][6] ;
+  input \setup_packet_q_reg[1][3]_0 ;
+  input \desc_addr_q_reg[4]_1 ;
   input \setup_packet_q_reg[0][6] ;
-  input [2:0]\setup_packet_q_reg[1][2]_0 ;
   input [14:0]ctrl_sending_r2;
-  input \FSM_sequential_state_q_reg[1]_1 ;
+  input \FSM_sequential_state_q_reg[2] ;
   input [0:0]\usb_rst_time_q_reg[0]_0 ;
   input [18:0]usb_rst_time_q0;
   input \usb_rst_time_q_reg[9] ;
   input \usb_rst_time_q_reg[2] ;
+  input \usb_rst_time_q_reg[15] ;
   input \setup_packet_q_reg[0][6]_0 ;
   input \ctrl_send_idx_q_reg[2] ;
 
@@ -4075,15 +4144,16 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
   wire [0:0]E;
   wire \FSM_sequential_state_q[0]_i_2__1_n_0 ;
   wire \FSM_sequential_state_q[1]_i_3__1_n_0 ;
-  wire [1:0]\FSM_sequential_state_q_reg[1] ;
-  wire \FSM_sequential_state_q_reg[1]_0 ;
+  wire \FSM_sequential_state_q_reg[1] ;
+  wire [1:0]\FSM_sequential_state_q_reg[1]_0 ;
   wire \FSM_sequential_state_q_reg[1]_1 ;
+  wire \FSM_sequential_state_q_reg[2] ;
   wire [0:0]Q;
   wire addr_update_pending_q_i_2_n_0;
   wire addr_update_pending_q_i_3_n_0;
   wire addr_update_pending_q_i_4_n_0;
   wire addr_update_pending_q_reg_n_0;
-  wire \chirp_count_q_reg[4] ;
+  wire \chirp_count_q_reg[5] ;
   wire clk_i;
   wire ctrl_send_accept_w_do;
   wire [0:0]\ctrl_send_idx_q_reg[0] ;
@@ -4103,6 +4173,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
   wire ctrl_txstrb_q_reg_0;
   wire ctrl_txvalid_q_reg;
   wire ctrl_txvalid_q_reg_0;
+  wire [6:0]current_addr_i_do;
   wire [6:0]current_addr_q;
   wire \current_addr_q[0]_i_1_n_0 ;
   wire \current_addr_q[1]_i_1_n_0 ;
@@ -4111,14 +4182,13 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
   wire \current_addr_q[4]_i_1_n_0 ;
   wire \current_addr_q[5]_i_1_n_0 ;
   wire \current_addr_q[6]_i_2_n_0 ;
+  wire \desc_addr_q[0]_i_2_n_0 ;
+  wire \desc_addr_q[3]_i_4_n_0 ;
   wire \desc_addr_q[4]_i_2_n_0 ;
   wire \desc_addr_q[4]_i_4_n_0 ;
   wire \desc_addr_q[6]_i_4_n_0 ;
   wire \desc_addr_q[6]_i_5_n_0 ;
-  wire \desc_addr_q[6]_i_7_n_0 ;
-  wire \desc_addr_q[7]_i_2_n_0 ;
   wire \desc_addr_q_reg[0] ;
-  wire \desc_addr_q_reg[0]_0 ;
   wire \desc_addr_q_reg[1] ;
   wire \desc_addr_q_reg[1]_0 ;
   wire \desc_addr_q_reg[1]_1 ;
@@ -4129,32 +4199,30 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
   wire \desc_addr_q_reg[2]_1 ;
   wire \desc_addr_q_reg[2]_2 ;
   wire \desc_addr_q_reg[2]_3 ;
-  wire \desc_addr_q_reg[2]_4 ;
   wire \desc_addr_q_reg[3] ;
   wire \desc_addr_q_reg[3]_0 ;
   wire \desc_addr_q_reg[3]_1 ;
   wire \desc_addr_q_reg[3]_2 ;
-  wire \desc_addr_q_reg[3]_3 ;
-  wire \desc_addr_q_reg[3]_4 ;
   wire \desc_addr_q_reg[4] ;
   wire \desc_addr_q_reg[4]_0 ;
+  wire \desc_addr_q_reg[4]_1 ;
   wire \desc_addr_q_reg[5] ;
+  wire \desc_addr_q_reg[5]_0 ;
   wire \desc_addr_q_reg[6] ;
   wire \desc_addr_q_reg[6]_0 ;
   wire [7:0]\desc_addr_q_reg[7] ;
-  wire [7:0]\desc_addr_q_reg[7]_0 ;
-  wire \desc_addr_q_reg[7]_1 ;
+  wire \desc_addr_q_reg[7]_0 ;
+  wire [7:0]\desc_addr_q_reg[7]_1 ;
   wire \desc_addr_q_reg[7]_2 ;
   wire \desc_addr_q_reg[7]_3 ;
+  wire \desc_addr_q_reg[7]_4 ;
   wire [0:0]\device_addr_q_reg[0] ;
   wire [6:0]\device_addr_q_reg[6] ;
-  wire [6:0]\device_addr_q_reg[6]_0 ;
   wire ep0_data_bit_q_reg_n_0;
   wire ep0_dir_in_q_reg_n_0;
   wire ep0_dir_out_q_reg_n_0;
   wire ep1_data_bit_q_reg_n_0;
   wire ep2_data_bit_q_reg_n_0;
-  wire ep3_data_bit_q_i_9_n_0;
   wire ep3_data_bit_q_reg_n_0;
   wire [0:0]inport_accept_o;
   wire [7:0]\inport_data_q_reg[7] ;
@@ -4224,18 +4292,21 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
   wire \setup_packet_q_reg[0][6]_0 ;
   wire [1:0]\setup_packet_q_reg[0][7] ;
   wire [0:0]\setup_packet_q_reg[1][0] ;
-  wire \setup_packet_q_reg[1][2] ;
-  wire [2:0]\setup_packet_q_reg[1][2]_0 ;
+  wire [2:0]\setup_packet_q_reg[1][2] ;
+  wire \setup_packet_q_reg[1][2]_0 ;
   wire \setup_packet_q_reg[1][3] ;
+  wire \setup_packet_q_reg[1][3]_0 ;
+  wire \setup_packet_q_reg[1][7] ;
   wire [0:0]\setup_packet_q_reg[2][0] ;
   wire \setup_packet_q_reg[2][0]_0 ;
   wire \setup_packet_q_reg[2][0]_1 ;
+  wire \setup_packet_q_reg[2][3] ;
   wire [6:0]\setup_packet_q_reg[2][6] ;
-  wire \setup_packet_q_reg[2][7] ;
   wire [0:0]\setup_packet_q_reg[3][0] ;
   wire \setup_packet_q_reg[3][0]_0 ;
-  wire \setup_packet_q_reg[3][0]_1 ;
-  wire [1:0]\setup_packet_q_reg[3][1] ;
+  wire \setup_packet_q_reg[3][1] ;
+  wire [1:0]\setup_packet_q_reg[3][1]_0 ;
+  wire \setup_packet_q_reg[3][1]_1 ;
   wire \setup_packet_q_reg[3][6] ;
   wire [0:0]\setup_packet_q_reg[4][0] ;
   wire [0:0]\setup_packet_q_reg[5][0] ;
@@ -4250,21 +4321,16 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
   wire \setup_wr_idx_q_reg[2] ;
   wire [2:0]state_q;
   wire \state_q[0]_i_2_n_0 ;
-  wire \state_q[1]_i_4_n_0 ;
+  wire \state_q[1]_i_5_n_0 ;
   wire \state_q[2]_i_2_n_0 ;
-  wire \state_q_reg[1]_0 ;
   wire status_ready_q_reg;
   wire status_ready_q_reg_0;
   wire [3:2]token_ep_w;
   wire [7:0]tx_pid_q;
+  wire \tx_pid_q[3]_i_4_n_0 ;
   wire tx_valid_q;
   wire tx_valid_r;
-  wire u_sie_rx_n_0;
-  wire u_sie_rx_n_10;
   wire u_sie_rx_n_11;
-  wire u_sie_rx_n_12;
-  wire u_sie_rx_n_13;
-  wire u_sie_rx_n_14;
   wire u_sie_rx_n_15;
   wire u_sie_rx_n_16;
   wire u_sie_rx_n_17;
@@ -4275,28 +4341,32 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
   wire u_sie_rx_n_22;
   wire u_sie_rx_n_23;
   wire u_sie_rx_n_24;
+  wire u_sie_rx_n_3;
+  wire u_sie_rx_n_4;
   wire u_sie_rx_n_5;
   wire u_sie_rx_n_55;
   wire u_sie_rx_n_56;
-  wire u_sie_rx_n_59;
+  wire u_sie_rx_n_6;
+  wire u_sie_rx_n_61;
   wire u_sie_rx_n_62;
   wire u_sie_rx_n_63;
   wire u_sie_rx_n_64;
   wire u_sie_rx_n_65;
   wire u_sie_rx_n_66;
   wire u_sie_rx_n_67;
-  wire u_sie_rx_n_68;
+  wire u_sie_rx_n_7;
+  wire u_sie_rx_n_73;
   wire u_sie_rx_n_74;
   wire u_sie_rx_n_75;
-  wire u_sie_rx_n_76;
+  wire u_sie_rx_n_8;
   wire u_sie_rx_n_9;
-  wire u_sie_tx_n_0;
-  wire u_sie_tx_n_1;
+  wire u_sie_tx_n_10;
+  wire u_sie_tx_n_12;
   wire u_sie_tx_n_13;
   wire u_sie_tx_n_14;
   wire u_sie_tx_n_16;
   wire u_sie_tx_n_17;
-  wire u_sie_tx_n_2;
+  wire u_sie_tx_n_9;
   wire [18:0]usb_rst_time_q0;
   wire \usb_rst_time_q[19]_i_3_n_0 ;
   wire [0:0]\usb_rst_time_q_reg[0] ;
@@ -4309,13 +4379,8 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
   wire \usb_rst_time_q_reg[9] ;
   wire usb_rst_w;
   wire [7:0]utmi_data_in_i;
-  wire [1:0]utmi_data_out_o;
-  wire \utmi_data_out_o[2] ;
-  wire \utmi_data_out_o[3] ;
-  wire \utmi_data_out_o[4] ;
-  wire \utmi_data_out_o[7] ;
-  wire utmi_data_out_o_0_sn_1;
-  wire utmi_data_out_o_1_sn_1;
+  wire [6:0]utmi_data_out_o;
+  wire utmi_data_out_o_4_sn_1;
   wire [1:0]utmi_linestate_i;
   wire utmi_rxactive_i;
   wire utmi_rxvalid_i;
@@ -4324,34 +4389,33 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
   wire [3:1]NLW_se0_cnt_q0_carry__2_CO_UNCONNECTED;
   wire [3:2]NLW_se0_cnt_q0_carry__2_O_UNCONNECTED;
 
-  assign utmi_data_out_o_0_sp_1 = utmi_data_out_o_0_sn_1;
-  assign utmi_data_out_o_1_sp_1 = utmi_data_out_o_1_sn_1;
+  assign utmi_data_out_o_4_sp_1 = utmi_data_out_o_4_sn_1;
   LUT2 #(
     .INIT(4'h2)) 
     \FSM_sequential_state_q[0]_i_1 
-       (.I0(\FSM_sequential_state_q_reg[1]_0 ),
+       (.I0(\FSM_sequential_state_q_reg[1]_1 ),
         .I1(\FSM_sequential_state_q[0]_i_2__1_n_0 ),
-        .O(\FSM_sequential_state_q_reg[1] [0]));
+        .O(\FSM_sequential_state_q_reg[1]_0 [0]));
   LUT6 #(
     .INIT(64'h5111404051115151)) 
     \FSM_sequential_state_q[0]_i_2__1 
        (.I0(out[2]),
         .I1(out[0]),
         .I2(out[1]),
-        .I3(\chirp_count_q_reg[4] ),
+        .I3(\chirp_count_q_reg[5] ),
         .I4(\usb_rst_time_q_reg[18] ),
         .I5(CLK),
         .O(\FSM_sequential_state_q[0]_i_2__1_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFF8F008C00)) 
-    \FSM_sequential_state_q[1]_i_1 
-       (.I0(\usb_rst_time_q_reg[17] ),
-        .I1(out[1]),
+    .INIT(64'hFFFFFFFF0C08CC08)) 
+    \FSM_sequential_state_q[1]_i_1__1 
+       (.I0(\usb_rst_time_q_reg[15] ),
+        .I1(out[2]),
         .I2(out[0]),
-        .I3(out[2]),
-        .I4(\usb_rst_time_q_reg[15] ),
+        .I3(out[1]),
+        .I4(\usb_rst_time_q_reg[17] ),
         .I5(\FSM_sequential_state_q[1]_i_3__1_n_0 ),
-        .O(\FSM_sequential_state_q_reg[1] [1]));
+        .O(\FSM_sequential_state_q_reg[1]_0 [1]));
   LUT6 #(
     .INIT(64'h0040504000505050)) 
     \FSM_sequential_state_q[1]_i_3__1 
@@ -4359,7 +4423,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(\usb_rst_time_q_reg[18] ),
         .I2(out[1]),
         .I3(out[0]),
-        .I4(\chirp_count_q_reg[4] ),
+        .I4(\chirp_count_q_reg[5] ),
         .I5(CLK),
         .O(\FSM_sequential_state_q[1]_i_3__1_n_0 ));
   LUT6 #(
@@ -4367,29 +4431,29 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
     addr_update_pending_q_i_2
        (.I0(addr_update_pending_q_i_3_n_0),
         .I1(addr_update_pending_q_i_4_n_0),
-        .I2(current_addr_q[3]),
-        .I3(\device_addr_q_reg[6]_0 [3]),
-        .I4(current_addr_q[0]),
-        .I5(\device_addr_q_reg[6]_0 [0]),
+        .I2(current_addr_q[0]),
+        .I3(current_addr_i_do[0]),
+        .I4(current_addr_q[1]),
+        .I5(current_addr_i_do[1]),
         .O(addr_update_pending_q_i_2_n_0));
   LUT6 #(
     .INIT(64'h6FF6FFFFFFFF6FF6)) 
     addr_update_pending_q_i_3
-       (.I0(current_addr_q[2]),
-        .I1(\device_addr_q_reg[6]_0 [2]),
-        .I2(\device_addr_q_reg[6]_0 [5]),
-        .I3(current_addr_q[5]),
-        .I4(\device_addr_q_reg[6]_0 [6]),
+       (.I0(current_addr_q[4]),
+        .I1(current_addr_i_do[4]),
+        .I2(current_addr_i_do[2]),
+        .I3(current_addr_q[2]),
+        .I4(current_addr_i_do[6]),
         .I5(current_addr_q[6]),
         .O(addr_update_pending_q_i_3_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT4 #(
     .INIT(16'h6FF6)) 
     addr_update_pending_q_i_4
-       (.I0(current_addr_q[1]),
-        .I1(\device_addr_q_reg[6]_0 [1]),
-        .I2(current_addr_q[4]),
-        .I3(\device_addr_q_reg[6]_0 [4]),
+       (.I0(current_addr_q[3]),
+        .I1(current_addr_i_do[3]),
+        .I2(current_addr_q[5]),
+        .I3(current_addr_i_do[5]),
         .O(addr_update_pending_q_i_4_n_0));
   FDCE addr_update_pending_q_reg
        (.C(clk_i),
@@ -4397,7 +4461,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .CLR(rst_i),
         .D(u_sie_tx_n_17),
         .Q(addr_update_pending_q_reg_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT4 #(
     .INIT(16'h0001)) 
     \ctrl_send_idx_q[0]_i_1 
@@ -4406,7 +4470,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[0]));
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+  (* SOFT_HLUTNM = "soft_lutpair51" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[10]_i_1 
@@ -4415,7 +4479,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[10]));
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[11]_i_1 
@@ -4424,7 +4488,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[11]));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[12]_i_1 
@@ -4433,7 +4497,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[12]));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  (* SOFT_HLUTNM = "soft_lutpair51" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[13]_i_1 
@@ -4442,7 +4506,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[13]));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[14]_i_1 
@@ -4451,7 +4515,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[14]));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[15]_i_2 
@@ -4460,7 +4524,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[15]));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[1]_i_1 
@@ -4469,7 +4533,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[1]));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[2]_i_1 
@@ -4478,7 +4542,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[2]));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[3]_i_1 
@@ -4487,7 +4551,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[3]));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[4]_i_1 
@@ -4496,7 +4560,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[4]));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[5]_i_1 
@@ -4505,7 +4569,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[5]));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[6]_i_1 
@@ -4514,7 +4578,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[6]));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[7]_i_1 
@@ -4523,7 +4587,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[7]));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[8]_i_1 
@@ -4532,7 +4596,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(status_ready_q_reg_0),
         .O(D[8]));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \ctrl_send_idx_q[9]_i_1 
@@ -4542,84 +4606,84 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I3(status_ready_q_reg_0),
         .O(D[9]));
   LUT6 #(
-    .INIT(64'h0045004555450045)) 
+    .INIT(64'h0101010101010151)) 
     \ctrl_txdata_q[0]_i_1 
        (.I0(CLK),
-        .I1(\desc_addr_q_reg[3]_1 ),
-        .I2(\desc_addr_q_reg[0]_0 ),
-        .I3(\desc_addr_q_reg[7]_0 [7]),
-        .I4(\desc_addr_q_reg[3]_2 ),
-        .I5(\desc_addr_q_reg[1]_1 ),
+        .I1(\desc_addr_q_reg[6] ),
+        .I2(\desc_addr_q_reg[7]_1 [7]),
+        .I3(\desc_addr_q_reg[7]_1 [3]),
+        .I4(\desc_addr_q_reg[7]_1 [6]),
+        .I5(\desc_addr_q_reg[1]_0 ),
         .O(\ctrl_txdata_q_reg[7] [0]));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
   LUT4 #(
     .INIT(16'h0151)) 
     \ctrl_txdata_q[1]_i_1 
        (.I0(CLK),
-        .I1(\desc_addr_q_reg[2] ),
+        .I1(\desc_addr_q_reg[5] ),
         .I2(\desc_addr_q_reg[0] ),
-        .I3(\desc_addr_q_reg[5] ),
+        .I3(\desc_addr_q_reg[7]_0 ),
         .O(\ctrl_txdata_q_reg[7] [1]));
   LUT6 #(
-    .INIT(64'h4444444444545555)) 
+    .INIT(64'h4444444454445454)) 
     \ctrl_txdata_q[2]_i_1 
        (.I0(CLK),
-        .I1(\desc_addr_q_reg[7]_2 ),
-        .I2(\desc_addr_q_reg[7]_0 [2]),
-        .I3(\desc_addr_q_reg[7]_0 [1]),
-        .I4(\desc_addr_q_reg[7]_0 [4]),
-        .I5(\desc_addr_q_reg[6] ),
+        .I1(\desc_addr_q_reg[7]_3 ),
+        .I2(\desc_addr_q_reg[7]_1 [0]),
+        .I3(\desc_addr_q_reg[7]_1 [2]),
+        .I4(\desc_addr_q_reg[7]_1 [4]),
+        .I5(\desc_addr_q_reg[5]_0 ),
         .O(\ctrl_txdata_q_reg[7] [2]));
   LUT6 #(
     .INIT(64'h0101015151510151)) 
     \ctrl_txdata_q[3]_i_1 
        (.I0(CLK),
         .I1(\desc_addr_q_reg[3]_0 ),
-        .I2(\desc_addr_q_reg[7]_0 [0]),
-        .I3(\desc_addr_q_reg[2]_0 ),
-        .I4(\desc_addr_q_reg[7]_0 [3]),
+        .I2(\desc_addr_q_reg[7]_1 [0]),
+        .I3(\desc_addr_q_reg[2] ),
+        .I4(\desc_addr_q_reg[7]_1 [3]),
         .I5(\desc_addr_q_reg[1] ),
         .O(\ctrl_txdata_q_reg[7] [3]));
   LUT6 #(
     .INIT(64'h0101015151510151)) 
     \ctrl_txdata_q[4]_i_1 
        (.I0(CLK),
-        .I1(\desc_addr_q_reg[2]_3 ),
-        .I2(\desc_addr_q_reg[7]_0 [4]),
+        .I1(\desc_addr_q_reg[2]_2 ),
+        .I2(\desc_addr_q_reg[7]_1 [4]),
         .I3(\desc_addr_q_reg[1]_2 ),
-        .I4(\desc_addr_q_reg[7]_0 [0]),
-        .I5(\desc_addr_q_reg[3]_3 ),
+        .I4(\desc_addr_q_reg[7]_1 [0]),
+        .I5(\desc_addr_q_reg[3]_1 ),
         .O(\ctrl_txdata_q_reg[7] [4]));
   LUT6 #(
     .INIT(64'h0455040015551500)) 
     \ctrl_txdata_q[5]_i_1 
        (.I0(CLK),
-        .I1(\desc_addr_q_reg[1]_0 ),
-        .I2(\desc_addr_q_reg[2]_1 ),
-        .I3(\desc_addr_q_reg[7]_0 [0]),
-        .I4(\desc_addr_q_reg[2]_2 ),
-        .I5(\desc_addr_q_reg[7]_3 ),
+        .I1(\desc_addr_q_reg[1]_1 ),
+        .I2(\desc_addr_q_reg[2]_0 ),
+        .I3(\desc_addr_q_reg[7]_1 [0]),
+        .I4(\desc_addr_q_reg[2]_1 ),
+        .I5(\desc_addr_q_reg[7]_4 ),
         .O(\ctrl_txdata_q_reg[7] [5]));
   LUT5 #(
     .INIT(32'h45405555)) 
     \ctrl_txdata_q[6]_i_1 
        (.I0(CLK),
         .I1(\desc_addr_q_reg[4] ),
-        .I2(\desc_addr_q_reg[7]_0 [0]),
+        .I2(\desc_addr_q_reg[7]_1 [0]),
         .I3(\desc_addr_q_reg[3] ),
-        .I4(\desc_addr_q_reg[7]_1 ),
+        .I4(\desc_addr_q_reg[7]_2 ),
         .O(\ctrl_txdata_q_reg[7] [6]));
   LUT6 #(
     .INIT(64'h0000000155550001)) 
     \ctrl_txdata_q[7]_i_2 
        (.I0(CLK),
-        .I1(\desc_addr_q_reg[7]_0 [1]),
-        .I2(\desc_addr_q_reg[7]_0 [3]),
+        .I1(\desc_addr_q_reg[7]_1 [1]),
+        .I2(\desc_addr_q_reg[7]_1 [3]),
         .I3(\desc_addr_q_reg[6]_0 ),
-        .I4(\desc_addr_q_reg[7]_0 [0]),
+        .I4(\desc_addr_q_reg[7]_1 [0]),
         .I5(\desc_addr_q_reg[4]_0 ),
         .O(\ctrl_txdata_q_reg[7] [7]));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT4 #(
     .INIT(16'h3202)) 
     ctrl_txstall_q_i_1
@@ -4628,53 +4692,53 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I2(setup_valid_q_reg),
         .I3(\setup_packet_q_reg[0][6]_0 ),
         .O(ctrl_txstall_q_reg));
-  (* SOFT_HLUTNM = "soft_lutpair65" *) 
+  (* SOFT_HLUTNM = "soft_lutpair73" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \current_addr_q[0]_i_1 
-       (.I0(\device_addr_q_reg[6]_0 [0]),
+       (.I0(current_addr_i_do[0]),
         .I1(usb_rst_w),
         .O(\current_addr_q[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+  (* SOFT_HLUTNM = "soft_lutpair73" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \current_addr_q[1]_i_1 
-       (.I0(\device_addr_q_reg[6]_0 [1]),
+       (.I0(current_addr_i_do[1]),
         .I1(usb_rst_w),
         .O(\current_addr_q[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair65" *) 
+  (* SOFT_HLUTNM = "soft_lutpair72" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \current_addr_q[2]_i_1 
-       (.I0(\device_addr_q_reg[6]_0 [2]),
+       (.I0(current_addr_i_do[2]),
         .I1(usb_rst_w),
         .O(\current_addr_q[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair64" *) 
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \current_addr_q[3]_i_1 
-       (.I0(\device_addr_q_reg[6]_0 [3]),
+       (.I0(current_addr_i_do[3]),
         .I1(usb_rst_w),
         .O(\current_addr_q[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair64" *) 
+  (* SOFT_HLUTNM = "soft_lutpair72" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \current_addr_q[4]_i_1 
-       (.I0(\device_addr_q_reg[6]_0 [4]),
+       (.I0(current_addr_i_do[4]),
         .I1(usb_rst_w),
         .O(\current_addr_q[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair63" *) 
+  (* SOFT_HLUTNM = "soft_lutpair71" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \current_addr_q[5]_i_1 
-       (.I0(\device_addr_q_reg[6]_0 [5]),
+       (.I0(current_addr_i_do[5]),
         .I1(usb_rst_w),
         .O(\current_addr_q[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair63" *) 
+  (* SOFT_HLUTNM = "soft_lutpair71" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \current_addr_q[6]_i_2 
-       (.I0(\device_addr_q_reg[6]_0 [6]),
+       (.I0(current_addr_i_do[6]),
         .I1(usb_rst_w),
         .O(\current_addr_q[6]_i_2_n_0 ));
   FDCE \current_addr_q_reg[0] 
@@ -4719,67 +4783,86 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .CLR(rst_i),
         .D(\current_addr_q[6]_i_2_n_0 ),
         .Q(current_addr_q[6]));
-  LUT6 #(
-    .INIT(64'h0404040015151511)) 
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  LUT4 #(
+    .INIT(16'hAAAB)) 
     \desc_addr_q[0]_i_1 
+       (.I0(\desc_addr_q[0]_i_2_n_0 ),
+        .I1(\desc_addr_q_reg[7]_1 [0]),
+        .I2(CLK),
+        .I3(setup_valid_q_reg),
+        .O(\desc_addr_q_reg[7] [0]));
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  LUT5 #(
+    .INIT(32'h04000404)) 
+    \desc_addr_q[0]_i_2 
        (.I0(CLK),
         .I1(setup_valid_q_reg),
         .I2(\setup_packet_q_reg[0][7] [0]),
-        .I3(\setup_packet_q_reg[3][0]_0 ),
-        .I4(\setup_packet_q_reg[1][3] ),
-        .I5(\desc_addr_q_reg[7]_0 [0]),
-        .O(\desc_addr_q_reg[7] [0]));
+        .I3(\setup_packet_q_reg[1][3]_0 ),
+        .I4(\setup_packet_q_reg[3][0]_0 ),
+        .O(\desc_addr_q[0]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h00000000000F6666)) 
+    .INIT(64'h0000111100000FF0)) 
     \desc_addr_q[1]_i_1 
-       (.I0(\desc_addr_q_reg[7]_0 [0]),
-        .I1(\desc_addr_q_reg[7]_0 [1]),
-        .I2(\setup_packet_q_reg[3][0]_1 ),
-        .I3(\setup_packet_q_reg[0][7] [0]),
-        .I4(setup_valid_q_reg),
-        .I5(CLK),
+       (.I0(\setup_packet_q_reg[3][1] ),
+        .I1(\setup_packet_q_reg[0][7] [0]),
+        .I2(\desc_addr_q_reg[7]_1 [0]),
+        .I3(\desc_addr_q_reg[7]_1 [1]),
+        .I4(CLK),
+        .I5(setup_valid_q_reg),
         .O(\desc_addr_q_reg[7] [1]));
   LUT6 #(
     .INIT(64'h6A00FFFF6A006A00)) 
     \desc_addr_q[2]_i_1 
-       (.I0(\desc_addr_q_reg[7]_0 [2]),
-        .I1(\desc_addr_q_reg[7]_0 [1]),
-        .I2(\desc_addr_q_reg[7]_0 [0]),
+       (.I0(\desc_addr_q_reg[7]_1 [2]),
+        .I1(\desc_addr_q_reg[7]_1 [1]),
+        .I2(\desc_addr_q_reg[7]_1 [0]),
         .I3(\desc_addr_q[6]_i_4_n_0 ),
-        .I4(\setup_packet_q_reg[2][0]_1 ),
+        .I4(\setup_packet_q_reg[2][0]_0 ),
         .I5(\desc_addr_q[6]_i_5_n_0 ),
         .O(\desc_addr_q_reg[7] [2]));
   LUT6 #(
-    .INIT(64'h00F6000600060006)) 
+    .INIT(64'hFF60606060606060)) 
     \desc_addr_q[3]_i_1 
-       (.I0(\desc_addr_q_reg[7]_0 [3]),
-        .I1(\desc_addr_q_reg[2]_4 ),
-        .I2(setup_valid_q_reg),
-        .I3(CLK),
-        .I4(\setup_packet_q_reg[2][0]_1 ),
-        .I5(\setup_packet_q_reg[3][0]_0 ),
+       (.I0(\desc_addr_q_reg[7]_1 [3]),
+        .I1(\desc_addr_q_reg[2]_3 ),
+        .I2(\desc_addr_q[6]_i_4_n_0 ),
+        .I3(\setup_packet_q_reg[1][3] ),
+        .I4(\desc_addr_q[3]_i_4_n_0 ),
+        .I5(\setup_packet_q_reg[3][6] ),
         .O(\desc_addr_q_reg[7] [3]));
   LUT6 #(
-    .INIT(64'hAAAABFAAAAAAAAAA)) 
+    .INIT(64'h0000000020000000)) 
+    \desc_addr_q[3]_i_4 
+       (.I0(\setup_packet_q_reg[3][1]_0 [1]),
+        .I1(\desc_addr_q[4]_i_4_n_0 ),
+        .I2(\setup_packet_q_reg[0][6] ),
+        .I3(\setup_packet_q_reg[3][1]_0 [0]),
+        .I4(\setup_packet_q_reg[2][6] [0]),
+        .I5(\setup_packet_q_reg[2][6] [1]),
+        .O(\desc_addr_q[3]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'hAAAAEFAAAAAAAAAA)) 
     \desc_addr_q[4]_i_1 
        (.I0(\desc_addr_q[4]_i_2_n_0 ),
-        .I1(\setup_packet_q_reg[2][7] ),
-        .I2(\setup_packet_q_reg[3][1] [0]),
-        .I3(\setup_packet_q_reg[3][1] [1]),
+        .I1(\setup_packet_q_reg[2][3] ),
+        .I2(\setup_packet_q_reg[3][1]_0 [0]),
+        .I3(\setup_packet_q_reg[3][1]_0 [1]),
         .I4(\desc_addr_q[4]_i_4_n_0 ),
-        .I5(\setup_packet_q_reg[1][2] ),
+        .I5(\setup_packet_q_reg[1][2]_0 ),
         .O(\desc_addr_q_reg[7] [4]));
   LUT6 #(
     .INIT(64'h2AAAAAAA80000000)) 
     \desc_addr_q[4]_i_2 
        (.I0(\desc_addr_q[6]_i_4_n_0 ),
-        .I1(\desc_addr_q_reg[7]_0 [3]),
-        .I2(\desc_addr_q_reg[7]_0 [2]),
-        .I3(\desc_addr_q_reg[7]_0 [0]),
-        .I4(\desc_addr_q_reg[7]_0 [1]),
-        .I5(\desc_addr_q_reg[7]_0 [4]),
+        .I1(\desc_addr_q_reg[7]_1 [1]),
+        .I2(\desc_addr_q_reg[7]_1 [0]),
+        .I3(\desc_addr_q_reg[7]_1 [2]),
+        .I4(\desc_addr_q_reg[7]_1 [3]),
+        .I5(\desc_addr_q_reg[7]_1 [4]),
         .O(\desc_addr_q[4]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
   LUT2 #(
     .INIT(4'hB)) 
     \desc_addr_q[4]_i_4 
@@ -4789,104 +4872,84 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
   LUT6 #(
     .INIT(64'h00000000000F6666)) 
     \desc_addr_q[5]_i_1 
-       (.I0(\desc_addr_q_reg[7]_0 [5]),
-        .I1(\desc_addr_q_reg[3]_4 ),
-        .I2(\setup_packet_q_reg[2][0]_0 ),
+       (.I0(\desc_addr_q_reg[7]_1 [5]),
+        .I1(\desc_addr_q_reg[3]_2 ),
+        .I2(\setup_packet_q_reg[3][1]_1 ),
         .I3(\setup_packet_q_reg[0][7] [0]),
         .I4(setup_valid_q_reg),
         .I5(CLK),
         .O(\desc_addr_q_reg[7] [5]));
   LUT6 #(
-    .INIT(64'h60FFFFFF60606060)) 
+    .INIT(64'h6060FF60FF60FF60)) 
     \desc_addr_q[6]_i_2 
-       (.I0(\desc_addr_q_reg[7]_0 [6]),
+       (.I0(\desc_addr_q_reg[7]_1 [6]),
         .I1(\desc_addr_q_reg[1]_3 ),
         .I2(\desc_addr_q[6]_i_4_n_0 ),
-        .I3(\setup_packet_q_reg[2][6] [0]),
-        .I4(\setup_packet_q_reg[2][6] [1]),
-        .I5(\desc_addr_q[6]_i_5_n_0 ),
+        .I3(\desc_addr_q[6]_i_5_n_0 ),
+        .I4(\setup_packet_q_reg[2][6] [0]),
+        .I5(\setup_packet_q_reg[2][6] [1]),
         .O(\desc_addr_q_reg[7] [6]));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \desc_addr_q[6]_i_4 
        (.I0(CLK),
         .I1(setup_valid_q_reg),
         .O(\desc_addr_q[6]_i_4_n_0 ));
-  LUT5 #(
-    .INIT(32'h00001000)) 
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  LUT3 #(
+    .INIT(8'h02)) 
     \desc_addr_q[6]_i_5 
-       (.I0(\setup_packet_q_reg[2][7] ),
-        .I1(\setup_packet_q_reg[3][6] ),
-        .I2(\desc_addr_q[6]_i_7_n_0 ),
-        .I3(setup_valid_q_reg),
-        .I4(\setup_packet_q_reg[0][6] ),
+       (.I0(setup_valid_q_reg),
+        .I1(CLK),
+        .I2(\setup_packet_q_reg[3][0]_0 ),
         .O(\desc_addr_q[6]_i_5_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000800000)) 
-    \desc_addr_q[6]_i_7 
-       (.I0(\setup_packet_q_reg[1][2]_0 [2]),
-        .I1(\setup_packet_q_reg[3][1] [0]),
-        .I2(\setup_packet_q_reg[3][1] [1]),
-        .I3(\setup_packet_q_reg[1][2]_0 [0]),
-        .I4(\setup_packet_q_reg[1][2]_0 [1]),
-        .I5(CLK),
-        .O(\desc_addr_q[6]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFF0000006A)) 
+    .INIT(64'hD0FFFFD0D0D0D0D0)) 
     \desc_addr_q[7]_i_1 
-       (.I0(\desc_addr_q_reg[7]_0 [7]),
-        .I1(\desc_addr_q_reg[7]_0 [6]),
-        .I2(\desc_addr_q_reg[1]_3 ),
-        .I3(CLK),
-        .I4(setup_valid_q_reg),
-        .I5(\desc_addr_q[7]_i_2_n_0 ),
+       (.I0(\setup_packet_q_reg[2][0]_1 ),
+        .I1(\setup_packet_q_reg[1][3]_0 ),
+        .I2(\desc_addr_q[0]_i_2_n_0 ),
+        .I3(\desc_addr_q_reg[4]_1 ),
+        .I4(\desc_addr_q_reg[7]_1 [7]),
+        .I5(\desc_addr_q[6]_i_4_n_0 ),
         .O(\desc_addr_q_reg[7] [7]));
-  LUT6 #(
-    .INIT(64'h0303030302000000)) 
-    \desc_addr_q[7]_i_2 
-       (.I0(\setup_packet_q_reg[3][0]_0 ),
-        .I1(\setup_packet_q_reg[0][7] [0]),
-        .I2(\desc_addr_q[4]_i_4_n_0 ),
-        .I3(\setup_packet_q_reg[2][6] [0]),
-        .I4(\setup_packet_q_reg[2][6] [1]),
-        .I5(\setup_packet_q_reg[1][3] ),
-        .O(\desc_addr_q[7]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair76" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \device_addr_q[0]_i_1 
        (.I0(\setup_packet_q_reg[2][6] [0]),
         .I1(CLK),
         .O(\device_addr_q_reg[6] [0]));
-  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  (* SOFT_HLUTNM = "soft_lutpair76" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \device_addr_q[1]_i_1 
        (.I0(\setup_packet_q_reg[2][6] [1]),
         .I1(CLK),
         .O(\device_addr_q_reg[6] [1]));
-  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  (* SOFT_HLUTNM = "soft_lutpair75" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \device_addr_q[2]_i_1 
        (.I0(\setup_packet_q_reg[2][6] [2]),
         .I1(CLK),
         .O(\device_addr_q_reg[6] [2]));
-  (* SOFT_HLUTNM = "soft_lutpair67" *) 
+  (* SOFT_HLUTNM = "soft_lutpair75" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \device_addr_q[3]_i_1 
        (.I0(\setup_packet_q_reg[2][6] [3]),
         .I1(CLK),
         .O(\device_addr_q_reg[6] [3]));
-  (* SOFT_HLUTNM = "soft_lutpair67" *) 
+  (* SOFT_HLUTNM = "soft_lutpair74" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \device_addr_q[4]_i_1 
        (.I0(\setup_packet_q_reg[2][6] [4]),
         .I1(CLK),
         .O(\device_addr_q_reg[6] [4]));
-  (* SOFT_HLUTNM = "soft_lutpair66" *) 
+  (* SOFT_HLUTNM = "soft_lutpair74" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \device_addr_q[5]_i_1 
@@ -4894,16 +4957,16 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(CLK),
         .O(\device_addr_q_reg[6] [5]));
   LUT6 #(
-    .INIT(64'hAAAAAAAAAEAAAAAA)) 
+    .INIT(64'hBAAAAAAAAAAAAAAA)) 
     \device_addr_q[6]_i_1 
        (.I0(CLK),
-        .I1(\setup_packet_q_reg[1][2]_0 [0]),
-        .I2(\setup_packet_q_reg[1][2]_0 [1]),
-        .I3(\setup_packet_q_reg[1][2]_0 [2]),
+        .I1(\setup_packet_q_reg[1][2] [1]),
+        .I2(\setup_packet_q_reg[1][2] [0]),
+        .I3(\setup_packet_q_reg[1][2] [2]),
         .I4(setup_valid_q_reg),
-        .I5(\setup_packet_q_reg[0][6] ),
+        .I5(\setup_packet_q_reg[1][7] ),
         .O(\device_addr_q_reg[0] ));
-  (* SOFT_HLUTNM = "soft_lutpair66" *) 
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \device_addr_q[6]_i_2 
@@ -4914,44 +4977,37 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_68),
+        .D(u_sie_rx_n_67),
         .Q(ep0_data_bit_q_reg_n_0));
   FDCE ep0_dir_in_q_reg
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_64),
+        .D(u_sie_rx_n_63),
         .Q(ep0_dir_in_q_reg_n_0));
   FDCE ep0_dir_out_q_reg
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_63),
+        .D(u_sie_rx_n_62),
         .Q(ep0_dir_out_q_reg_n_0));
   FDCE ep1_data_bit_q_reg
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_67),
+        .D(u_sie_rx_n_66),
         .Q(ep1_data_bit_q_reg_n_0));
   FDCE ep2_data_bit_q_reg
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_66),
+        .D(u_sie_rx_n_65),
         .Q(ep2_data_bit_q_reg_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
-  LUT2 #(
-    .INIT(4'h1)) 
-    ep3_data_bit_q_i_9
-       (.I0(state_q[2]),
-        .I1(state_q[0]),
-        .O(ep3_data_bit_q_i_9_n_0));
   FDCE ep3_data_bit_q_reg
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_65),
+        .D(u_sie_rx_n_64),
         .Q(ep3_data_bit_q_reg_n_0));
   FDCE rst_event_q_reg
        (.C(clk_i),
@@ -4959,11 +5015,11 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .CLR(rst_i),
         .D(usb_rst_w),
         .Q(CLK));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
   LUT4 #(
     .INIT(16'h0008)) 
     rx_enable_q_i_1
-       (.I0(u_sie_rx_n_5),
+       (.I0(u_sie_rx_n_11),
         .I1(state_q[0]),
         .I2(state_q[2]),
         .I3(state_q[1]),
@@ -4984,7 +5040,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_62),
+        .D(u_sie_rx_n_61),
         .Q(rx_space_q));
   CARRY4 se0_cnt_q0_carry
        (.CI(1'b0),
@@ -5014,7 +5070,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .DI({1'b0,1'b0,1'b0,1'b0}),
         .O({NLW_se0_cnt_q0_carry__2_O_UNCONNECTED[3:2],se0_cnt_q0[14:13]}),
         .S({1'b0,1'b0,usb_rst_w,\se0_cnt_q_reg_n_0_[13] }));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  (* SOFT_HLUTNM = "soft_lutpair56" *) 
   LUT3 #(
     .INIT(8'h01)) 
     \se0_cnt_q[0]_i_1 
@@ -5022,7 +5078,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(utmi_linestate_i[1]),
         .I2(utmi_linestate_i[0]),
         .O(\se0_cnt_q[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair61" *) 
+  (* SOFT_HLUTNM = "soft_lutpair70" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \se0_cnt_q[10]_i_1 
@@ -5030,7 +5086,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(utmi_linestate_i[1]),
         .I2(utmi_linestate_i[0]),
         .O(\se0_cnt_q[10]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair62" *) 
+  (* SOFT_HLUTNM = "soft_lutpair70" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \se0_cnt_q[11]_i_1 
@@ -5038,7 +5094,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(utmi_linestate_i[1]),
         .I2(utmi_linestate_i[0]),
         .O(\se0_cnt_q[11]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair62" *) 
+  (* SOFT_HLUTNM = "soft_lutpair66" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \se0_cnt_q[12]_i_1 
@@ -5060,7 +5116,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(utmi_linestate_i[0]),
         .I2(usb_rst_w),
         .O(\se0_cnt_q[14]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair58" *) 
+  (* SOFT_HLUTNM = "soft_lutpair67" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \se0_cnt_q[14]_i_2 
@@ -5068,7 +5124,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(utmi_linestate_i[1]),
         .I2(utmi_linestate_i[0]),
         .O(\se0_cnt_q[14]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair57" *) 
+  (* SOFT_HLUTNM = "soft_lutpair65" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \se0_cnt_q[1]_i_1 
@@ -5076,7 +5132,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(utmi_linestate_i[1]),
         .I2(utmi_linestate_i[0]),
         .O(\se0_cnt_q[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair58" *) 
+  (* SOFT_HLUTNM = "soft_lutpair66" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \se0_cnt_q[2]_i_1 
@@ -5084,7 +5140,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(utmi_linestate_i[1]),
         .I2(utmi_linestate_i[0]),
         .O(\se0_cnt_q[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair59" *) 
+  (* SOFT_HLUTNM = "soft_lutpair56" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \se0_cnt_q[3]_i_1 
@@ -5092,7 +5148,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(utmi_linestate_i[1]),
         .I2(utmi_linestate_i[0]),
         .O(\se0_cnt_q[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  (* SOFT_HLUTNM = "soft_lutpair65" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \se0_cnt_q[4]_i_1 
@@ -5100,7 +5156,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(utmi_linestate_i[1]),
         .I2(utmi_linestate_i[0]),
         .O(\se0_cnt_q[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair57" *) 
+  (* SOFT_HLUTNM = "soft_lutpair67" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \se0_cnt_q[5]_i_1 
@@ -5108,7 +5164,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(utmi_linestate_i[1]),
         .I2(utmi_linestate_i[0]),
         .O(\se0_cnt_q[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair60" *) 
+  (* SOFT_HLUTNM = "soft_lutpair68" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \se0_cnt_q[6]_i_1 
@@ -5116,7 +5172,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(utmi_linestate_i[1]),
         .I2(utmi_linestate_i[0]),
         .O(\se0_cnt_q[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair59" *) 
+  (* SOFT_HLUTNM = "soft_lutpair68" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \se0_cnt_q[7]_i_1 
@@ -5124,7 +5180,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(utmi_linestate_i[1]),
         .I2(utmi_linestate_i[0]),
         .O(\se0_cnt_q[7]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair60" *) 
+  (* SOFT_HLUTNM = "soft_lutpair69" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \se0_cnt_q[8]_i_1 
@@ -5132,7 +5188,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I1(utmi_linestate_i[1]),
         .I2(utmi_linestate_i[0]),
         .O(\se0_cnt_q[8]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair61" *) 
+  (* SOFT_HLUTNM = "soft_lutpair69" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \se0_cnt_q[9]_i_1 
@@ -5230,7 +5286,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .CLR(rst_i),
         .D(\se0_cnt_q[9]_i_1_n_0 ),
         .Q(\se0_cnt_q_reg_n_0_[9] ));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \state_q[0]_i_2 
@@ -5239,19 +5295,19 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .O(\state_q[0]_i_2_n_0 ));
   LUT5 #(
     .INIT(32'hFFEFAAAA)) 
-    \state_q[1]_i_4 
+    \state_q[1]_i_5 
        (.I0(state_q[2]),
         .I1(out[0]),
         .I2(out[2]),
         .I3(out[1]),
         .I4(usb_rst_w),
-        .O(\state_q[1]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+        .O(\state_q[1]_i_5_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT5 #(
     .INIT(32'hC00D0000)) 
     \state_q[2]_i_2 
        (.I0(usb_rst_w),
-        .I1(\state_q_reg[1]_0 ),
+        .I1(\FSM_sequential_state_q_reg[1] ),
         .I2(state_q[1]),
         .I3(state_q[0]),
         .I4(state_q[2]),
@@ -5260,61 +5316,68 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_76),
+        .D(u_sie_rx_n_75),
         .Q(state_q[0]));
   FDCE \state_q_reg[1] 
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_75),
+        .D(u_sie_rx_n_74),
         .Q(state_q[1]));
   FDCE \state_q_reg[2] 
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_74),
+        .D(u_sie_rx_n_73),
         .Q(state_q[2]));
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  LUT2 #(
+    .INIT(4'h1)) 
+    \tx_pid_q[3]_i_4 
+       (.I0(state_q[2]),
+        .I1(state_q[0]),
+        .O(\tx_pid_q[3]_i_4_n_0 ));
   FDCE \tx_pid_q_reg[0] 
        (.C(clk_i),
         .CE(next_state_r1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_24),
+        .D(u_sie_rx_n_9),
         .Q(tx_pid_q[0]));
   FDCE \tx_pid_q_reg[1] 
        (.C(clk_i),
         .CE(next_state_r1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_23),
+        .D(u_sie_rx_n_8),
         .Q(tx_pid_q[1]));
   FDCE \tx_pid_q_reg[2] 
        (.C(clk_i),
         .CE(next_state_r1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_22),
+        .D(u_sie_rx_n_7),
         .Q(tx_pid_q[2]));
   FDCE \tx_pid_q_reg[3] 
        (.C(clk_i),
         .CE(next_state_r1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_21),
+        .D(u_sie_rx_n_6),
         .Q(tx_pid_q[3]));
   FDCE \tx_pid_q_reg[4] 
        (.C(clk_i),
         .CE(next_state_r1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_20),
+        .D(u_sie_rx_n_5),
         .Q(tx_pid_q[4]));
   FDCE \tx_pid_q_reg[6] 
        (.C(clk_i),
         .CE(next_state_r1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_19),
+        .D(u_sie_rx_n_4),
         .Q(tx_pid_q[6]));
   FDCE \tx_pid_q_reg[7] 
        (.C(clk_i),
         .CE(next_state_r1),
         .CLR(rst_i),
-        .D(u_sie_rx_n_18),
+        .D(u_sie_rx_n_3),
         .Q(tx_pid_q[7]));
   FDCE tx_valid_q_reg
        (.C(clk_i),
@@ -5324,24 +5387,23 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .Q(tx_valid_q));
   davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx u_sie_rx
        (.CO(CO),
-        .D({u_sie_rx_n_18,u_sie_rx_n_19,u_sie_rx_n_20,u_sie_rx_n_21,u_sie_rx_n_22,u_sie_rx_n_23,u_sie_rx_n_24}),
+        .D({u_sie_rx_n_3,u_sie_rx_n_4,u_sie_rx_n_5,u_sie_rx_n_6,u_sie_rx_n_7,u_sie_rx_n_8,u_sie_rx_n_9}),
         .E(E),
         .\FSM_sequential_state_q_reg[0]_0 (u_sie_rx_n_55),
-        .\FSM_sequential_state_q_reg[0]_1 (\state_q_reg[1]_0 ),
-        .\FSM_sequential_state_q_reg[0]_2 (u_sie_tx_n_1),
-        .\FSM_sequential_state_q_reg[1]_0 (u_sie_tx_n_14),
-        .\FSM_sequential_state_q_reg[2]_0 (u_sie_tx_n_2),
+        .\FSM_sequential_state_q_reg[0]_1 (u_sie_tx_n_9),
+        .\FSM_sequential_state_q_reg[0]_2 (\FSM_sequential_state_q_reg[1] ),
+        .\FSM_sequential_state_q_reg[2]_0 (u_sie_tx_n_10),
         .Q(usb_rst_w),
         .clk_i(clk_i),
-        .\crc_sum_q_reg[0]_0 (u_sie_rx_n_0),
-        .\crc_sum_q_reg[0]_1 (u_sie_rx_n_17),
-        .\crc_sum_q_reg[10]_0 (u_sie_rx_n_10),
-        .\crc_sum_q_reg[10]_1 (u_sie_rx_n_14),
-        .\crc_sum_q_reg[11]_0 (u_sie_rx_n_15),
-        .\crc_sum_q_reg[13]_0 (u_sie_rx_n_16),
-        .\crc_sum_q_reg[6]_0 (u_sie_rx_n_12),
-        .\crc_sum_q_reg[8]_0 (u_sie_rx_n_11),
-        .\crc_sum_q_reg[8]_1 (u_sie_rx_n_13),
+        .\crc_sum_q_reg[0]_0 (u_sie_rx_n_23),
+        .\crc_sum_q_reg[0]_1 (u_sie_rx_n_24),
+        .\crc_sum_q_reg[10]_0 (u_sie_rx_n_17),
+        .\crc_sum_q_reg[10]_1 (u_sie_rx_n_22),
+        .\crc_sum_q_reg[11]_0 (u_sie_rx_n_18),
+        .\crc_sum_q_reg[13]_0 (u_sie_rx_n_19),
+        .\crc_sum_q_reg[6]_0 (u_sie_rx_n_21),
+        .\crc_sum_q_reg[8]_0 (u_sie_rx_n_16),
+        .\crc_sum_q_reg[8]_1 (u_sie_rx_n_20),
         .ctrl_send_accept_w_do(ctrl_send_accept_w_do),
         .\ctrl_send_idx_q_reg[0] (\ctrl_send_idx_q_reg[0] ),
         .\ctrl_send_idx_q_reg[2] (\ctrl_send_idx_q_reg[2] ),
@@ -5359,18 +5421,18 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .ctrl_txvalid_q_reg_0(ctrl_txvalid_q_reg_0),
         .\current_addr_q_reg[6] (current_addr_q),
         .data_zlp_q_reg_0(u_sie_rx_n_56),
-        .ep0_data_bit_q_reg(u_sie_rx_n_9),
-        .ep0_data_bit_q_reg_0(u_sie_rx_n_68),
-        .ep0_data_bit_q_reg_1(ep0_data_bit_q_reg_n_0),
-        .ep0_dir_in_q_reg(u_sie_rx_n_64),
+        .data_zlp_q_reg_1(u_sie_tx_n_14),
+        .ep0_data_bit_q_reg(u_sie_rx_n_67),
+        .ep0_data_bit_q_reg_0(ep0_data_bit_q_reg_n_0),
+        .ep0_dir_in_q_reg(u_sie_rx_n_63),
         .ep0_dir_in_q_reg_0(ep0_dir_in_q_reg_n_0),
-        .ep0_dir_out_q_reg(u_sie_rx_n_63),
+        .ep0_dir_out_q_reg(u_sie_rx_n_62),
         .ep0_dir_out_q_reg_0(ep0_dir_out_q_reg_n_0),
-        .ep1_data_bit_q_reg(u_sie_rx_n_67),
+        .ep1_data_bit_q_reg(u_sie_rx_n_66),
         .ep1_data_bit_q_reg_0(ep1_data_bit_q_reg_n_0),
-        .ep2_data_bit_q_reg(u_sie_rx_n_66),
+        .ep2_data_bit_q_reg(u_sie_rx_n_65),
         .ep2_data_bit_q_reg_0(ep2_data_bit_q_reg_n_0),
-        .ep3_data_bit_q_reg(u_sie_rx_n_65),
+        .ep3_data_bit_q_reg(u_sie_rx_n_64),
         .ep3_data_bit_q_reg_0(ep3_data_bit_q_reg_n_0),
         .inport_accept_o(inport_accept_o),
         .\inport_data_q_reg[7] (\inport_data_q_reg[7] ),
@@ -5387,9 +5449,9 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .rx_setup_q(rx_setup_q),
         .rx_setup_q_reg(rx_setup_q_reg_n_0),
         .rx_space_q(rx_space_q),
-        .rx_space_q_reg(u_sie_rx_n_62),
-        .\se0_cnt_q_reg[14] (\state_q[2]_i_2_n_0 ),
-        .\se0_cnt_q_reg[14]_0 (u_sie_tx_n_0),
+        .rx_space_q_reg(u_sie_rx_n_61),
+        .\se0_cnt_q_reg[14] (u_sie_tx_n_12),
+        .\se0_cnt_q_reg[14]_0 (\state_q[2]_i_2_n_0 ),
         .setup_frame_q_do(setup_frame_q_do),
         .setup_frame_q_reg(setup_frame_q_reg),
         .\setup_packet_q_reg[0][0] (\setup_packet_q_reg[0][0] ),
@@ -5407,20 +5469,20 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .setup_valid_q_reg(setup_valid_q_reg),
         .setup_wr_idx_q(setup_wr_idx_q),
         .\setup_wr_idx_q_reg[0] (\setup_wr_idx_q_reg[0] ),
+        .\setup_wr_idx_q_reg[0]_0 (u_sie_rx_n_15),
         .\setup_wr_idx_q_reg[1] (\setup_wr_idx_q_reg[1] ),
         .\setup_wr_idx_q_reg[2] (\setup_wr_idx_q_reg[2] ),
         .state_q(state_q),
-        .\state_q_reg[0] (u_sie_rx_n_59),
-        .\state_q_reg[0]_0 (u_sie_rx_n_76),
-        .\state_q_reg[1] (u_sie_rx_n_75),
-        .\state_q_reg[2] (u_sie_rx_n_74),
+        .\state_q_reg[0] (u_sie_rx_n_75),
+        .\state_q_reg[0]_0 (u_sie_tx_n_13),
+        .\state_q_reg[1] (u_sie_rx_n_74),
+        .\state_q_reg[2] (u_sie_rx_n_73),
         .\state_q_reg[2]_0 (\state_q[0]_i_2_n_0 ),
-        .\state_q_reg[2]_1 (u_sie_tx_n_13),
-        .\state_q_reg[2]_2 (\state_q[1]_i_4_n_0 ),
-        .\state_q_reg[2]_3 (ep3_data_bit_q_i_9_n_0),
+        .\state_q_reg[2]_1 (\tx_pid_q[3]_i_4_n_0 ),
+        .\state_q_reg[2]_2 (\state_q[1]_i_5_n_0 ),
         .status_ready_q_reg(status_ready_q_reg),
         .status_ready_q_reg_0(status_ready_q_reg_0),
-        .\token_ep_q_reg[0]_0 (u_sie_rx_n_5),
+        .\token_ep_q_reg[0]_0 (u_sie_rx_n_11),
         .\token_ep_q_reg[3]_0 (token_ep_w),
         .tx_valid_r(tx_valid_r),
         .utmi_data_in_i(utmi_data_in_i),
@@ -5428,135 +5490,129 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .utmi_rxvalid_i(utmi_rxvalid_i));
   davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx u_sie_tx
        (.E(next_state_r1),
-        .\FSM_sequential_state_q_reg[0]_0 (u_sie_tx_n_0),
+        .\FSM_sequential_state_q_reg[1]_0 (\FSM_sequential_state_q_reg[1] ),
         .Q(usb_rst_w),
         .addr_update_pending_q_reg(u_sie_tx_n_17),
         .addr_update_pending_q_reg_0(addr_update_pending_q_reg_n_0),
         .clk_i(clk_i),
-        .\crc_sum_q_reg[10]_0 (u_sie_tx_n_1),
-        .\crc_sum_q_reg[11]_0 (u_sie_tx_n_2),
-        .\ctrl_txdata_q_reg[0] (u_sie_rx_n_12),
-        .\ctrl_txdata_q_reg[2] (u_sie_rx_n_13),
-        .\ctrl_txdata_q_reg[3] (u_sie_rx_n_14),
-        .\ctrl_txdata_q_reg[4] (u_sie_rx_n_10),
-        .\ctrl_txdata_q_reg[5] (u_sie_rx_n_15),
-        .\ctrl_txdata_q_reg[6] (u_sie_rx_n_16),
-        .\ctrl_txdata_q_reg[7] (u_sie_rx_n_17),
+        .\crc_sum_q_reg[11]_0 (u_sie_tx_n_10),
+        .\crc_sum_q_reg[8]_0 (u_sie_tx_n_9),
+        .\ctrl_txdata_q_reg[0] (u_sie_rx_n_21),
+        .\ctrl_txdata_q_reg[1] (u_sie_rx_n_20),
+        .\ctrl_txdata_q_reg[3] (u_sie_rx_n_17),
+        .\ctrl_txdata_q_reg[4] (u_sie_rx_n_22),
+        .\ctrl_txdata_q_reg[5] (u_sie_rx_n_18),
+        .\ctrl_txdata_q_reg[6] (u_sie_rx_n_19),
+        .\ctrl_txdata_q_reg[7] (u_sie_rx_n_23),
         .ctrl_txlast_q_reg(ctrl_txlast_q_reg_0),
         .ctrl_txlast_q_reg_0(u_sie_rx_n_56),
         .ctrl_txstrb_q_reg(ctrl_txstrb_q_reg_0),
         .ctrl_txvalid_q_reg(ctrl_txvalid_q_reg_0),
         .\current_addr_q_reg[0] (u_sie_tx_n_16),
-        .\current_addr_q_reg[3] (addr_update_pending_q_i_2_n_0),
+        .\current_addr_q_reg[0]_0 (addr_update_pending_q_i_2_n_0),
         .\inport_data_q_reg[0] (u_sie_tx_n_14),
         .out(out),
         .rst_i(rst_i),
         .state_q(state_q),
-        .\state_q_reg[0] (u_sie_tx_n_13),
-        .\state_q_reg[1] (\state_q_reg[1]_0 ),
-        .\token_ep_q_reg[1] (u_sie_rx_n_11),
+        .\state_q_reg[0] (u_sie_tx_n_12),
+        .\state_q_reg[0]_0 (u_sie_tx_n_13),
+        .\token_ep_q_reg[1] (u_sie_rx_n_16),
         .\token_ep_q_reg[2] (u_sie_rx_n_55),
-        .\token_ep_q_reg[2]_0 (u_sie_rx_n_0),
-        .\token_ep_q_reg[2]_1 (u_sie_rx_n_9),
+        .\token_ep_q_reg[2]_0 (u_sie_rx_n_24),
+        .\token_ep_q_reg[2]_1 (u_sie_rx_n_15),
         .\token_ep_q_reg[3] (token_ep_w),
         .\tx_pid_q_reg[7] ({tx_pid_q[7:6],tx_pid_q[4:0]}),
         .tx_valid_q(tx_valid_q),
         .utmi_data_out_o(utmi_data_out_o),
-        .\utmi_data_out_o[2] (\utmi_data_out_o[2] ),
-        .\utmi_data_out_o[3] (\utmi_data_out_o[3] ),
-        .\utmi_data_out_o[4] (\utmi_data_out_o[4] ),
-        .\utmi_data_out_o[7] (\utmi_data_out_o[7] ),
-        .utmi_data_out_o_0_sp_1(utmi_data_out_o_0_sn_1),
-        .utmi_data_out_o_1_sp_1(utmi_data_out_o_1_sn_1),
+        .utmi_data_out_o_4_sp_1(utmi_data_out_o_4_sn_1),
         .utmi_txready_i(utmi_txready_i),
-        .utmi_txvalid_o(utmi_txvalid_o),
-        .valid_q_reg_0(u_sie_rx_n_59));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+        .utmi_txvalid_o(utmi_txvalid_o));
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \usb_rst_time_q[0]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
-        .I1(\FSM_sequential_state_q_reg[1]_1 ),
+        .I1(\FSM_sequential_state_q_reg[2] ),
         .I2(\usb_rst_time_q_reg[0]_0 ),
         .O(\usb_rst_time_q_reg[19] [0]));
-  (* SOFT_HLUTNM = "soft_lutpair53" *) 
+  (* SOFT_HLUTNM = "soft_lutpair61" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[10]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[9]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [10]));
-  (* SOFT_HLUTNM = "soft_lutpair53" *) 
+  (* SOFT_HLUTNM = "soft_lutpair61" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[11]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[10]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [11]));
-  (* SOFT_HLUTNM = "soft_lutpair54" *) 
+  (* SOFT_HLUTNM = "soft_lutpair62" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[12]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[11]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [12]));
-  (* SOFT_HLUTNM = "soft_lutpair54" *) 
+  (* SOFT_HLUTNM = "soft_lutpair62" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[13]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[12]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [13]));
-  (* SOFT_HLUTNM = "soft_lutpair55" *) 
+  (* SOFT_HLUTNM = "soft_lutpair63" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[14]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[13]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [14]));
-  (* SOFT_HLUTNM = "soft_lutpair55" *) 
+  (* SOFT_HLUTNM = "soft_lutpair63" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[15]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[14]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [15]));
-  (* SOFT_HLUTNM = "soft_lutpair56" *) 
+  (* SOFT_HLUTNM = "soft_lutpair64" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[16]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[15]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [16]));
-  (* SOFT_HLUTNM = "soft_lutpair56" *) 
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[17]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[16]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [17]));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  (* SOFT_HLUTNM = "soft_lutpair64" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[18]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[17]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [18]));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
   LUT4 #(
     .INIT(16'hFFDF)) 
     \usb_rst_time_q[19]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
-        .I1(\FSM_sequential_state_q_reg[1]_1 ),
+        .I1(\FSM_sequential_state_q_reg[2] ),
         .I2(\usb_rst_time_q_reg[9] ),
         .I3(\usb_rst_time_q_reg[2] ),
         .O(\usb_rst_time_q_reg[0] ));
@@ -5565,10 +5621,10 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
     \usb_rst_time_q[19]_i_2 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[18]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [19]));
   LUT5 #(
-    .INIT(32'hFFFD0FFD)) 
+    .INIT(32'h0FFDFFFD)) 
     \usb_rst_time_q[19]_i_3 
        (.I0(CLK),
         .I1(\usb_rst_time_q_reg[18] ),
@@ -5576,100 +5632,100 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_device_core
         .I3(out[0]),
         .I4(\usb_rst_time_q_reg[17] ),
         .O(\usb_rst_time_q[19]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[1]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[0]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [1]));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  (* SOFT_HLUTNM = "soft_lutpair57" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[2]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[1]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [2]));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  (* SOFT_HLUTNM = "soft_lutpair57" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[3]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[2]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [3]));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  (* SOFT_HLUTNM = "soft_lutpair58" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[4]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[3]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [4]));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  (* SOFT_HLUTNM = "soft_lutpair58" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[5]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[4]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [5]));
-  (* SOFT_HLUTNM = "soft_lutpair51" *) 
+  (* SOFT_HLUTNM = "soft_lutpair59" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[6]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[5]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [6]));
-  (* SOFT_HLUTNM = "soft_lutpair51" *) 
+  (* SOFT_HLUTNM = "soft_lutpair59" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[7]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[6]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [7]));
-  (* SOFT_HLUTNM = "soft_lutpair52" *) 
+  (* SOFT_HLUTNM = "soft_lutpair60" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[8]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[7]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [8]));
-  (* SOFT_HLUTNM = "soft_lutpair52" *) 
+  (* SOFT_HLUTNM = "soft_lutpair60" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \usb_rst_time_q[9]_i_1 
        (.I0(\usb_rst_time_q[19]_i_3_n_0 ),
         .I1(usb_rst_time_q0[8]),
-        .I2(\FSM_sequential_state_q_reg[1]_1 ),
+        .I2(\FSM_sequential_state_q_reg[2] ),
         .O(\usb_rst_time_q_reg[19] [9]));
 endmodule
 
 (* ORIG_REF_NAME = "usbf_sie_rx" *) 
 module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
-   (\crc_sum_q_reg[0]_0 ,
+   (\token_ep_q_reg[3]_0 ,
     E,
+    D,
     inport_accept_o,
-    \token_ep_q_reg[3]_0 ,
     \token_ep_q_reg[0]_0 ,
     \setup_wr_idx_q_reg[2] ,
     \setup_wr_idx_q_reg[1] ,
     \setup_wr_idx_q_reg[0] ,
-    ep0_data_bit_q_reg,
-    \crc_sum_q_reg[10]_0 ,
+    \setup_wr_idx_q_reg[0]_0 ,
     \crc_sum_q_reg[8]_0 ,
-    \crc_sum_q_reg[6]_0 ,
-    \crc_sum_q_reg[8]_1 ,
-    \crc_sum_q_reg[10]_1 ,
+    \crc_sum_q_reg[10]_0 ,
     \crc_sum_q_reg[11]_0 ,
     \crc_sum_q_reg[13]_0 ,
+    \crc_sum_q_reg[8]_1 ,
+    \crc_sum_q_reg[6]_0 ,
+    \crc_sum_q_reg[10]_1 ,
+    \crc_sum_q_reg[0]_0 ,
     \crc_sum_q_reg[0]_1 ,
-    D,
     ctrl_send_accept_w_do,
     \ctrl_send_idx_q_reg[0] ,
     \ctrl_txdata_q_reg[0] ,
@@ -5677,11 +5733,11 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
     ctrl_sending_r_do,
     \setup_packet_q_reg[5][0] ,
     \setup_packet_q_reg[4][0] ,
+    \setup_packet_q_reg[7][0] ,
+    \setup_packet_q_reg[6][0] ,
     \setup_packet_q_reg[3][0] ,
     \setup_packet_q_reg[2][0] ,
     setup_valid_q16_out,
-    \setup_packet_q_reg[7][0] ,
-    \setup_packet_q_reg[6][0] ,
     \setup_packet_q_reg[1][0] ,
     \setup_packet_q_reg[0][0] ,
     \setup_packet_q_reg[5][7] ,
@@ -5690,7 +5746,6 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
     data_zlp_q_reg_0,
     rx_setup_q,
     outport_valid_o,
-    \state_q_reg[0] ,
     rx_last_w_do,
     tx_valid_r,
     rx_space_q_reg,
@@ -5699,7 +5754,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
     ep3_data_bit_q_reg,
     ep2_data_bit_q_reg,
     ep1_data_bit_q_reg,
-    ep0_data_bit_q_reg_0,
+    ep0_data_bit_q_reg,
     setup_frame_q_reg,
     status_ready_q_reg,
     ctrl_txvalid_q_reg,
@@ -5707,40 +5762,42 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
     ctrl_txlast_q_reg,
     \state_q_reg[2] ,
     \state_q_reg[1] ,
-    \state_q_reg[0]_0 ,
+    \state_q_reg[0] ,
     clk_i,
     rst_i,
     utmi_data_in_i,
     utmi_rxactive_i,
     rx_space_q,
+    state_q,
+    outport_accept_i,
     CO,
     ctrl_sending_q_reg,
     status_ready_q_reg_0,
     setup_valid_q_reg,
     rst_event_q_reg,
-    \FSM_sequential_state_q_reg[1]_0 ,
+    ctrl_txstall_q_reg,
+    data_zlp_q_reg_1,
     inport_valid_q,
     Q,
     out,
     utmi_rxvalid_i,
-    state_q,
-    \FSM_sequential_state_q_reg[0]_1 ,
     setup_wr_idx_q,
     rx_setup_q_reg,
     rx_enable_q_reg,
     \state_q_reg[2]_0 ,
-    \state_q_reg[2]_1 ,
-    \ctrl_txdata_q_reg[7] ,
+    \se0_cnt_q_reg[14] ,
+    \state_q_reg[0]_0 ,
     \inport_data_q_reg[7] ,
-    \FSM_sequential_state_q_reg[0]_2 ,
+    \ctrl_txdata_q_reg[7] ,
+    \FSM_sequential_state_q_reg[0]_1 ,
     \FSM_sequential_state_q_reg[2]_0 ,
-    ctrl_txstall_q_reg,
+    \state_q_reg[2]_1 ,
+    \FSM_sequential_state_q_reg[0]_2 ,
     ep2_data_bit_q_reg_0,
     ep3_data_bit_q_reg_0,
     ep1_data_bit_q_reg_0,
-    ep0_data_bit_q_reg_1,
+    ep0_data_bit_q_reg_0,
     \state_q_reg[2]_2 ,
-    outport_accept_i,
     ctrl_txvalid_q_reg_0,
     \setup_packet_q_reg[0][5] ,
     \setup_packet_q_reg[0][7] ,
@@ -5749,30 +5806,28 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
     ctrl_txlast_q_reg_0,
     ep0_dir_in_q_reg_0,
     ep0_dir_out_q_reg_0,
-    \state_q_reg[2]_3 ,
     \current_addr_q_reg[6] ,
     ctrl_txstrb_q_reg_0,
     \ctrl_send_idx_q_reg[2] ,
-    \se0_cnt_q_reg[14] ,
     \se0_cnt_q_reg[14]_0 );
-  output \crc_sum_q_reg[0]_0 ;
-  output [0:0]E;
-  output [0:0]inport_accept_o;
   output [1:0]\token_ep_q_reg[3]_0 ;
+  output [0:0]E;
+  output [6:0]D;
+  output [0:0]inport_accept_o;
   output \token_ep_q_reg[0]_0 ;
   output \setup_wr_idx_q_reg[2] ;
   output \setup_wr_idx_q_reg[1] ;
   output \setup_wr_idx_q_reg[0] ;
-  output ep0_data_bit_q_reg;
-  output \crc_sum_q_reg[10]_0 ;
+  output \setup_wr_idx_q_reg[0]_0 ;
   output \crc_sum_q_reg[8]_0 ;
-  output \crc_sum_q_reg[6]_0 ;
-  output \crc_sum_q_reg[8]_1 ;
-  output \crc_sum_q_reg[10]_1 ;
+  output \crc_sum_q_reg[10]_0 ;
   output \crc_sum_q_reg[11]_0 ;
   output \crc_sum_q_reg[13]_0 ;
+  output \crc_sum_q_reg[8]_1 ;
+  output \crc_sum_q_reg[6]_0 ;
+  output \crc_sum_q_reg[10]_1 ;
+  output \crc_sum_q_reg[0]_0 ;
   output \crc_sum_q_reg[0]_1 ;
-  output [6:0]D;
   output ctrl_send_accept_w_do;
   output [0:0]\ctrl_send_idx_q_reg[0] ;
   output [0:0]\ctrl_txdata_q_reg[0] ;
@@ -5780,11 +5835,11 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   output ctrl_sending_r_do;
   output [0:0]\setup_packet_q_reg[5][0] ;
   output [0:0]\setup_packet_q_reg[4][0] ;
+  output [0:0]\setup_packet_q_reg[7][0] ;
+  output [0:0]\setup_packet_q_reg[6][0] ;
   output [0:0]\setup_packet_q_reg[3][0] ;
   output [0:0]\setup_packet_q_reg[2][0] ;
   output setup_valid_q16_out;
-  output [0:0]\setup_packet_q_reg[7][0] ;
-  output [0:0]\setup_packet_q_reg[6][0] ;
   output [0:0]\setup_packet_q_reg[1][0] ;
   output [0:0]\setup_packet_q_reg[0][0] ;
   output [7:0]\setup_packet_q_reg[5][7] ;
@@ -5793,7 +5848,6 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   output data_zlp_q_reg_0;
   output rx_setup_q;
   output outport_valid_o;
-  output \state_q_reg[0] ;
   output rx_last_w_do;
   output tx_valid_r;
   output rx_space_q_reg;
@@ -5802,7 +5856,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   output ep3_data_bit_q_reg;
   output ep2_data_bit_q_reg;
   output ep1_data_bit_q_reg;
-  output ep0_data_bit_q_reg_0;
+  output ep0_data_bit_q_reg;
   output setup_frame_q_reg;
   output status_ready_q_reg;
   output ctrl_txvalid_q_reg;
@@ -5810,40 +5864,42 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   output ctrl_txlast_q_reg;
   output \state_q_reg[2] ;
   output \state_q_reg[1] ;
-  output \state_q_reg[0]_0 ;
+  output \state_q_reg[0] ;
   input clk_i;
   input rst_i;
   input [7:0]utmi_data_in_i;
   input utmi_rxactive_i;
   input rx_space_q;
+  input [2:0]state_q;
+  input outport_accept_i;
   input [0:0]CO;
   input ctrl_sending_q_reg;
   input status_ready_q_reg_0;
   input setup_valid_q_reg;
   input rst_event_q_reg;
-  input \FSM_sequential_state_q_reg[1]_0 ;
+  input ctrl_txstall_q_reg;
+  input data_zlp_q_reg_1;
   input inport_valid_q;
   input [0:0]Q;
   input [2:0]out;
   input utmi_rxvalid_i;
-  input [2:0]state_q;
-  input \FSM_sequential_state_q_reg[0]_1 ;
   input [2:0]setup_wr_idx_q;
   input rx_setup_q_reg;
   input rx_enable_q_reg;
   input \state_q_reg[2]_0 ;
-  input \state_q_reg[2]_1 ;
-  input [7:0]\ctrl_txdata_q_reg[7] ;
+  input \se0_cnt_q_reg[14] ;
+  input \state_q_reg[0]_0 ;
   input [7:0]\inport_data_q_reg[7] ;
-  input \FSM_sequential_state_q_reg[0]_2 ;
+  input [7:0]\ctrl_txdata_q_reg[7] ;
+  input \FSM_sequential_state_q_reg[0]_1 ;
   input \FSM_sequential_state_q_reg[2]_0 ;
-  input ctrl_txstall_q_reg;
+  input \state_q_reg[2]_1 ;
+  input \FSM_sequential_state_q_reg[0]_2 ;
   input ep2_data_bit_q_reg_0;
   input ep3_data_bit_q_reg_0;
   input ep1_data_bit_q_reg_0;
-  input ep0_data_bit_q_reg_1;
+  input ep0_data_bit_q_reg_0;
   input \state_q_reg[2]_2 ;
-  input outport_accept_i;
   input ctrl_txvalid_q_reg_0;
   input \setup_packet_q_reg[0][5] ;
   input [0:0]\setup_packet_q_reg[0][7] ;
@@ -5852,11 +5908,9 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   input ctrl_txlast_q_reg_0;
   input ep0_dir_in_q_reg_0;
   input ep0_dir_out_q_reg_0;
-  input \state_q_reg[2]_3 ;
   input [6:0]\current_addr_q_reg[6] ;
   input ctrl_txstrb_q_reg_0;
   input \ctrl_send_idx_q_reg[2] ;
-  input \se0_cnt_q_reg[14] ;
   input \se0_cnt_q_reg[14]_0 ;
 
   wire [0:0]CO;
@@ -5869,9 +5923,9 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   wire \FSM_sequential_state_q[0]_i_6_n_0 ;
   wire \FSM_sequential_state_q[1]_i_1__0_n_0 ;
   wire \FSM_sequential_state_q[1]_i_2__0_n_0 ;
-  wire \FSM_sequential_state_q[1]_i_3_n_0 ;
+  wire \FSM_sequential_state_q[1]_i_3__0_n_0 ;
   wire \FSM_sequential_state_q[1]_i_4__0_n_0 ;
-  wire \FSM_sequential_state_q[1]_i_5__0_n_0 ;
+  wire \FSM_sequential_state_q[1]_i_5_n_0 ;
   wire \FSM_sequential_state_q[1]_i_6_n_0 ;
   wire \FSM_sequential_state_q[1]_i_7_n_0 ;
   wire \FSM_sequential_state_q[1]_i_8_n_0 ;
@@ -5879,8 +5933,8 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   wire \FSM_sequential_state_q[2]_i_1__1_n_0 ;
   wire \FSM_sequential_state_q[2]_i_2__0_n_0 ;
   wire \FSM_sequential_state_q[2]_i_3__0_n_0 ;
-  wire \FSM_sequential_state_q[2]_i_4_n_0 ;
-  wire \FSM_sequential_state_q[2]_i_5__0_n_0 ;
+  wire \FSM_sequential_state_q[2]_i_4__0_n_0 ;
+  wire \FSM_sequential_state_q[2]_i_5__1_n_0 ;
   wire \FSM_sequential_state_q[2]_i_6_n_0 ;
   wire \FSM_sequential_state_q[2]_i_7_n_0 ;
   wire \FSM_sequential_state_q[3]_i_1_n_0 ;
@@ -5888,7 +5942,6 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   wire \FSM_sequential_state_q_reg[0]_0 ;
   wire \FSM_sequential_state_q_reg[0]_1 ;
   wire \FSM_sequential_state_q_reg[0]_2 ;
-  wire \FSM_sequential_state_q_reg[1]_0 ;
   wire \FSM_sequential_state_q_reg[2]_0 ;
   wire [0:0]Q;
   wire clk_i;
@@ -5906,21 +5959,21 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   wire \crc_sum_q[12]_i_1_n_0 ;
   wire \crc_sum_q[13]_i_1__0_n_0 ;
   wire \crc_sum_q[14]_i_1__0_n_0 ;
-  wire \crc_sum_q[14]_i_2__0_n_0 ;
+  wire \crc_sum_q[14]_i_2_n_0 ;
   wire \crc_sum_q[14]_i_3_n_0 ;
-  wire \crc_sum_q[14]_i_4__0_n_0 ;
+  wire \crc_sum_q[14]_i_4_n_0 ;
   wire \crc_sum_q[14]_i_5_n_0 ;
   wire \crc_sum_q[14]_i_6_n_0 ;
   wire \crc_sum_q[15]_i_2_n_0 ;
   wire \crc_sum_q[15]_i_3_n_0 ;
-  wire \crc_sum_q[15]_i_4__0_n_0 ;
+  wire \crc_sum_q[15]_i_4_n_0 ;
   wire \crc_sum_q[1]_i_1_n_0 ;
   wire \crc_sum_q[2]_i_1_n_0 ;
   wire \crc_sum_q[3]_i_1_n_0 ;
   wire \crc_sum_q[4]_i_1_n_0 ;
   wire \crc_sum_q[5]_i_1_n_0 ;
   wire \crc_sum_q[6]_i_1_n_0 ;
-  wire \crc_sum_q[7]_i_1_n_0 ;
+  wire \crc_sum_q[7]_i_1__0_n_0 ;
   wire \crc_sum_q[8]_i_1__0_n_0 ;
   wire \crc_sum_q[9]_i_1_n_0 ;
   wire \crc_sum_q_reg[0]_0 ;
@@ -6016,10 +6069,11 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   wire data_zlp_q_i_4_n_0;
   wire data_zlp_q_i_5_n_0;
   wire data_zlp_q_reg_0;
+  wire data_zlp_q_reg_1;
   wire ep0_data_bit_q;
+  wire ep0_data_bit_q_i_2_n_0;
   wire ep0_data_bit_q_reg;
   wire ep0_data_bit_q_reg_0;
-  wire ep0_data_bit_q_reg_1;
   wire ep0_dir_in_q_i_2_n_0;
   wire ep0_dir_in_q_reg;
   wire ep0_dir_in_q_reg_0;
@@ -6035,8 +6089,6 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   wire ep2_data_bit_q_i_2_n_0;
   wire ep2_data_bit_q_reg;
   wire ep2_data_bit_q_reg_0;
-  wire ep3_data_bit_q_i_10_n_0;
-  wire ep3_data_bit_q_i_11_n_0;
   wire ep3_data_bit_q_i_3_n_0;
   wire ep3_data_bit_q_i_4_n_0;
   wire ep3_data_bit_q_i_5_n_0;
@@ -6077,6 +6129,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   wire rx_handshake_w;
   wire rx_last_w_do;
   wire rx_setup_q;
+  wire rx_setup_q_i_2_n_0;
   wire rx_setup_q_i_3_n_0;
   wire rx_setup_q_i_4_n_0;
   wire rx_setup_q_reg;
@@ -6104,18 +6157,25 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   wire setup_valid_q_reg;
   wire [2:0]setup_wr_idx_q;
   wire \setup_wr_idx_q_reg[0] ;
+  wire \setup_wr_idx_q_reg[0]_0 ;
   wire \setup_wr_idx_q_reg[1] ;
   wire \setup_wr_idx_q_reg[2] ;
   wire shift_en_w0;
   wire [2:0]state_q;
-  wire \state_q[0]_i_3_n_0 ;
+  wire \state_q[0]_i_4_n_0 ;
+  wire \state_q[0]_i_5_n_0 ;
   wire \state_q[1]_i_2_n_0 ;
   wire \state_q[1]_i_3_n_0 ;
-  wire \state_q[1]_i_5_n_0 ;
+  wire \state_q[1]_i_4_n_0 ;
   wire \state_q[1]_i_6_n_0 ;
+  wire \state_q[1]_i_7_n_0 ;
   wire \state_q[2]_i_10_n_0 ;
   wire \state_q[2]_i_11_n_0 ;
   wire \state_q[2]_i_12_n_0 ;
+  wire \state_q[2]_i_13_n_0 ;
+  wire \state_q[2]_i_14_n_0 ;
+  wire \state_q[2]_i_16_n_0 ;
+  wire \state_q[2]_i_3_n_0 ;
   wire \state_q[2]_i_4_n_0 ;
   wire \state_q[2]_i_5_n_0 ;
   wire \state_q[2]_i_6_n_0 ;
@@ -6129,7 +6189,6 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   wire \state_q_reg[2]_0 ;
   wire \state_q_reg[2]_1 ;
   wire \state_q_reg[2]_2 ;
-  wire \state_q_reg[2]_3 ;
   wire status_ready_q_i_2_n_0;
   wire status_ready_q_reg;
   wire status_ready_q_reg_0;
@@ -6173,20 +6232,19 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   wire token_valid_q_i_3_n_0;
   wire token_valid_q_i_4_n_0;
   wire token_valid_w;
+  wire \tx_pid_q[1]_i_2_n_0 ;
   wire \tx_pid_q[3]_i_2_n_0 ;
   wire \tx_pid_q[3]_i_3_n_0 ;
+  wire \tx_pid_q[3]_i_5_n_0 ;
+  wire \tx_pid_q[3]_i_6_n_0 ;
+  wire \tx_pid_q[3]_i_7_n_0 ;
+  wire \tx_pid_q[3]_i_8_n_0 ;
+  wire \tx_pid_q[3]_i_9_n_0 ;
   wire \tx_pid_q[4]_i_2_n_0 ;
   wire \tx_pid_q[4]_i_3_n_0 ;
   wire \tx_pid_q[4]_i_4_n_0 ;
-  wire \tx_pid_q[7]_i_10_n_0 ;
-  wire \tx_pid_q[7]_i_11_n_0 ;
   wire \tx_pid_q[7]_i_3_n_0 ;
   wire \tx_pid_q[7]_i_4_n_0 ;
-  wire \tx_pid_q[7]_i_5_n_0 ;
-  wire \tx_pid_q[7]_i_6_n_0 ;
-  wire \tx_pid_q[7]_i_7_n_0 ;
-  wire \tx_pid_q[7]_i_8_n_0 ;
-  wire \tx_pid_q[7]_i_9_n_0 ;
   wire tx_valid_r;
   wire [7:0]utmi_data_in_i;
   wire utmi_rxactive_i;
@@ -6260,7 +6318,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I2(rx_active_q),
         .I3(state_q_0[1]),
         .I4(\FSM_sequential_state_q[1]_i_2__0_n_0 ),
-        .I5(\FSM_sequential_state_q[1]_i_3_n_0 ),
+        .I5(\FSM_sequential_state_q[1]_i_3__0_n_0 ),
         .O(\FSM_sequential_state_q[1]_i_1__0_n_0 ));
   LUT6 #(
     .INIT(64'h1511050000001C1D)) 
@@ -6274,14 +6332,14 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .O(\FSM_sequential_state_q[1]_i_2__0_n_0 ));
   LUT6 #(
     .INIT(64'hAEAEAAEEFFFFFFFF)) 
-    \FSM_sequential_state_q[1]_i_3 
-       (.I0(\FSM_sequential_state_q[1]_i_5__0_n_0 ),
+    \FSM_sequential_state_q[1]_i_3__0 
+       (.I0(\FSM_sequential_state_q[1]_i_5_n_0 ),
         .I1(\FSM_sequential_state_q[1]_i_6_n_0 ),
         .I2(state_q_0[2]),
         .I3(rx_active_q),
         .I4(data_ready_w),
         .I5(\token_ep_q_reg[0]_0 ),
-        .O(\FSM_sequential_state_q[1]_i_3_n_0 ));
+        .O(\FSM_sequential_state_q[1]_i_3__0_n_0 ));
   LUT6 #(
     .INIT(64'h0000448800004000)) 
     \FSM_sequential_state_q[1]_i_4__0 
@@ -6293,25 +6351,15 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I5(\FSM_sequential_state_q[1]_i_9_n_0 ),
         .O(\FSM_sequential_state_q[1]_i_4__0_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFEFFFCFFFEFFFF)) 
-    \FSM_sequential_state_q[1]_i_5 
-       (.I0(inport_valid_i),
-        .I1(\token_ep_q_reg[3]_0 [0]),
-        .I2(\token_ep_q_reg[3]_0 [1]),
-        .I3(token_ep_w[0]),
-        .I4(token_ep_w[1]),
-        .I5(ctrl_txlast_q_reg_0),
-        .O(\FSM_sequential_state_q_reg[0]_0 ));
-  LUT6 #(
     .INIT(64'hAAAAAAAA02A0A2AA)) 
-    \FSM_sequential_state_q[1]_i_5__0 
+    \FSM_sequential_state_q[1]_i_5 
        (.I0(state_q_0[1]),
         .I1(\data_crc_q_reg_n_0_[0] ),
         .I2(state_q_0[0]),
         .I3(state_q_0[2]),
         .I4(data_ready_w),
         .I5(state_q_0[3]),
-        .O(\FSM_sequential_state_q[1]_i_5__0_n_0 ));
+        .O(\FSM_sequential_state_q[1]_i_5_n_0 ));
   LUT2 #(
     .INIT(4'h2)) 
     \FSM_sequential_state_q[1]_i_6 
@@ -6343,8 +6391,8 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
     \FSM_sequential_state_q[2]_i_1__1 
        (.I0(\FSM_sequential_state_q[2]_i_2__0_n_0 ),
         .I1(\FSM_sequential_state_q[2]_i_3__0_n_0 ),
-        .I2(\FSM_sequential_state_q[2]_i_4_n_0 ),
-        .I3(\FSM_sequential_state_q[2]_i_5__0_n_0 ),
+        .I2(\FSM_sequential_state_q[2]_i_4__0_n_0 ),
+        .I3(\FSM_sequential_state_q[2]_i_5__1_n_0 ),
         .I4(state_q_0[1]),
         .I5(state_q_0[0]),
         .O(\FSM_sequential_state_q[2]_i_1__1_n_0 ));
@@ -6369,23 +6417,33 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I5(\FSM_sequential_state_q[2]_i_7_n_0 ),
         .O(\FSM_sequential_state_q[2]_i_3__0_n_0 ));
   LUT6 #(
-    .INIT(64'h5555555D55555555)) 
+    .INIT(64'hFFFEFFFCFFFEFFFF)) 
     \FSM_sequential_state_q[2]_i_4 
+       (.I0(inport_valid_i),
+        .I1(\token_ep_q_reg[3]_0 [0]),
+        .I2(\token_ep_q_reg[3]_0 [1]),
+        .I3(token_ep_w[0]),
+        .I4(token_ep_w[1]),
+        .I5(ctrl_txlast_q_reg_0),
+        .O(\FSM_sequential_state_q_reg[0]_0 ));
+  LUT6 #(
+    .INIT(64'h5555555D55555555)) 
+    \FSM_sequential_state_q[2]_i_4__0 
        (.I0(\token_ep_q_reg[0]_0 ),
         .I1(state_q_0[0]),
         .I2(state_q_0[3]),
         .I3(data_ready_w),
         .I4(rx_active_q),
         .I5(state_q_0[2]),
-        .O(\FSM_sequential_state_q[2]_i_4_n_0 ));
+        .O(\FSM_sequential_state_q[2]_i_4__0_n_0 ));
   LUT4 #(
     .INIT(16'h0155)) 
-    \FSM_sequential_state_q[2]_i_5__0 
+    \FSM_sequential_state_q[2]_i_5__1 
        (.I0(rx_active_q),
         .I1(state_q_0[1]),
         .I2(state_q_0[2]),
         .I3(state_q_0[3]),
-        .O(\FSM_sequential_state_q[2]_i_5__0_n_0 ));
+        .O(\FSM_sequential_state_q[2]_i_5__1_n_0 ));
   LUT6 #(
     .INIT(64'h0000000004040004)) 
     \FSM_sequential_state_q[2]_i_6 
@@ -6396,7 +6454,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I4(rx_active_q),
         .I5(data_ready_w),
         .O(\FSM_sequential_state_q[2]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
+  (* SOFT_HLUTNM = "soft_lutpair17" *) 
   LUT5 #(
     .INIT(32'h06600040)) 
     \FSM_sequential_state_q[2]_i_7 
@@ -6462,26 +6520,26 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
     .INIT(16'h2320)) 
     crc_err_q_i_1
        (.I0(crc_err_q_i_2_n_0),
-        .I1(\crc_sum_q[14]_i_2__0_n_0 ),
+        .I1(\crc_sum_q[14]_i_2_n_0 ),
         .I2(crc_err_q0),
         .I3(crc_err_q_reg_n_0),
         .O(crc_err_q_i_1_n_0));
   LUT6 #(
-    .INIT(64'hFFFFFFFBFFFFFFFF)) 
+    .INIT(64'hFFFFFBFFFFFFFFFF)) 
     crc_err_q_i_2
        (.I0(crc_err_q_i_3_n_0),
-        .I1(\crc_sum_q_reg_n_0_[13] ),
-        .I2(\crc_sum_q_reg_n_0_[14] ),
-        .I3(\crc_sum_q_reg_n_0_[8] ),
+        .I1(\crc_sum_q_reg_n_0_[15] ),
+        .I2(\crc_sum_q_reg_n_0_[9] ),
+        .I3(\crc_sum_q_reg_n_0_[13] ),
         .I4(\crc_sum_q_reg_n_0_[11] ),
         .I5(crc_err_q_i_4_n_0),
         .O(crc_err_q_i_2_n_0));
   LUT4 #(
-    .INIT(16'hFFFD)) 
+    .INIT(16'hFFFE)) 
     crc_err_q_i_3
-       (.I0(\crc_sum_q_reg_n_0_[15] ),
-        .I1(\crc_sum_q_reg_n_0_[9] ),
-        .I2(\crc_sum_q_reg_n_0_[2] ),
+       (.I0(\crc_sum_q_reg_n_0_[2] ),
+        .I1(\crc_sum_q_reg_n_0_[8] ),
+        .I2(\crc_sum_q_reg_n_0_[14] ),
         .I3(\crc_sum_q_reg_n_0_[7] ),
         .O(crc_err_q_i_3_n_0));
   LUT5 #(
@@ -6520,7 +6578,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   LUT5 #(
     .INIT(32'hBEEBEBBE)) 
     \crc_sum_q[10]_i_1__0 
-       (.I0(\crc_sum_q[14]_i_2__0_n_0 ),
+       (.I0(\crc_sum_q[14]_i_2_n_0 ),
         .I1(\data_buffer_q_reg_n_0_[3] ),
         .I2(\data_buffer_q_reg_n_0_[4] ),
         .I3(\crc_sum_q_reg_n_0_[4] ),
@@ -6529,17 +6587,17 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   LUT5 #(
     .INIT(32'hBEEBEBBE)) 
     \crc_sum_q[11]_i_1__0 
-       (.I0(\crc_sum_q[14]_i_2__0_n_0 ),
+       (.I0(\crc_sum_q[14]_i_2_n_0 ),
         .I1(\data_buffer_q_reg_n_0_[4] ),
         .I2(\crc_sum_q_reg_n_0_[4] ),
         .I3(\data_buffer_q_reg_n_0_[5] ),
         .I4(\crc_sum_q_reg_n_0_[5] ),
         .O(\crc_sum_q[11]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+  (* SOFT_HLUTNM = "soft_lutpair16" *) 
   LUT5 #(
     .INIT(32'hBEEBEBBE)) 
     \crc_sum_q[12]_i_1 
-       (.I0(\crc_sum_q[14]_i_2__0_n_0 ),
+       (.I0(\crc_sum_q[14]_i_2_n_0 ),
         .I1(\data_buffer_q_reg_n_0_[6] ),
         .I2(\data_buffer_q_reg_n_0_[5] ),
         .I3(\crc_sum_q_reg_n_0_[6] ),
@@ -6548,7 +6606,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   LUT5 #(
     .INIT(32'hBEEBEBBE)) 
     \crc_sum_q[13]_i_1__0 
-       (.I0(\crc_sum_q[14]_i_2__0_n_0 ),
+       (.I0(\crc_sum_q[14]_i_2_n_0 ),
         .I1(\data_buffer_q_reg_n_0_[6] ),
         .I2(\crc_sum_q_reg_n_0_[6] ),
         .I3(p_3_in),
@@ -6557,21 +6615,21 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   LUT6 #(
     .INIT(64'hEBBEBEEBBEEBEBBE)) 
     \crc_sum_q[14]_i_1__0 
-       (.I0(\crc_sum_q[14]_i_2__0_n_0 ),
+       (.I0(\crc_sum_q[14]_i_2_n_0 ),
         .I1(\crc_sum_q[14]_i_3_n_0 ),
-        .I2(\crc_sum_q[14]_i_4__0_n_0 ),
+        .I2(\crc_sum_q[14]_i_4_n_0 ),
         .I3(\crc_sum_q[14]_i_5_n_0 ),
         .I4(\crc_sum_q_reg_n_0_[2] ),
         .I5(\crc_sum_q_reg_n_0_[0] ),
         .O(\crc_sum_q[14]_i_1__0_n_0 ));
   LUT4 #(
     .INIT(16'h0004)) 
-    \crc_sum_q[14]_i_2__0 
+    \crc_sum_q[14]_i_2 
        (.I0(state_q_0[0]),
         .I1(state_q_0[1]),
         .I2(state_q_0[3]),
         .I3(state_q_0[2]),
-        .O(\crc_sum_q[14]_i_2__0_n_0 ));
+        .O(\crc_sum_q[14]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'h6996966996696996)) 
     \crc_sum_q[14]_i_3 
@@ -6582,22 +6640,22 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I4(\crc_sum_q[14]_i_6_n_0 ),
         .I5(p_1_in[2]),
         .O(\crc_sum_q[14]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
   LUT3 #(
     .INIT(8'h96)) 
-    \crc_sum_q[14]_i_4__0 
+    \crc_sum_q[14]_i_4 
        (.I0(\crc_sum_q_reg_n_0_[1] ),
         .I1(\crc_sum_q_reg_n_0_[3] ),
         .I2(\crc_sum_q_reg_n_0_[4] ),
-        .O(\crc_sum_q[14]_i_4__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+        .O(\crc_sum_q[14]_i_4_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair16" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \crc_sum_q[14]_i_5 
        (.I0(\crc_sum_q_reg_n_0_[6] ),
         .I1(\crc_sum_q_reg_n_0_[5] ),
         .O(\crc_sum_q[14]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \crc_sum_q[14]_i_6 
@@ -6625,23 +6683,23 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   LUT6 #(
     .INIT(64'h6996966996696996)) 
     \crc_sum_q[15]_i_3 
-       (.I0(\crc_sum_q[15]_i_4__0_n_0 ),
+       (.I0(\crc_sum_q[15]_i_4_n_0 ),
         .I1(\crc_sum_q_reg_n_0_[7] ),
         .I2(\crc_sum_q_reg_n_0_[2] ),
         .I3(\crc_sum_q_reg_n_0_[0] ),
         .I4(\crc_sum_q[14]_i_3_n_0 ),
         .I5(p_3_in),
         .O(\crc_sum_q[15]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
   LUT5 #(
     .INIT(32'h96696996)) 
-    \crc_sum_q[15]_i_4__0 
+    \crc_sum_q[15]_i_4 
        (.I0(\crc_sum_q_reg_n_0_[5] ),
         .I1(\crc_sum_q_reg_n_0_[6] ),
         .I2(\crc_sum_q_reg_n_0_[4] ),
         .I3(\crc_sum_q_reg_n_0_[3] ),
         .I4(\crc_sum_q_reg_n_0_[1] ),
-        .O(\crc_sum_q[15]_i_4__0_n_0 ));
+        .O(\crc_sum_q[15]_i_4_n_0 ));
   LUT5 #(
     .INIT(32'hAAAAABAA)) 
     \crc_sum_q[1]_i_1 
@@ -6687,29 +6745,29 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I3(state_q_0[1]),
         .I4(state_q_0[0]),
         .O(\crc_sum_q[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
   LUT4 #(
     .INIT(16'hEBBE)) 
     \crc_sum_q[6]_i_1 
-       (.I0(\crc_sum_q[14]_i_2__0_n_0 ),
+       (.I0(\crc_sum_q[14]_i_2_n_0 ),
         .I1(p_1_in[1]),
         .I2(\crc_sum_q_reg_n_0_[14] ),
         .I3(\crc_sum_q_reg_n_0_[0] ),
         .O(\crc_sum_q[6]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'hEBBEBEEBBEEBEBBE)) 
-    \crc_sum_q[7]_i_1 
-       (.I0(\crc_sum_q[14]_i_2__0_n_0 ),
+    \crc_sum_q[7]_i_1__0 
+       (.I0(\crc_sum_q[14]_i_2_n_0 ),
         .I1(\crc_sum_q_reg_n_0_[15] ),
         .I2(p_1_in[1]),
         .I3(p_1_in[2]),
         .I4(\crc_sum_q_reg_n_0_[0] ),
         .I5(\crc_sum_q_reg_n_0_[1] ),
-        .O(\crc_sum_q[7]_i_1_n_0 ));
+        .O(\crc_sum_q[7]_i_1__0_n_0 ));
   LUT5 #(
     .INIT(32'hBEEBEBBE)) 
     \crc_sum_q[8]_i_1__0 
-       (.I0(\crc_sum_q[14]_i_2__0_n_0 ),
+       (.I0(\crc_sum_q[14]_i_2_n_0 ),
         .I1(p_1_in[3]),
         .I2(\crc_sum_q_reg_n_0_[2] ),
         .I3(p_1_in[2]),
@@ -6718,7 +6776,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   LUT5 #(
     .INIT(32'hBEEBEBBE)) 
     \crc_sum_q[9]_i_1 
-       (.I0(\crc_sum_q[14]_i_2__0_n_0 ),
+       (.I0(\crc_sum_q[14]_i_2_n_0 ),
         .I1(\crc_sum_q_reg_n_0_[2] ),
         .I2(\crc_sum_q_reg_n_0_[3] ),
         .I3(p_1_in[3]),
@@ -6805,7 +6863,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   FDPE \crc_sum_q_reg[7] 
        (.C(clk_i),
         .CE(crc_sum_q),
-        .D(\crc_sum_q[7]_i_1_n_0 ),
+        .D(\crc_sum_q[7]_i_1__0_n_0 ),
         .PRE(rst_i),
         .Q(\crc_sum_q_reg_n_0_[7] ));
   FDPE \crc_sum_q_reg[8] 
@@ -6827,7 +6885,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I1(token_ep_w[0]),
         .I2(\token_ep_q_reg[3]_0 [1]),
         .I3(\token_ep_q_reg[3]_0 [0]),
-        .I4(\FSM_sequential_state_q_reg[1]_0 ),
+        .I4(data_zlp_q_reg_1),
         .I5(ctrl_txvalid_q_reg_0),
         .O(ctrl_send_accept_w_do));
   LUT6 #(
@@ -6859,7 +6917,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I3(setup_valid_q_reg),
         .I4(ctrl_sending_q_reg),
         .O(ctrl_sending_r_do));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
   LUT4 #(
     .INIT(16'hFF4F)) 
     ctrl_sending_r_do_INST_0_i_1
@@ -6872,13 +6930,13 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
     .INIT(64'hAAAAAAAAAAAAAAA8)) 
     ctrl_sending_r_do_INST_0_i_3
        (.I0(ctrl_txvalid_q_reg_0),
-        .I1(\FSM_sequential_state_q_reg[1]_0 ),
+        .I1(data_zlp_q_reg_1),
         .I2(\token_ep_q_reg[3]_0 [0]),
         .I3(\token_ep_q_reg[3]_0 [1]),
         .I4(token_ep_w[0]),
         .I5(token_ep_w[1]),
         .O(ctrl_sending_r_do_INST_0_i_3_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
   LUT5 #(
     .INIT(32'hAAAAABAA)) 
     \ctrl_txdata_q[7]_i_1 
@@ -6924,7 +6982,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I4(\setup_packet_q_reg[0][5] ),
         .I5(ctrl_txvalid_q_reg_0),
         .O(ctrl_txvalid_q_reg));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
   LUT4 #(
     .INIT(16'h0004)) 
     ctrl_txvalid_q_i_2
@@ -6933,7 +6991,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I2(ctrl_sending_r_do_INST_0_i_3_n_0),
         .I3(status_ready_q_reg_0),
         .O(ctrl_txvalid_q_i_2_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
   LUT4 #(
     .INIT(16'hFEFF)) 
     ctrl_txvalid_q_i_3
@@ -7144,56 +7202,56 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .CLR(rst_i),
         .D(data_buffer_q_reg_c_0_n_0),
         .Q(data_buffer_q_reg_c_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT2 #(
     .INIT(4'h8)) 
     data_buffer_q_reg_gate
        (.I0(\data_buffer_q_reg[15]_inst_u_core_u_sie_rx_data_buffer_q_reg_c_1_n_0 ),
         .I1(data_buffer_q_reg_c_1_n_0),
         .O(data_buffer_q_reg_gate_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT2 #(
     .INIT(4'h8)) 
     data_buffer_q_reg_gate__0
        (.I0(\data_buffer_q_reg[14]_inst_u_core_u_sie_rx_data_buffer_q_reg_c_1_n_0 ),
         .I1(data_buffer_q_reg_c_1_n_0),
         .O(data_buffer_q_reg_gate__0_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT2 #(
     .INIT(4'h8)) 
     data_buffer_q_reg_gate__1
        (.I0(\data_buffer_q_reg[13]_inst_u_core_u_sie_rx_data_buffer_q_reg_c_1_n_0 ),
         .I1(data_buffer_q_reg_c_1_n_0),
         .O(data_buffer_q_reg_gate__1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT2 #(
     .INIT(4'h8)) 
     data_buffer_q_reg_gate__2
        (.I0(\data_buffer_q_reg[12]_inst_u_core_u_sie_rx_data_buffer_q_reg_c_1_n_0 ),
         .I1(data_buffer_q_reg_c_1_n_0),
         .O(data_buffer_q_reg_gate__2_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT2 #(
     .INIT(4'h8)) 
     data_buffer_q_reg_gate__3
        (.I0(\data_buffer_q_reg[11]_inst_u_core_u_sie_rx_data_buffer_q_reg_c_1_n_0 ),
         .I1(data_buffer_q_reg_c_1_n_0),
         .O(data_buffer_q_reg_gate__3_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT2 #(
     .INIT(4'h8)) 
     data_buffer_q_reg_gate__4
        (.I0(\data_buffer_q_reg[10]_inst_u_core_u_sie_rx_data_buffer_q_reg_c_1_n_0 ),
         .I1(data_buffer_q_reg_c_1_n_0),
         .O(data_buffer_q_reg_gate__4_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT2 #(
     .INIT(4'h8)) 
     data_buffer_q_reg_gate__5
        (.I0(\data_buffer_q_reg[9]_inst_u_core_u_sie_rx_data_buffer_q_reg_c_1_n_0 ),
         .I1(data_buffer_q_reg_c_1_n_0),
         .O(data_buffer_q_reg_gate__5_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT2 #(
     .INIT(4'h8)) 
     data_buffer_q_reg_gate__6
@@ -7215,7 +7273,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .CLR(rst_i),
         .D(crc_err_q0),
         .Q(rx_data_complete_w));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \data_crc_q[1]_i_1 
@@ -7294,7 +7352,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
        (.I0(utmi_rxvalid_i),
         .I1(utmi_rxactive_i),
         .O(\data_valid_q[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \data_valid_q[3]_i_2 
@@ -7332,7 +7390,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I1(data_zlp_q0),
         .I2(data_zlp_q),
         .O(data_zlp_q_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
   LUT5 #(
     .INIT(32'h00000002)) 
     data_zlp_q_i_2
@@ -7361,7 +7419,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I4(state_q_0[1]),
         .I5(data_ready_w),
         .O(data_zlp_q_i_3_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT2 #(
     .INIT(4'h2)) 
     data_zlp_q_i_4
@@ -7394,15 +7452,24 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I4(setup_valid_q_reg),
         .I5(rst_event_q_reg),
         .O(E));
-  LUT4 #(
-    .INIT(16'hABA8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBA8888888A)) 
     ep0_data_bit_q_i_1
        (.I0(ep0_data_bit_q),
         .I1(Q),
-        .I2(ep0_data_bit_q_reg),
-        .I3(ep0_data_bit_q_reg_1),
-        .O(ep0_data_bit_q_reg_0));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
+        .I2(ep0_data_bit_q_i_2_n_0),
+        .I3(\token_ep_q_reg[3]_0 [1]),
+        .I4(\token_ep_q_reg[3]_0 [0]),
+        .I5(ep0_data_bit_q_reg_0),
+        .O(ep0_data_bit_q_reg));
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  LUT2 #(
+    .INIT(4'hE)) 
+    ep0_data_bit_q_i_2
+       (.I0(token_ep_w[1]),
+        .I1(token_ep_w[0]),
+        .O(ep0_data_bit_q_i_2_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT3 #(
     .INIT(8'hC8)) 
     ep0_dir_in_q_i_1
@@ -7410,7 +7477,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I1(ep0_dir_out_q_i_3_n_0),
         .I2(ep0_dir_in_q_reg_0),
         .O(ep0_dir_in_q_reg));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT5 #(
     .INIT(32'h00002000)) 
     ep0_dir_in_q_i_2
@@ -7420,7 +7487,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I3(token_pid_w[0]),
         .I4(token_pid_w[4]),
         .O(ep0_dir_in_q_i_2_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT3 #(
     .INIT(8'hC8)) 
     ep0_dir_out_q_i_1
@@ -7428,44 +7495,44 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I1(ep0_dir_out_q_i_3_n_0),
         .I2(ep0_dir_out_q_reg_0),
         .O(ep0_dir_out_q_reg));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
-  LUT5 #(
-    .INIT(32'h00000800)) 
-    ep0_dir_out_q_i_2
-       (.I0(ep0_dir_out_q_i_4_n_0),
-        .I1(token_pid_w[7]),
-        .I2(token_pid_w[3]),
-        .I3(token_pid_w[0]),
-        .I4(token_pid_w[4]),
-        .O(ep0_dir_out_q_i_2_n_0));
-  LUT6 #(
-    .INIT(64'hAAAAA8AAAAAAAAAA)) 
-    ep0_dir_out_q_i_3
-       (.I0(\token_ep_q_reg[0]_0 ),
-        .I1(state_q[0]),
-        .I2(\state_q_reg[2]_0 ),
-        .I3(token_valid_w),
-        .I4(rx_setup_q_i_3_n_0),
-        .I5(ep0_data_bit_q_reg),
-        .O(ep0_dir_out_q_i_3_n_0));
   (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  LUT5 #(
+    .INIT(32'h00200000)) 
+    ep0_dir_out_q_i_2
+       (.I0(token_pid_w[7]),
+        .I1(token_pid_w[3]),
+        .I2(token_pid_w[0]),
+        .I3(token_pid_w[4]),
+        .I4(ep0_dir_out_q_i_4_n_0),
+        .O(ep0_dir_out_q_i_2_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  LUT5 #(
+    .INIT(32'h000000FB)) 
+    ep0_dir_out_q_i_3
+       (.I0(out[0]),
+        .I1(out[2]),
+        .I2(out[1]),
+        .I3(Q),
+        .I4(rx_setup_q_i_2_n_0),
+        .O(ep0_dir_out_q_i_3_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
   LUT5 #(
     .INIT(32'h00080000)) 
     ep0_dir_out_q_i_4
        (.I0(ep0_dir_out_q_i_5_n_0),
-        .I1(token_pid_w[6]),
-        .I2(token_pid_w[2]),
-        .I3(token_pid_w[1]),
-        .I4(token_pid_w[5]),
+        .I1(token_pid_w[5]),
+        .I2(token_pid_w[1]),
+        .I3(token_pid_w[2]),
+        .I4(token_pid_w[6]),
         .O(ep0_dir_out_q_i_4_n_0));
   LUT5 #(
-    .INIT(32'h00020000)) 
+    .INIT(32'h00000008)) 
     ep0_dir_out_q_i_5
-       (.I0(ep0_data_bit_q_reg),
-        .I1(state_q[0]),
+       (.I0(\setup_wr_idx_q_reg[0]_0 ),
+        .I1(token_valid_w),
         .I2(state_q[1]),
         .I3(state_q[2]),
-        .I4(token_valid_w),
+        .I4(state_q[0]),
         .O(ep0_dir_out_q_i_5_n_0));
   LUT6 #(
     .INIT(64'hBBABBBBB88A88888)) 
@@ -7487,7 +7554,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I4(\token_ep_q_reg[3]_0 [0]),
         .I5(ep2_data_bit_q_reg_0),
         .O(ep2_data_bit_q_reg));
-  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
   LUT2 #(
     .INIT(4'hB)) 
     ep2_data_bit_q_i_2
@@ -7504,62 +7571,46 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I4(outport_valid_o_INST_0_i_1_n_0),
         .I5(ep3_data_bit_q_reg_0),
         .O(ep3_data_bit_q_reg));
-  LUT2 #(
-    .INIT(4'hB)) 
-    ep3_data_bit_q_i_10
-       (.I0(token_pid_w[0]),
-        .I1(token_pid_w[4]),
-        .O(ep3_data_bit_q_i_10_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
-  LUT5 #(
-    .INIT(32'h00000020)) 
-    ep3_data_bit_q_i_11
-       (.I0(token_pid_w[7]),
-        .I1(token_pid_w[3]),
-        .I2(token_pid_w[0]),
-        .I3(token_pid_w[4]),
-        .I4(\tx_pid_q[3]_i_3_n_0 ),
-        .O(ep3_data_bit_q_i_11_n_0));
   LUT6 #(
-    .INIT(64'h00000000FF010001)) 
+    .INIT(64'h00000000FF080008)) 
     ep3_data_bit_q_i_2
-       (.I0(state_q[0]),
-        .I1(state_q[2]),
-        .I2(ep3_data_bit_q_i_3_n_0),
-        .I3(\tx_pid_q[7]_i_8_n_0 ),
-        .I4(ep3_data_bit_q_i_4_n_0),
+       (.I0(ep3_data_bit_q_i_3_n_0),
+        .I1(\state_q_reg[2]_1 ),
+        .I2(ep3_data_bit_q_i_4_n_0),
+        .I3(\tx_pid_q[3]_i_7_n_0 ),
+        .I4(ep3_data_bit_q_i_5_n_0),
         .I5(Q),
         .O(ep0_data_bit_q));
-  LUT5 #(
-    .INIT(32'hCF55FF55)) 
-    ep3_data_bit_q_i_3
-       (.I0(ep3_data_bit_q_i_5_n_0),
-        .I1(ep3_data_bit_q_i_6_n_0),
-        .I2(rx_space_q),
-        .I3(state_q[1]),
-        .I4(ep3_data_bit_q_i_7_n_0),
-        .O(ep3_data_bit_q_i_3_n_0));
   LUT6 #(
-    .INIT(64'h777777773F333F3F)) 
-    ep3_data_bit_q_i_4
-       (.I0(ep3_data_bit_q_i_8_n_0),
-        .I1(\state_q_reg[2]_3 ),
-        .I2(ep3_data_bit_q_i_5_n_0),
-        .I3(rx_setup_q_i_3_n_0),
-        .I4(token_valid_w),
+    .INIT(64'h00000400FFFFFFFF)) 
+    ep3_data_bit_q_i_3
+       (.I0(ep3_data_bit_q_i_6_n_0),
+        .I1(rx_space_q),
+        .I2(\tx_pid_q[3]_i_2_n_0 ),
+        .I3(rx_data_complete_w),
+        .I4(crc_err_q_reg_n_0),
         .I5(state_q[1]),
+        .O(ep3_data_bit_q_i_3_n_0));
+  LUT5 #(
+    .INIT(32'h55455555)) 
+    ep3_data_bit_q_i_4
+       (.I0(state_q[1]),
+        .I1(\state_q[2]_i_12_n_0 ),
+        .I2(rx_handshake_w),
+        .I3(token_valid_w),
+        .I4(\tx_pid_q[4]_i_4_n_0 ),
         .O(ep3_data_bit_q_i_4_n_0));
   LUT6 #(
-    .INIT(64'h0000000400000000)) 
+    .INIT(64'hFFFFFFD0D0D0D0D0)) 
     ep3_data_bit_q_i_5
-       (.I0(\tx_pid_q[3]_i_3_n_0 ),
-        .I1(token_pid_w[7]),
-        .I2(token_pid_w[3]),
-        .I3(token_valid_w),
-        .I4(ep3_data_bit_q_i_10_n_0),
-        .I5(rx_handshake_w),
+       (.I0(token_valid_w),
+        .I1(rx_setup_q_i_3_n_0),
+        .I2(ep3_data_bit_q_i_4_n_0),
+        .I3(state_q[0]),
+        .I4(\state_q_reg[2]_0 ),
+        .I5(ep3_data_bit_q_i_7_n_0),
         .O(ep3_data_bit_q_i_5_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
   LUT5 #(
     .INIT(32'h00000040)) 
     ep3_data_bit_q_i_6
@@ -7567,25 +7618,27 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I1(token_pid_w[3]),
         .I2(token_pid_w[0]),
         .I3(token_pid_w[4]),
-        .I4(\tx_pid_q[3]_i_3_n_0 ),
+        .I4(\state_q[2]_i_12_n_0 ),
         .O(ep3_data_bit_q_i_6_n_0));
-  LUT4 #(
-    .INIT(16'h0070)) 
-    ep3_data_bit_q_i_7
-       (.I0(ep0_data_bit_q_reg),
-        .I1(ctrl_txstall_q_reg),
-        .I2(rx_data_complete_w),
-        .I3(crc_err_q_reg_n_0),
-        .O(ep3_data_bit_q_i_7_n_0));
   LUT6 #(
-    .INIT(64'h0000000004440000)) 
+    .INIT(64'hFFFFFFFFFFF7FFFF)) 
+    ep3_data_bit_q_i_7
+       (.I0(rx_space_q),
+        .I1(\state_q_reg[2]_1 ),
+        .I2(ep3_data_bit_q_i_8_n_0),
+        .I3(crc_err_q_reg_n_0),
+        .I4(rx_data_complete_w),
+        .I5(\tx_pid_q[3]_i_2_n_0 ),
+        .O(ep3_data_bit_q_i_7_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+  LUT5 #(
+    .INIT(32'h00000020)) 
     ep3_data_bit_q_i_8
-       (.I0(crc_err_q_reg_n_0),
-        .I1(rx_data_complete_w),
-        .I2(ctrl_txstall_q_reg),
-        .I3(ep0_data_bit_q_reg),
-        .I4(rx_space_q),
-        .I5(ep3_data_bit_q_i_11_n_0),
+       (.I0(token_pid_w[7]),
+        .I1(token_pid_w[3]),
+        .I2(token_pid_w[0]),
+        .I3(token_pid_w[4]),
+        .I4(\state_q[2]_i_12_n_0 ),
         .O(ep3_data_bit_q_i_8_n_0));
   LUT4 #(
     .INIT(16'h0800)) 
@@ -7595,7 +7648,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I2(handshake_valid_q_i_3_n_0),
         .I3(\token_pid_q[7]_i_3_n_0 ),
         .O(handshake_valid_q1_out));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
+  (* SOFT_HLUTNM = "soft_lutpair17" *) 
   LUT4 #(
     .INIT(16'h0660)) 
     handshake_valid_q_i_2
@@ -7604,7 +7657,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I2(p_1_in[3]),
         .I3(\data_buffer_q_reg_n_0_[6] ),
         .O(handshake_valid_q_i_2_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT4 #(
     .INIT(16'hFFDF)) 
     handshake_valid_q_i_3
@@ -7622,7 +7675,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   LUT6 #(
     .INIT(64'h00000100FFFFFFFF)) 
     inport_accept_o_INST_0
-       (.I0(\FSM_sequential_state_q_reg[1]_0 ),
+       (.I0(data_zlp_q_reg_1),
         .I1(\token_ep_q_reg[3]_0 [0]),
         .I2(\token_ep_q_reg[3]_0 [1]),
         .I3(token_ep_w[1]),
@@ -7670,7 +7723,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I4(token_ep_w[1]),
         .I5(token_ep_w[0]),
         .O(outport_valid_o));
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
   LUT2 #(
     .INIT(4'h1)) 
     outport_valid_o_INST_0_i_1
@@ -7724,42 +7777,43 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
        (.I0(\rx_active_q_reg[1]_inst_u_core_u_sie_rx_rx_active_q_reg_c_3_n_0 ),
         .I1(rx_active_q_reg_c_3_n_0),
         .O(rx_active_q_reg_gate_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
   LUT2 #(
     .INIT(4'hE)) 
     rx_last_w_do_INST_0
        (.I0(last_q),
         .I1(\data_crc_q_reg_n_0_[0] ),
         .O(rx_last_w_do));
-  LUT6 #(
-    .INIT(64'h0000000000080000)) 
-    rx_setup_q_i_1
-       (.I0(\token_ep_q_reg[0]_0 ),
-        .I1(ep0_data_bit_q_reg),
-        .I2(state_q[0]),
-        .I3(\state_q_reg[2]_0 ),
-        .I4(token_valid_w),
-        .I5(rx_setup_q_i_3_n_0),
-        .O(rx_setup_q));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
-  LUT4 #(
-    .INIT(16'h0001)) 
-    rx_setup_q_i_2
-       (.I0(\token_ep_q_reg[3]_0 [0]),
-        .I1(\token_ep_q_reg[3]_0 [1]),
-        .I2(token_ep_w[0]),
-        .I3(token_ep_w[1]),
-        .O(ep0_data_bit_q_reg));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT5 #(
-    .INIT(32'hFDFFFFFF)) 
+    .INIT(32'h00FB0000)) 
+    rx_setup_q_i_1
+       (.I0(out[0]),
+        .I1(out[2]),
+        .I2(out[1]),
+        .I3(Q),
+        .I4(rx_setup_q_i_2_n_0),
+        .O(rx_setup_q));
+  LUT6 #(
+    .INIT(64'h0000000001000000)) 
+    rx_setup_q_i_2
+       (.I0(state_q[0]),
+        .I1(state_q[2]),
+        .I2(state_q[1]),
+        .I3(token_valid_w),
+        .I4(\setup_wr_idx_q_reg[0]_0 ),
+        .I5(rx_setup_q_i_3_n_0),
+        .O(rx_setup_q_i_2_n_0));
+  LUT5 #(
+    .INIT(32'hFFFFF7FF)) 
     rx_setup_q_i_3
-       (.I0(token_pid_w[2]),
-        .I1(token_pid_w[6]),
-        .I2(token_pid_w[1]),
+       (.I0(rx_setup_q_i_4_n_0),
+        .I1(token_pid_w[2]),
+        .I2(token_pid_w[6]),
         .I3(token_pid_w[5]),
-        .I4(rx_setup_q_i_4_n_0),
+        .I4(token_pid_w[1]),
         .O(rx_setup_q_i_3_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
   LUT4 #(
     .INIT(16'h0040)) 
     rx_setup_q_i_4
@@ -7769,7 +7823,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I3(token_pid_w[7]),
         .O(rx_setup_q_i_4_n_0));
   LUT5 #(
-    .INIT(32'hFFFE0002)) 
+    .INIT(32'hFFFD0001)) 
     rx_space_q_i_1
        (.I0(rx_space_q_i_2_n_0),
         .I1(state_q[0]),
@@ -7777,9 +7831,8 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I3(state_q[2]),
         .I4(rx_space_q),
         .O(rx_space_q_reg));
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
   LUT5 #(
-    .INIT(32'h00030001)) 
+    .INIT(32'hFFFCFFFE)) 
     rx_space_q_i_2
        (.I0(token_ep_w[0]),
         .I1(token_ep_w[1]),
@@ -7787,7 +7840,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I3(\token_ep_q_reg[3]_0 [1]),
         .I4(outport_accept_i),
         .O(rx_space_q_i_2_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
   LUT5 #(
     .INIT(32'hABFFAAAA)) 
     setup_frame_q_i_1
@@ -7867,7 +7920,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I4(token_ep_w[1]),
         .I5(rx_setup_q_reg),
         .O(\setup_packet_q_reg[5][7] [6]));
-  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
   LUT5 #(
     .INIT(32'hAAABAAAA)) 
     \setup_packet_q[0][7]_i_1 
@@ -7887,7 +7940,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I4(token_ep_w[1]),
         .I5(rx_setup_q_reg),
         .O(\setup_packet_q_reg[5][7] [7]));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
   LUT5 #(
     .INIT(32'hAABAAAAA)) 
     \setup_packet_q[1][7]_i_1 
@@ -7897,7 +7950,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I3(setup_wr_idx_q[1]),
         .I4(setup_valid_q_i_2_n_0),
         .O(\setup_packet_q_reg[1][0] ));
-  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
   LUT5 #(
     .INIT(32'hABAAAAAA)) 
     \setup_packet_q[2][7]_i_1 
@@ -7907,7 +7960,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I3(setup_wr_idx_q[1]),
         .I4(setup_valid_q_i_2_n_0),
         .O(\setup_packet_q_reg[2][0] ));
-  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
   LUT5 #(
     .INIT(32'hBAAAAAAA)) 
     \setup_packet_q[3][7]_i_1 
@@ -7917,7 +7970,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I3(setup_wr_idx_q[1]),
         .I4(setup_valid_q_i_2_n_0),
         .O(\setup_packet_q_reg[3][0] ));
-  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
   LUT5 #(
     .INIT(32'hABAAAAAA)) 
     \setup_packet_q[4][7]_i_1 
@@ -7947,7 +8000,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I3(setup_wr_idx_q[2]),
         .I4(setup_valid_q_i_2_n_0),
         .O(\setup_packet_q_reg[6][0] ));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
   LUT5 #(
     .INIT(32'hEAAAAAAA)) 
     \setup_packet_q[7][7]_i_1 
@@ -7957,7 +8010,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I3(setup_wr_idx_q[1]),
         .I4(setup_valid_q_i_2_n_0),
         .O(\setup_packet_q_reg[7][0] ));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
   LUT5 #(
     .INIT(32'h0000E000)) 
     setup_valid_q_i_1
@@ -7967,14 +8020,17 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I3(setup_frame_q_do),
         .I4(ep0_rx_setup_w),
         .O(setup_valid_q16_out));
-  LUT4 #(
-    .INIT(16'h8000)) 
+  LUT6 #(
+    .INIT(64'h0100000000000000)) 
     setup_valid_q_i_2
-       (.I0(ep0_data_bit_q_reg),
-        .I1(rx_data_valid_w),
-        .I2(rx_enable_q_reg),
-        .I3(rx_strb_w),
+       (.I0(ep0_data_bit_q_i_2_n_0),
+        .I1(\token_ep_q_reg[3]_0 [1]),
+        .I2(\token_ep_q_reg[3]_0 [0]),
+        .I3(rx_data_valid_w),
+        .I4(rx_enable_q_reg),
+        .I5(rx_strb_w),
         .O(setup_valid_q_i_2_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
   LUT5 #(
     .INIT(32'h00000002)) 
     setup_valid_q_i_3
@@ -7991,10 +8047,19 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I1(rx_strb_w),
         .I2(rx_enable_q_reg),
         .I3(rx_data_valid_w),
-        .I4(ep0_data_bit_q_reg),
+        .I4(\setup_wr_idx_q_reg[0]_0 ),
         .I5(setup_wr_idx_q[0]),
         .O(\setup_wr_idx_q_reg[0] ));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  LUT4 #(
+    .INIT(16'h0001)) 
+    \setup_wr_idx_q[0]_i_2 
+       (.I0(\token_ep_q_reg[3]_0 [0]),
+        .I1(\token_ep_q_reg[3]_0 [1]),
+        .I2(token_ep_w[0]),
+        .I3(token_ep_w[1]),
+        .O(\setup_wr_idx_q_reg[0]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
   LUT4 #(
     .INIT(16'h1320)) 
     \setup_wr_idx_q[1]_i_1 
@@ -8016,164 +8081,211 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   LUT6 #(
     .INIT(64'hABAAFFFFABAA0000)) 
     \state_q[0]_i_1 
-       (.I0(\se0_cnt_q_reg[14] ),
+       (.I0(\se0_cnt_q_reg[14]_0 ),
         .I1(\state_q_reg[2]_0 ),
-        .I2(\se0_cnt_q_reg[14]_0 ),
-        .I3(\state_q[0]_i_3_n_0 ),
-        .I4(\state_q[2]_i_5_n_0 ),
+        .I2(\se0_cnt_q_reg[14] ),
+        .I3(\state_q[0]_i_4_n_0 ),
+        .I4(\state_q[2]_i_4_n_0 ),
         .I5(state_q[0]),
-        .O(\state_q_reg[0]_0 ));
+        .O(\state_q_reg[0] ));
   LUT5 #(
-    .INIT(32'hF077F044)) 
-    \state_q[0]_i_3 
-       (.I0(\state_q[2]_i_6_n_0 ),
-        .I1(token_valid_w),
-        .I2(\tx_pid_q[3]_i_2_n_0 ),
-        .I3(state_q[0]),
-        .I4(\FSM_sequential_state_q_reg[0]_1 ),
-        .O(\state_q[0]_i_3_n_0 ));
+    .INIT(32'hA3A3A3A0)) 
+    \state_q[0]_i_4 
+       (.I0(\state_q[0]_i_5_n_0 ),
+        .I1(\tx_pid_q[1]_i_2_n_0 ),
+        .I2(state_q[0]),
+        .I3(\FSM_sequential_state_q_reg[0]_2 ),
+        .I4(token_valid_w),
+        .O(\state_q[0]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000001800)) 
+    \state_q[0]_i_5 
+       (.I0(\tx_pid_q[3]_i_7_n_0 ),
+        .I1(token_pid_w[7]),
+        .I2(token_pid_w[3]),
+        .I3(token_pid_w[0]),
+        .I4(token_pid_w[4]),
+        .I5(\state_q[2]_i_12_n_0 ),
+        .O(\state_q[0]_i_5_n_0 ));
   LUT6 #(
     .INIT(64'hFF80FFFFFF000000)) 
     \state_q[1]_i_1 
        (.I0(state_q[2]),
         .I1(state_q[0]),
-        .I2(\FSM_sequential_state_q_reg[0]_1 ),
+        .I2(\FSM_sequential_state_q_reg[0]_2 ),
         .I3(\state_q[1]_i_2_n_0 ),
-        .I4(\state_q[2]_i_5_n_0 ),
+        .I4(\state_q[2]_i_4_n_0 ),
         .I5(state_q[1]),
         .O(\state_q_reg[1] ));
   LUT6 #(
     .INIT(64'h00000000FFFF0FDD)) 
     \state_q[1]_i_2 
        (.I0(\state_q[1]_i_3_n_0 ),
-        .I1(\state_q[2]_i_7_n_0 ),
+        .I1(\state_q[1]_i_4_n_0 ),
         .I2(crc_err_q_reg_n_0),
         .I3(state_q[1]),
         .I4(state_q[0]),
         .I5(\state_q_reg[2]_2 ),
         .O(\state_q[1]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h0F002320FFFFFFFF)) 
+    .INIT(64'h0F4F0F0F0F4FFF5F)) 
     \state_q[1]_i_3 
-       (.I0(\crc_sum_q_reg[0]_0 ),
-        .I1(\tx_pid_q[7]_i_6_n_0 ),
-        .I2(\state_q[2]_i_6_n_0 ),
-        .I3(rx_space_q_i_2_n_0),
-        .I4(\state_q[1]_i_5_n_0 ),
-        .I5(token_valid_w),
+       (.I0(\tx_pid_q[3]_i_2_n_0 ),
+        .I1(\crc_sum_q_reg[0]_1 ),
+        .I2(token_valid_w),
+        .I3(\state_q[1]_i_6_n_0 ),
+        .I4(\state_q[2]_i_5_n_0 ),
+        .I5(rx_space_q_i_2_n_0),
         .O(\state_q[1]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFF9FFFFFFFFF)) 
-    \state_q[1]_i_5 
+  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+  LUT4 #(
+    .INIT(16'h0004)) 
+    \state_q[1]_i_4 
+       (.I0(out[1]),
+        .I1(out[2]),
+        .I2(out[0]),
+        .I3(token_valid_w),
+        .O(\state_q[1]_i_4_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  LUT5 #(
+    .INIT(32'hFFFFFF9F)) 
+    \state_q[1]_i_6 
        (.I0(token_pid_w[7]),
         .I1(token_pid_w[3]),
-        .I2(token_pid_w[6]),
-        .I3(token_pid_w[2]),
-        .I4(\state_q[2]_i_11_n_0 ),
-        .I5(\state_q[1]_i_6_n_0 ),
-        .O(\state_q[1]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
-    \state_q[1]_i_6 
-       (.I0(token_pid_w[0]),
-        .I1(token_pid_w[4]),
+        .I2(token_pid_w[0]),
+        .I3(token_pid_w[4]),
+        .I4(\state_q[1]_i_7_n_0 ),
         .O(\state_q[1]_i_6_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  LUT4 #(
+    .INIT(16'hFDFF)) 
+    \state_q[1]_i_7 
+       (.I0(token_pid_w[6]),
+        .I1(token_pid_w[2]),
+        .I2(token_pid_w[1]),
+        .I3(token_pid_w[5]),
+        .O(\state_q[1]_i_7_n_0 ));
   LUT6 #(
     .INIT(64'hAAAAFFFFEFAA0000)) 
     \state_q[2]_i_1 
-       (.I0(\se0_cnt_q_reg[14] ),
-        .I1(\FSM_sequential_state_q_reg[0]_1 ),
+       (.I0(\se0_cnt_q_reg[14]_0 ),
+        .I1(\FSM_sequential_state_q_reg[0]_2 ),
         .I2(Q),
-        .I3(\state_q[2]_i_4_n_0 ),
-        .I4(\state_q[2]_i_5_n_0 ),
+        .I3(\state_q[2]_i_3_n_0 ),
+        .I4(\state_q[2]_i_4_n_0 ),
         .I5(state_q[2]),
         .O(\state_q_reg[2] ));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
   LUT5 #(
-    .INIT(32'h00081000)) 
+    .INIT(32'hFFDFFBFF)) 
     \state_q[2]_i_10 
        (.I0(token_pid_w[3]),
-        .I1(token_pid_w[6]),
-        .I2(token_pid_w[2]),
-        .I3(token_pid_w[4]),
+        .I1(token_pid_w[4]),
+        .I2(token_pid_w[6]),
+        .I3(token_pid_w[2]),
         .I4(token_pid_w[0]),
         .O(\state_q[2]_i_10_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
-  LUT2 #(
-    .INIT(4'hB)) 
-    \state_q[2]_i_11 
-       (.I0(token_pid_w[1]),
-        .I1(token_pid_w[5]),
-        .O(\state_q[2]_i_11_n_0 ));
   LUT6 #(
-    .INIT(64'hFEBFFDBFF7BFF7BF)) 
+    .INIT(64'h0000000008008088)) 
+    \state_q[2]_i_11 
+       (.I0(\state_q[2]_i_16_n_0 ),
+        .I1(token_pid_w[5]),
+        .I2(token_pid_w[6]),
+        .I3(token_pid_w[7]),
+        .I4(token_pid_w[4]),
+        .I5(token_pid_w[1]),
+        .O(\state_q[2]_i_11_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  LUT4 #(
+    .INIT(16'hFFDF)) 
     \state_q[2]_i_12 
+       (.I0(token_pid_w[6]),
+        .I1(token_pid_w[2]),
+        .I2(token_pid_w[1]),
+        .I3(token_pid_w[5]),
+        .O(\state_q[2]_i_12_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \state_q[2]_i_13 
+       (.I0(token_pid_w[0]),
+        .I1(token_pid_w[4]),
+        .O(\state_q[2]_i_13_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  LUT2 #(
+    .INIT(4'h1)) 
+    \state_q[2]_i_14 
+       (.I0(\data_crc_q_reg_n_0_[0] ),
+        .I1(last_q),
+        .O(\state_q[2]_i_14_n_0 ));
+  LUT6 #(
+    .INIT(64'h0140024008400840)) 
+    \state_q[2]_i_16 
        (.I0(token_pid_w[3]),
         .I1(token_pid_w[2]),
         .I2(token_pid_w[4]),
         .I3(token_pid_w[0]),
         .I4(token_pid_w[7]),
         .I5(token_pid_w[6]),
-        .O(\state_q[2]_i_12_n_0 ));
+        .O(\state_q[2]_i_16_n_0 ));
   LUT6 #(
-    .INIT(64'h570057FF57FF57FF)) 
-    \state_q[2]_i_14 
-       (.I0(rx_data_valid_w),
-        .I1(\data_crc_q_reg_n_0_[0] ),
-        .I2(last_q),
-        .I3(state_q[0]),
-        .I4(state_q[1]),
-        .I5(rx_data_complete_w),
-        .O(\state_q_reg[0] ));
-  LUT6 #(
-    .INIT(64'h000000B800FF00B8)) 
-    \state_q[2]_i_4 
-       (.I0(\state_q[2]_i_6_n_0 ),
+    .INIT(64'h000000E200FF00E2)) 
+    \state_q[2]_i_3 
+       (.I0(\FSM_sequential_state_q_reg[0]_2 ),
         .I1(token_valid_w),
-        .I2(\FSM_sequential_state_q_reg[0]_1 ),
+        .I2(\state_q[2]_i_5_n_0 ),
         .I3(state_q[0]),
         .I4(state_q[1]),
         .I5(crc_err_q_reg_n_0),
-        .O(\state_q[2]_i_4_n_0 ));
+        .O(\state_q[2]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFF0000FE0E)) 
-    \state_q[2]_i_5 
-       (.I0(\state_q[2]_i_7_n_0 ),
-        .I1(\state_q[2]_i_8_n_0 ),
-        .I2(state_q[0]),
-        .I3(\tx_pid_q[3]_i_2_n_0 ),
-        .I4(\state_q_reg[2]_0 ),
-        .I5(\state_q_reg[2]_1 ),
-        .O(\state_q[2]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
+    .INIT(64'hFFFFFFFFFFFFFF0D)) 
+    \state_q[2]_i_4 
+       (.I0(\state_q[2]_i_6_n_0 ),
+        .I1(\state_q[2]_i_7_n_0 ),
+        .I2(\state_q_reg[2]_0 ),
+        .I3(\se0_cnt_q_reg[14] ),
+        .I4(\state_q[2]_i_8_n_0 ),
+        .I5(\state_q_reg[0]_0 ),
+        .O(\state_q[2]_i_4_n_0 ));
   LUT5 #(
-    .INIT(32'h00000880)) 
+    .INIT(32'h00000060)) 
+    \state_q[2]_i_5 
+       (.I0(token_pid_w[7]),
+        .I1(token_pid_w[6]),
+        .I2(token_pid_w[5]),
+        .I3(token_pid_w[1]),
+        .I4(\state_q[2]_i_10_n_0 ),
+        .O(\state_q[2]_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'hFF00FFFBFFFFFFFB)) 
     \state_q[2]_i_6 
-       (.I0(\state_q[2]_i_10_n_0 ),
-        .I1(token_pid_w[5]),
-        .I2(token_pid_w[6]),
-        .I3(token_pid_w[7]),
-        .I4(token_pid_w[1]),
-        .O(\state_q[2]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
-  LUT4 #(
-    .INIT(16'h0004)) 
-    \state_q[2]_i_7 
        (.I0(out[1]),
         .I1(out[2]),
         .I2(out[0]),
-        .I3(token_valid_w),
+        .I3(state_q[0]),
+        .I4(token_valid_w),
+        .I5(\state_q[2]_i_11_n_0 ),
+        .O(\state_q[2]_i_6_n_0 ));
+  LUT6 #(
+    .INIT(64'h0400004000000000)) 
+    \state_q[2]_i_7 
+       (.I0(\state_q[2]_i_12_n_0 ),
+        .I1(\state_q[2]_i_13_n_0 ),
+        .I2(token_pid_w[3]),
+        .I3(token_pid_w[7]),
+        .I4(\tx_pid_q[3]_i_7_n_0 ),
+        .I5(state_q[0]),
         .O(\state_q[2]_i_7_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000006500)) 
+    .INIT(64'h0040554000400040)) 
     \state_q[2]_i_8 
-       (.I0(token_pid_w[4]),
-        .I1(token_pid_w[6]),
-        .I2(token_pid_w[7]),
-        .I3(token_valid_w),
-        .I4(\state_q[2]_i_11_n_0 ),
-        .I5(\state_q[2]_i_12_n_0 ),
+       (.I0(state_q[2]),
+        .I1(rx_data_complete_w),
+        .I2(state_q[1]),
+        .I3(state_q[0]),
+        .I4(\state_q[2]_i_14_n_0 ),
+        .I5(rx_data_valid_w),
         .O(\state_q[2]_i_8_n_0 ));
   LUT4 #(
     .INIT(16'h5350)) 
@@ -8188,7 +8300,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
     status_ready_q_i_2
        (.I0(rx_data_valid_w),
         .I1(rx_enable_q_reg),
-        .I2(ep0_data_bit_q_reg),
+        .I2(\setup_wr_idx_q_reg[0]_0 ),
         .I3(\data_crc_q_reg_n_0_[0] ),
         .I4(last_q),
         .I5(rx_strb_w),
@@ -8554,16 +8666,16 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
     token_valid_q_i_2
        (.I0(token_valid_q_i_3_n_0),
         .I1(token_valid_q_i_4_n_0),
-        .I2(\current_addr_q_reg[6] [2]),
-        .I3(\token_dev_q_reg_n_0_[2] ),
-        .I4(\current_addr_q_reg[6] [0]),
-        .I5(\token_dev_q_reg_n_0_[0] ),
+        .I2(\current_addr_q_reg[6] [0]),
+        .I3(\token_dev_q_reg_n_0_[0] ),
+        .I4(\current_addr_q_reg[6] [1]),
+        .I5(\token_dev_q_reg_n_0_[1] ),
         .O(token_valid_q_i_2_n_0));
   LUT6 #(
     .INIT(64'h9009000000009009)) 
     token_valid_q_i_3
-       (.I0(\token_dev_q_reg_n_0_[5] ),
-        .I1(\current_addr_q_reg[6] [5]),
+       (.I0(\token_dev_q_reg_n_0_[3] ),
+        .I1(\current_addr_q_reg[6] [3]),
         .I2(\token_dev_q_reg_n_0_[6] ),
         .I3(\current_addr_q_reg[6] [6]),
         .I4(\current_addr_q_reg[6] [4]),
@@ -8572,10 +8684,10 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   LUT4 #(
     .INIT(16'h6FF6)) 
     token_valid_q_i_4
-       (.I0(\current_addr_q_reg[6] [3]),
-        .I1(\token_dev_q_reg_n_0_[3] ),
-        .I2(\current_addr_q_reg[6] [1]),
-        .I3(\token_dev_q_reg_n_0_[1] ),
+       (.I0(\current_addr_q_reg[6] [2]),
+        .I1(\token_dev_q_reg_n_0_[2] ),
+        .I2(\current_addr_q_reg[6] [5]),
+        .I3(\token_dev_q_reg_n_0_[5] ),
         .O(token_valid_q_i_4_n_0));
   FDCE token_valid_q_reg
        (.C(clk_i),
@@ -8583,61 +8695,119 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .CLR(rst_i),
         .D(token_valid_q0),
         .Q(token_valid_w));
-  LUT2 #(
-    .INIT(4'h2)) 
+  LUT5 #(
+    .INIT(32'h00000002)) 
     \tx_pid_q[0]_i_1 
-       (.I0(\tx_pid_q[7]_i_4_n_0 ),
-        .I1(\tx_pid_q[4]_i_2_n_0 ),
+       (.I0(\tx_pid_q[1]_i_2_n_0 ),
+        .I1(state_q[0]),
+        .I2(state_q[1]),
+        .I3(state_q[2]),
+        .I4(\tx_pid_q[4]_i_2_n_0 ),
         .O(D[0]));
   LUT6 #(
-    .INIT(64'hFFFFFFFF00000020)) 
+    .INIT(64'h00000000002200F0)) 
     \tx_pid_q[1]_i_1 
        (.I0(rx_data_complete_w),
         .I1(crc_err_q_reg_n_0),
-        .I2(state_q[1]),
-        .I3(state_q[2]),
-        .I4(state_q[0]),
-        .I5(\tx_pid_q[7]_i_4_n_0 ),
+        .I2(\tx_pid_q[1]_i_2_n_0 ),
+        .I3(state_q[0]),
+        .I4(state_q[1]),
+        .I5(state_q[2]),
         .O(D[1]));
+  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \tx_pid_q[1]_i_2 
+       (.I0(\state_q[2]_i_5_n_0 ),
+        .I1(token_valid_w),
+        .O(\tx_pid_q[1]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h0001000000000000)) 
+    .INIT(64'h0000000200000000)) 
     \tx_pid_q[2]_i_1 
-       (.I0(\token_ep_q_reg[3]_0 [0]),
-        .I1(\token_ep_q_reg[3]_0 [1]),
-        .I2(token_ep_w[0]),
-        .I3(token_ep_w[1]),
-        .I4(ctrl_txstall_q_reg),
-        .I5(D[1]),
+       (.I0(D[1]),
+        .I1(\token_ep_q_reg[3]_0 [0]),
+        .I2(\token_ep_q_reg[3]_0 [1]),
+        .I3(token_ep_w[0]),
+        .I4(token_ep_w[1]),
+        .I5(ctrl_txstall_q_reg),
         .O(D[2]));
   LUT6 #(
-    .INIT(64'hF8F8F8FF88888888)) 
+    .INIT(64'hFF000E000E000E00)) 
     \tx_pid_q[3]_i_1 
-       (.I0(\tx_pid_q[7]_i_5_n_0 ),
+       (.I0(\tx_pid_q[3]_i_2_n_0 ),
         .I1(\tx_pid_q[7]_i_4_n_0 ),
-        .I2(\tx_pid_q[7]_i_6_n_0 ),
-        .I3(\tx_pid_q[3]_i_2_n_0 ),
-        .I4(rx_space_q),
-        .I5(\tx_pid_q[7]_i_7_n_0 ),
+        .I2(\tx_pid_q[3]_i_3_n_0 ),
+        .I3(\state_q_reg[2]_1 ),
+        .I4(\tx_pid_q[3]_i_5_n_0 ),
+        .I5(\tx_pid_q[3]_i_6_n_0 ),
         .O(D[3]));
-  LUT6 #(
-    .INIT(64'h0000000000001800)) 
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  LUT5 #(
+    .INIT(32'h00000002)) 
     \tx_pid_q[3]_i_2 
-       (.I0(\tx_pid_q[7]_i_8_n_0 ),
-        .I1(token_pid_w[7]),
-        .I2(token_pid_w[3]),
-        .I3(token_pid_w[0]),
-        .I4(token_pid_w[4]),
-        .I5(\tx_pid_q[3]_i_3_n_0 ),
+       (.I0(ctrl_txstall_q_reg),
+        .I1(token_ep_w[1]),
+        .I2(token_ep_w[0]),
+        .I3(\token_ep_q_reg[3]_0 [1]),
+        .I4(\token_ep_q_reg[3]_0 [0]),
         .O(\tx_pid_q[3]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
-  LUT4 #(
-    .INIT(16'hFBFF)) 
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  LUT3 #(
+    .INIT(8'hDF)) 
     \tx_pid_q[3]_i_3 
-       (.I0(token_pid_w[2]),
-        .I1(token_pid_w[6]),
-        .I2(token_pid_w[5]),
-        .I3(token_pid_w[1]),
+       (.I0(rx_data_complete_w),
+        .I1(crc_err_q_reg_n_0),
+        .I2(state_q[1]),
         .O(\tx_pid_q[3]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  LUT3 #(
+    .INIT(8'h40)) 
+    \tx_pid_q[3]_i_5 
+       (.I0(state_q[1]),
+        .I1(token_valid_w),
+        .I2(\state_q[2]_i_5_n_0 ),
+        .O(\tx_pid_q[3]_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFF0DDF0DDF0DD)) 
+    \tx_pid_q[3]_i_6 
+       (.I0(\crc_sum_q_reg[0]_1 ),
+        .I1(\tx_pid_q[3]_i_7_n_0 ),
+        .I2(rx_space_q_i_2_n_0),
+        .I3(\tx_pid_q[4]_i_3_n_0 ),
+        .I4(\setup_wr_idx_q_reg[0]_0 ),
+        .I5(ctrl_txstall_q_reg),
+        .O(\tx_pid_q[3]_i_6_n_0 ));
+  LUT6 #(
+    .INIT(64'h1011101110111010)) 
+    \tx_pid_q[3]_i_7 
+       (.I0(\token_ep_q_reg[3]_0 [0]),
+        .I1(\token_ep_q_reg[3]_0 [1]),
+        .I2(\tx_pid_q[3]_i_8_n_0 ),
+        .I3(ep2_data_bit_q_i_2_n_0),
+        .I4(\tx_pid_q[3]_i_9_n_0 ),
+        .I5(ep2_data_bit_q_reg_0),
+        .O(\tx_pid_q[3]_i_7_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFAC0FAC00)) 
+    \tx_pid_q[3]_i_8 
+       (.I0(ep3_data_bit_q_reg_0),
+        .I1(ep1_data_bit_q_reg_0),
+        .I2(token_ep_w[1]),
+        .I3(token_ep_w[0]),
+        .I4(ep0_data_bit_q_reg_0),
+        .I5(\tx_pid_q[3]_i_9_n_0 ),
+        .O(\tx_pid_q[3]_i_8_n_0 ));
+  LUT6 #(
+    .INIT(64'h0001000000000000)) 
+    \tx_pid_q[3]_i_9 
+       (.I0(token_ep_w[1]),
+        .I1(token_ep_w[0]),
+        .I2(\token_ep_q_reg[3]_0 [1]),
+        .I3(\token_ep_q_reg[3]_0 [0]),
+        .I4(ep0_dir_in_q_reg_0),
+        .I5(ep0_dir_out_q_reg_0),
+        .O(\tx_pid_q[3]_i_9_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT5 #(
     .INIT(32'h88A88888)) 
     \tx_pid_q[4]_i_1 
@@ -8648,33 +8818,32 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I4(state_q[1]),
         .O(D[4]));
   LUT6 #(
-    .INIT(64'h00000200FFFFFFFF)) 
+    .INIT(64'hDDDDDDDDDDDDDDFD)) 
     \tx_pid_q[4]_i_2 
-       (.I0(token_pid_w[4]),
-        .I1(token_pid_w[0]),
-        .I2(token_pid_w[3]),
-        .I3(token_pid_w[7]),
-        .I4(\tx_pid_q[4]_i_3_n_0 ),
-        .I5(\tx_pid_q[4]_i_4_n_0 ),
+       (.I0(\crc_sum_q_reg[0]_1 ),
+        .I1(\tx_pid_q[4]_i_3_n_0 ),
+        .I2(ctrl_txstall_q_reg),
+        .I3(ep0_data_bit_q_i_2_n_0),
+        .I4(\token_ep_q_reg[3]_0 [1]),
+        .I5(\token_ep_q_reg[3]_0 [0]),
         .O(\tx_pid_q[4]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair3" *) 
-  LUT4 #(
-    .INIT(16'hFDFF)) 
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  LUT5 #(
+    .INIT(32'h00200000)) 
     \tx_pid_q[4]_i_3 
-       (.I0(token_pid_w[5]),
-        .I1(token_pid_w[1]),
-        .I2(token_pid_w[6]),
-        .I3(token_pid_w[2]),
+       (.I0(token_pid_w[2]),
+        .I1(token_pid_w[6]),
+        .I2(token_pid_w[5]),
+        .I3(token_pid_w[1]),
+        .I4(\tx_pid_q[4]_i_4_n_0 ),
         .O(\tx_pid_q[4]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h00A0000000A000C0)) 
+  LUT4 #(
+    .INIT(16'h0400)) 
     \tx_pid_q[4]_i_4 
-       (.I0(inport_valid_q),
-        .I1(ctrl_txvalid_q_reg_0),
-        .I2(outport_valid_o_INST_0_i_1_n_0),
-        .I3(token_ep_w[0]),
-        .I4(token_ep_w[1]),
-        .I5(ctrl_txstall_q_reg),
+       (.I0(token_pid_w[3]),
+        .I1(token_pid_w[7]),
+        .I2(token_pid_w[0]),
+        .I3(token_pid_w[4]),
         .O(\tx_pid_q[4]_i_4_n_0 ));
   LUT6 #(
     .INIT(64'hAAAAAAA8AAAAAAAA)) 
@@ -8686,100 +8855,31 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I4(token_ep_w[1]),
         .I5(ctrl_txstall_q_reg),
         .O(D[5]));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFAC0FAC00)) 
-    \tx_pid_q[7]_i_10 
-       (.I0(ep3_data_bit_q_reg_0),
-        .I1(ep1_data_bit_q_reg_0),
-        .I2(token_ep_w[1]),
-        .I3(token_ep_w[0]),
-        .I4(ep0_data_bit_q_reg_1),
-        .I5(\tx_pid_q[7]_i_11_n_0 ),
-        .O(\tx_pid_q[7]_i_10_n_0 ));
-  LUT6 #(
-    .INIT(64'h0001000000000000)) 
-    \tx_pid_q[7]_i_11 
-       (.I0(token_ep_w[1]),
-        .I1(token_ep_w[0]),
-        .I2(\token_ep_q_reg[3]_0 [1]),
-        .I3(\token_ep_q_reg[3]_0 [0]),
-        .I4(ep0_dir_in_q_reg_0),
-        .I5(ep0_dir_out_q_reg_0),
-        .O(\tx_pid_q[7]_i_11_n_0 ));
-  LUT6 #(
-    .INIT(64'h0070777700700070)) 
+  LUT5 #(
+    .INIT(32'h00020202)) 
     \tx_pid_q[7]_i_2 
        (.I0(\tx_pid_q[7]_i_3_n_0 ),
-        .I1(state_q[1]),
-        .I2(\tx_pid_q[7]_i_4_n_0 ),
-        .I3(\tx_pid_q[7]_i_5_n_0 ),
-        .I4(\tx_pid_q[7]_i_6_n_0 ),
-        .I5(\tx_pid_q[7]_i_7_n_0 ),
+        .I1(state_q[2]),
+        .I2(state_q[0]),
+        .I3(\tx_pid_q[7]_i_4_n_0 ),
+        .I4(state_q[1]),
         .O(D[6]));
+  LUT6 #(
+    .INIT(64'h0020FFFF00200020)) 
+    \tx_pid_q[7]_i_3 
+       (.I0(rx_data_complete_w),
+        .I1(crc_err_q_reg_n_0),
+        .I2(state_q[1]),
+        .I3(\tx_pid_q[3]_i_2_n_0 ),
+        .I4(\tx_pid_q[3]_i_6_n_0 ),
+        .I5(\tx_pid_q[3]_i_5_n_0 ),
+        .O(\tx_pid_q[7]_i_3_n_0 ));
   LUT2 #(
     .INIT(4'h1)) 
-    \tx_pid_q[7]_i_3 
-       (.I0(rx_space_q),
-        .I1(\tx_pid_q[3]_i_2_n_0 ),
-        .O(\tx_pid_q[7]_i_3_n_0 ));
-  LUT5 #(
-    .INIT(32'h00000008)) 
     \tx_pid_q[7]_i_4 
-       (.I0(\state_q[2]_i_6_n_0 ),
-        .I1(token_valid_w),
-        .I2(state_q[2]),
-        .I3(state_q[1]),
-        .I4(state_q[0]),
+       (.I0(rx_space_q),
+        .I1(\state_q[0]_i_5_n_0 ),
         .O(\tx_pid_q[7]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFF0DFD0DFD0DFD)) 
-    \tx_pid_q[7]_i_5 
-       (.I0(\crc_sum_q_reg[0]_0 ),
-        .I1(\tx_pid_q[7]_i_8_n_0 ),
-        .I2(\tx_pid_q[7]_i_9_n_0 ),
-        .I3(rx_space_q_i_2_n_0),
-        .I4(ep0_data_bit_q_reg),
-        .I5(ctrl_txstall_q_reg),
-        .O(\tx_pid_q[7]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
-  LUT5 #(
-    .INIT(32'h00000002)) 
-    \tx_pid_q[7]_i_6 
-       (.I0(ctrl_txstall_q_reg),
-        .I1(token_ep_w[1]),
-        .I2(token_ep_w[0]),
-        .I3(\token_ep_q_reg[3]_0 [1]),
-        .I4(\token_ep_q_reg[3]_0 [0]),
-        .O(\tx_pid_q[7]_i_6_n_0 ));
-  LUT5 #(
-    .INIT(32'h00100000)) 
-    \tx_pid_q[7]_i_7 
-       (.I0(state_q[0]),
-        .I1(state_q[2]),
-        .I2(state_q[1]),
-        .I3(crc_err_q_reg_n_0),
-        .I4(rx_data_complete_w),
-        .O(\tx_pid_q[7]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'h1011101110111010)) 
-    \tx_pid_q[7]_i_8 
-       (.I0(\token_ep_q_reg[3]_0 [0]),
-        .I1(\token_ep_q_reg[3]_0 [1]),
-        .I2(\tx_pid_q[7]_i_10_n_0 ),
-        .I3(ep2_data_bit_q_i_2_n_0),
-        .I4(\tx_pid_q[7]_i_11_n_0 ),
-        .I5(ep2_data_bit_q_reg_0),
-        .O(\tx_pid_q[7]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
-  LUT5 #(
-    .INIT(32'h00040000)) 
-    \tx_pid_q[7]_i_9 
-       (.I0(\tx_pid_q[4]_i_3_n_0 ),
-        .I1(token_pid_w[7]),
-        .I2(token_pid_w[3]),
-        .I3(token_pid_w[0]),
-        .I4(token_pid_w[4]),
-        .O(\tx_pid_q[7]_i_9_n_0 ));
   LUT4 #(
     .INIT(16'hFF80)) 
     tx_valid_q_i_1
@@ -8791,48 +8891,49 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   LUT5 #(
     .INIT(32'h0A080008)) 
     \utmi_data_out_o[0]_INST_0_i_1 
-       (.I0(\FSM_sequential_state_q_reg[0]_2 ),
+       (.I0(\FSM_sequential_state_q_reg[0]_1 ),
         .I1(\ctrl_txdata_q_reg[7] [0]),
         .I2(token_ep_w[0]),
         .I3(token_ep_w[1]),
         .I4(\inport_data_q_reg[7] [0]),
         .O(\crc_sum_q_reg[6]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
   LUT5 #(
-    .INIT(32'hF5FDF7FF)) 
-    \utmi_data_out_o[1]_INST_0_i_1 
-       (.I0(\FSM_sequential_state_q_reg[0]_2 ),
-        .I1(token_ep_w[1]),
-        .I2(token_ep_w[0]),
+    .INIT(32'hCDFDFFFF)) 
+    \utmi_data_out_o[1]_INST_0_i_2 
+       (.I0(\ctrl_txdata_q_reg[7] [1]),
+        .I1(token_ep_w[0]),
+        .I2(token_ep_w[1]),
         .I3(\inport_data_q_reg[7] [1]),
-        .I4(\ctrl_txdata_q_reg[7] [1]),
+        .I4(\FSM_sequential_state_q_reg[0]_1 ),
+        .O(\crc_sum_q_reg[8]_1 ));
+  LUT5 #(
+    .INIT(32'hCEDFFFFF)) 
+    \utmi_data_out_o[2]_INST_0_i_2 
+       (.I0(token_ep_w[1]),
+        .I1(token_ep_w[0]),
+        .I2(\inport_data_q_reg[7] [2]),
+        .I3(\ctrl_txdata_q_reg[7] [2]),
+        .I4(\FSM_sequential_state_q_reg[0]_1 ),
         .O(\crc_sum_q_reg[8]_0 ));
   LUT5 #(
     .INIT(32'h0A080008)) 
-    \utmi_data_out_o[2]_INST_0_i_1 
-       (.I0(\FSM_sequential_state_q_reg[0]_2 ),
-        .I1(\ctrl_txdata_q_reg[7] [2]),
-        .I2(token_ep_w[0]),
-        .I3(token_ep_w[1]),
-        .I4(\inport_data_q_reg[7] [2]),
-        .O(\crc_sum_q_reg[8]_1 ));
-  LUT5 #(
-    .INIT(32'h0A080008)) 
     \utmi_data_out_o[3]_INST_0_i_1 
-       (.I0(\FSM_sequential_state_q_reg[0]_2 ),
+       (.I0(\FSM_sequential_state_q_reg[0]_1 ),
         .I1(\ctrl_txdata_q_reg[7] [3]),
         .I2(token_ep_w[0]),
         .I3(token_ep_w[1]),
         .I4(\inport_data_q_reg[7] [3]),
-        .O(\crc_sum_q_reg[10]_1 ));
-  LUT5 #(
-    .INIT(32'h32020000)) 
-    \utmi_data_out_o[4]_INST_0_i_1 
-       (.I0(\ctrl_txdata_q_reg[7] [4]),
-        .I1(token_ep_w[0]),
-        .I2(token_ep_w[1]),
-        .I3(\inport_data_q_reg[7] [4]),
-        .I4(\FSM_sequential_state_q_reg[0]_2 ),
         .O(\crc_sum_q_reg[10]_0 ));
+  LUT5 #(
+    .INIT(32'h0A080008)) 
+    \utmi_data_out_o[4]_INST_0_i_1 
+       (.I0(\FSM_sequential_state_q_reg[0]_1 ),
+        .I1(\ctrl_txdata_q_reg[7] [4]),
+        .I2(token_ep_w[0]),
+        .I3(token_ep_w[1]),
+        .I4(\inport_data_q_reg[7] [4]),
+        .O(\crc_sum_q_reg[10]_1 ));
   LUT6 #(
     .INIT(64'h0000000032020000)) 
     \utmi_data_out_o[5]_INST_0_i_2 
@@ -8846,7 +8947,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   LUT5 #(
     .INIT(32'h0A080008)) 
     \utmi_data_out_o[6]_INST_0_i_1 
-       (.I0(\FSM_sequential_state_q_reg[0]_2 ),
+       (.I0(\FSM_sequential_state_q_reg[0]_1 ),
         .I1(\ctrl_txdata_q_reg[7] [6]),
         .I2(token_ep_w[0]),
         .I3(token_ep_w[1]),
@@ -8855,12 +8956,12 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
   LUT5 #(
     .INIT(32'h0A080008)) 
     \utmi_data_out_o[7]_INST_0_i_1 
-       (.I0(\FSM_sequential_state_q_reg[0]_2 ),
+       (.I0(\FSM_sequential_state_q_reg[0]_1 ),
         .I1(\ctrl_txdata_q_reg[7] [7]),
         .I2(token_ep_w[0]),
         .I3(token_ep_w[1]),
         .I4(\inport_data_q_reg[7] [7]),
-        .O(\crc_sum_q_reg[0]_1 ));
+        .O(\crc_sum_q_reg[0]_0 ));
   LUT6 #(
     .INIT(64'h0011001000000010)) 
     utmi_txvalid_o_INST_0_i_1
@@ -8870,7 +8971,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_rx
         .I3(token_ep_w[0]),
         .I4(token_ep_w[1]),
         .I5(inport_valid_q),
-        .O(\crc_sum_q_reg[0]_0 ));
+        .O(\crc_sum_q_reg[0]_1 ));
   LUT6 #(
     .INIT(64'hAAAAEAAAAAAAAAAA)) 
     valid_q_i_1__0
@@ -8897,120 +8998,110 @@ endmodule
 
 (* ORIG_REF_NAME = "usbf_sie_tx" *) 
 module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
-   (\FSM_sequential_state_q_reg[0]_0 ,
-    \crc_sum_q_reg[10]_0 ,
-    \crc_sum_q_reg[11]_0 ,
-    utmi_data_out_o_1_sp_1,
-    utmi_data_out_o_0_sp_1,
-    \utmi_data_out_o[2] ,
-    \utmi_data_out_o[3] ,
-    \utmi_data_out_o[4] ,
-    \state_q_reg[1] ,
-    utmi_txvalid_o,
-    \utmi_data_out_o[7] ,
+   (\FSM_sequential_state_q_reg[1]_0 ,
+    utmi_data_out_o_4_sp_1,
     utmi_data_out_o,
+    \crc_sum_q_reg[8]_0 ,
+    \crc_sum_q_reg[11]_0 ,
+    utmi_txvalid_o,
     \state_q_reg[0] ,
+    \state_q_reg[0]_0 ,
     \inport_data_q_reg[0] ,
     E,
     \current_addr_q_reg[0] ,
     addr_update_pending_q_reg,
     clk_i,
     rst_i,
-    \token_ep_q_reg[2] ,
-    \token_ep_q_reg[3] ,
-    utmi_txready_i,
     Q,
+    \token_ep_q_reg[2] ,
+    utmi_txready_i,
+    \token_ep_q_reg[3] ,
     state_q,
-    valid_q_reg_0,
     tx_valid_q,
     \token_ep_q_reg[2]_0 ,
     \tx_pid_q_reg[7] ,
-    \ctrl_txdata_q_reg[4] ,
-    \ctrl_txdata_q_reg[7] ,
     \token_ep_q_reg[1] ,
-    \ctrl_txdata_q_reg[0] ,
-    \ctrl_txdata_q_reg[2] ,
     \ctrl_txdata_q_reg[3] ,
     \ctrl_txdata_q_reg[5] ,
     \ctrl_txdata_q_reg[6] ,
+    \ctrl_txdata_q_reg[1] ,
+    \ctrl_txdata_q_reg[0] ,
+    \ctrl_txdata_q_reg[4] ,
+    \ctrl_txdata_q_reg[7] ,
     addr_update_pending_q_reg_0,
     \token_ep_q_reg[2]_1 ,
     ctrl_txlast_q_reg,
     ctrl_txvalid_q_reg,
     ctrl_txstrb_q_reg,
     out,
-    \current_addr_q_reg[3] ,
+    \current_addr_q_reg[0]_0 ,
     ctrl_txlast_q_reg_0);
-  output \FSM_sequential_state_q_reg[0]_0 ;
-  output \crc_sum_q_reg[10]_0 ;
+  output \FSM_sequential_state_q_reg[1]_0 ;
+  output utmi_data_out_o_4_sp_1;
+  output [6:0]utmi_data_out_o;
+  output \crc_sum_q_reg[8]_0 ;
   output \crc_sum_q_reg[11]_0 ;
-  output utmi_data_out_o_1_sp_1;
-  output utmi_data_out_o_0_sp_1;
-  output \utmi_data_out_o[2] ;
-  output \utmi_data_out_o[3] ;
-  output \utmi_data_out_o[4] ;
-  output \state_q_reg[1] ;
   output utmi_txvalid_o;
-  output \utmi_data_out_o[7] ;
-  output [1:0]utmi_data_out_o;
   output \state_q_reg[0] ;
+  output \state_q_reg[0]_0 ;
   output \inport_data_q_reg[0] ;
   output [0:0]E;
   output [0:0]\current_addr_q_reg[0] ;
   output addr_update_pending_q_reg;
   input clk_i;
   input rst_i;
-  input \token_ep_q_reg[2] ;
-  input [1:0]\token_ep_q_reg[3] ;
-  input utmi_txready_i;
   input [0:0]Q;
+  input \token_ep_q_reg[2] ;
+  input utmi_txready_i;
+  input [1:0]\token_ep_q_reg[3] ;
   input [2:0]state_q;
-  input valid_q_reg_0;
   input tx_valid_q;
   input \token_ep_q_reg[2]_0 ;
   input [6:0]\tx_pid_q_reg[7] ;
-  input \ctrl_txdata_q_reg[4] ;
-  input \ctrl_txdata_q_reg[7] ;
   input \token_ep_q_reg[1] ;
-  input \ctrl_txdata_q_reg[0] ;
-  input \ctrl_txdata_q_reg[2] ;
   input \ctrl_txdata_q_reg[3] ;
   input \ctrl_txdata_q_reg[5] ;
   input \ctrl_txdata_q_reg[6] ;
+  input \ctrl_txdata_q_reg[1] ;
+  input \ctrl_txdata_q_reg[0] ;
+  input \ctrl_txdata_q_reg[4] ;
+  input \ctrl_txdata_q_reg[7] ;
   input addr_update_pending_q_reg_0;
   input \token_ep_q_reg[2]_1 ;
   input ctrl_txlast_q_reg;
   input ctrl_txvalid_q_reg;
   input ctrl_txstrb_q_reg;
   input [2:0]out;
-  input \current_addr_q_reg[3] ;
+  input \current_addr_q_reg[0]_0 ;
   input ctrl_txlast_q_reg_0;
 
   wire [0:0]E;
   wire \FSM_sequential_state_q[0]_i_1__1_n_0 ;
   wire \FSM_sequential_state_q[0]_i_2_n_0 ;
-  wire \FSM_sequential_state_q[1]_i_1__1_n_0 ;
-  wire \FSM_sequential_state_q[1]_i_3__0_n_0 ;
+  wire \FSM_sequential_state_q[0]_i_3__0_n_0 ;
+  wire \FSM_sequential_state_q[1]_i_1_n_0 ;
+  wire \FSM_sequential_state_q[1]_i_3_n_0 ;
   wire \FSM_sequential_state_q[1]_i_4_n_0 ;
-  wire \FSM_sequential_state_q[1]_i_6__0_n_0 ;
+  wire \FSM_sequential_state_q[1]_i_5__1_n_0 ;
   wire \FSM_sequential_state_q[2]_i_1_n_0 ;
   wire \FSM_sequential_state_q[2]_i_2_n_0 ;
   wire \FSM_sequential_state_q[2]_i_3__1_n_0 ;
-  wire \FSM_sequential_state_q_reg[0]_0 ;
+  wire \FSM_sequential_state_q[2]_i_5_n_0 ;
+  wire \FSM_sequential_state_q_reg[1]_0 ;
   wire [0:0]Q;
   wire addr_update_pending_q_reg;
   wire addr_update_pending_q_reg_0;
   wire clk_i;
   wire [15:0]crc_sum_q;
   wire \crc_sum_q[12]_i_2_n_0 ;
-  wire \crc_sum_q[14]_i_2_n_0 ;
-  wire \crc_sum_q[14]_i_3__0_n_0 ;
-  wire \crc_sum_q[14]_i_4_n_0 ;
   wire \crc_sum_q[15]_i_3__0_n_0 ;
-  wire \crc_sum_q[15]_i_4_n_0 ;
+  wire \crc_sum_q[15]_i_4__0_n_0 ;
+  wire \crc_sum_q[15]_i_5_n_0 ;
+  wire \crc_sum_q[7]_i_2_n_0 ;
+  wire \crc_sum_q[9]_i_2_n_0 ;
   wire crc_sum_q_0;
-  wire \crc_sum_q_reg[10]_0 ;
   wire \crc_sum_q_reg[11]_0 ;
+  wire \crc_sum_q_reg[8]_0 ;
   wire \crc_sum_q_reg_n_0_[0] ;
   wire \crc_sum_q_reg_n_0_[1] ;
   wire \crc_sum_q_reg_n_0_[2] ;
@@ -9020,7 +9111,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
   wire \crc_sum_q_reg_n_0_[6] ;
   wire \crc_sum_q_reg_n_0_[7] ;
   wire \ctrl_txdata_q_reg[0] ;
-  wire \ctrl_txdata_q_reg[2] ;
+  wire \ctrl_txdata_q_reg[1] ;
   wire \ctrl_txdata_q_reg[3] ;
   wire \ctrl_txdata_q_reg[4] ;
   wire \ctrl_txdata_q_reg[5] ;
@@ -9032,7 +9123,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
   wire ctrl_txvalid_q_reg;
   wire \current_addr_q[6]_i_3_n_0 ;
   wire [0:0]\current_addr_q_reg[0] ;
-  wire \current_addr_q_reg[3] ;
+  wire \current_addr_q_reg[0]_0 ;
   wire data_pid_q4_out;
   wire data_pid_q_i_1_n_0;
   wire data_pid_q_i_3_n_0;
@@ -9040,6 +9131,8 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
   wire data_pid_q_i_5_n_0;
   wire data_pid_q_i_6_n_0;
   wire data_pid_q_i_7_n_0;
+  wire data_pid_q_i_8_n_0;
+  wire data_pid_q_i_9_n_0;
   wire data_pid_q_reg_n_0;
   wire [7:0]data_q;
   wire \data_q[7]_i_1_n_0 ;
@@ -9051,11 +9144,10 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
   wire [7:0]p_1_in;
   wire rst_i;
   wire [2:0]state_q;
-  wire \state_q[2]_i_13_n_0 ;
   wire \state_q[2]_i_15_n_0 ;
   (* RTL_KEEP = "yes" *) wire [2:0]state_q_1;
   wire \state_q_reg[0] ;
-  wire \state_q_reg[1] ;
+  wire \state_q_reg[0]_0 ;
   wire \token_ep_q_reg[1] ;
   wire \token_ep_q_reg[2] ;
   wire \token_ep_q_reg[2]_0 ;
@@ -9063,94 +9155,96 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
   wire [1:0]\token_ep_q_reg[3] ;
   wire [6:0]\tx_pid_q_reg[7] ;
   wire tx_valid_q;
-  wire [1:0]utmi_data_out_o;
+  wire [6:0]utmi_data_out_o;
   wire \utmi_data_out_o[0]_INST_0_i_2_n_0 ;
-  wire \utmi_data_out_o[1]_INST_0_i_2_n_0 ;
-  wire \utmi_data_out_o[2] ;
-  wire \utmi_data_out_o[2]_INST_0_i_2_n_0 ;
-  wire \utmi_data_out_o[3] ;
+  wire \utmi_data_out_o[1]_INST_0_i_1_n_0 ;
+  wire \utmi_data_out_o[1]_INST_0_i_3_n_0 ;
+  wire \utmi_data_out_o[2]_INST_0_i_1_n_0 ;
   wire \utmi_data_out_o[3]_INST_0_i_2_n_0 ;
-  wire \utmi_data_out_o[4] ;
   wire \utmi_data_out_o[4]_INST_0_i_2_n_0 ;
   wire \utmi_data_out_o[5]_INST_0_i_1_n_0 ;
   wire \utmi_data_out_o[6]_INST_0_i_2_n_0 ;
-  wire \utmi_data_out_o[7] ;
   wire \utmi_data_out_o[7]_INST_0_i_2_n_0 ;
-  wire utmi_data_out_o_0_sn_1;
-  wire utmi_data_out_o_1_sn_1;
+  wire utmi_data_out_o_4_sn_1;
   wire utmi_txready_i;
   wire utmi_txvalid_o;
   wire valid_q;
-  wire valid_q_reg_0;
   wire valid_q_reg_n_0;
 
-  assign utmi_data_out_o_0_sp_1 = utmi_data_out_o_0_sn_1;
-  assign utmi_data_out_o_1_sp_1 = utmi_data_out_o_1_sn_1;
+  assign utmi_data_out_o_4_sp_1 = utmi_data_out_o_4_sn_1;
   LUT6 #(
-    .INIT(64'h5554444444444444)) 
+    .INIT(64'hDDDD000CDDDDDDDD)) 
     \FSM_sequential_state_q[0]_i_1__1 
-       (.I0(\FSM_sequential_state_q_reg[0]_0 ),
-        .I1(\FSM_sequential_state_q[0]_i_2_n_0 ),
-        .I2(\token_ep_q_reg[2] ),
+       (.I0(Q),
+        .I1(\FSM_sequential_state_q_reg[1]_0 ),
+        .I2(state_q_1[1]),
         .I3(state_q_1[2]),
-        .I4(state_q_1[0]),
-        .I5(state_q_1[1]),
+        .I4(\FSM_sequential_state_q[0]_i_2_n_0 ),
+        .I5(\FSM_sequential_state_q[0]_i_3__0_n_0 ),
         .O(\FSM_sequential_state_q[0]_i_1__1_n_0 ));
   LUT6 #(
-    .INIT(64'hF2F2F6FFF2F2F6F0)) 
+    .INIT(64'h000002000F000000)) 
     \FSM_sequential_state_q[0]_i_2 
-       (.I0(state_q_1[0]),
-        .I1(utmi_txready_i),
-        .I2(\FSM_sequential_state_q[2]_i_3__1_n_0 ),
-        .I3(state_q_1[2]),
-        .I4(state_q_1[1]),
-        .I5(\state_q_reg[1] ),
-        .O(\FSM_sequential_state_q[0]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h5555555454545454)) 
-    \FSM_sequential_state_q[1]_i_1__1 
-       (.I0(\FSM_sequential_state_q_reg[0]_0 ),
-        .I1(\FSM_sequential_state_q[1]_i_3__0_n_0 ),
-        .I2(\FSM_sequential_state_q[1]_i_4_n_0 ),
-        .I3(\token_ep_q_reg[2] ),
-        .I4(state_q_1[2]),
-        .I5(\FSM_sequential_state_q[1]_i_6__0_n_0 ),
-        .O(\FSM_sequential_state_q[1]_i_1__1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
-  LUT4 #(
-    .INIT(16'hAA8A)) 
-    \FSM_sequential_state_q[1]_i_2 
-       (.I0(Q),
-        .I1(out[1]),
-        .I2(out[2]),
-        .I3(out[0]),
-        .O(\FSM_sequential_state_q_reg[0]_0 ));
-  LUT6 #(
-    .INIT(64'h01FF000001550000)) 
-    \FSM_sequential_state_q[1]_i_3__0 
-       (.I0(state_q_1[2]),
+       (.I0(data_pid_q_reg_n_0),
         .I1(data_zlp_q_reg_n_0),
         .I2(state_q_1[0]),
         .I3(utmi_txready_i),
+        .I4(state_q_1[2]),
+        .I5(state_q_1[1]),
+        .O(\FSM_sequential_state_q[0]_i_2_n_0 ));
+  LUT5 #(
+    .INIT(32'h5705FFFF)) 
+    \FSM_sequential_state_q[0]_i_3__0 
+       (.I0(state_q_1[1]),
+        .I1(\token_ep_q_reg[2] ),
+        .I2(state_q_1[2]),
+        .I3(utmi_txready_i),
+        .I4(state_q_1[0]),
+        .O(\FSM_sequential_state_q[0]_i_3__0_n_0 ));
+  LUT6 #(
+    .INIT(64'hDDDD1000DDDDDDDD)) 
+    \FSM_sequential_state_q[1]_i_1 
+       (.I0(Q),
+        .I1(\FSM_sequential_state_q_reg[1]_0 ),
+        .I2(tx_valid_q),
+        .I3(\FSM_sequential_state_q[1]_i_3_n_0 ),
+        .I4(\FSM_sequential_state_q[1]_i_4_n_0 ),
+        .I5(\FSM_sequential_state_q[1]_i_5__1_n_0 ),
+        .O(\FSM_sequential_state_q[1]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  LUT3 #(
+    .INIT(8'h04)) 
+    \FSM_sequential_state_q[1]_i_2 
+       (.I0(out[0]),
+        .I1(out[2]),
+        .I2(out[1]),
+        .O(\FSM_sequential_state_q_reg[1]_0 ));
+  LUT3 #(
+    .INIT(8'h01)) 
+    \FSM_sequential_state_q[1]_i_3 
+       (.I0(state_q_1[2]),
+        .I1(state_q_1[1]),
+        .I2(state_q_1[0]),
+        .O(\FSM_sequential_state_q[1]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'h01FF000001550000)) 
+    \FSM_sequential_state_q[1]_i_4 
+       (.I0(state_q_1[2]),
+        .I1(state_q_1[0]),
+        .I2(data_zlp_q_reg_n_0),
+        .I3(utmi_txready_i),
         .I4(state_q_1[1]),
         .I5(valid_q_reg_n_0),
-        .O(\FSM_sequential_state_q[1]_i_3__0_n_0 ));
-  LUT6 #(
-    .INIT(64'hFF00000400000004)) 
-    \FSM_sequential_state_q[1]_i_4 
-       (.I0(\state_q_reg[1] ),
-        .I1(tx_valid_q),
-        .I2(state_q_1[1]),
-        .I3(state_q_1[0]),
-        .I4(state_q_1[2]),
-        .I5(utmi_txready_i),
         .O(\FSM_sequential_state_q[1]_i_4_n_0 ));
-  LUT2 #(
-    .INIT(4'h8)) 
-    \FSM_sequential_state_q[1]_i_6__0 
+  LUT5 #(
+    .INIT(32'h0757FFFF)) 
+    \FSM_sequential_state_q[1]_i_5__1 
        (.I0(state_q_1[1]),
-        .I1(state_q_1[0]),
-        .O(\FSM_sequential_state_q[1]_i_6__0_n_0 ));
+        .I1(\token_ep_q_reg[2] ),
+        .I2(state_q_1[2]),
+        .I3(utmi_txready_i),
+        .I4(state_q_1[0]),
+        .O(\FSM_sequential_state_q[1]_i_5__1_n_0 ));
   LUT6 #(
     .INIT(64'h00000000BCBCFCBC)) 
     \FSM_sequential_state_q[2]_i_1 
@@ -9164,23 +9258,29 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
   LUT6 #(
     .INIT(64'hFFFFFFFFFFFF080F)) 
     \FSM_sequential_state_q[2]_i_2 
-       (.I0(\FSM_sequential_state_q[1]_i_6__0_n_0 ),
+       (.I0(\FSM_sequential_state_q[2]_i_3__1_n_0 ),
         .I1(\token_ep_q_reg[2] ),
         .I2(state_q_1[2]),
         .I3(utmi_txready_i),
-        .I4(\FSM_sequential_state_q[2]_i_3__1_n_0 ),
-        .I5(\FSM_sequential_state_q_reg[0]_0 ),
+        .I4(\FSM_sequential_state_q[2]_i_5_n_0 ),
+        .I5(\state_q_reg[0] ),
         .O(\FSM_sequential_state_q[2]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h0100000000000000)) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \FSM_sequential_state_q[2]_i_3__1 
-       (.I0(state_q_1[0]),
-        .I1(data_zlp_q_reg_n_0),
-        .I2(state_q_1[2]),
-        .I3(data_pid_q_reg_n_0),
-        .I4(utmi_txready_i),
-        .I5(state_q_1[1]),
+       (.I0(state_q_1[1]),
+        .I1(state_q_1[0]),
         .O(\FSM_sequential_state_q[2]_i_3__1_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000800000000)) 
+    \FSM_sequential_state_q[2]_i_5 
+       (.I0(utmi_txready_i),
+        .I1(state_q_1[1]),
+        .I2(state_q_1[2]),
+        .I3(state_q_1[0]),
+        .I4(data_zlp_q_reg_n_0),
+        .I5(data_pid_q_reg_n_0),
+        .O(\FSM_sequential_state_q[2]_i_5_n_0 ));
   (* FSM_ENCODED_STATES = "STATE_TX_CHIRP:001,STATE_TX_PID:010,STATE_TX_DATA:011,STATE_TX_CRC1:100,STATE_TX_CRC2:101,STATE_TX_DONE:110,STATE_TX_IDLE:000" *) 
   (* KEEP = "yes" *) 
   FDCE \FSM_sequential_state_q_reg[0] 
@@ -9195,7 +9295,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
        (.C(clk_i),
         .CE(1'b1),
         .CLR(rst_i),
-        .D(\FSM_sequential_state_q[1]_i_1__1_n_0 ),
+        .D(\FSM_sequential_state_q[1]_i_1_n_0 ),
         .Q(state_q_1[1]));
   (* FSM_ENCODED_STATES = "STATE_TX_CHIRP:001,STATE_TX_PID:010,STATE_TX_DATA:011,STATE_TX_CRC1:100,STATE_TX_CRC2:101,STATE_TX_DONE:110,STATE_TX_IDLE:000" *) 
   (* KEEP = "yes" *) 
@@ -9205,41 +9305,42 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
         .CLR(rst_i),
         .D(\FSM_sequential_state_q[2]_i_1_n_0 ),
         .Q(state_q_1[2]));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT3 #(
     .INIT(8'h32)) 
     addr_update_pending_q_i_1
-       (.I0(\current_addr_q_reg[3] ),
+       (.I0(\current_addr_q_reg[0]_0 ),
         .I1(\current_addr_q[6]_i_3_n_0 ),
         .I2(addr_update_pending_q_reg_0),
         .O(addr_update_pending_q_reg));
   LUT5 #(
     .INIT(32'hBEEBEBBE)) 
     \crc_sum_q[0]_i_1 
-       (.I0(\crc_sum_q[14]_i_2_n_0 ),
-        .I1(p_0_in[0]),
-        .I2(\utmi_data_out_o[7] ),
+       (.I0(\FSM_sequential_state_q[1]_i_3_n_0 ),
+        .I1(\crc_sum_q[15]_i_4__0_n_0 ),
+        .I2(utmi_data_out_o[6]),
         .I3(\crc_sum_q[15]_i_3__0_n_0 ),
-        .I4(\crc_sum_q[15]_i_4_n_0 ),
+        .I4(p_0_in[0]),
         .O(crc_sum_q[0]));
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT5 #(
     .INIT(32'hBEEBEBBE)) 
     \crc_sum_q[10]_i_1 
-       (.I0(\crc_sum_q[14]_i_2_n_0 ),
-        .I1(\utmi_data_out_o[4] ),
-        .I2(\utmi_data_out_o[3] ),
+       (.I0(\FSM_sequential_state_q[1]_i_3_n_0 ),
+        .I1(utmi_data_out_o[3]),
+        .I2(utmi_data_out_o_4_sn_1),
         .I3(\crc_sum_q_reg_n_0_[3] ),
         .I4(\crc_sum_q_reg_n_0_[4] ),
         .O(crc_sum_q[10]));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT5 #(
     .INIT(32'hEBBEBEEB)) 
     \crc_sum_q[11]_i_1 
-       (.I0(\crc_sum_q[14]_i_2_n_0 ),
+       (.I0(\FSM_sequential_state_q[1]_i_3_n_0 ),
         .I1(\crc_sum_q_reg_n_0_[5] ),
         .I2(\utmi_data_out_o[5]_INST_0_i_1_n_0 ),
         .I3(\crc_sum_q_reg_n_0_[4] ),
-        .I4(\utmi_data_out_o[4] ),
+        .I4(utmi_data_out_o_4_sn_1),
         .O(crc_sum_q[11]));
   LUT5 #(
     .INIT(32'h1FF1F11F)) 
@@ -9254,54 +9355,34 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
     .INIT(4'h6)) 
     \crc_sum_q[12]_i_2 
        (.I0(\utmi_data_out_o[5]_INST_0_i_1_n_0 ),
-        .I1(utmi_data_out_o[1]),
+        .I1(utmi_data_out_o[5]),
         .O(\crc_sum_q[12]_i_2_n_0 ));
   LUT5 #(
     .INIT(32'hBEEBEBBE)) 
     \crc_sum_q[13]_i_1 
-       (.I0(\crc_sum_q[14]_i_2_n_0 ),
+       (.I0(\FSM_sequential_state_q[1]_i_3_n_0 ),
         .I1(\crc_sum_q_reg_n_0_[6] ),
-        .I2(utmi_data_out_o[1]),
+        .I2(utmi_data_out_o[5]),
         .I3(\crc_sum_q_reg_n_0_[7] ),
-        .I4(\utmi_data_out_o[7] ),
+        .I4(utmi_data_out_o[6]),
         .O(crc_sum_q[13]));
   LUT6 #(
-    .INIT(64'hBEEBEBBEEBBEBEEB)) 
+    .INIT(64'hEBBEBEEBBEEBEBBE)) 
     \crc_sum_q[14]_i_1 
-       (.I0(\crc_sum_q[14]_i_2_n_0 ),
-        .I1(\crc_sum_q[14]_i_3__0_n_0 ),
-        .I2(\crc_sum_q_reg_n_0_[2] ),
-        .I3(\crc_sum_q_reg_n_0_[0] ),
-        .I4(\crc_sum_q[14]_i_4_n_0 ),
-        .I5(\crc_sum_q[15]_i_3__0_n_0 ),
+       (.I0(\FSM_sequential_state_q[1]_i_3_n_0 ),
+        .I1(\crc_sum_q_reg_n_0_[2] ),
+        .I2(\crc_sum_q_reg_n_0_[0] ),
+        .I3(\crc_sum_q_reg_n_0_[6] ),
+        .I4(\crc_sum_q_reg_n_0_[5] ),
+        .I5(\crc_sum_q[15]_i_4__0_n_0 ),
         .O(crc_sum_q[14]));
-  LUT3 #(
-    .INIT(8'h01)) 
-    \crc_sum_q[14]_i_2 
-       (.I0(state_q_1[2]),
-        .I1(state_q_1[1]),
-        .I2(state_q_1[0]),
-        .O(\crc_sum_q[14]_i_2_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \crc_sum_q[14]_i_3__0 
-       (.I0(\crc_sum_q_reg_n_0_[5] ),
-        .I1(\crc_sum_q_reg_n_0_[6] ),
-        .O(\crc_sum_q[14]_i_3__0_n_0 ));
-  LUT3 #(
-    .INIT(8'h96)) 
-    \crc_sum_q[14]_i_4 
-       (.I0(\crc_sum_q_reg_n_0_[1] ),
-        .I1(\crc_sum_q_reg_n_0_[4] ),
-        .I2(\crc_sum_q_reg_n_0_[3] ),
-        .O(\crc_sum_q[14]_i_4_n_0 ));
   LUT5 #(
-    .INIT(32'h08050005)) 
+    .INIT(32'h09010101)) 
     \crc_sum_q[15]_i_1__0 
        (.I0(state_q_1[1]),
-        .I1(utmi_txready_i),
+        .I1(state_q_1[0]),
         .I2(state_q_1[2]),
-        .I3(state_q_1[0]),
+        .I3(utmi_txready_i),
         .I4(\token_ep_q_reg[2]_0 ),
         .O(crc_sum_q_0));
   LUT5 #(
@@ -9310,29 +9391,35 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
        (.I0(state_q_1[0]),
         .I1(state_q_1[1]),
         .I2(\crc_sum_q[15]_i_3__0_n_0 ),
-        .I3(\utmi_data_out_o[7] ),
-        .I4(\crc_sum_q[15]_i_4_n_0 ),
+        .I3(utmi_data_out_o[6]),
+        .I4(\crc_sum_q[15]_i_4__0_n_0 ),
         .O(crc_sum_q[15]));
-  LUT6 #(
-    .INIT(64'h6996966996696996)) 
+  LUT5 #(
+    .INIT(32'h96696996)) 
     \crc_sum_q[15]_i_3__0 
-       (.I0(\utmi_data_out_o[2] ),
-        .I1(\utmi_data_out_o[3] ),
-        .I2(utmi_data_out_o_1_sn_1),
-        .I3(utmi_data_out_o_0_sn_1),
-        .I4(\utmi_data_out_o[4] ),
-        .I5(\crc_sum_q[12]_i_2_n_0 ),
+       (.I0(\crc_sum_q_reg_n_0_[6] ),
+        .I1(\crc_sum_q_reg_n_0_[5] ),
+        .I2(\crc_sum_q_reg_n_0_[0] ),
+        .I3(\crc_sum_q_reg_n_0_[2] ),
+        .I4(\crc_sum_q_reg_n_0_[7] ),
         .O(\crc_sum_q[15]_i_3__0_n_0 ));
   LUT6 #(
     .INIT(64'h9669699669969669)) 
-    \crc_sum_q[15]_i_4 
-       (.I0(\crc_sum_q[14]_i_4_n_0 ),
-        .I1(\crc_sum_q_reg_n_0_[7] ),
-        .I2(\crc_sum_q_reg_n_0_[2] ),
-        .I3(\crc_sum_q_reg_n_0_[0] ),
-        .I4(\crc_sum_q_reg_n_0_[5] ),
-        .I5(\crc_sum_q_reg_n_0_[6] ),
-        .O(\crc_sum_q[15]_i_4_n_0 ));
+    \crc_sum_q[15]_i_4__0 
+       (.I0(\crc_sum_q[15]_i_5_n_0 ),
+        .I1(\crc_sum_q_reg_n_0_[1] ),
+        .I2(\crc_sum_q[7]_i_2_n_0 ),
+        .I3(utmi_data_out_o_4_sn_1),
+        .I4(\crc_sum_q[9]_i_2_n_0 ),
+        .I5(\crc_sum_q[12]_i_2_n_0 ),
+        .O(\crc_sum_q[15]_i_4__0_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+  LUT2 #(
+    .INIT(4'h6)) 
+    \crc_sum_q[15]_i_5 
+       (.I0(\crc_sum_q_reg_n_0_[3] ),
+        .I1(\crc_sum_q_reg_n_0_[4] ),
+        .O(\crc_sum_q[15]_i_5_n_0 ));
   LUT3 #(
     .INIT(8'hAB)) 
     \crc_sum_q[1]_i_1__0 
@@ -9375,37 +9462,48 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
         .I1(state_q_1[1]),
         .I2(\crc_sum_q_reg_n_0_[0] ),
         .I3(p_0_in[6]),
-        .I4(utmi_data_out_o_0_sn_1),
+        .I4(utmi_data_out_o[0]),
         .O(crc_sum_q[6]));
-  LUT6 #(
-    .INIT(64'hF9F6F6F9F6F9F9F6)) 
-    \crc_sum_q[7]_i_1__0 
-       (.I0(utmi_data_out_o_1_sn_1),
-        .I1(utmi_data_out_o_0_sn_1),
-        .I2(\crc_sum_q[14]_i_2_n_0 ),
-        .I3(p_0_in[7]),
-        .I4(\crc_sum_q_reg_n_0_[1] ),
-        .I5(\crc_sum_q_reg_n_0_[0] ),
-        .O(crc_sum_q[7]));
   LUT5 #(
-    .INIT(32'hBEEBEBBE)) 
+    .INIT(32'hEBBEBEEB)) 
+    \crc_sum_q[7]_i_1 
+       (.I0(\FSM_sequential_state_q[1]_i_3_n_0 ),
+        .I1(p_0_in[7]),
+        .I2(\crc_sum_q_reg_n_0_[1] ),
+        .I3(\crc_sum_q_reg_n_0_[0] ),
+        .I4(\crc_sum_q[7]_i_2_n_0 ),
+        .O(crc_sum_q[7]));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \crc_sum_q[7]_i_2 
+       (.I0(\utmi_data_out_o[1]_INST_0_i_1_n_0 ),
+        .I1(utmi_data_out_o[0]),
+        .O(\crc_sum_q[7]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  LUT5 #(
+    .INIT(32'hEBBEBEEB)) 
     \crc_sum_q[8]_i_1 
-       (.I0(\crc_sum_q[14]_i_2_n_0 ),
+       (.I0(\FSM_sequential_state_q[1]_i_3_n_0 ),
         .I1(\crc_sum_q_reg_n_0_[2] ),
-        .I2(\utmi_data_out_o[2] ),
+        .I2(utmi_data_out_o[2]),
         .I3(\crc_sum_q_reg_n_0_[1] ),
-        .I4(utmi_data_out_o_1_sn_1),
+        .I4(\utmi_data_out_o[1]_INST_0_i_1_n_0 ),
         .O(crc_sum_q[8]));
-  LUT6 #(
-    .INIT(64'h666F999F999F666F)) 
+  LUT5 #(
+    .INIT(32'h1FF1F11F)) 
     \crc_sum_q[9]_i_1__0 
-       (.I0(\utmi_data_out_o[2] ),
-        .I1(\utmi_data_out_o[3] ),
-        .I2(state_q_1[0]),
-        .I3(state_q_1[1]),
-        .I4(\crc_sum_q_reg_n_0_[2] ),
-        .I5(\crc_sum_q_reg_n_0_[3] ),
+       (.I0(state_q_1[0]),
+        .I1(state_q_1[1]),
+        .I2(\crc_sum_q_reg_n_0_[2] ),
+        .I3(\crc_sum_q_reg_n_0_[3] ),
+        .I4(\crc_sum_q[9]_i_2_n_0 ),
         .O(crc_sum_q[9]));
+  LUT2 #(
+    .INIT(4'h9)) 
+    \crc_sum_q[9]_i_2 
+       (.I0(utmi_data_out_o[2]),
+        .I1(utmi_data_out_o[3]),
+        .O(\crc_sum_q[9]_i_2_n_0 ));
   FDPE \crc_sum_q_reg[0] 
        (.C(clk_i),
         .CE(crc_sum_q_0),
@@ -9503,15 +9601,15 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
         .PRE(rst_i),
         .Q(p_0_in[1]));
   LUT5 #(
-    .INIT(32'hF7F7F7FF)) 
+    .INIT(32'hFFFF1FFF)) 
     ctrl_send_accept_w_do_INST_0_i_1
-       (.I0(utmi_txready_i),
-        .I1(state_q_1[1]),
-        .I2(state_q_1[2]),
-        .I3(data_zlp_q_reg_n_0),
-        .I4(state_q_1[0]),
+       (.I0(data_zlp_q_reg_n_0),
+        .I1(state_q_1[0]),
+        .I2(utmi_txready_i),
+        .I3(state_q_1[1]),
+        .I4(state_q_1[2]),
         .O(\inport_data_q_reg[0] ));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT3 #(
     .INIT(8'hA8)) 
     \current_addr_q[6]_i_1 
@@ -9539,21 +9637,21 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
   LUT5 #(
     .INIT(32'h00000800)) 
     data_pid_q_i_2
-       (.I0(\crc_sum_q[14]_i_2_n_0 ),
+       (.I0(\FSM_sequential_state_q[1]_i_3_n_0 ),
         .I1(tx_valid_q),
         .I2(Q),
         .I3(\tx_pid_q_reg[7] [0]),
         .I4(data_pid_q_i_4_n_0),
         .O(data_pid_q4_out));
   LUT6 #(
-    .INIT(64'hEEEFEEEFEFEFEEEF)) 
+    .INIT(64'hEEEFEEEEEFEFEFEF)) 
     data_pid_q_i_3
        (.I0(data_pid_q_i_5_n_0),
         .I1(Q),
         .I2(data_pid_q_i_6_n_0),
-        .I3(state_q_1[0]),
+        .I3(\token_ep_q_reg[2] ),
         .I4(utmi_txready_i),
-        .I5(\token_ep_q_reg[2] ),
+        .I5(state_q_1[0]),
         .O(data_pid_q_i_3_n_0));
   LUT6 #(
     .INIT(64'hFFFFFFFFF99FFFFF)) 
@@ -9573,22 +9671,41 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
         .I2(state_q_1[1]),
         .I3(state_q_1[2]),
         .O(data_pid_q_i_5_n_0));
-  LUT6 #(
-    .INIT(64'hDBFBDBFBFFFFDBFB)) 
+  LUT5 #(
+    .INIT(32'hFFFF0111)) 
     data_pid_q_i_6
+       (.I0(state_q_1[2]),
+        .I1(state_q_1[0]),
+        .I2(utmi_txready_i),
+        .I3(data_zlp_q_reg_n_0),
+        .I4(data_pid_q_i_7_n_0),
+        .O(data_pid_q_i_6_n_0));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFCCFB)) 
+    data_pid_q_i_7
        (.I0(utmi_txready_i),
         .I1(state_q_1[2]),
-        .I2(state_q_1[1]),
-        .I3(data_pid_q_i_7_n_0),
-        .I4(Q),
-        .I5(\state_q_reg[1] ),
-        .O(data_pid_q_i_6_n_0));
+        .I2(state_q_1[0]),
+        .I3(state_q_1[1]),
+        .I4(\state_q_reg[0] ),
+        .I5(data_pid_q_i_8_n_0),
+        .O(data_pid_q_i_7_n_0));
+  LUT6 #(
+    .INIT(64'h202000002020FF00)) 
+    data_pid_q_i_8
+       (.I0(utmi_txready_i),
+        .I1(data_pid_q_reg_n_0),
+        .I2(data_pid_q_i_9_n_0),
+        .I3(\FSM_sequential_state_q_reg[1]_0 ),
+        .I4(state_q_1[1]),
+        .I5(state_q_1[2]),
+        .O(data_pid_q_i_8_n_0));
   LUT2 #(
-    .INIT(4'hE)) 
-    data_pid_q_i_7
+    .INIT(4'h1)) 
+    data_pid_q_i_9
        (.I0(state_q_1[0]),
         .I1(data_zlp_q_reg_n_0),
-        .O(data_pid_q_i_7_n_0));
+        .O(data_pid_q_i_9_n_0));
   FDCE data_pid_q_reg
        (.C(clk_i),
         .CE(1'b1),
@@ -9733,42 +9850,34 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
         .CLR(rst_i),
         .D(data_zlp_q_i_1__0_n_0),
         .Q(data_zlp_q_reg_n_0));
-  LUT6 #(
-    .INIT(64'h3E0E0000FECE0000)) 
-    \state_q[2]_i_13 
-       (.I0(\state_q[2]_i_15_n_0 ),
-        .I1(state_q[0]),
-        .I2(state_q[1]),
-        .I3(\crc_sum_q[14]_i_2_n_0 ),
-        .I4(state_q[2]),
-        .I5(\state_q_reg[1] ),
-        .O(\state_q[2]_i_13_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  LUT4 #(
+    .INIT(16'hAA8A)) 
+    \state_q[0]_i_3 
+       (.I0(Q),
+        .I1(out[1]),
+        .I2(out[2]),
+        .I3(out[0]),
+        .O(\state_q_reg[0] ));
   LUT5 #(
     .INIT(32'h00000B00)) 
     \state_q[2]_i_15 
-       (.I0(\crc_sum_q[14]_i_2_n_0 ),
+       (.I0(\FSM_sequential_state_q[1]_i_3_n_0 ),
         .I1(tx_valid_q),
         .I2(\inport_data_q_reg[0] ),
         .I3(\token_ep_q_reg[2]_0 ),
         .I4(\token_ep_q_reg[2] ),
         .O(\state_q[2]_i_15_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
-  LUT3 #(
-    .INIT(8'h04)) 
-    \state_q[2]_i_3 
-       (.I0(out[0]),
-        .I1(out[2]),
-        .I2(out[1]),
-        .O(\state_q_reg[1] ));
-  LUT5 #(
-    .INIT(32'hABABFFAB)) 
+  LUT6 #(
+    .INIT(64'h3E0E0000FECE0000)) 
     \state_q[2]_i_9 
-       (.I0(\state_q[2]_i_13_n_0 ),
-        .I1(state_q[2]),
-        .I2(valid_q_reg_0),
-        .I3(Q),
-        .I4(\state_q_reg[1] ),
-        .O(\state_q_reg[0] ));
+       (.I0(\state_q[2]_i_15_n_0 ),
+        .I1(state_q[0]),
+        .I2(state_q[1]),
+        .I3(\FSM_sequential_state_q[1]_i_3_n_0 ),
+        .I4(state_q[2]),
+        .I5(\FSM_sequential_state_q_reg[1]_0 ),
+        .O(\state_q_reg[0]_0 ));
   LUT4 #(
     .INIT(16'h01FF)) 
     \tx_pid_q[7]_i_1 
@@ -9786,57 +9895,63 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
         .I3(state_q_1[1]),
         .I4(state_q_1[0]),
         .I5(\utmi_data_out_o[0]_INST_0_i_2_n_0 ),
-        .O(utmi_data_out_o_0_sn_1));
+        .O(utmi_data_out_o[0]));
   LUT6 #(
-    .INIT(64'h2AEA2AEA02C20ECE)) 
+    .INIT(64'h2A2A0232EAEAC2F2)) 
     \utmi_data_out_o[0]_INST_0_i_2 
        (.I0(data_q[0]),
-        .I1(state_q_1[2]),
-        .I2(state_q_1[0]),
-        .I3(p_0_in[0]),
-        .I4(\crc_sum_q_reg_n_0_[0] ),
-        .I5(state_q_1[1]),
+        .I1(state_q_1[0]),
+        .I2(state_q_1[2]),
+        .I3(\crc_sum_q_reg_n_0_[0] ),
+        .I4(state_q_1[1]),
+        .I5(p_0_in[0]),
         .O(\utmi_data_out_o[0]_INST_0_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h8FFFFFFF8F000000)) 
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  LUT1 #(
+    .INIT(2'h1)) 
     \utmi_data_out_o[1]_INST_0 
-       (.I0(state_q_1[2]),
-        .I1(data_q[1]),
-        .I2(\token_ep_q_reg[1] ),
+       (.I0(\utmi_data_out_o[1]_INST_0_i_1_n_0 ),
+        .O(utmi_data_out_o[1]));
+  LUT6 #(
+    .INIT(64'h2AFFFFFF2A000000)) 
+    \utmi_data_out_o[1]_INST_0_i_1 
+       (.I0(\ctrl_txdata_q_reg[1] ),
+        .I1(state_q_1[2]),
+        .I2(data_q[1]),
         .I3(state_q_1[1]),
         .I4(state_q_1[0]),
-        .I5(\utmi_data_out_o[1]_INST_0_i_2_n_0 ),
-        .O(utmi_data_out_o_1_sn_1));
+        .I5(\utmi_data_out_o[1]_INST_0_i_3_n_0 ),
+        .O(\utmi_data_out_o[1]_INST_0_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h55F0F0F0553300F0)) 
-    \utmi_data_out_o[1]_INST_0_i_2 
-       (.I0(p_0_in[1]),
-        .I1(\crc_sum_q_reg_n_0_[1] ),
-        .I2(data_q[1]),
+    .INIT(64'hD5D5FDCD15153D0D)) 
+    \utmi_data_out_o[1]_INST_0_i_3 
+       (.I0(data_q[1]),
+        .I1(state_q_1[0]),
+        .I2(state_q_1[2]),
+        .I3(\crc_sum_q_reg_n_0_[1] ),
+        .I4(state_q_1[1]),
+        .I5(p_0_in[1]),
+        .O(\utmi_data_out_o[1]_INST_0_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'h5515151555555555)) 
+    \utmi_data_out_o[2]_INST_0 
+       (.I0(\utmi_data_out_o[2]_INST_0_i_1_n_0 ),
+        .I1(state_q_1[0]),
+        .I2(state_q_1[1]),
+        .I3(data_q[2]),
+        .I4(state_q_1[2]),
+        .I5(\token_ep_q_reg[1] ),
+        .O(utmi_data_out_o[2]));
+  LUT6 #(
+    .INIT(64'h3077335530443355)) 
+    \utmi_data_out_o[2]_INST_0_i_1 
+       (.I0(data_q[2]),
+        .I1(state_q_1[1]),
+        .I2(p_0_in[2]),
         .I3(state_q_1[0]),
         .I4(state_q_1[2]),
-        .I5(state_q_1[1]),
-        .O(\utmi_data_out_o[1]_INST_0_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hEAFFFFFFEA000000)) 
-    \utmi_data_out_o[2]_INST_0 
-       (.I0(\ctrl_txdata_q_reg[2] ),
-        .I1(state_q_1[2]),
-        .I2(data_q[2]),
-        .I3(state_q_1[1]),
-        .I4(state_q_1[0]),
-        .I5(\utmi_data_out_o[2]_INST_0_i_2_n_0 ),
-        .O(\utmi_data_out_o[2] ));
-  LUT6 #(
-    .INIT(64'h2AEA2AEA02C20ECE)) 
-    \utmi_data_out_o[2]_INST_0_i_2 
-       (.I0(data_q[2]),
-        .I1(state_q_1[2]),
-        .I2(state_q_1[0]),
-        .I3(p_0_in[2]),
-        .I4(\crc_sum_q_reg_n_0_[2] ),
-        .I5(state_q_1[1]),
-        .O(\utmi_data_out_o[2]_INST_0_i_2_n_0 ));
+        .I5(\crc_sum_q_reg_n_0_[2] ),
+        .O(\utmi_data_out_o[2]_INST_0_i_1_n_0 ));
   LUT6 #(
     .INIT(64'hEAFFFFFFEA000000)) 
     \utmi_data_out_o[3]_INST_0 
@@ -9846,7 +9961,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
         .I3(state_q_1[1]),
         .I4(state_q_1[0]),
         .I5(\utmi_data_out_o[3]_INST_0_i_2_n_0 ),
-        .O(\utmi_data_out_o[3] ));
+        .O(utmi_data_out_o[3]));
   LUT6 #(
     .INIT(64'h2AEA2AEA02C20ECE)) 
     \utmi_data_out_o[3]_INST_0_i_2 
@@ -9866,7 +9981,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
         .I3(state_q_1[1]),
         .I4(state_q_1[0]),
         .I5(\utmi_data_out_o[4]_INST_0_i_2_n_0 ),
-        .O(\utmi_data_out_o[4] ));
+        .O(utmi_data_out_o_4_sn_1));
   LUT6 #(
     .INIT(64'h2AEA2AEA02C20ECE)) 
     \utmi_data_out_o[4]_INST_0_i_2 
@@ -9877,21 +9992,21 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
         .I4(\crc_sum_q_reg_n_0_[4] ),
         .I5(state_q_1[1]),
         .O(\utmi_data_out_o[4]_INST_0_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \utmi_data_out_o[5]_INST_0 
        (.I0(\utmi_data_out_o[5]_INST_0_i_1_n_0 ),
-        .O(utmi_data_out_o[0]));
+        .O(utmi_data_out_o[4]));
   LUT6 #(
-    .INIT(64'h5555455554554455)) 
+    .INIT(64'h00000000FFFFCAFF)) 
     \utmi_data_out_o[5]_INST_0_i_1 
-       (.I0(\ctrl_txdata_q_reg[5] ),
-        .I1(state_q_1[1]),
+       (.I0(\crc_sum_q_reg_n_0_[5] ),
+        .I1(p_0_in[5]),
         .I2(state_q_1[0]),
         .I3(state_q_1[2]),
-        .I4(p_0_in[5]),
-        .I5(\crc_sum_q_reg_n_0_[5] ),
+        .I4(state_q_1[1]),
+        .I5(\ctrl_txdata_q_reg[5] ),
         .O(\utmi_data_out_o[5]_INST_0_i_1_n_0 ));
   LUT3 #(
     .INIT(8'hBF)) 
@@ -9909,7 +10024,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
         .I3(state_q_1[1]),
         .I4(state_q_1[0]),
         .I5(\utmi_data_out_o[6]_INST_0_i_2_n_0 ),
-        .O(utmi_data_out_o[1]));
+        .O(utmi_data_out_o[5]));
   LUT6 #(
     .INIT(64'h2AEA2AEA02C20ECE)) 
     \utmi_data_out_o[6]_INST_0_i_2 
@@ -9929,7 +10044,7 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
         .I3(state_q_1[1]),
         .I4(state_q_1[0]),
         .I5(\utmi_data_out_o[7]_INST_0_i_2_n_0 ),
-        .O(\utmi_data_out_o[7] ));
+        .O(utmi_data_out_o[6]));
   LUT6 #(
     .INIT(64'h2AEA2AEA02C20ECE)) 
     \utmi_data_out_o[7]_INST_0_i_2 
@@ -9948,15 +10063,15 @@ module davisZynqBasicBoard_usb_cdc_core_0_0_usbf_sie_tx
         .I2(state_q_1[1]),
         .I3(\token_ep_q_reg[3] [0]),
         .I4(\token_ep_q_reg[3] [1]),
-        .O(\crc_sum_q_reg[10]_0 ));
+        .O(\crc_sum_q_reg[8]_0 ));
   LUT5 #(
-    .INIT(32'hF3BBF3F0)) 
+    .INIT(32'hFBFF08FC)) 
     utmi_txvalid_o_INST_0
        (.I0(\token_ep_q_reg[2]_0 ),
-        .I1(state_q_1[1]),
-        .I2(valid_q_reg_n_0),
-        .I3(state_q_1[2]),
-        .I4(state_q_1[0]),
+        .I1(state_q_1[0]),
+        .I2(state_q_1[2]),
+        .I3(state_q_1[1]),
+        .I4(valid_q_reg_n_0),
         .O(utmi_txvalid_o));
   LUT5 #(
     .INIT(32'h00000100)) 

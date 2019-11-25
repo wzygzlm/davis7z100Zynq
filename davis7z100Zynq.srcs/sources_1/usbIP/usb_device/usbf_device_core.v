@@ -1012,5 +1012,6 @@ end
 /* verilator lint_on WIDTH */
 `endif
 
+assign current_addr_i_do = current_addr_q;
 
 endmodule

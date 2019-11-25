@@ -105,10 +105,11 @@ module davisZynqBasicBoard_system_ila_0_0 (
   probe47,
   probe48,
   probe49,
-  probe50
+  probe50,
+  probe51
 );
 
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.clk, FREQ_HZ 5.9994e+07, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.clk, FREQ_HZ 59993996, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.clk CLK" *)
 input wire clk;
 input wire [0 : 0] probe0;
@@ -162,6 +163,7 @@ input wire [7 : 0] probe47;
 input wire [0 : 0] probe48;
 input wire [0 : 0] probe49;
 input wire [63 : 0] probe50;
+input wire [6 : 0] probe51;
 
   bd_cac4 inst (
     .clk(clk),
@@ -215,6 +217,7 @@ input wire [63 : 0] probe50;
     .probe47(probe47),
     .probe48(probe48),
     .probe49(probe49),
-    .probe50(probe50)
+    .probe50(probe50),
+    .probe51(probe51)
   );
 endmodule

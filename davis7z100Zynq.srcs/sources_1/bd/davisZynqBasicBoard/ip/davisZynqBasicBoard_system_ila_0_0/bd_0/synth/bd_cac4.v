@@ -56,11 +56,12 @@ module bd_cac4
     probe49,
     probe5,
     probe50,
+    probe51,
     probe6,
     probe7,
     probe8,
     probe9);
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.CLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.CLK, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, FREQ_HZ 5.9994e+07, PHASE 0.000" *) input clk;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.CLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.CLK, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, FREQ_HZ 59993996, PHASE 0.000" *) input clk;
   input [0:0]probe0;
   input [0:0]probe1;
   input [31:0]probe10;
@@ -108,6 +109,7 @@ module bd_cac4
   input [0:0]probe49;
   input [0:0]probe5;
   input [63:0]probe50;
+  input [6:0]probe51;
   input [0:0]probe6;
   input [0:0]probe7;
   input [7:0]probe8;
@@ -160,6 +162,7 @@ module bd_cac4
   wire [0:0]probe49_1;
   wire [7:0]probe4_1;
   wire [63:0]probe50_1;
+  wire [6:0]probe51_1;
   wire [0:0]probe5_1;
   wire [0:0]probe6_1;
   wire [0:0]probe7_1;
@@ -213,6 +216,7 @@ module bd_cac4
   assign probe49_1 = probe49[0];
   assign probe4_1 = probe4[7:0];
   assign probe50_1 = probe50[63:0];
+  assign probe51_1 = probe51[6:0];
   assign probe5_1 = probe5[0];
   assign probe6_1 = probe6[0];
   assign probe7_1 = probe7[0];
@@ -267,6 +271,7 @@ module bd_cac4
         .probe49(probe49_1),
         .probe5(probe5_1),
         .probe50(probe50_1),
+        .probe51(probe51_1),
         .probe6(probe6_1),
         .probe7(probe7_1),
         .probe8(probe8_1),

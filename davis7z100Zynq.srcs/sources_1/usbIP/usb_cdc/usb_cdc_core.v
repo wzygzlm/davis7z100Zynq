@@ -63,7 +63,7 @@ module usb_cdc_core
 //    ,output          rx_active_w_do
 //    ,output [  6:0]  token_dev_q_do
 //    ,output [  3:0]  token_ep_q_do
-//    ,output [  6:0]  current_addr_i_do
+    ,output [  6:0]  current_addr_i_do
     ,output          ctrl_sending_r_do
     ,output          ctrl_send_accept_w_do
     ,output [  6:0]  desc_addr_q_do
@@ -639,7 +639,7 @@ u_core
     .ep3_tx_data_i(ep3_tx_data_w),
     .ep3_tx_data_last_i(ep3_tx_data_last_w),
     .ep3_tx_data_accept_o(ep3_tx_data_accept_w),
-
+    
     // Status
     .reg_sts_rst_clr_i(1'b1),
     .reg_sts_rst_o(usb_reset_w),
@@ -1133,5 +1133,6 @@ assign rx_last_w_do            = rx_last_w;
 assign bmRequestType_w_do      = bmRequestType_w;
 assign bRequest_w_do           = bRequest_w;
 
-assign usb_reset_w_do         = usb_reset_w;
+assign usb_reset_w_do          = usb_reset_w;
+assign current_addr_i_do       = device_addr_q;
 endmodule

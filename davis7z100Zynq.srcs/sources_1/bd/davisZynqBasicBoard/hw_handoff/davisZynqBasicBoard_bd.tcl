@@ -987,10 +987,10 @@ proc create_root_design { parentCell } {
   # Create instance: system_ila_0, and set properties
   set system_ila_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:system_ila:1.1 system_ila_0 ]
   set_property -dict [ list \
-   CONFIG.C_BRAM_CNT {45.5} \
+   CONFIG.C_BRAM_CNT {46.5} \
    CONFIG.C_DATA_DEPTH {32768} \
    CONFIG.C_MON_TYPE {NATIVE} \
-   CONFIG.C_NUM_OF_PROBES {51} \
+   CONFIG.C_NUM_OF_PROBES {52} \
    CONFIG.C_PROBE0_TYPE {0} \
    CONFIG.C_PROBE10_TYPE {0} \
    CONFIG.C_PROBE11_TYPE {0} \
@@ -1197,6 +1197,10 @@ HDL_ATTRIBUTE.DEBUG {true} \
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets ctrl_sending_r_do]
+  connect_bd_net -net current_addr_i_do [get_bd_pins system_ila_0/probe51] [get_bd_pins usb_cdc_core_0/current_addr_i_do]
+  set_property -dict [ list \
+HDL_ATTRIBUTE.DEBUG {true} \
+ ] [get_bd_nets current_addr_i_do]
   connect_bd_net -net debug_counter_q_do [get_bd_pins system_ila_0/probe50] [get_bd_pins usb_cdc_core_0/debug_counter_q_do]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \

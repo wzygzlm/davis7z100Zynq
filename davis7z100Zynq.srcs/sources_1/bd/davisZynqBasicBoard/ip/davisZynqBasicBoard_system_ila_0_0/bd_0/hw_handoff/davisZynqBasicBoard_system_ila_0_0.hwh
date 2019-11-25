@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sat Nov 23 14:50:57 2019" VIVADOVERSION="2018.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sun Nov 24 21:00:45 2019" VIVADOVERSION="2018.1">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z100" NAME="bd_cac4" PACKAGE="ffg900" SPEEDGRADE="-1"/>
 
   <EXTERNALPORTS>
-    <PORT CLKFREQUENCY="5.9994e+07" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk">
+    <PORT CLKFREQUENCY="59993996" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk">
       <CONNECTIONS>
         <CONNECTION INSTANCE="ila_lib" PORT="clk"/>
       </CONNECTIONS>
@@ -264,6 +264,11 @@
         <CONNECTION INSTANCE="ila_lib" PORT="probe50"/>
       </CONNECTIONS>
     </PORT>
+    <PORT DIR="I" LEFT="6" NAME="probe51" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_probe51">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="ila_lib" PORT="probe51"/>
+      </CONNECTIONS>
+    </PORT>
   </EXTERNALPORTS>
 
   <EXTERNALINTERFACES/>
@@ -289,7 +294,7 @@
         <PARAMETER NAME="C_SLOT_0_AXI_PROTOCOL" VALUE="AXI4"/>
         <PARAMETER NAME="C_NUM_MONITOR_SLOTS" VALUE="1"/>
         <PARAMETER NAME="C_ENABLE_ILA_AXI_MON" VALUE="0"/>
-        <PARAMETER NAME="C_NUM_OF_PROBES" VALUE="51"/>
+        <PARAMETER NAME="C_NUM_OF_PROBES" VALUE="52"/>
         <PARAMETER NAME="C_DATA_DEPTH" VALUE="32768"/>
         <PARAMETER NAME="C_MAJOR_VERSION" VALUE="2018"/>
         <PARAMETER NAME="C_MINOR_VERSION" VALUE="1"/>
@@ -364,7 +369,7 @@
         <PARAMETER NAME="C_PROBE48_WIDTH" VALUE="1"/>
         <PARAMETER NAME="C_PROBE49_WIDTH" VALUE="1"/>
         <PARAMETER NAME="C_PROBE50_WIDTH" VALUE="64"/>
-        <PARAMETER NAME="C_PROBE51_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_PROBE51_WIDTH" VALUE="7"/>
         <PARAMETER NAME="C_PROBE52_WIDTH" VALUE="1"/>
         <PARAMETER NAME="C_PROBE53_WIDTH" VALUE="1"/>
         <PARAMETER NAME="C_PROBE54_WIDTH" VALUE="1"/>
@@ -3409,7 +3414,7 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT CLKFREQUENCY="5.9994e+07" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk">
+        <PORT CLKFREQUENCY="59993996" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="clk"/>
           </CONNECTIONS>
@@ -3667,6 +3672,11 @@
         <PORT DIR="I" LEFT="63" NAME="probe50" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_probe50">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="probe50"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="6" NAME="probe51" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_probe51">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="probe51"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
