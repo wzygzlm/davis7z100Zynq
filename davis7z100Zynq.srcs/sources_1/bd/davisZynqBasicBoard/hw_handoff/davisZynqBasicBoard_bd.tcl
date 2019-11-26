@@ -987,10 +987,10 @@ proc create_root_design { parentCell } {
   # Create instance: system_ila_0, and set properties
   set system_ila_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:system_ila:1.1 system_ila_0 ]
   set_property -dict [ list \
-   CONFIG.C_BRAM_CNT {46.5} \
+   CONFIG.C_BRAM_CNT {51} \
    CONFIG.C_DATA_DEPTH {32768} \
    CONFIG.C_MON_TYPE {NATIVE} \
-   CONFIG.C_NUM_OF_PROBES {52} \
+   CONFIG.C_NUM_OF_PROBES {57} \
    CONFIG.C_PROBE0_TYPE {0} \
    CONFIG.C_PROBE10_TYPE {0} \
    CONFIG.C_PROBE11_TYPE {0} \
@@ -1197,10 +1197,14 @@ HDL_ATTRIBUTE.DEBUG {true} \
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets ctrl_sending_r_do]
-  connect_bd_net -net current_addr_i_do [get_bd_pins system_ila_0/probe51] [get_bd_pins usb_cdc_core_0/current_addr_i_do]
+  connect_bd_net -net current_addr_i_do [get_bd_pins system_ila_0/probe53] [get_bd_pins usb_cdc_core_0/current_addr_i_do]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets current_addr_i_do]
+  connect_bd_net -net current_token_debug_counter_q_do [get_bd_pins system_ila_0/probe55] [get_bd_pins usb_cdc_core_0/current_token_debug_counter_q_do]
+  set_property -dict [ list \
+HDL_ATTRIBUTE.DEBUG {true} \
+ ] [get_bd_nets current_token_debug_counter_q_do]
   connect_bd_net -net debug_counter_q_do [get_bd_pins system_ila_0/probe50] [get_bd_pins usb_cdc_core_0/debug_counter_q_do]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
@@ -1272,6 +1276,18 @@ HDL_ATTRIBUTE.DEBUG {true} \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets termselect_o]
   connect_bd_net -net termselect_o_1 [get_bd_pins ulpi_wrapper_1/termselect_o]
+  connect_bd_net -net token_dev_w_do [get_bd_pins system_ila_0/probe56] [get_bd_pins usb_cdc_core_0/token_dev_w_do]
+  set_property -dict [ list \
+HDL_ATTRIBUTE.DEBUG {true} \
+ ] [get_bd_nets token_dev_w_do]
+  connect_bd_net -net token_valid_counter_q_do [get_bd_pins system_ila_0/probe54] [get_bd_pins usb_cdc_core_0/token_valid_counter_q_do]
+  set_property -dict [ list \
+HDL_ATTRIBUTE.DEBUG {true} \
+ ] [get_bd_nets token_valid_counter_q_do]
+  connect_bd_net -net token_valid_w_do [get_bd_pins system_ila_0/probe51] [get_bd_pins usb_cdc_core_0/token_valid_w_do]
+  set_property -dict [ list \
+HDL_ATTRIBUTE.DEBUG {true} \
+ ] [get_bd_nets token_valid_w_do]
   connect_bd_net -net turnaround_d [get_bd_pins system_ila_0/probe38] [get_bd_pins ulpi_wrapper_0/turnaround_d]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
@@ -1404,6 +1420,10 @@ HDL_ATTRIBUTE.DEBUG {true} \
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \
  ] [get_bd_nets utmi_xcvrselect_o]
+  connect_bd_net -net wValue_w_do [get_bd_pins system_ila_0/probe52] [get_bd_pins usb_cdc_core_0/wValue_w_do]
+  set_property -dict [ list \
+HDL_ATTRIBUTE.DEBUG {true} \
+ ] [get_bd_nets wValue_w_do]
   connect_bd_net -net xcvrselect_o [get_bd_pins system_ila_0/probe17] [get_bd_pins ulpi_wrapper_0/xcvrselect_o]
   set_property -dict [ list \
 HDL_ATTRIBUTE.DEBUG {true} \

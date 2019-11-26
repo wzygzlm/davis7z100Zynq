@@ -897,7 +897,7 @@
           <spirit:configurableElementValue spirit:referenceId="C_PROBE5_TYPE">0</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="C_PROBE0_TYPE">0</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="C_DATA_DEPTH">32768</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="C_NUM_OF_PROBES">52</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="C_NUM_OF_PROBES">57</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="C_MON_TYPE">NATIVE</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
@@ -1775,9 +1775,70 @@
         <spirit:internalPortReference spirit:componentRef="usb_cdc_core_0" spirit:portRef="rst_i"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
+        <spirit:name>token_valid_w_do</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="usb_cdc_core_0" spirit:portRef="token_valid_w_do"/>
+        <spirit:internalPortReference spirit:componentRef="system_ila_0" spirit:portRef="probe51"/>
+        <bd:hdl_attributes>
+          <bd:hdl_attribute bd:name="DEBUG" bd:value="true"/>
+          <bd:hdl_attribute bd:name="MARK_DEBUG" bd:value="true"/>
+        </bd:hdl_attributes>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>wValue_w_do</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="usb_cdc_core_0" spirit:portRef="wValue_w_do"/>
+        <spirit:internalPortReference spirit:componentRef="system_ila_0" spirit:portRef="probe52"/>
+        <bd:hdl_attributes>
+          <bd:hdl_attribute bd:name="DEBUG" bd:value="true"/>
+          <bd:hdl_attribute bd:name="MARK_DEBUG" bd:value="true"/>
+        </bd:hdl_attributes>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>reg_dev_addr_i_do</spirit:name>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>reg_dev_addr_i_do_1</spirit:name>
+        <bd:hdl_attributes>
+          <bd:hdl_attribute bd:name="DEBUG" bd:value="true"/>
+          <bd:hdl_attribute bd:name="MARK_DEBUG" bd:value="true"/>
+        </bd:hdl_attributes>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>token_ep_w_do</spirit:name>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
         <spirit:name>current_addr_i_do</spirit:name>
         <spirit:internalPortReference spirit:componentRef="usb_cdc_core_0" spirit:portRef="current_addr_i_do"/>
-        <spirit:internalPortReference spirit:componentRef="system_ila_0" spirit:portRef="probe51"/>
+        <spirit:internalPortReference spirit:componentRef="system_ila_0" spirit:portRef="probe53"/>
+        <bd:hdl_attributes>
+          <bd:hdl_attribute bd:name="DEBUG" bd:value="true"/>
+          <bd:hdl_attribute bd:name="MARK_DEBUG" bd:value="true"/>
+        </bd:hdl_attributes>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>last_token_debug_counter_q_do</spirit:name>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>token_valid_counter_q_do</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="usb_cdc_core_0" spirit:portRef="token_valid_counter_q_do"/>
+        <spirit:internalPortReference spirit:componentRef="system_ila_0" spirit:portRef="probe54"/>
+        <bd:hdl_attributes>
+          <bd:hdl_attribute bd:name="DEBUG" bd:value="true"/>
+          <bd:hdl_attribute bd:name="MARK_DEBUG" bd:value="true"/>
+        </bd:hdl_attributes>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>current_token_debug_counter_q_do</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="usb_cdc_core_0" spirit:portRef="current_token_debug_counter_q_do"/>
+        <spirit:internalPortReference spirit:componentRef="system_ila_0" spirit:portRef="probe55"/>
+        <bd:hdl_attributes>
+          <bd:hdl_attribute bd:name="DEBUG" bd:value="true"/>
+          <bd:hdl_attribute bd:name="MARK_DEBUG" bd:value="true"/>
+        </bd:hdl_attributes>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>token_dev_w_do</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="usb_cdc_core_0" spirit:portRef="token_dev_w_do"/>
+        <spirit:internalPortReference spirit:componentRef="system_ila_0" spirit:portRef="probe56"/>
         <bd:hdl_attributes>
           <bd:hdl_attribute bd:name="DEBUG" bd:value="true"/>
           <bd:hdl_attribute bd:name="MARK_DEBUG" bd:value="true"/>

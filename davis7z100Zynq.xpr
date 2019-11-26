@@ -129,17 +129,17 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_ulpi_wrapper_1_0/davisZynqBasicBoard_ulpi_wrapper_1_0.xci">
-          <Proxy FileSetName="davisZynqBasicBoard_ulpi_wrapper_1_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_ulpi_wrapper_0_0/davisZynqBasicBoard_ulpi_wrapper_0_0.xci">
-          <Proxy FileSetName="davisZynqBasicBoard_ulpi_wrapper_0_0"/>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_usb_cdc_core_0_0/davisZynqBasicBoard_usb_cdc_core_0_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_usb_cdc_core_0_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_system_ila_0_0/davisZynqBasicBoard_system_ila_0_0.xci">
           <Proxy FileSetName="davisZynqBasicBoard_system_ila_0_0"/>
         </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_usb_cdc_core_0_0/davisZynqBasicBoard_usb_cdc_core_0_0.xci">
-          <Proxy FileSetName="davisZynqBasicBoard_usb_cdc_core_0_0"/>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_ulpi_wrapper_0_0/davisZynqBasicBoard_ulpi_wrapper_0_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_ulpi_wrapper_0_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_ulpi_wrapper_1_0/davisZynqBasicBoard_ulpi_wrapper_1_0.xci">
+          <Proxy FileSetName="davisZynqBasicBoard_ulpi_wrapper_1_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="davisZynqBasicBoard.bd" FileRelPathName="ip/davisZynqBasicBoard_LEDShifter_0_0/davisZynqBasicBoard_LEDShifter_0_0.xci">
           <Proxy FileSetName="davisZynqBasicBoard_LEDShifter_0_0"/>

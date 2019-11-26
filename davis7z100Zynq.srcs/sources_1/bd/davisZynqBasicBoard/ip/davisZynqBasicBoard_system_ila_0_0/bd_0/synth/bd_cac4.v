@@ -57,6 +57,11 @@ module bd_cac4
     probe5,
     probe50,
     probe51,
+    probe52,
+    probe53,
+    probe54,
+    probe55,
+    probe56,
     probe6,
     probe7,
     probe8,
@@ -109,7 +114,12 @@ module bd_cac4
   input [0:0]probe49;
   input [0:0]probe5;
   input [63:0]probe50;
-  input [6:0]probe51;
+  input [0:0]probe51;
+  input [15:0]probe52;
+  input [6:0]probe53;
+  input [7:0]probe54;
+  input [63:0]probe55;
+  input [6:0]probe56;
   input [0:0]probe6;
   input [0:0]probe7;
   input [7:0]probe8;
@@ -162,7 +172,12 @@ module bd_cac4
   wire [0:0]probe49_1;
   wire [7:0]probe4_1;
   wire [63:0]probe50_1;
-  wire [6:0]probe51_1;
+  wire [0:0]probe51_1;
+  wire [15:0]probe52_1;
+  wire [6:0]probe53_1;
+  wire [7:0]probe54_1;
+  wire [63:0]probe55_1;
+  wire [6:0]probe56_1;
   wire [0:0]probe5_1;
   wire [0:0]probe6_1;
   wire [0:0]probe7_1;
@@ -216,7 +231,12 @@ module bd_cac4
   assign probe49_1 = probe49[0];
   assign probe4_1 = probe4[7:0];
   assign probe50_1 = probe50[63:0];
-  assign probe51_1 = probe51[6:0];
+  assign probe51_1 = probe51[0];
+  assign probe52_1 = probe52[15:0];
+  assign probe53_1 = probe53[6:0];
+  assign probe54_1 = probe54[7:0];
+  assign probe55_1 = probe55[63:0];
+  assign probe56_1 = probe56[6:0];
   assign probe5_1 = probe5[0];
   assign probe6_1 = probe6[0];
   assign probe7_1 = probe7[0];
@@ -272,6 +292,11 @@ module bd_cac4
         .probe5(probe5_1),
         .probe50(probe50_1),
         .probe51(probe51_1),
+        .probe52(probe52_1),
+        .probe53(probe53_1),
+        .probe54(probe54_1),
+        .probe55(probe55_1),
+        .probe56(probe56_1),
         .probe6(probe6_1),
         .probe7(probe7_1),
         .probe8(probe8_1),

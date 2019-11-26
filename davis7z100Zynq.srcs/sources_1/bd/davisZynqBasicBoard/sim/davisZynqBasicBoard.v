@@ -1,7 +1,7 @@
 //Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2018.1 (win64) Build 2188600 Wed Apr  4 18:40:38 MDT 2018
-//Date        : Sun Nov 24 21:00:42 2019
+//Date        : Tue Nov 26 17:46:50 2019
 //Host        : DESKTOP-3TNSMFC running 64-bit major release  (build 9200)
 //Command     : generate_target davisZynqBasicBoard.bd
 //Design      : davisZynqBasicBoard
@@ -89,6 +89,7 @@ module davisZynqBasicBoard
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire ctrl_send_accept_w_do;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire ctrl_sending_r_do;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [6:0]current_addr_i_do;
+  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [63:0]current_token_debug_counter_q_do;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [63:0]debug_counter_q_do;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [6:0]desc_addr_q_do;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire mode_complete_o;
@@ -191,6 +192,9 @@ module davisZynqBasicBoard
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [2:0]state_r_do;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire termselect_o;
   wire termselect_o_1;
+  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [6:0]token_dev_w_do;
+  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [7:0]token_valid_counter_q_do;
+  (* DEBUG = "true" *) (* MARK_DEBUG *) wire token_valid_w_do;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire turnaround_d;
   wire turnaround_d_1;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire tx_delay_complete_o;
@@ -236,6 +240,7 @@ module davisZynqBasicBoard
   wire utmi_txready_o;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire utmi_txvalid_o;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [1:0]utmi_xcvrselect_o;
+  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [15:0]wValue_w_do;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [1:0]xcvrselect_o;
   wire [1:0]xcvrselect_o_1;
   wire [11:0]xlconcat_0_dout;
@@ -510,7 +515,12 @@ module davisZynqBasicBoard
         .probe49(rx_last_w_do),
         .probe5(ulpi_wrapper_0_ulpi_stp_o),
         .probe50(debug_counter_q_do),
-        .probe51(current_addr_i_do),
+        .probe51(token_valid_w_do),
+        .probe52(wValue_w_do),
+        .probe53(current_addr_i_do),
+        .probe54(token_valid_counter_q_do),
+        .probe55(current_token_debug_counter_q_do),
+        .probe56(token_dev_w_do),
         .probe6(ulpi_dir_i_0_1),
         .probe7(termselect_o),
         .probe8(ulpi_wrapper_0_utmi_data_in_o),
@@ -594,6 +604,7 @@ module davisZynqBasicBoard
         .ctrl_send_accept_w_do(ctrl_send_accept_w_do),
         .ctrl_sending_r_do(ctrl_sending_r_do),
         .current_addr_i_do(current_addr_i_do),
+        .current_token_debug_counter_q_do(current_token_debug_counter_q_do),
         .debug_counter_q_do(debug_counter_q_do),
         .desc_addr_q_do(desc_addr_q_do),
         .enable_i(const_HIGH_dout),
@@ -608,6 +619,9 @@ module davisZynqBasicBoard
         .setup_frame_q_do(setup_frame_q_do),
         .setup_valid_q_do(setup_valid_q_do),
         .state_r_do(state_r_do),
+        .token_dev_w_do(token_dev_w_do),
+        .token_valid_counter_q_do(token_valid_counter_q_do),
+        .token_valid_w_do(token_valid_w_do),
         .usb_reset_counter_q_do(usb_reset_counter_q_do),
         .usb_reset_w_do(usb_reset_w_do),
         .usb_rst_time_do(usb_rst_time_do),
@@ -623,7 +637,8 @@ module davisZynqBasicBoard
         .utmi_termselect_o(utmi_termselect_o),
         .utmi_txready_i(ulpi_wrapper_0_utmi_txready_o),
         .utmi_txvalid_o(utmi_txvalid_o),
-        .utmi_xcvrselect_o(utmi_xcvrselect_o));
+        .utmi_xcvrselect_o(utmi_xcvrselect_o),
+        .wValue_w_do(wValue_w_do));
   davisZynqBasicBoard_xlconcat_0_0 xlconcat_0
        (.In0(state_o),
         .In1(state_r_do),

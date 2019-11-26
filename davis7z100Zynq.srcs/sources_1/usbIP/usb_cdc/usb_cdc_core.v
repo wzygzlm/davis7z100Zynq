@@ -61,9 +61,11 @@ module usb_cdc_core
 //    ,output          data_ready_w_do
 //    ,output          crc_byte_w_do
 //    ,output          rx_active_w_do
-//    ,output [  6:0]  token_dev_q_do
-//    ,output [  3:0]  token_ep_q_do
+    ,output          token_valid_w_do
+    ,output [  6:0]  token_dev_w_do
+//    ,output [  3:0]  token_ep_w_do
     ,output [  6:0]  current_addr_i_do
+//    ,output [  6:0]  reg_dev_addr_i_do
     ,output          ctrl_sending_r_do
     ,output          ctrl_send_accept_w_do
     ,output [  6:0]  desc_addr_q_do
@@ -72,10 +74,13 @@ module usb_cdc_core
     ,output          rx_last_w_do
     ,output [  7:0]  bmRequestType_w_do
     ,output [  7:0]  bRequest_w_do
+    ,output [ 15:0]  wValue_w_do
     ,output          usb_reset_w_do
     ,output [  7:0]  usb_reset_counter_q_do
     ,output [ 63:0]  debug_counter_q_do
-    
+    ,output [ 63:0]  current_token_debug_counter_q_do
+    ,output [ 7:0]   token_valid_counter_q_do
+
     // Outputs
     ,output [  7:0]  utmi_data_out_o
     ,output          utmi_txvalid_o
@@ -322,10 +327,6 @@ reg [1:0]            last_linestate_q;
 // Debug
 assign state_r_do   = state_q;
 assign usb_rst_time_do = usb_rst_time_q;
-reg [7:0]          usb_reset_counter_q;          
-assign usb_reset_counter_q_do = usb_reset_counter_q;
-reg [63:0]         debug_counter_q;
-assign debug_counter_q_do = debug_counter_q;
 
 localparam DETACH_TIME    = 20'd60000;  // 1ms -> T0
 localparam ATTACH_FS_TIME = 20'd180000; // T0 + 3ms = T1
@@ -437,19 +438,6 @@ if (rst_i)
 else
     state_q   <= next_state_r;
 
-// Update the continous counter for debugging
-always @ (posedge clk_i or posedge rst_i)
-if (rst_i)
-    debug_counter_q   <= 0;
-else
-    debug_counter_q   <= debug_counter_q + 1;
-    
-// Update reset counter
-always @ (posedge rst_i or posedge usb_reset_w)
-if (rst_i)
-    usb_reset_counter_q   <= 0;
-else if (usb_reset_w)
-    usb_reset_counter_q   <= usb_reset_counter_q + 1;
 
 // Time since T0 (start of HS reset)
 always @ (posedge clk_i or posedge rst_i)
@@ -639,6 +627,13 @@ u_core
     .ep3_tx_data_i(ep3_tx_data_w),
     .ep3_tx_data_last_i(ep3_tx_data_last_w),
     .ep3_tx_data_accept_o(ep3_tx_data_accept_w),
+    
+    // Debug
+    .token_valid_w_do(token_valid_w_do),
+    .token_dev_w_do(token_dev_w_do),
+    .token_ep_w_do(token_ep_w_do),
+    .current_addr_i_do(current_addr_i_do),
+    .reg_dev_addr_i_do(reg_dev_addr_i_do), 
     
     // Status
     .reg_sts_rst_clr_i(1'b1),
@@ -1132,7 +1127,49 @@ assign rx_last_w_do            = rx_last_w;
 
 assign bmRequestType_w_do      = bmRequestType_w;
 assign bRequest_w_do           = bRequest_w;
+assign wValue_w_do             = wValue_w; 
 
 assign usb_reset_w_do          = usb_reset_w;
-assign current_addr_i_do       = device_addr_q;
+
+// debug counter
+reg [63:0]         debug_counter_q;
+assign debug_counter_q_do = debug_counter_q;
+
+// Update the continous counter for debugging
+always @ (posedge clk_i or posedge rst_i)
+if (rst_i)
+    debug_counter_q   <= 0;
+else
+    debug_counter_q   <= debug_counter_q + 1;
+
+reg [7:0]          usb_reset_counter_q;          
+assign usb_reset_counter_q_do = usb_reset_counter_q;
+    
+// Update reset counter
+always @ (posedge rst_i or posedge usb_reset_w)
+if (rst_i)
+    usb_reset_counter_q   <= 0;
+else if (usb_reset_w)
+    usb_reset_counter_q   <= usb_reset_counter_q + 1;
+    
+// Update token_valid counter
+reg [7:0] token_valid_counter_q;
+reg [63:0] current_token_debug_counter_q;
+reg [63:0] last_token_debug_counter_q;
+always @ (posedge rst_i or posedge token_valid_w_do)
+if (rst_i)
+begin
+    token_valid_counter_q   <= 0;
+    current_token_debug_counter_q <= 0;
+    last_token_debug_counter_q <= 0;
+end
+else if (token_valid_w_do)
+begin
+    token_valid_counter_q   <= token_valid_counter_q + 1;
+    current_token_debug_counter_q <= debug_counter_q;
+    last_token_debug_counter_q <= current_token_debug_counter_q;
+end
+assign current_token_debug_counter_q_do = current_token_debug_counter_q;
+assign token_valid_counter_q_do = token_valid_counter_q;
+
 endmodule

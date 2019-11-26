@@ -87,6 +87,13 @@ module usbf_device_core
     ,input           reg_int_en_sof_i
     ,input           reg_sts_rst_clr_i
     ,input  [  6:0]  reg_dev_addr_i
+    
+    // Debug
+    ,output          token_valid_w_do
+    ,output  [ 6:0]  token_dev_w_do
+    ,output  [ 3:0]  token_ep_w_do
+    ,output [  6:0]  current_addr_i_do
+    ,output [  6:0]  reg_dev_addr_i_do
 
     // Outputs
     ,output          intr_o
@@ -1012,6 +1019,11 @@ end
 /* verilator lint_on WIDTH */
 `endif
 
-assign current_addr_i_do = current_addr_q;
+assign current_addr_i_do       = current_addr_q;
+assign reg_dev_addr_i_do       = reg_dev_addr_i;
+
+assign token_valid_w_do        = token_valid_w;
+assign token_dev_w_do          = token_dev_w;
+assign token_ep_w_do           = token_ep_w;
 
 endmodule
