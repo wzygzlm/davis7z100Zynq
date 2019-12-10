@@ -1,7 +1,7 @@
 //Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2018.1 (win64) Build 2188600 Wed Apr  4 18:40:38 MDT 2018
-//Date        : Tue Nov 26 17:46:50 2019
+//Date        : Tue Dec 10 11:58:21 2019
 //Host        : DESKTOP-3TNSMFC running 64-bit major release  (build 9200)
 //Command     : generate_target davisZynqBasicBoard_wrapper.bd
 //Design      : davisZynqBasicBoard_wrapper
@@ -32,6 +32,7 @@ module davisZynqBasicBoard_wrapper
     FIXED_IO_ps_porb,
     FIXED_IO_ps_srstb,
     led_0,
+    ulpi_clk60_i_0,
     ulpi_data_io_0,
     ulpi_data_io_1,
     ulpi_dir_i_0,
@@ -39,7 +40,6 @@ module davisZynqBasicBoard_wrapper
     ulpi_nxt_i_0,
     ulpi_nxt_i_1,
     ulpi_rst_o_0,
-    ulpi_rst_o_1,
     ulpi_stp_o_0,
     ulpi_stp_o_1);
   inout [14:0]DDR_addr;
@@ -64,6 +64,7 @@ module davisZynqBasicBoard_wrapper
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
   output [5:0]led_0;
+  input ulpi_clk60_i_0;
   inout [7:0]ulpi_data_io_0;
   inout [7:0]ulpi_data_io_1;
   input ulpi_dir_i_0;
@@ -71,7 +72,6 @@ module davisZynqBasicBoard_wrapper
   input ulpi_nxt_i_0;
   input ulpi_nxt_i_1;
   output [0:0]ulpi_rst_o_0;
-  output [0:0]ulpi_rst_o_1;
   output ulpi_stp_o_0;
   output ulpi_stp_o_1;
 
@@ -97,6 +97,7 @@ module davisZynqBasicBoard_wrapper
   wire FIXED_IO_ps_porb;
   wire FIXED_IO_ps_srstb;
   wire [5:0]led_0;
+  wire ulpi_clk60_i_0;
   wire [7:0]ulpi_data_io_0;
   wire [7:0]ulpi_data_io_1;
   wire ulpi_dir_i_0;
@@ -104,7 +105,6 @@ module davisZynqBasicBoard_wrapper
   wire ulpi_nxt_i_0;
   wire ulpi_nxt_i_1;
   wire [0:0]ulpi_rst_o_0;
-  wire [0:0]ulpi_rst_o_1;
   wire ulpi_stp_o_0;
   wire ulpi_stp_o_1;
 
@@ -131,6 +131,7 @@ module davisZynqBasicBoard_wrapper
         .FIXED_IO_ps_porb(FIXED_IO_ps_porb),
         .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb),
         .led_0(led_0),
+        .ulpi_clk60_i_0(ulpi_clk60_i_0),
         .ulpi_data_io_0(ulpi_data_io_0),
         .ulpi_data_io_1(ulpi_data_io_1),
         .ulpi_dir_i_0(ulpi_dir_i_0),
@@ -138,7 +139,6 @@ module davisZynqBasicBoard_wrapper
         .ulpi_nxt_i_0(ulpi_nxt_i_0),
         .ulpi_nxt_i_1(ulpi_nxt_i_1),
         .ulpi_rst_o_0(ulpi_rst_o_0),
-        .ulpi_rst_o_1(ulpi_rst_o_1),
         .ulpi_stp_o_0(ulpi_stp_o_0),
         .ulpi_stp_o_1(ulpi_stp_o_1));
 endmodule

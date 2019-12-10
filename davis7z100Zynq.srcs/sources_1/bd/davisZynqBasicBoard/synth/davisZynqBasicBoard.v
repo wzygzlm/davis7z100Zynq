@@ -1,7 +1,7 @@
 //Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2018.1 (win64) Build 2188600 Wed Apr  4 18:40:38 MDT 2018
-//Date        : Tue Nov 26 17:46:50 2019
+//Date        : Tue Dec 10 11:58:20 2019
 //Host        : DESKTOP-3TNSMFC running 64-bit major release  (build 9200)
 //Command     : generate_target davisZynqBasicBoard.bd
 //Design      : davisZynqBasicBoard
@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "davisZynqBasicBoard,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=davisZynqBasicBoard,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=23,numReposBlks=21,numNonXlnxBlks=0,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=4,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=27,da_board_cnt=3,da_clkrst_cnt=5,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "davisZynqBasicBoard.hwdef" *) 
+(* CORE_GENERATION_INFO = "davisZynqBasicBoard,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=davisZynqBasicBoard,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=24,numReposBlks=22,numNonXlnxBlks=0,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=4,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=27,da_board_cnt=3,da_clkrst_cnt=5,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "davisZynqBasicBoard.hwdef" *) 
 module davisZynqBasicBoard
    (DDR_addr,
     DDR_ba,
@@ -33,6 +33,7 @@ module davisZynqBasicBoard
     FIXED_IO_ps_porb,
     FIXED_IO_ps_srstb,
     led_0,
+    ulpi_clk60_i_0,
     ulpi_data_io_0,
     ulpi_data_io_1,
     ulpi_dir_i_0,
@@ -40,7 +41,6 @@ module davisZynqBasicBoard
     ulpi_nxt_i_0,
     ulpi_nxt_i_1,
     ulpi_rst_o_0,
-    ulpi_rst_o_1,
     ulpi_stp_o_0,
     ulpi_stp_o_1);
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR ADDR" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DDR, AXI_ARBITRATION_SCHEME TDM, BURST_LENGTH 8, CAN_DEBUG false, CAS_LATENCY 11, CAS_WRITE_LATENCY 11, CS_ENABLED true, DATA_MASK_ENABLED true, DATA_WIDTH 8, MEMORY_TYPE COMPONENTS, MEM_ADDR_MAP ROW_COLUMN_BANK, SLOT Single, TIMEPERIOD_PS 1250" *) inout [14:0]DDR_addr;
@@ -65,6 +65,7 @@ module davisZynqBasicBoard
   (* X_INTERFACE_INFO = "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_PORB" *) inout FIXED_IO_ps_porb;
   (* X_INTERFACE_INFO = "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_SRSTB" *) inout FIXED_IO_ps_srstb;
   output [5:0]led_0;
+  input ulpi_clk60_i_0;
   inout [7:0]ulpi_data_io_0;
   inout [7:0]ulpi_data_io_1;
   input ulpi_dir_i_0;
@@ -72,7 +73,6 @@ module davisZynqBasicBoard
   input ulpi_nxt_i_0;
   input ulpi_nxt_i_1;
   output [0:0]ulpi_rst_o_0;
-  output [0:0]ulpi_rst_o_1;
   output ulpi_stp_o_0;
   output ulpi_stp_o_1;
 
@@ -189,7 +189,6 @@ module davisZynqBasicBoard
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire setup_valid_q_do;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [1:0]state_o;
   wire [1:0]state_o_1;
-  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [2:0]state_r_do;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire termselect_o;
   wire termselect_o_1;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [6:0]token_dev_w_do;
@@ -199,6 +198,7 @@ module davisZynqBasicBoard
   wire turnaround_d_1;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire tx_delay_complete_o;
   wire tx_delay_complete_o_1;
+  wire ulpi_clk60_i_0_1;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire ulpi_data_dir_d;
   wire ulpi_data_dir_d_1;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [7:0]ulpi_data_in_o_d;
@@ -222,7 +222,6 @@ module davisZynqBasicBoard
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [1:0]usb_fs_phy_0_utmi_linestate_o;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [7:0]usb_reset_counter_q_do;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire usb_reset_w_do;
-  (* DEBUG = "true" *) (* MARK_DEBUG *) wire [31:0]usb_rst_time_do;
   wire [7:0]utmi_data_in_o;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [7:0]utmi_data_out_o;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire utmi_dmpulldown_o;
@@ -247,6 +246,7 @@ module davisZynqBasicBoard
   wire [0:0]xlslice_0_Dout;
   wire [0:0]xlslice_10_Dout;
   (* DEBUG = "true" *) (* MARK_DEBUG *) wire [0:0]xlslice_2_Dout;
+  wire [0:0]xlslice_2_Dout1;
   wire [0:0]xlslice_4_Dout;
   wire [1:0]xlslice_5_Dout;
   wire [1:0]xlslice_6_Dout;
@@ -255,15 +255,15 @@ module davisZynqBasicBoard
   wire [7:0]xlslice_9_Dout;
 
   assign led_0[5:0] = LEDShifter_0_led;
+  assign ulpi_clk60_i_0_1 = ulpi_clk60_i_0;
   assign ulpi_dir_i_0_1 = ulpi_dir_i_0;
   assign ulpi_dir_i_1_1 = ulpi_dir_i_1;
   assign ulpi_nxt_i_0_1 = ulpi_nxt_i_0;
   assign ulpi_nxt_i_1_1 = ulpi_nxt_i_1;
-  assign ulpi_rst_o_0[0] = xlslice_0_Dout;
-  assign ulpi_rst_o_1[0] = xlslice_2_Dout;
+  assign ulpi_rst_o_0[0] = xlslice_2_Dout;
   assign ulpi_stp_o_0 = ulpi_wrapper_0_ulpi_stp_o;
   assign ulpi_stp_o_1 = ulpi_wrapper_1_ulpi_stp_o;
-  davisZynqBasicBoard_LEDShifter_0_0 LEDShifter_0
+  davisZynqBasicBoard_LEDShifter_0_1 LEDShifter_0
        (.clk(processing_system7_0_FCLK_CLK0),
         .led(LEDShifter_0_led),
         .rstn(rst_ps7_0_9M_peripheral_aresetn));
@@ -470,7 +470,7 @@ module davisZynqBasicBoard
        (.clk(processing_system7_0_FCLK_CLK0),
         .probe0(ulpi_data_dir_d),
         .probe1(axis_data_fifo_0_s_axis_tready),
-        .probe10(usb_rst_time_do),
+        .probe10({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .probe11(ulpi_dir_i_1_1),
         .probe12(ulpi_nxt_i_1_1),
         .probe13(xlslice_2_Dout),
@@ -501,7 +501,7 @@ module davisZynqBasicBoard
         .probe36(ulpi_wrapper_0_utmi_rxerror_o),
         .probe37(ulpi_reg_read_flag_d),
         .probe38(turnaround_d),
-        .probe39(state_r_do),
+        .probe39({1'b0,1'b0,1'b0}),
         .probe4(outport_data_o),
         .probe40(setup_valid_q_do),
         .probe41(usb_reset_w_do),
@@ -535,7 +535,7 @@ module davisZynqBasicBoard
         .termselect_o(termselect_o),
         .turnaround_d(turnaround_d),
         .tx_delay_complete_o(tx_delay_complete_o),
-        .ulpi_clk60_i(processing_system7_0_FCLK_CLK0),
+        .ulpi_clk60_i(ulpi_clk60_i_0_1),
         .ulpi_data_dir_d(ulpi_data_dir_d),
         .ulpi_data_in_o_d(ulpi_data_in_o_d),
         .ulpi_data_io(ulpi_data_io_0[7:0]),
@@ -543,7 +543,7 @@ module davisZynqBasicBoard
         .ulpi_dir_i(ulpi_dir_i_0_1),
         .ulpi_nxt_i(ulpi_nxt_i_0_1),
         .ulpi_reg_read_flag_d(ulpi_reg_read_flag_d),
-        .ulpi_rst_i(xlslice_0_Dout),
+        .ulpi_rst_i(xlslice_2_Dout),
         .ulpi_stp_o(ulpi_wrapper_0_ulpi_stp_o),
         .utmi_data_in_o(ulpi_wrapper_0_utmi_data_in_o),
         .utmi_data_out_i(utmi_data_out_o),
@@ -600,14 +600,14 @@ module davisZynqBasicBoard
   davisZynqBasicBoard_usb_cdc_core_0_0 usb_cdc_core_0
        (.bRequest_w_do(bRequest_w_do),
         .bmRequestType_w_do(bmRequestType_w_do),
-        .clk_i(processing_system7_0_FCLK_CLK0),
+        .clk_i(ulpi_clk60_i_0_1),
         .ctrl_send_accept_w_do(ctrl_send_accept_w_do),
         .ctrl_sending_r_do(ctrl_sending_r_do),
         .current_addr_i_do(current_addr_i_do),
         .current_token_debug_counter_q_do(current_token_debug_counter_q_do),
         .debug_counter_q_do(debug_counter_q_do),
         .desc_addr_q_do(desc_addr_q_do),
-        .enable_i(const_HIGH_dout),
+        .enable_i(xlslice_2_Dout1),
         .inport_accept_o(usb_cdc_core_0_inport_accept_o),
         .inport_data_i(axis_data_fifo_0_m_axis_tdata),
         .inport_valid_i(axis_data_fifo_0_m_axis_tvalid),
@@ -618,13 +618,11 @@ module davisZynqBasicBoard
         .rx_last_w_do(rx_last_w_do),
         .setup_frame_q_do(setup_frame_q_do),
         .setup_valid_q_do(setup_valid_q_do),
-        .state_r_do(state_r_do),
         .token_dev_w_do(token_dev_w_do),
         .token_valid_counter_q_do(token_valid_counter_q_do),
         .token_valid_w_do(token_valid_w_do),
         .usb_reset_counter_q_do(usb_reset_counter_q_do),
         .usb_reset_w_do(usb_reset_w_do),
-        .usb_rst_time_do(usb_rst_time_do),
         .utmi_data_in_i(ulpi_wrapper_0_utmi_data_in_o),
         .utmi_data_out_o(utmi_data_out_o),
         .utmi_dmpulldown_o(utmi_dmpulldown_o),
@@ -641,7 +639,7 @@ module davisZynqBasicBoard
         .wValue_w_do(wValue_w_do));
   davisZynqBasicBoard_xlconcat_0_0 xlconcat_0
        (.In0(state_o),
-        .In1(state_r_do),
+        .In1({ulpi_wrapper_0_ulpi_stp_o,ulpi_wrapper_0_ulpi_stp_o,ulpi_wrapper_0_ulpi_stp_o,ulpi_wrapper_0_ulpi_stp_o}),
         .In2({ulpi_wrapper_0_ulpi_stp_o,ulpi_wrapper_0_ulpi_stp_o,ulpi_wrapper_0_ulpi_stp_o,ulpi_wrapper_0_ulpi_stp_o}),
         .dout(xlconcat_0_dout));
   davisZynqBasicBoard_xlslice_0_0 xlslice_0
@@ -653,6 +651,9 @@ module davisZynqBasicBoard
   davisZynqBasicBoard_xlslice_10_0 xlslice_10
        (.Din(axi_gpio_0_gpio_io_o),
         .Dout(xlslice_10_Dout));
+  davisZynqBasicBoard_xlslice_1_1 xlslice_2
+       (.Din(axi_gpio_0_gpio_io_o),
+        .Dout(xlslice_2_Dout1));
   davisZynqBasicBoard_xlslice_5_0 xlslice_4
        (.Din(axi_gpio_0_gpio_io_o),
         .Dout(xlslice_4_Dout));

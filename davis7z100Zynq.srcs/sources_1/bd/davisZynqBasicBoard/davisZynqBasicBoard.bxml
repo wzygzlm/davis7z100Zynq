@@ -2,22 +2,14 @@
 <Root MajorVersion="0" MinorVersion="35">
   <CompositeFile CompositeFileTopName="davisZynqBasicBoard" CanBeSetAsTop="false" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1574786814"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1574786814"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1574786814"/>
-    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1574786814"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1575975505"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1575975505"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1575975505"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1575975505"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip\davisZynqBasicBoard_processing_system7_0_0\davisZynqBasicBoard_processing_system7_0_0.xci" Type="IP">
         <Instance HierarchyPath="processing_system7_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="1566217089" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip\davisZynqBasicBoard_LEDShifter_0_0\davisZynqBasicBoard_LEDShifter_0_0.xci" Type="IP">
-        <Instance HierarchyPath="LEDShifter_0"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="1565257809" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
         <UsedIn Val="IMPLEMENTATION"/>
@@ -184,6 +176,22 @@
       <File Name="sim\davisZynqBasicBoard.v" Type="Verilog">
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
         <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip\davisZynqBasicBoard_LEDShifter_0_1\davisZynqBasicBoard_LEDShifter_0_1.xci" Type="IP">
+        <Instance HierarchyPath="LEDShifter_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip\davisZynqBasicBoard_xlslice_1_1\davisZynqBasicBoard_xlslice_1_1.xci" Type="IP">
+        <Instance HierarchyPath="xlslice_2"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip\davisZynqBasicBoard_auto_pc_0_1\davisZynqBasicBoard_auto_pc_0.xci" Type="IP">

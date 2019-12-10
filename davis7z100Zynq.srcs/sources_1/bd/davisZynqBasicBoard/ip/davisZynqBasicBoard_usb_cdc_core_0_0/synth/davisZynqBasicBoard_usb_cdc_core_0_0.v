@@ -67,8 +67,6 @@ module davisZynqBasicBoard_usb_cdc_core_0_0 (
   inport_valid_i,
   inport_data_i,
   outport_accept_i,
-  state_r_do,
-  usb_rst_time_do,
   token_valid_w_do,
   token_dev_w_do,
   current_addr_i_do,
@@ -110,8 +108,6 @@ input wire [1 : 0] utmi_linestate_i;
 input wire inport_valid_i;
 input wire [7 : 0] inport_data_i;
 input wire outport_accept_i;
-output wire [2 : 0] state_r_do;
-output wire [31 : 0] usb_rst_time_do;
 output wire token_valid_w_do;
 output wire [6 : 0] token_dev_w_do;
 output wire [6 : 0] current_addr_i_do;
@@ -155,8 +151,6 @@ output wire [7 : 0] outport_data_o;
     .inport_valid_i(inport_valid_i),
     .inport_data_i(inport_data_i),
     .outport_accept_i(outport_accept_i),
-    .state_r_do(state_r_do),
-    .usb_rst_time_do(usb_rst_time_do),
     .token_valid_w_do(token_valid_w_do),
     .token_dev_w_do(token_dev_w_do),
     .current_addr_i_do(current_addr_i_do),

@@ -47,32 +47,26 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: xilinx.com:module_ref:LEDShifter:1.0
+// IP VLNV: xilinx.com:ip:xlslice:1.0
 // IP Revision: 1
 
-(* X_CORE_INFO = "LEDShifter,Vivado 2018.1" *)
-(* CHECK_LICENSE_TYPE = "davisZynqBasicBoard_LEDShifter_0_0,LEDShifter,{}" *)
-(* CORE_GENERATION_INFO = "davisZynqBasicBoard_LEDShifter_0_0,LEDShifter,{x_ipProduct=Vivado 2018.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=LEDShifter,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,LEDNum=6}" *)
+`timescale 1ns/1ps
+
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module davisZynqBasicBoard_LEDShifter_0_0 (
-  clk,
-  rstn,
-  led
+module davisZynqBasicBoard_xlslice_1_1 (
+  Din,
+  Dout
 );
 
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME clk, ASSOCIATED_RESET rstn, FREQ_HZ 59993996, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0" *)
-(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 clk CLK" *)
-input wire clk;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME rstn, POLARITY ACTIVE_LOW" *)
-(* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 rstn RST" *)
-input wire rstn;
-output wire [5 : 0] led;
+input wire [31 : 0] Din;
+output wire [0 : 0] Dout;
 
-  LEDShifter #(
-    .LEDNum(6)
+  xlslice_v1_0_1_xlslice #(
+    .DIN_WIDTH(32),
+    .DIN_FROM(2),
+    .DIN_TO(2)
   ) inst (
-    .clk(clk),
-    .rstn(rstn),
-    .led(led)
+    .Din(Din),
+    .Dout(Dout)
   );
 endmodule

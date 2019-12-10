@@ -6,7 +6,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "bd_cac4,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=bd_cac4,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=1,numReposBlks=1,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=SBD,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "davisZynqBasicBoard_system_ila_0_0.hwdef" *) 
+(* CORE_GENERATION_INFO = "bd_cac4,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=bd_cac4,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=1,numReposBlks=1,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=SBD,synth_mode=Global}" *) (* HW_HANDOFF = "davisZynqBasicBoard_system_ila_0_0.hwdef" *) 
 module bd_cac4
    (clk,
     probe0,
@@ -66,7 +66,7 @@ module bd_cac4
     probe7,
     probe8,
     probe9);
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.CLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.CLK, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, FREQ_HZ 59993996, PHASE 0.000" *) input clk;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.CLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.CLK, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0, FREQ_HZ 5.9994e+07, PHASE 0.000" *) input clk;
   input [0:0]probe0;
   input [0:0]probe1;
   input [31:0]probe10;
@@ -246,7 +246,7 @@ module bd_cac4
        (.clk(clk_1),
         .probe0(probe0_1),
         .probe1(probe1_1),
-        .probe10(probe10_1),
+        .probe10(probe10_1[0]),
         .probe11(probe11_1),
         .probe12(probe12_1),
         .probe13(probe13_1),
@@ -277,7 +277,7 @@ module bd_cac4
         .probe36(probe36_1),
         .probe37(probe37_1),
         .probe38(probe38_1),
-        .probe39(probe39_1),
+        .probe39(probe39_1[0]),
         .probe4(probe4_1),
         .probe40(probe40_1),
         .probe41(probe41_1),

@@ -1,11 +1,11 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.1 (win64) Build 2188600 Wed Apr  4 18:40:38 MDT 2018
--- Date        : Sun Nov 24 21:04:30 2019
+-- Date        : Sun Dec  8 12:08:13 2019
 -- Host        : DESKTOP-3TNSMFC running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
---               E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/ip/davisZynqBasicBoard_LEDShifter_0_0/davisZynqBasicBoard_LEDShifter_0_0_sim_netlist.vhdl
--- Design      : davisZynqBasicBoard_LEDShifter_0_0
+--               E:/PhD_project/vivado_prjs/davisZynq/davis7z100Zynq/davis7z100Zynq.srcs/sources_1/bd/davisZynqBasicBoard/ip/davisZynqBasicBoard_LEDShifter_0_1/davisZynqBasicBoard_LEDShifter_0_1_sim_netlist.vhdl
+-- Design      : davisZynqBasicBoard_LEDShifter_0_1
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
 -- Device      : xc7z100ffg900-1
@@ -14,17 +14,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity davisZynqBasicBoard_LEDShifter_0_0_LEDShifter is
+entity davisZynqBasicBoard_LEDShifter_0_1_LEDShifter is
   port (
     led : out STD_LOGIC_VECTOR ( 4 downto 0 );
     clk : in STD_LOGIC;
     rstn : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of davisZynqBasicBoard_LEDShifter_0_0_LEDShifter : entity is "LEDShifter";
-end davisZynqBasicBoard_LEDShifter_0_0_LEDShifter;
+  attribute ORIG_REF_NAME of davisZynqBasicBoard_LEDShifter_0_1_LEDShifter : entity is "LEDShifter";
+end davisZynqBasicBoard_LEDShifter_0_1_LEDShifter;
 
-architecture STRUCTURE of davisZynqBasicBoard_LEDShifter_0_0_LEDShifter is
+architecture STRUCTURE of davisZynqBasicBoard_LEDShifter_0_1_LEDShifter is
   signal count : STD_LOGIC_VECTOR ( 18 downto 0 );
   signal \count0_carry__0_n_0\ : STD_LOGIC;
   signal \count0_carry__0_n_1\ : STD_LOGIC;
@@ -604,29 +604,29 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity davisZynqBasicBoard_LEDShifter_0_0 is
+entity davisZynqBasicBoard_LEDShifter_0_1 is
   port (
     clk : in STD_LOGIC;
     rstn : in STD_LOGIC;
     led : out STD_LOGIC_VECTOR ( 5 downto 0 )
   );
   attribute NotValidForBitStream : boolean;
-  attribute NotValidForBitStream of davisZynqBasicBoard_LEDShifter_0_0 : entity is true;
+  attribute NotValidForBitStream of davisZynqBasicBoard_LEDShifter_0_1 : entity is true;
   attribute CHECK_LICENSE_TYPE : string;
-  attribute CHECK_LICENSE_TYPE of davisZynqBasicBoard_LEDShifter_0_0 : entity is "davisZynqBasicBoard_LEDShifter_0_0,LEDShifter,{}";
+  attribute CHECK_LICENSE_TYPE of davisZynqBasicBoard_LEDShifter_0_1 : entity is "davisZynqBasicBoard_LEDShifter_0_1,LEDShifter,{}";
   attribute DowngradeIPIdentifiedWarnings : string;
-  attribute DowngradeIPIdentifiedWarnings of davisZynqBasicBoard_LEDShifter_0_0 : entity is "yes";
+  attribute DowngradeIPIdentifiedWarnings of davisZynqBasicBoard_LEDShifter_0_1 : entity is "yes";
   attribute X_CORE_INFO : string;
-  attribute X_CORE_INFO of davisZynqBasicBoard_LEDShifter_0_0 : entity is "LEDShifter,Vivado 2018.1";
-end davisZynqBasicBoard_LEDShifter_0_0;
+  attribute X_CORE_INFO of davisZynqBasicBoard_LEDShifter_0_1 : entity is "LEDShifter,Vivado 2018.1";
+end davisZynqBasicBoard_LEDShifter_0_1;
 
-architecture STRUCTURE of davisZynqBasicBoard_LEDShifter_0_0 is
+architecture STRUCTURE of davisZynqBasicBoard_LEDShifter_0_1 is
   signal \<const0>\ : STD_LOGIC;
   signal \^led\ : STD_LOGIC_VECTOR ( 5 downto 1 );
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of clk : signal is "xilinx.com:signal:clock:1.0 clk CLK";
   attribute X_INTERFACE_PARAMETER : string;
-  attribute X_INTERFACE_PARAMETER of clk : signal is "XIL_INTERFACENAME clk, ASSOCIATED_RESET rstn, FREQ_HZ 59993996, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0";
+  attribute X_INTERFACE_PARAMETER of clk : signal is "XIL_INTERFACENAME clk, ASSOCIATED_RESET rstn, FREQ_HZ 5.9994e+07, PHASE 0.000, CLK_DOMAIN davisZynqBasicBoard_processing_system7_0_0_FCLK_CLK0";
   attribute X_INTERFACE_INFO of rstn : signal is "xilinx.com:signal:reset:1.0 rstn RST";
   attribute X_INTERFACE_PARAMETER of rstn : signal is "XIL_INTERFACENAME rstn, POLARITY ACTIVE_LOW";
 begin
@@ -636,7 +636,7 @@ GND: unisim.vcomponents.GND
      port map (
       G => \<const0>\
     );
-inst: entity work.davisZynqBasicBoard_LEDShifter_0_0_LEDShifter
+inst: entity work.davisZynqBasicBoard_LEDShifter_0_1_LEDShifter
      port map (
       clk => clk,
       led(4 downto 0) => \^led\(5 downto 1),

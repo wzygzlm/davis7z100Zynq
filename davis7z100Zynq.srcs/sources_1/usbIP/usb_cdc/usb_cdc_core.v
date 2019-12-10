@@ -53,8 +53,8 @@ module usb_cdc_core
     ,input           outport_accept_i
 
     // Debug ports
-    ,output [  2:0]  state_r_do
-    ,output [  31:0] usb_rst_time_do
+//    ,output [  2:0]  state_r_do
+//    ,output [  31:0] usb_rst_time_do
 //    ,output [  3:0]  state_q_rx_do
 //    ,output          shift_en_w_do 
 //    ,output [  31:0] data_buffer_q_do
@@ -881,6 +881,7 @@ begin
         default:
         begin
             ctrl_stall_r = 1'b1;
+//            ctrl_ack_r   = setup_set_w && setup_no_data_w;
         end
         endcase
     end
