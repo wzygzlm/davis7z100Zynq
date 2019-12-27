@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Dec 10 11:58:24 2019" VIVADOVERSION="2018.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Dec 26 19:54:43 2019" VIVADOVERSION="2018.1">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z100" NAME="davisZynqBasicBoard" PACKAGE="ffg900" SPEEDGRADE="-1"/>
 
@@ -25,6 +25,11 @@
     <PORT DIR="IO" NAME="FIXED_IO_ps_srstb" SIGIS="undef"/>
     <PORT DIR="IO" NAME="FIXED_IO_ps_clk" SIGIS="undef"/>
     <PORT DIR="IO" NAME="FIXED_IO_ps_porb" SIGIS="undef"/>
+    <PORT DIR="O" LEFT="0" NAME="ulpi_rst_o_0" RIGHT="0" SIGIS="undef" SIGNAME="xlslice_1_Dout">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="xlslice_1" PORT="Dout"/>
+      </CONNECTIONS>
+    </PORT>
     <PORT DIR="O" NAME="ulpi_stp_o_0" SIGIS="undef" SIGNAME="ulpi_wrapper_0_ulpi_stp_o">
       <CONNECTIONS>
         <CONNECTION INSTANCE="ulpi_wrapper_0" PORT="ulpi_stp_o"/>
@@ -67,11 +72,6 @@
     <PORT DIR="IO" LEFT="7" NAME="ulpi_data_io_1" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_ulpi_data_io_1">
       <CONNECTIONS>
         <CONNECTION INSTANCE="ulpi_wrapper_1" PORT="ulpi_data_io"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" LEFT="0" NAME="ulpi_rst_o_0" RIGHT="0" SIGIS="undef" SIGNAME="xlslice_1_Dout">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="xlslice_1" PORT="Dout"/>
       </CONNECTIONS>
     </PORT>
     <PORT DIR="O" LEFT="5" NAME="led_0" RIGHT="0" SIGIS="undef" SIGNAME="LEDShifter_0_led">
@@ -1868,11 +1868,11 @@
             <CONNECTION INSTANCE="processing_system7_0" PORT="S_AXI_GP0_ACLK"/>
             <CONNECTION INSTANCE="axi_gpio_0" PORT="s_axi_aclk"/>
             <CONNECTION INSTANCE="LEDShifter_0" PORT="clk"/>
+            <CONNECTION INSTANCE="ulpi_wrapper_1" PORT="ulpi_clk60_i"/>
+            <CONNECTION INSTANCE="system_ila_0" PORT="clk"/>
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="ACLK"/>
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="S00_ACLK"/>
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="M00_ACLK"/>
-            <CONNECTION INSTANCE="ulpi_wrapper_1" PORT="ulpi_clk60_i"/>
-            <CONNECTION INSTANCE="system_ila_0" PORT="clk"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="4.79952e+07" DIR="O" NAME="FCLK_CLK2" SIGIS="clk"/>
@@ -7604,10 +7604,10 @@
         </PORT>
         <PORT DIR="O" LEFT="0" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="xlslice_1_Dout">
           <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="ulpi_rst_o_0"/>
             <CONNECTION INSTANCE="ulpi_wrapper_1" PORT="ulpi_rst_i"/>
             <CONNECTION INSTANCE="system_ila_0" PORT="probe13"/>
             <CONNECTION INSTANCE="ulpi_wrapper_0" PORT="ulpi_rst_i"/>
-            <CONNECTION INSTANCE="External_Ports" PORT="ulpi_rst_o_0"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>

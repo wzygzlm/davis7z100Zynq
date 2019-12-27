@@ -3,5 +3,5 @@ the_ROM_image:
 {
 	[bootloader]E:\PhD_project\vivado_prjs\davisZynq\davis7z100Zynq\davis7z100Zynq.sdk\zynqDavisFsbl\Debug\zynqDavisFsbl.elf
 	[load = 0x100000]E:\PhD_project\vivado_prjs\davisZynq\davis7z100Zynq\davis7z100Zynq.runs\impl_1\davisZynqBasicBoard_wrapper.bit
-	E:\PhD_project\vivado_prjs\davisZynq\davis7z100Zynq\davis7z100Zynq.sdk\DDRTest_bsp_xusbps_intr_example_1\Debug\DDRTest_bsp_xusbps_intr_example_1.elf
+	E:\PhD_project\vivado_prjs\davisZynq\davis7z100Zynq\davis7z100Zynq.sdk\axiusbTest\Debug\axiusbTest.elf
 }

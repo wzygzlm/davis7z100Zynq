@@ -1,2 +1,2 @@
    text	   data	    bss	    dec	    hex	filename
-  94932	  12264	  98624	 205820	  323fc	zynqDavisFsbl.elf
+  94856	  12264	  98624	 205744	  323b0	zynqDavisFsbl.elf

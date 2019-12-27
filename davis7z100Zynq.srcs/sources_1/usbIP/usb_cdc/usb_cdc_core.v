@@ -864,6 +864,7 @@ begin
         begin
             // None supported
             ctrl_stall_r = 1'b1;
+//            ctrl_ack_r   = setup_set_w && setup_no_data_w;
         end
         `USB_CLASS_REQUEST:
         begin
